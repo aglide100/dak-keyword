@@ -4,7 +4,6 @@ import (
 	"context"
 	"log"
 	"sort"
-	"strconv"
 
 	"github.com/groovili/gogtrends"
 )
@@ -31,17 +30,6 @@ func GetKeyWordSetFromGoogle(keyword string) ([]string, error) {
 		return nil, err
 	}
 
-	// for idx, val := range explore {
-	// 	log.Printf("explore["+ strconv.Itoa(idx)+ "] : "+ val.Title)
-	// }
-	
-
-	// relT, err := gogtrends.Related(ctx, explore[2], "ko")
-
-	// for idx, val := range relT {
-	// 	log.Printf("relT["+ strconv.Itoa(idx)+ "] : "+ val.Topic.Title)
-	// }
-
 	relQ, err := gogtrends.Related(ctx, explore[3], "ko")
 	if err != nil {
 		return nil, err
@@ -51,14 +39,27 @@ func GetKeyWordSetFromGoogle(keyword string) ([]string, error) {
 		return relQ[i].FormattedValue < relQ[j].FormattedValue
 	})
 
-	for idx, val := range relQ {	
-		log.Printf("relQ["+ strconv.Itoa(idx)+ "] : " + val.Query + " / %s" , val.FormattedValue )
-	}
+	// for idx, val := range relQ {	
+	// 	log.Printf("relQ["+ strconv.Itoa(idx)+ "] : " + val.Query + " / %s" , val.FormattedValue )
+	// }
 
 	// strings.Replace(keyword, " ", "+", -1)
 	if err != nil {
 		return nil, err
 	}
 
-	return nil, nil
+	result := []string{}
+
+	if len(relQ) > 5 {
+		for _, val := range relQ[0:4] {
+			result = append(result, val.Query)
+		}
+	} else {
+		for _, val := range relQ {
+			result = append(result, val.Query)
+		}
+	}
+	
+
+	return result, nil
 }

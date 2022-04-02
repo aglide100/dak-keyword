@@ -1,11 +1,36 @@
 package keyword
 
 import (
-	"log"
-	"io/ioutil"
-	"net/http"
 	"errors"
+	"io/ioutil"
+	"log"
+	"net/http"
 )
+
+var providers = []string{"naver", "google"}
+
+func GetKeywords(keyword string) ([]string, error) {
+	naver, err := GetKeyWordSetFromNaver(keyword)
+	if err != nil {
+		log.Printf("Can't get keywordset! %v", err)
+	}
+	// log.Printf("naver %v", naver)
+
+	google, err := GetKeyWordSetFromGoogle(keyword)
+	if err != nil {
+		log.Printf("Can't get keywordset! %v", err)
+	}
+	// log.Printf("google %v", google)
+
+	keywords, err := MergeKeywords(naver, google)
+	if err != nil {
+		log.Printf("Can't merge keyword! %v", err)
+	}
+
+	keywords = MakeSliceUniqe(keywords)
+
+	return keywords, nil
+}
 
 func CreateHttpReq(url string) (string, error) {
 	log.Printf("Create http req: %s", url)
@@ -14,13 +39,6 @@ func CreateHttpReq(url string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-
-	// print header
-	// if reqHeadersBytes, err := json.Marshal(req.Header); err != nil {
-	// 	log.Println("Could not Marshal Req Headers")
-	// } else {
-	// 	log.Println(string(reqHeadersBytes))
-	// }
 
 	client := &http.Client{}
 	res, err := client.Do(req)
@@ -48,4 +66,30 @@ func HandleHttpStatusErr(res *http.Response) (error) {
 	}
 
 	return errors.New("status code error! "+ string(data) )
+}
+
+func MergeKeywords(keywords ...[]string) ([]string, error) {
+	checkList := []string{}
+
+	for _, val := range keywords {
+		checkList = append(checkList, val...)
+	}
+
+	return checkList, nil
+}
+
+func MakeSliceUniqe(slice []string) []string {
+	keys := make(map[string]struct{})
+	res := make([]string, 0)
+
+	for _, val := range slice {
+		if _, ok := keys[val]; ok {
+			continue
+		} else {
+			keys[val] = struct{}{}
+			res = append(res, val)
+		}
+	}
+
+	return res
 }

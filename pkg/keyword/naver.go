@@ -17,12 +17,23 @@ func GetKeyWordSetFromNaver(keyword string) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	// log.Printf("resp :%s", resp)
 
 	list := gjson.Get(resp, "items")
+
+	result := []string{}
+
+	data := gjson.Get(list.String(), "0")
 	
-
-	log.Printf("naver resp: %s", list.String())
-
-	return nil, nil
+	if len(data.Array()) > 5 {
+		for _, val := range data.Array()[0:4] {
+			// log.Printf("naver : %v", gjson.Get(val.String(), "0"))
+			result = append(result, gjson.Get(val.String(), "0").String())
+		}
+	} else {
+		for _, val := range data.Array() {
+			// log.Printf("naver : %v", gjson.Get(val.String(), "0"))
+			result = append(result, gjson.Get(val.String(), "0").String())
+		}
+	}
+	return result, nil
 }
