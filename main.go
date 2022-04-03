@@ -8,7 +8,7 @@ import (
 
 func main() {
 	log.Println("Starting scraper...")
-	result, err := keyword.GetKeywords("키워드")
+	result, err := keyword.GetKeywords("아이패드")
 	if err != nil {
 		log.Printf("Can't get keywordset! %v", err)
 	}
