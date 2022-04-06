@@ -7,22 +7,32 @@ import (
 	"net/http"
 )
 
-var providers = []string{"naver", "google"}
+var providers = []string{"naver", "google", "daum"}
 
 func GetKeywords(keyword string) ([]string, error) {
 	naver, err := GetKeyWordSetFromNaver(keyword)
 	if err != nil {
-		log.Printf("Can't get keywordset! %v", err)
+		log.Printf("Can't get keywordset from naver! %v", err)
 	}
 	// log.Printf("naver %v", naver)
 
 	google, err := GetKeyWordSetFromGoogle(keyword)
 	if err != nil {
-		log.Printf("Can't get keywordset! %v", err)
+		log.Printf("Can't get keywordset from google! %v", err)
 	}
 	// log.Printf("google %v", google)
 
-	keywords, err := MergeKeywords(naver, google)
+	daum, err := GetKeyWordSetFromDaum(keyword)
+	if err != nil {
+		log.Printf("Can't get keywordset from daum! %v", err)
+	}
+
+	// bing, err := GetKeyWordSetFromBing(keyword)
+	// if err != nil {
+	// 	log.Printf("Can't get keywordset from bing! %v", err)
+	// }
+
+	keywords, err := MergeKeywords(naver, google, daum)
 	if err != nil {
 		log.Printf("Can't merge keyword! %v", err)
 	}
