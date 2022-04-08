@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-var providers = []string{"naver", "google", "daum"}
+var providers = []string{"naver", "google", "daum", "bing"}
 
 func GetKeywords(keyword string, topic string) ([]string, error) {
 	naver, err := GetKeyWordSetFromNaver(keyword)
@@ -67,6 +67,10 @@ func CreateHttpReq(url string) (string, error) {
 	}
 
 	return string(data), nil
+}
+
+func GetProvidersList() []string {
+	return providers
 }
 
 func HandleHttpStatusErr(res *http.Response) (error) {

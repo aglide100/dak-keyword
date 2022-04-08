@@ -10,13 +10,14 @@ require (
 	github.com/google/go-cmp v0.5.7 // indirect
 	github.com/gorilla/mux v1.8.0 // indirect
 	github.com/groovili/gogtrends v1.7.0
+	github.com/improbable-eng/grpc-web v0.15.0
 	github.com/joho/godotenv v1.4.0
 	github.com/moby/term v0.0.0-20210619224110-3f7ff695adc6 // indirect
 	github.com/opencontainers/image-spec v1.0.2 // indirect
 	github.com/tidwall/gjson v1.14.0
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/time v0.0.0-20220224211638-0e9765cccd65 // indirect
-	google.golang.org/grpc v1.45.0 // indirect
+	google.golang.org/grpc v1.45.0
 	google.golang.org/protobuf v1.27.1
 	gotest.tools/v3 v3.1.0 // indirect
 )

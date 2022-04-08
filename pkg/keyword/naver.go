@@ -7,8 +7,8 @@ import (
 	"github.com/tidwall/gjson"
 )
 
-const naverPrefixFront = "https://ac.search.naver.com/nx/ac?q=" 
-const naverPrefixRear = "&con=0&frm=nv&r_format=json&q_enc=UTF-8&st=100" 
+const naverPrefixFront = `https://ac.search.naver.com/nx/ac?q=`
+const naverPrefixRear = `&con=0&frm=nv&r_format=json&q_enc=UTF-8&st=100`
 
 func GetKeyWordSetFromNaver(keyword string) ([]string, error) {
 	log.Printf("Starting get keyword set from naver... : %s", keyword)

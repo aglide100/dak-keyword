@@ -8,8 +8,8 @@ import (
 	"github.com/tidwall/gjson"
 )
 
-const daumPrefixFront = "https://suggest.search.daum.net/sushi/pc/get?callback=jQuery36008929946526401802_1649225997914&q=" 
-const daumPrefixRear = "&htype=position&_=1649225997921" 
+const daumPrefixFront = `https://suggest.search.daum.net/sushi/pc/get?callback=jQuery36008929946526401802_1649225997914&q=` 
+const daumPrefixRear = `&htype=position&_=1649225997921`
 
 func GetKeyWordSetFromDaum(keyword string) ([]string, error) {
 	log.Printf("Starting get keyword set from daum... : %s", keyword)
