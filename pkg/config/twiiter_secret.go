@@ -4,13 +4,6 @@ import (
 	"os"
 )
 
-type TwiiterConfig struct {
-	consumerKey string
-	consumerSecret string
-	accessSecret string
-	accsssToken string
-}
-
 var (
 	consumerKey string
 	consumerSecret string
@@ -19,19 +12,11 @@ var (
 )
 
 func (con *Config) SaveTwitterSecret() {
-	// con.TwiiterConfig{
-	
-	// need to fix...
+
 	consumerKey = os.Getenv("Key")
 	consumerSecret = os.Getenv("Key")
 	accessSecret = os.Getenv("Key")
 	accsssToken = os.Getenv("Key")
-	
-	// consumerKey : os.Getenv("Key"),
-	// consumerSecret : os.Getenv("Key"),
-	// accessSecret : os.Getenv("Key"),
-	// accsssToken : os.Getenv("Key"),
-	// }
 }
 
 func (con *Config) GetTwitterConsumerKey() (string) {

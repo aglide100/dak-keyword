@@ -16,7 +16,6 @@ type Config struct {
 	CommonConfig
 	TwiiterGetter
 	FacebookSecret
-	TwiiterConfig TwiiterConfig
 }
 
 type TwiiterGetter interface {
@@ -54,5 +53,5 @@ func ReadEnvList() ([]string, error) {
 		list = append(list, f.Name())
 	}
 
-	return list,nil
+	return list, nil
 }

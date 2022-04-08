@@ -9,12 +9,12 @@ import (
 
 var providers = []string{"naver", "google", "daum"}
 
-func GetKeywords(keyword string) ([]string, error) {
+func GetKeywords(keyword string, topic string) ([]string, error) {
 	naver, err := GetKeyWordSetFromNaver(keyword)
 	if err != nil {
 		log.Printf("Can't get keywordset from naver! %v", err)
 	}
-	// log.Printf("naver %v", naver)
+	// // log.Printf("naver %v", naver)
 
 	google, err := GetKeyWordSetFromGoogle(keyword)
 	if err != nil {
@@ -22,17 +22,17 @@ func GetKeywords(keyword string) ([]string, error) {
 	}
 	// log.Printf("google %v", google)
 
-	daum, err := GetKeyWordSetFromDaum(keyword)
-	if err != nil {
-		log.Printf("Can't get keywordset from daum! %v", err)
-	}
+	// daum, err := GetKeyWordSetFromDaum(keyword)
+	// if err != nil {
+	// 	log.Printf("Can't get keywordset from daum! %v", err)
+	// }
 
 	// bing, err := GetKeyWordSetFromBing(keyword)
 	// if err != nil {
 	// 	log.Printf("Can't get keywordset from bing! %v", err)
 	// }
 
-	keywords, err := MergeKeywords(naver, google, daum)
+	keywords, err := MergeKeywords(naver, google)
 	if err != nil {
 		log.Printf("Can't merge keyword! %v", err)
 	}
