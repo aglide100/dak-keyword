@@ -20,7 +20,7 @@ message CreateRunnerRes {
 }
 
 message GetRunnerReq {
-
+    dak_keyword.runner.Runner Runner = 1;
 }
 
 message GetRunnerRes {

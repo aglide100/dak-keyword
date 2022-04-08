@@ -23,7 +23,6 @@ func (c *Controller) EnsureImage(image string) (err error) {
 	return nil
 }
 
-
 func RunSomeContainer() error {
 	log.Printf("Run some container")
 	ctx := context.Background()
@@ -32,7 +31,6 @@ func RunSomeContainer() error {
 	if err != nil {
 		return err
 	}
-
 
 	reader, err := cli.ImagePull(ctx, "docker.io/library/alpine", types.ImagePullOptions{})
 	if err != nil {

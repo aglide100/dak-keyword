@@ -34,14 +34,19 @@
 
 # protoc -I=. --go_out=plugins=grpc:./ pb/**/*.proto
 
-# protoc -I=. --go_out=./ pb/svc/*.proto
-#
-protoc -I=. --go_out=../../../ pb/**/*.proto
+# # protoc -I=. --go_out=./ pb/svc/*.proto
+# #
+# protoc -I=. --go_out=../../../ pb/**/*.proto
 
-# protoc -I=. --go_out=plugins=grpc:./ pb/svc/*.proto
+# # protoc -I=. --go_out=plugins=grpc:./ pb/svc/*.proto
 
 # protoc -I=. --go-grpc_out=./ pb/svc/*.proto
 
 protoc --go_out=. --go_opt=paths=source_relative \
     --go-grpc_out=. --go-grpc_opt=paths=source_relative \
     pb/svc/*.proto
+
+
+# protoc -I=. --go_out=plugins=grpc:./ pb/svc/*.proto
+
+protoc -I=. --go_out=../../../ pb/**/*.proto
