@@ -3,6 +3,7 @@ package container
 import (
 	"context"
 	"io"
+	"log"
 	"os"
 
 	"github.com/docker/docker/api/types"
@@ -24,6 +25,7 @@ func (c *Controller) EnsureImage(image string) (err error) {
 
 
 func RunSomeContainer() error {
+	log.Printf("Run some container")
 	ctx := context.Background()
 
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())

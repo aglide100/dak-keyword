@@ -1,4 +1,4 @@
-module github.com/aglide100/go-scraper
+module github.com/aglide100/dak-keyword
 
 go 1.13
 
@@ -17,6 +17,7 @@ require (
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/time v0.0.0-20220224211638-0e9765cccd65 // indirect
 	google.golang.org/grpc v1.45.0 // indirect
+	google.golang.org/protobuf v1.27.1
 	gotest.tools/v3 v3.1.0 // indirect
 )
 
