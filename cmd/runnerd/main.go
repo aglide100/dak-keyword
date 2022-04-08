@@ -9,7 +9,9 @@ import (
 
 	"golang.org/x/sync/errgroup"
 
-	"github.com/aglide100/go-scraper/pkg/runner/container"
+	// pb_runner_svc "github.com/aglide100/dak-keyword/pb/svc"
+
+	"github.com/aglide100/dak-keyword/pkg/runner/container"
 )
 
 func main() {
@@ -22,9 +24,11 @@ func realMain() error {
 	log.Printf("run runnerd")
 	var wait sync.WaitGroup
     wait.Add(2)
+ 
 
 	wg, ctx := errgroup.WithContext(context.Background())
 	_ = ctx
+
 
 	wg.Go(func() error {
 		err := container.RunSomeContainer()

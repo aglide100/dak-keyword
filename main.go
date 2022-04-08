@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 
-	"github.com/aglide100/go-scraper/pkg/config"
-	"github.com/aglide100/go-scraper/pkg/keyword"
+	"github.com/aglide100/dak-keyword/pkg/config"
+	"github.com/aglide100/dak-keyword/pkg/keyword"
 )
 
 func main() {

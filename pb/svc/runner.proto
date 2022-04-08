@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package pv.svc;
+option go_package = "pb/svc";
+
+import "pb/runner/runner.proto";
+
+service Runner {
+    rpc CreateRunner(CreateRunnerReq) returns (CreateRunnerRes);
+    rpc GetRunner(GetRunnerReq) returns (GetRunnerRes);
+    rpc DeleteRunner(DeleteRunnerReq) returns (DeleteRunnerRes);
+}
+
+message CreateRunnerReq {
+    dak_keyword.runner.Runner Runner = 1;
+}
+
+message CreateRunnerRes {
+
+}
+
+message GetRunnerReq {
+
+}
+
+message GetRunnerRes {
+
+}
+
+message DeleteRunnerReq {
+
+}
+
+message DeleteRunnerRes {
+
+}
