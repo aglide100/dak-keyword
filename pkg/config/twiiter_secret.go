@@ -11,8 +11,8 @@ var (
 	accsssToken string
 )
 
+// 옵션? 쿼터량
 func (con *Config) SaveTwitterSecret() {
-
 	consumerKey = os.Getenv("Key")
 	consumerSecret = os.Getenv("Key")
 	accessSecret = os.Getenv("Key")

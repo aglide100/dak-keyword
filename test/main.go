@@ -16,6 +16,8 @@ const (
 
 func main() {
 	log.Printf("starting testing !")
+
+	// conn, err := grpc.Dial(address, grpc.WithTransportCredentials(), grpc.WithInsecure())
 	conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
 	if err != nil {
 		log.Fatalf("can't connect grpc server %v", err)

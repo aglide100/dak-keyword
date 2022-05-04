@@ -24,11 +24,11 @@ message GetRunnerReq {
 }
 
 message GetRunnerRes {
-
+    dak_keyword.runner.Runner Runner = 1;
 }
 
 message DeleteRunnerReq {
-
+    dak_keyword.runner.Runner Runner = 1;
 }
 
 message DeleteRunnerRes {
