@@ -6,11 +6,11 @@ class Collector:
         raw_data = []
 
         # title = ""
-        content = "옆방에 담배피는데 너무 싫다"
-        content2 = "하하 호호"
+        content = "하하 호호"
+        content2 = "문장이 아니면 문제가 생기는듯"
         content3 = "집에 가고 싶다"
-        content4 = "야호"
-        
+        content4 = "답이 없네"
+         
         # raw_data.append(title)
         raw_data.append(content)
         raw_data.append(content2)
