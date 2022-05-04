@@ -23,6 +23,15 @@ func (c *Controller) EnsureImage(image string) (err error) {
 	return nil
 }
 
+// func RunSentimentAnalysis() error {
+// 	ctx := context.Background()
+
+// 	cli, err := client.NewClientWithOpts(client.FromEnv)
+
+
+// 	return nil
+// }
+
 func RunSomeContainer() error {
 	log.Printf("Run some container")
 	ctx := context.Background()
