@@ -32,6 +32,35 @@ func (c *Controller) EnsureImage(image string) (err error) {
 // 	return nil
 // }
 
+// func runCreate(dockerCli *command.DockerCli, opts *serviceOptions) error {
+// 	apiClient := dockerCli.Client()
+// 	createOpts := types.ServiceCreateOptions{}
+
+// 	service, err := opts.ToService()
+// 	if err != nil {
+// 		return err
+// 	}
+
+// 	ctx := context.Background()
+
+// 	// only send auth if flag was set
+// 	if opts.registryAuth {
+// 		// Retrieve encoded auth token from the image reference
+// 		encodedAuth, err := command.RetrieveAuthTokenFromImage(ctx, dockerCli, opts.image)
+// 		if err != nil {
+// 			return err
+// 		}
+// 		createOpts.EncodedRegistryAuth = encodedAuth
+// 	}
+
+// 	response, err := apiClient.ServiceCreate(ctx, service, createOpts)
+// 	if err != nil {
+// 		return err
+// 	}
+
+// 	fmt.Fprintf(dockerCli.Out(), "%s\n", response.ID)
+// 	return nil
+// }
 func RunSomeContainer() error {
 	log.Printf("Run some container")
 	ctx := context.Background()

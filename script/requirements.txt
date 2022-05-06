@@ -1,3 +1,0 @@
-JPype1
-konlpy
-pandas
