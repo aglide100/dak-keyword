@@ -15,6 +15,9 @@ func main() {
 	}
 
 	files, err := config.ReadEnvList()
+	if err != nil {
+		log.Print("err!", err)
+	}
 	// log.Printf("files :%v", files)
 
 	// var apiKeys = []*config.Config{}

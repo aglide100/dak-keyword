@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package pv.svc.manager;
+option go_package = "pb/svc/manager";
+
+service Manager {
+    rpc CreateNewJob(CreateNewJobReq) returns (CreateaNewJobRes);
+    rpc GetJobStatus(GetJobStatusReq) returns (GetJobStatusRes);
+    rpc StopJob(StopJobReq) returns (StopJobRes);
+}
+
+message CreateNewJobReq {}
+
+message CreateaNewJobRes {}
+
+message GetJobStatusReq {}
+
+message GetJobStatusRes {}
+
+message StopJobReq {}
+
+message StopJobRes {}

@@ -30,7 +30,10 @@ func (s *RunnerSrv) GetRunner(ctx context.Context, in *pb_svc.GetRunnerReq) (*pb
 func (s *RunnerSrv) CreateRunner(ctx context.Context, in *pb_svc.CreateRunnerReq) (*pb_svc.CreateRunnerRes, error) {
 	log.Printf("Create Runner Req")
 
-	go container.RunSomeContainer()
+	err := container.RunSomeContainer()
+	if err != nil {
+		return nil, err
+	}
 
 	return &pb_svc.CreateRunnerRes{}, nil
 } 
