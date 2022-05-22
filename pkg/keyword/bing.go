@@ -13,12 +13,25 @@ const bingPrefixRear = `&asv=1&cp=2&msbqf=false&cvid=4DF5D2D628F64E85858510C7911
 func GetKeyWordSetFromBing(keyword string) ([]string, error) {
 	log.Printf("Starting get keyword set from bing... : %s", keyword)
 
-	doc, err := goquery.NewDocument(bingPrefixFront + url.QueryEscape(keyword) + bingPrefixRear)
-	if err != nil {
+	res, err := CreateHttpRes(bingPrefixFront + url.QueryEscape(keyword) + bingPrefixRear)
+  	if err != nil {
 		return nil, err
-	}
+  		// log.Fatal(err)
+  	}
+
+  	doc, err := goquery.NewDocumentFromReader(res.Body)
+  	if err != nil {
+		return nil, err
+  	  	// log.Fatal(err)
+  	}
 
 
+
+	// doc, err := goquery.NewDocument(bingPrefixFront + url.QueryEscape(keyword) + bingPrefixRear)
+	// if err != nil {
+		// return nil, err
+	// }
+	
 	result := []string{}
 
 	doc.Find(".sa_tm_text").Each(func(_ int, tr *goquery.Selection) {

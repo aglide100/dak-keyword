@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 
 	pb_svc "github.com/aglide100/dak-keyword/pb/svc"
 )
@@ -18,7 +19,7 @@ func main() {
 	log.Printf("starting testing !")
 
 	// conn, err := grpc.Dial(address, grpc.WithTransportCredentials(), grpc.WithInsecure())
-	conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
+	conn, err := grpc.Dial(address, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
 		log.Fatalf("can't connect grpc server %v", err)
 	}

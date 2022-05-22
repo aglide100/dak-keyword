@@ -42,6 +42,23 @@ func GetKeywords(keyword string, topic string) ([]string, error) {
 	return keywords, nil
 }
 
+func CreateHttpRes(url string) (*http.Response, error) {
+	res, err := http.Get("http://metalsucks.net")
+  	
+	if err != nil {
+  		// log.Fatal(err)
+		return nil, err
+  	}
+  	defer res.Body.Close()
+
+  	if res.StatusCode != 200 {
+  	  	// log.Fatalf("status code error: %d %s", res.StatusCode, res.Status)
+		return nil, err
+	}
+
+	return res, nil
+}
+
 func CreateHttpReq(url string) (string, error) {
 	log.Printf("Create http req: %s", url)
 
