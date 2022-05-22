@@ -19,8 +19,8 @@ func GetKeyWordSetFromDaum(keyword string) ([]string, error) {
 		return nil, err
 	}
 
-	var r rune
-	r = '('
+	// var r rune
+	r := '('
 
 	result := []string{}
 

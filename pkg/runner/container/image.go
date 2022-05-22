@@ -18,8 +18,13 @@ func (c *Controller) EnsureImage(image string) (err error) {
 	if err != nil {
 		return err
 	}
+
 	defer reader.Close()
-	io.Copy(os.Stdout, reader)
+	_, err = io.Copy(os.Stdout, reader)
+	if err != nil {
+		return nil
+	}
+
 	return nil
 }
 
@@ -76,7 +81,11 @@ func RunSomeContainer() error {
 	}
 
 	defer reader.Close()
-	io.Copy(os.Stdout, reader)
+	_, err = io.Copy(os.Stdout, reader)
+	if err != nil {
+		return err
+	}
+
 
 	resp, err := cli.ContainerCreate(ctx, &container.Config{
 		Image: "alpine",
@@ -107,7 +116,10 @@ func RunSomeContainer() error {
 		return err
 	}
 
-	stdcopy.StdCopy(os.Stdout, os.Stderr, out)
+	_, err =stdcopy.StdCopy(os.Stdout, os.Stderr, out)
+	if err != nil {
+		return err 
+	}
 	// io.Copy(os.Stdout, out)
 	return nil
 }
