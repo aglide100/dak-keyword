@@ -5,6 +5,7 @@ import (
 	"log"
 
 	pb_svc "github.com/aglide100/dak-keyword/pb/svc"
+	"github.com/aglide100/dak-keyword/pkg/keyword"
 )
 
 type ManagerSrv struct {
@@ -20,5 +21,15 @@ func (s *ManagerSrv) CreateNewJob(ctx context.Context, in *pb_svc.CreateNewJobRe
 		log.Printf("Received: %v", in.String())
 	}
 
-	return &pb_svc.CreateNewJobRes{}, nil
+	result, err := keyword.GetKeywords(in.Keyword, "")
+	if err != nil {
+		log.Printf("Can't get keywordset! %v", err)
+	}
+
+	log.Printf("",result)
+
+	
+	return &pb_svc.CreateNewJobRes{
+
+	}, nil
 } 
