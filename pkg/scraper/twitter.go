@@ -1,0 +1,111 @@
+package scraper
+
+import (
+	"log"
+	"net/url"
+	"strconv"
+	"time"
+
+	"github.com/aglide100/dak-keyword/pkg/model"
+	"github.com/tidwall/gjson"
+)
+
+const maxResult = 100
+const limitResult = 10
+const twitterv2api = `https://api.twitter.com/2/`
+
+func (s Scraper) GetMockTweets() ([]model.TweetArticle) {
+	
+	var articles []model.TweetArticle
+
+	for i:=0; i<100000; i++ { 
+		articles = append(articles, model.TweetArticle{
+		
+			Id: strconv.Itoa(i),
+			Text: "Hello",
+			Created_at: time.Now().String(),
+		})
+	}
+
+	return articles
+}
+
+func (s Scraper) GetRecentSearch(keyword string, nextToken string, nums ...int) ([]model.TweetArticle, error) {
+	var num int
+	if len(nums) == 0 {
+		num = 0
+	} else {
+		num = nums[0]
+	}
+
+	if num == limitResult {
+		return nil, nil
+	}
+
+	log.Printf("Starting get recent tweets.... %v", nums)
+
+	var resp string
+	var err error
+
+	url := twitterv2api + "tweets/search/recent?query=" + url.QueryEscape(keyword) + "&max_results=" + strconv.Itoa(maxResult)
+
+	if len(nextToken) > 1 {
+		resp, err = s.CreateHttpReq(url + "&next_token=" + nextToken + "&tweet.fields=id,created_at,text")
+		if err != nil {
+			return nil, err
+		}	
+	} else {
+		resp, err = s.CreateHttpReq(url + "&tweet.fields=id,created_at,text")
+		if err != nil {
+			return nil, err
+		}	
+	}
+
+	meta := gjson.Get(resp, "meta")
+	data := gjson.Get(resp, "data")
+
+
+	// log.Printf("------------------------------------------------")
+	// log.Printf("data: %v", data.String())
+	var articles []model.TweetArticle
+	// var prev model.TweetArticle
+	data.ForEach(func(key, value gjson.Result) bool {
+		newArticle := model.TweetArticle{
+			Id: gjson.Get(value.String(), "id").String(),
+			Text: gjson.Get(value.String(), "text").String(),
+			Created_at: gjson.Get(value.String(), "created_at").String(),
+		}
+
+		// if prev.Text == newArticle.Text {
+		// 	// pass
+		// } else {
+		// 	prev = newArticle
+			articles = append(articles, newArticle)
+		// }
+		
+		return true
+	})
+
+	if len(gjson.Get(meta.String(), "next_token").String()) > 1 {
+		// log.Printf("---------------------------------------------")
+		log.Printf("next_token: %v", gjson.Get(meta.String(), "next_token").String())
+		s.GetRecentSearch(keyword, gjson.Get(meta.String(), "next_token").String(), num+1)
+	}
+
+	// return s.MakeUniqueTweet(articles), err
+	return articles, err
+}
+
+
+// needs academic reasecher api.....
+func (s Scraper) GetFullArchiveRecentSearch(keyword string) (error) {
+	log.Printf("Starting get recent tweets....")
+	
+	resp, err := s.CreateHttpReq(twitterv2api+ "tweets/search/all?query=" + url.QueryEscape(keyword))
+	if err != nil {
+		return err
+	}
+
+	log.Printf("resp: %v", resp)
+	return nil
+}

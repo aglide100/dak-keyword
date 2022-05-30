@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package dak_keyword.svc;
+option go_package = "github.com/aglide100/dak_keyword/pb/svc";
+
+service Analyzer {
+    rpc StartAnalyzer (StartAnalyzerReq) returns (StartAnalyzerRes) {}
+    rpc GetStatus (GetStatusReq) returns (GetStatusRes) {}
+}
+
+message StartAnalyzerReq {
+    
+}
+
+message StartAnalyzerRes {
+
+}
+
+message GetStatusReq {
+
+}
+
+message GetStatusRes {
+    int32 current = 1;
+    int32 total = 2;
+}
