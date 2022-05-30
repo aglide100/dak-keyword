@@ -89,7 +89,10 @@ func (s Scraper) GetRecentSearch(keyword string, nextToken string, nums ...int) 
 	if len(gjson.Get(meta.String(), "next_token").String()) > 1 {
 		// log.Printf("---------------------------------------------")
 		log.Printf("next_token: %v", gjson.Get(meta.String(), "next_token").String())
-		s.GetRecentSearch(keyword, gjson.Get(meta.String(), "next_token").String(), num+1)
+		_, err := s.GetRecentSearch(keyword, gjson.Get(meta.String(), "next_token").String(), num+1)
+		if err != nil {
+			log.Printf("error: %v", err)
+		}
 	}
 
 	// return s.MakeUniqueTweet(articles), err
