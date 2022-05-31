@@ -26,7 +26,7 @@ func (s *ManagerSrv) CreateNewJob(ctx context.Context, in *pb_svc.CreateNewJobRe
 		log.Printf("Can't get keywordset! %v", err)
 	}
 
-	log.Printf("",result)
+	log.Printf("%v",result)
 
 	
 	return &pb_svc.CreateNewJobRes{
