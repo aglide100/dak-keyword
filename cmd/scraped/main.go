@@ -4,8 +4,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/aglide100/dak-keyword/pkg/env"
 	"github.com/aglide100/dak-keyword/pkg/scraper"
+	"github.com/aglide100/dak-keyword/pkg/scraper/env"
 )
 
 
@@ -39,6 +39,6 @@ func realMain() error {
 		log.Printf("date : %v", value.Created_at)
 		log.Printf("text : %v", value.Text)
 	}
-	
+
 	return nil
 }
