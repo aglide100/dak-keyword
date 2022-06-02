@@ -15,6 +15,7 @@ func main() {
 		os.Exit(1)
 	}
 }
+
 func realMain() error {
 	config, err := env.LoadEnv("./env/test1.env")
 		if err != nil {

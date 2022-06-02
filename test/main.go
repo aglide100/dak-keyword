@@ -8,11 +8,11 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
-	pb_svc "github.com/aglide100/dak-keyword/pb/svc"
+	pb_svc_manager "github.com/aglide100/dak-keyword/pb/svc/manager"
 )
 
 const (
-	address = "0.0.0.0:50011"
+	address = "0.0.0.0:10112"
 )
 
 func main() {
@@ -24,16 +24,16 @@ func main() {
 		log.Fatalf("can't connect grpc server %v", err)
 	}
 	defer conn.Close()
-	client := pb_svc.NewManagerClient(conn)
+	client := pb_svc_manager.NewManagerClient(conn)
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 	// str := &pb_runner.Runner{
 
 	// }
-	in := &pb_svc.CreateNewJobReq{}
+	in := &pb_svc_manager.CreateNewJobReq{}
 	
-	// in := &pb_svc.GetRunnerReq{
+	// in := &pb_svc_manager.GetRunnerReq{
 	// 	Runner: str,
 	// }
 

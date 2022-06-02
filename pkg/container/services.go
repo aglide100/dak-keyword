@@ -8,7 +8,7 @@ import (
 	"github.com/docker/docker/api/types/swarm"
 )
 
-func (c *Controller) CreateNewJobSVC(id string) (err error) {
+func (c *Controller) CreateNewScraper(id string, keyword string) (err error) {
 	ctx := context.Background()
 	reader, err := c.cli.ServiceCreate(ctx, swarm.ServiceSpec{
 		Annotations: swarm.Annotations{
@@ -18,9 +18,12 @@ func (c *Controller) CreateNewJobSVC(id string) (err error) {
 			ContainerSpec: &swarm.ContainerSpec{
 				Image: "ghcr.io/aglide100/dak-keyword-scraped:latest",
 				// Command: '',
-				// Env: ,
+				Env: []string{"Keyword=" + keyword} ,
 			},
 		},
+		// Networks: []swarm.NetworkAttachmentConfig{
+			// 
+		// },
 		// EndpointSpec: &swarm.EndpointSpec{
 			// Ports: []swarm.PortConfig{
 				// swarm.PortConfig{
@@ -41,3 +44,25 @@ func (c *Controller) CreateNewJobSVC(id string) (err error) {
 	return nil
 }
 
+func (c *Controller) CreateNewAnalyzer(id string) (err error) {
+	ctx := context.Background()
+	reader, err := c.cli.ServiceCreate(ctx, swarm.ServiceSpec{
+		Annotations: swarm.Annotations{
+			Name: id,
+		},
+		TaskTemplate: swarm.TaskSpec{
+			ContainerSpec: &swarm.ContainerSpec{
+				Image: "",
+				Command: []string{"Main.p"},
+			},
+		},
+	}, types.ServiceCreateOptions{})
+	
+	if err != nil {
+		return err
+	}
+
+	fmt.Println(reader.ID)
+	return nil
+
+}
