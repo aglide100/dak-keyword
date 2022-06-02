@@ -15,6 +15,7 @@ jobs:
           - apid
           - scraped
           - provisioned
+          - db
     steps:
       - name: Checkout
         uses: actions/checkout@v2

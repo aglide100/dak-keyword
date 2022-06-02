@@ -15,7 +15,8 @@ type Container interface {
 	BuildImage() error
 	RunImage(respID string) error
 	StopImage(respID string) error
-	CreateNewJobSVC(id string) error
+	CreateNewScraper(id string, keyword string) error
+	CreateNewAnalyzer(id string) error
 	EnsureImage(image string) error
 }
 
