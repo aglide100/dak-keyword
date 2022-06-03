@@ -15,7 +15,6 @@ type CommonConfig interface {
 	LoadEnv() (error)
 }
 
-
 type TwiiterGetter interface {
 	GetTwitterConsumerKey() (string)
 	GetTwitterConsumerSecret() (string)
@@ -29,7 +28,6 @@ type TwiiterGetter interface {
 type EnvConfig interface {
 	LoadEnv() (error)
 }
-
 
 func LoadEnv(path string) (*Config, error) {
 	// path := ".env"

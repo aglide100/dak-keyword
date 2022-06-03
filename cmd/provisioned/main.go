@@ -15,7 +15,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 
-	pb_svc "github.com/aglide100/dak-keyword/pb/svc"
+	pb_svc_provision "github.com/aglide100/dak-keyword/pb/svc/provision"
 	"github.com/improbable-eng/grpc-web/go/grpcweb"
 
 	"github.com/aglide100/dak-keyword/pkg/servers"
@@ -57,9 +57,9 @@ func realMain() error {
 	}
 
 	grpcServer := grpc.NewServer(opts...)
-	runnerSrv := servers.NewRunnerServiceServer()
+	provisionSrv := servers.NewProvisionServiceServer()
 
-	pb_svc.RegisterRunnerServer(grpcServer, runnerSrv)
+	pb_svc_provision.RegisterProvisionServer(grpcServer, provisionSrv)
 
 
 	wg, ctx := errgroup.WithContext(context.Background())

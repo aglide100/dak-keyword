@@ -1,11 +1,12 @@
 syntax = "proto3";
 
-package pv.svc;
-option go_package = "pb/svc";
+package pb.svc.manager;
+option go_package = "github.com/aglide100/dak-keyword/pb/svc/manager";
 
 service Manager {
     rpc CreateNewJob(CreateNewJobReq) returns (CreateNewJobRes);
     rpc GetJobStatus(GetJobStatusReq) returns (GetJobStatusRes);
+    rpc DoneScraper(DoneScraperReq) returns (DoneScraperRes);
     rpc StopJob(StopJobReq) returns (StopJobRes);
 }
 
@@ -33,3 +34,7 @@ message StopJobReq {
 }
 
 message StopJobRes {}
+
+message DoneScraperReq {}
+
+message DoneScraperRes {}

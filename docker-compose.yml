@@ -3,6 +3,16 @@ x-services-volume: &services-volume
   type: bind
 
 services:
+  apid:
+    container_name: apid
+    build:
+      context: ./cmd/apid
+      
+  provision:
+    container_name: provision
+    build:
+      context: ./cmd/provision
+
   postgres:
     container_name: postgres
     build:
@@ -13,8 +23,8 @@ services:
         source: /tmp/dak-keyword
         target: /var/lib/postgres
     ports:
-      - 5432:5432
-      # - 8342:8342
+      #- 5432:5432
+      - 8342:5432
     hostname: postgres
     networks:
       - dak_keyword_network

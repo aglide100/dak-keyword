@@ -1,0 +1,67 @@
+version: '3.4'
+
+services:
+  traefik:
+    image: traefik:1.4
+    ports:
+      - 80:80
+      - 8080:8080
+    networks:
+      - traefik-net
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    configs:
+      - source: traefik-config
+        target: /etc/traefik/traefik.toml
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+  nginx:
+    image: ghcr.io/aglide100/print-container-id:edge
+    #ports:
+    #  - 80:80
+    networks:
+      - traefik-net
+    deploy:
+      replicas: 10
+      labels:
+        - "traefik.port=80"
+        - "traefik.backend=Hello"
+        - "traefik.frontend.rule=PathPrefixStrip:/Hello"
+    
+  #netdata:
+  #  image: netdata/netdata
+  #  #hostname: example.com # set to fqdn of host
+  #  networks:
+  #    - traefik-net
+  #  #ports:
+  #  #  - 19999:19999
+  #  cap_add:
+  #    - SYS_PTRACE
+  #  volumes:
+  #    #- netdataconfig:/etc/netdata
+  #    #- netda talib:/var/lib/netdata
+  #    #- netdatacache:/var/cache/netdata
+  #    - /etc/passwd:/host/etc/passwd:ro
+  #    - /etc/group:/host/etc/group:ro
+  #    - /proc:/host/proc:ro
+  #    - /sys:/host/sys:ro
+  #    - /etc/os-release:/host/etc/os-release:ro
+  #  deploy:
+  #    placement:
+  #      constraints:
+  #        - node.role == worker
+  #    labels:
+  #      - "traefik.enable=true"
+  #      - "traefik.port=19999"
+  #      - "traefik.backend=netdata"
+  #      - "traefik.frontend.rule=Path:/netdata"
+
+networks:
+  traefik-net:
+    driver: overlay
+
+configs:
+  traefik-config:
+    file: config.toml

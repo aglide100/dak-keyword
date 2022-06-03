@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package pb.svc.provision;
+option go_package = "github.com/aglide100/dak-keyword/pb/svc/provision";
+
+service Provision {
+    rpc CreateScraper (CreateScraperReq) returns (CreateScraperRes);
+    rpc CreateAnalyzer (CreateAnalyzerReq) returns (CreateAnalyzerRes);
+}
+
+message CreateScraperReq {
+    string keyword = 1;
+    string owner = 2;
+}
+
+message CreateScraperRes {
+
+}
+
+message CreateAnalyzerReq {
+    string id = 1;
+}
+
+message CreateAnalyzerRes {
+
+}
