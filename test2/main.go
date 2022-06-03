@@ -5,43 +5,46 @@ import (
 	"log"
 	"time"
 
+	pb_svc_provision "github.com/aglide100/dak-keyword/pb/svc/provision"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
-
-	pb_svc_manager "github.com/aglide100/dak-keyword/pb/svc/manager"
 )
 
 const (
-	address = "0.0.0.0:10112"
+	address = "0.0.0.0:50011"
 )
 
 func main() {
 	log.Printf("starting testing !")
 
-	// conn, err := grpc.Dial(address, grpc.WithTransportCredentials(), grpc.WithInsecure())
+
 	conn, err := grpc.Dial(address, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
 		log.Fatalf("can't connect grpc server %v", err)
 	}
 	defer conn.Close()
-	client := pb_svc_manager.NewManagerClient(conn)
+	
+	log.Printf("aa")
+	client := pb_svc_provision.NewProvisionClient(conn)
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 	// str := &pb_runner.Runner{
 
 	// }
-	in := &pb_svc_manager.CreateNewJobReq{}
+	in := &pb_svc_provision.CreateAnalyzerReq{
+		Id: "test",
+	}
 	
-	// in := &pb_svc_manager.GetRunnerReq{
+	// in := &pb_svc_provision.GetRunnerReq{
 	// 	Runner: str,
 	// }
 
-	res, err := client.CreateNewJob(ctx, in)
+	res, err := client.CreateAnalyzer(ctx, in)
 
-	// res, err := client.GetRunner(ctx, in)
 	if err != nil {
 		log.Fatalf("Can't receive anything! %v", err)
 	}
 	log.Printf("res %v", res)
+
 }

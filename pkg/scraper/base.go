@@ -29,7 +29,6 @@ func NewScraper(token string) *Scraper {
 	}
 }
 
-
 func (s Scraper) CreateHttpReq(url string) (string, error) {
 	log.Printf("Create http req: %s", url)
 

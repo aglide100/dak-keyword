@@ -1,17 +1,18 @@
 module github.com/aglide100/dak-keyword
 
-go 1.17
+go 1.18
 
 require (
 	github.com/PuerkitoBio/goquery v1.8.0
 	github.com/docker/docker v20.10.14+incompatible
+	github.com/golang/protobuf v1.5.2
+	github.com/google/uuid v1.2.0
 	github.com/groovili/gogtrends v1.7.0
 	github.com/improbable-eng/grpc-web v0.15.0
 	github.com/joho/godotenv v1.4.0
 	github.com/tidwall/gjson v1.14.0
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	google.golang.org/grpc v1.45.0
-	google.golang.org/protobuf v1.28.0
 )
 
 require (
@@ -24,7 +25,6 @@ require (
 	github.com/docker/go-connections v0.4.0 // indirect
 	github.com/docker/go-units v0.4.0 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
-	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/go-cmp v0.5.7 // indirect
 	github.com/gorilla/mux v1.8.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
@@ -45,6 +45,7 @@ require (
 	golang.org/x/text v0.3.7 // indirect
 	golang.org/x/time v0.0.0-20220224211638-0e9765cccd65 // indirect
 	google.golang.org/genproto v0.0.0-20211208223120-3a66f561d7aa // indirect
+	google.golang.org/protobuf v1.28.0 // indirect
 	gotest.tools/v3 v3.1.0 // indirect
 	nhooyr.io/websocket v1.8.6 // indirect
 )

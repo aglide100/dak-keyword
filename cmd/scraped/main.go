@@ -4,8 +4,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/aglide100/dak-keyword/pkg/env"
 	"github.com/aglide100/dak-keyword/pkg/scraper"
+	"github.com/aglide100/dak-keyword/pkg/scraper/env"
 )
 
 
@@ -15,13 +15,14 @@ func main() {
 		os.Exit(1)
 	}
 }
+
 func realMain() error {
-	config, err := env.LoadEnv(".env")
+	config, err := env.LoadEnv("./env/test1.env")
 		if err != nil {
 			log.Printf("Can't load env file :%v", err)
 		}
 	config.SaveTwitterSecret()
-
+	
 	myScraper := scraper.NewScraper(config.GetTwitterBearerToken())
 	result, err := myScraper.GetRecentSearch("J.Walker", "")
 	if err != nil {
@@ -39,6 +40,6 @@ func realMain() error {
 		log.Printf("date : %v", value.Created_at)
 		log.Printf("text : %v", value.Text)
 	}
-	
+
 	return nil
 }
