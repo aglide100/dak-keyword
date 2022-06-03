@@ -23,6 +23,8 @@ func main() {
 		log.Fatalf("can't connect grpc server %v", err)
 	}
 	defer conn.Close()
+	
+	log.Printf("aa")
 	client := pb_svc_provision.NewProvisionClient(conn)
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
