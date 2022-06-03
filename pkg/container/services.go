@@ -46,14 +46,21 @@ func (c *Controller) CreateNewScraper(id string, keyword string) (err error) {
 
 func (c *Controller) CreateNewAnalyzer(id string) (err error) {
 	ctx := context.Background()
+
+	max := uint64(1)
+	
 	reader, err := c.cli.ServiceCreate(ctx, swarm.ServiceSpec{
 		Annotations: swarm.Annotations{
 			Name: id,
 		},
 		TaskTemplate: swarm.TaskSpec{
+			RestartPolicy: &swarm.RestartPolicy{
+				MaxAttempts: &max,
+				Condition: swarm.RestartPolicyConditionOnFailure,
+			},		
 			ContainerSpec: &swarm.ContainerSpec{
-				Image: "",
-				Command: []string{"Main.p"},
+				Image: "ghcr.io/aglide100/lexicon-based-simple-korean-semantic-analyzer:latest",
+				Command: []string{"Main.py"},
 			},
 		},
 	}, types.ServiceCreateOptions{})
