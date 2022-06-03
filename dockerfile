@@ -1,4 +1,4 @@
-FROM golang:1.18 AS builder
+FROM golang:1.17 AS builder
 
 COPY . "/go/src/github.com/aglide100/dak-keyword/"
 WORKDIR "/go/src/github.com/aglide100/dak-keyword/"
