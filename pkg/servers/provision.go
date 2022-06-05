@@ -9,7 +9,7 @@ import (
 )
 
 type ProvisionSrv struct {
-	pb_svc_provision.ProvisionServer
+	pb_svc_provision.UnimplementedProvisionServer
 }
 
 func NewProvisionServiceServer() *ProvisionSrv {

@@ -52,3 +52,4 @@ protoc -I=. --go_out=plugins=grpc:../../.. pb/svc/analyzer/*.proto
 protoc -I=. --go_out=plugins=grpc:../../.. pb/svc/manager/*.proto
 
 protoc -I=. --go_out=plugins=grpc:../../.. pb/svc/provision/*.proto
+

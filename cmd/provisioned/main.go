@@ -22,7 +22,7 @@ import (
 )
 
 var (
-	provisionedAddr = flag.String("grpc.addr", "0.0.0.0:50011", "grpc address")
+	provisionedAddr = flag.String("grpc.addr", "0.0.0.0:50012", "grpc address")
 	usingTls = flag.Bool("grpc.tls", false, "using http2")
 	serverCrt = flag.String("cert.crt", "keys/server.crt", "crt file location")
 	serverKey = flag.String("cert.key", "keys/server.key", "ket file location")
@@ -35,7 +35,8 @@ func main() {
 }
 
 func realMain() error {
-	provisionedAddrL, err := net.Listen("tcp", *provisionedAddr)
+	flag.Parse()
+	provisionedAddrL, err := net.Listen("tcp", fmt.Sprintf("%s", *provisionedAddr))
 	if err != nil {
 		return err
 	}
@@ -73,9 +74,11 @@ func realMain() error {
 
 		handler := http.Handler(http.HandlerFunc(func(resp http.ResponseWriter, req *http.Request) {
 			if wrappedServer.IsGrpcWebRequest(req) || wrappedServer.IsAcceptableGrpcCorsRequest(req) {
+
 				wrappedServer.ServeHTTP(resp, req)
 			}
 		}))
+
 
 		log.Printf("Starting grpc server... %s", *provisionedAddr)
 		var err error

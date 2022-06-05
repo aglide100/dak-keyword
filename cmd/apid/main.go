@@ -16,7 +16,7 @@ import (
 )
 
 var (
-	apidAddr = flag.String("grpc.addr", "0.0.0.0:10112", "grpc address")
+	apidAddr = flag.String("grpc.addr", "0.0.0.0:50011", "grpc address")
 )
 
 
