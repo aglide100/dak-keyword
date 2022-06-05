@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"flag"
 	"log"
 	"time"
 
@@ -10,25 +11,25 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-const (
-	address = "0.0.0.0:50011"
+var (
+	addr = flag.String("addr", "localhost:50012", "the address to connect to")
 )
 
 func main() {
-	log.Printf("starting testing !")
+	log.Printf("starting testing ! at %s", *addr)
 
-
-	conn, err := grpc.Dial(address, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
+	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	// conn, err := grpc.DialContext(ctx ,address, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
-		log.Fatalf("can't connect grpc server %v", err)
+		log.Fatalf("can't connect grpc server : %v", err)
 	}
 	defer conn.Close()
 	
 	log.Printf("aa")
 	client := pb_svc_provision.NewProvisionClient(conn)
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-	defer cancel()
+	// ctx, cancel := context.WithTimeout(context.TODO(), time.Second)
+	// defer cancel()
 	// str := &pb_runner.Runner{
 
 	// }
@@ -39,7 +40,8 @@ func main() {
 	// in := &pb_svc_provision.GetRunnerReq{
 	// 	Runner: str,
 	// }
-
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
+	defer cancel()
 	res, err := client.CreateAnalyzer(ctx, in)
 
 	if err != nil {
