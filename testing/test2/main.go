@@ -12,20 +12,19 @@ import (
 )
 
 var (
-	addr = flag.String("addr", "localhost:50012", "the address to connect to")
+	addr = flag.String("addr", "0.0.0.0:50012", "the address to connect to")
 )
 
 func main() {
 	log.Printf("starting testing ! at %s", *addr)
 
-	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	conn, err := grpc.Dial("0.0.0.0:50012", grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	// conn, err := grpc.DialContext(ctx ,address, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
 		log.Fatalf("can't connect grpc server : %v", err)
 	}
 	defer conn.Close()
 	
-	log.Printf("aa")
 	client := pb_svc_provision.NewProvisionClient(conn)
 
 	// ctx, cancel := context.WithTimeout(context.TODO(), time.Second)

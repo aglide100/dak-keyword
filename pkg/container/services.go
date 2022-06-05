@@ -57,6 +57,11 @@ func (c *Controller) CreateNewAnalyzer(id string) (err error) {
 			RestartPolicy: &swarm.RestartPolicy{
 				MaxAttempts: &max,
 				Condition: swarm.RestartPolicyConditionOnFailure,
+			},
+			
+			Placement: &swarm.Placement{
+				// Constraints: []string{""},
+				MaxReplicas: 1,
 			},		
 			ContainerSpec: &swarm.ContainerSpec{
 				Image: "ghcr.io/aglide100/lexicon-based-simple-korean-semantic-analyzer:latest",

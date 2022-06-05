@@ -5,7 +5,6 @@ import (
 	"os"
 
 	"github.com/aglide100/dak-keyword/pkg/scraper"
-	"github.com/aglide100/dak-keyword/pkg/scraper/env"
 )
 
 
@@ -17,17 +16,20 @@ func main() {
 }
 
 func realMain() error {
-	config, err := env.LoadEnv("./env/test1.env")
-		if err != nil {
-			log.Printf("Can't load env file :%v", err)
-		}
-	config.SaveTwitterSecret()
+	// config, err := env.LoadEnv("./env/test1.env")
+		// if err != nil {
+			// log.Printf("Can't load env file :%v", err)
+		// }
+	// config.SaveTwitterSecret()
 	
-	myScraper := scraper.NewScraper(config.GetTwitterBearerToken())
-	result, err := myScraper.GetRecentSearch("J.Walker", "")
-	if err != nil {
-		return err
-	}
+
+	myScraper := scraper.NewScraper("Mock")
+	result := myScraper.GetMockTweets()
+	// myScraper := scraper.NewScraper(config.GetTwitterBearerToken())
+	// result, err := myScraper.GetRecentSearch("J.Walker", "")
+	// if err != nil {
+		// return err
+	// }
 
 	// result := myScraper.GetMockTweets()
 
@@ -39,6 +41,11 @@ func realMain() error {
 		log.Printf("id : %v", value.Id)
 		log.Printf("date : %v", value.Created_at)
 		log.Printf("text : %v", value.Text)
+	}
+
+	err := scraper.CallGrpcCallDone()
+	if err != nil {
+		return err
 	}
 
 	return nil
