@@ -18,11 +18,10 @@ func (s Scraper) GetMockTweets() ([]model.TweetArticle) {
 	
 	var articles []model.TweetArticle
 
-	for i:=0; i<100000; i++ { 
+	for i:=0; i<5000; i++ { 
 		articles = append(articles, model.TweetArticle{
-		
 			Id: strconv.Itoa(i),
-			Text: "Hello",
+			Text: "안녕하세요!!!!",
 			Created_at: time.Now().String(),
 		})
 	}
