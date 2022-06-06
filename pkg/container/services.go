@@ -18,7 +18,7 @@ func (c *Controller) CreateNewScraper(id string, keyword string) (err error) {
 			ContainerSpec: &swarm.ContainerSpec{
 				Image: "ghcr.io/aglide100/dak-keyword-scraped:latest",
 				// Command: '',
-				Env: []string{"Keyword=" + keyword} ,
+				Env: []string{"Keyword=" + keyword},
 			},
 		},
 		// Networks: []swarm.NetworkAttachmentConfig{
@@ -41,6 +41,17 @@ func (c *Controller) CreateNewScraper(id string, keyword string) (err error) {
 	}
 
 	fmt.Println(reader.ID)
+	return nil
+}
+
+func (c *Controller) RemoveScraper(id string) (err error) {
+	ctx := context.Background()
+
+	err = c.cli.ServiceRemove(ctx, id)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -76,5 +87,4 @@ func (c *Controller) CreateNewAnalyzer(id string) (err error) {
 
 	fmt.Println(reader.ID)
 	return nil
-
 }

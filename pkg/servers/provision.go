@@ -36,15 +36,24 @@ func (s *ProvisionSrv) CreateAnalyzer(ctx context.Context, in *pb_svc_provision.
 	if in != nil {
 		log.Printf("Received: %v", in.String())
 	}
-	c, err := container.NewController()
-	if err != nil {
-		return nil, err
-	}
 
-	err = c.CreateNewAnalyzer(in.ScraperId)
+	err := s.c.CreateNewAnalyzer(in.ScraperId)
 	if err != nil {
 		return nil, err
 	}
 
 	return &pb_svc_provision.CreateAnalyzerRes{}, nil
+}
+
+func (s *ProvisionSrv) RemoveScraper(ctx context.Context, in *pb_svc_provision.RemoveScraperReq) (*pb_svc_provision.RemoveScraperRes, error) {
+	if in != nil {
+		log.Printf("Received: %v", in.String())
+	}
+
+	err := s.c.RemoveScraper(in.Id)
+	if err != nil {
+		return nil, err
+	}
+
+	return &pb_svc_provision.RemoveScraperRes{}, nil
 }

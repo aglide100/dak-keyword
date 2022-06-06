@@ -8,6 +8,7 @@ service Provision {
     rpc CreateAnalyzer (CreateAnalyzerReq) returns (CreateAnalyzerRes);
     rpc GetScraperStatus (GetScraperStatusReq) returns (GetScraperStatusRes);
     rpc GetAnalyzerStatus (GetAnalyzerStatusReq) returns (GetAnalyzerStatusRes);
+    rpc RemoveScraper (RemoveScraperReq) returns (RemoveScraperRes);
 }
 
 message CreateScraperReq {
@@ -41,4 +42,12 @@ message GetAnalyzerStatusReq {
 
 message GetAnalyzerStatusRes {
     string status = 1;
+}
+
+message RemoveScraperReq {
+    string id = 1;
+}
+
+message RemoveScraperRes {
+    
 }
