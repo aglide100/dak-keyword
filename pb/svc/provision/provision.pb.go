@@ -26,7 +26,7 @@ const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type CreateScraperReq struct {
 	Keyword              string   `protobuf:"bytes,1,opt,name=keyword,proto3" json:"keyword,omitempty"`
-	Owner                string   `protobuf:"bytes,2,opt,name=owner,proto3" json:"owner,omitempty"`
+	Id                   string   `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -64,9 +64,9 @@ func (m *CreateScraperReq) GetKeyword() string {
 	return ""
 }
 
-func (m *CreateScraperReq) GetOwner() string {
+func (m *CreateScraperReq) GetId() string {
 	if m != nil {
-		return m.Owner
+		return m.Id
 	}
 	return ""
 }
@@ -103,7 +103,7 @@ func (m *CreateScraperRes) XXX_DiscardUnknown() {
 var xxx_messageInfo_CreateScraperRes proto.InternalMessageInfo
 
 type CreateAnalyzerReq struct {
-	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	ScraperId            string   `protobuf:"bytes,1,opt,name=scraperId,proto3" json:"scraperId,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -134,9 +134,9 @@ func (m *CreateAnalyzerReq) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_CreateAnalyzerReq proto.InternalMessageInfo
 
-func (m *CreateAnalyzerReq) GetId() string {
+func (m *CreateAnalyzerReq) GetScraperId() string {
 	if m != nil {
-		return m.Id
+		return m.ScraperId
 	}
 	return ""
 }
@@ -172,32 +172,197 @@ func (m *CreateAnalyzerRes) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_CreateAnalyzerRes proto.InternalMessageInfo
 
+type GetScraperStatusReq struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetScraperStatusReq) Reset()         { *m = GetScraperStatusReq{} }
+func (m *GetScraperStatusReq) String() string { return proto.CompactTextString(m) }
+func (*GetScraperStatusReq) ProtoMessage()    {}
+func (*GetScraperStatusReq) Descriptor() ([]byte, []int) {
+	return fileDescriptor_3a83c3d0d414ae9b, []int{4}
+}
+
+func (m *GetScraperStatusReq) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetScraperStatusReq.Unmarshal(m, b)
+}
+func (m *GetScraperStatusReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetScraperStatusReq.Marshal(b, m, deterministic)
+}
+func (m *GetScraperStatusReq) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetScraperStatusReq.Merge(m, src)
+}
+func (m *GetScraperStatusReq) XXX_Size() int {
+	return xxx_messageInfo_GetScraperStatusReq.Size(m)
+}
+func (m *GetScraperStatusReq) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetScraperStatusReq.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetScraperStatusReq proto.InternalMessageInfo
+
+func (m *GetScraperStatusReq) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+type GetScraperStatusRes struct {
+	Status               string   `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetScraperStatusRes) Reset()         { *m = GetScraperStatusRes{} }
+func (m *GetScraperStatusRes) String() string { return proto.CompactTextString(m) }
+func (*GetScraperStatusRes) ProtoMessage()    {}
+func (*GetScraperStatusRes) Descriptor() ([]byte, []int) {
+	return fileDescriptor_3a83c3d0d414ae9b, []int{5}
+}
+
+func (m *GetScraperStatusRes) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetScraperStatusRes.Unmarshal(m, b)
+}
+func (m *GetScraperStatusRes) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetScraperStatusRes.Marshal(b, m, deterministic)
+}
+func (m *GetScraperStatusRes) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetScraperStatusRes.Merge(m, src)
+}
+func (m *GetScraperStatusRes) XXX_Size() int {
+	return xxx_messageInfo_GetScraperStatusRes.Size(m)
+}
+func (m *GetScraperStatusRes) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetScraperStatusRes.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetScraperStatusRes proto.InternalMessageInfo
+
+func (m *GetScraperStatusRes) GetStatus() string {
+	if m != nil {
+		return m.Status
+	}
+	return ""
+}
+
+type GetAnalyzerStatusReq struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetAnalyzerStatusReq) Reset()         { *m = GetAnalyzerStatusReq{} }
+func (m *GetAnalyzerStatusReq) String() string { return proto.CompactTextString(m) }
+func (*GetAnalyzerStatusReq) ProtoMessage()    {}
+func (*GetAnalyzerStatusReq) Descriptor() ([]byte, []int) {
+	return fileDescriptor_3a83c3d0d414ae9b, []int{6}
+}
+
+func (m *GetAnalyzerStatusReq) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetAnalyzerStatusReq.Unmarshal(m, b)
+}
+func (m *GetAnalyzerStatusReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetAnalyzerStatusReq.Marshal(b, m, deterministic)
+}
+func (m *GetAnalyzerStatusReq) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAnalyzerStatusReq.Merge(m, src)
+}
+func (m *GetAnalyzerStatusReq) XXX_Size() int {
+	return xxx_messageInfo_GetAnalyzerStatusReq.Size(m)
+}
+func (m *GetAnalyzerStatusReq) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAnalyzerStatusReq.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetAnalyzerStatusReq proto.InternalMessageInfo
+
+func (m *GetAnalyzerStatusReq) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+type GetAnalyzerStatusRes struct {
+	Status               string   `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetAnalyzerStatusRes) Reset()         { *m = GetAnalyzerStatusRes{} }
+func (m *GetAnalyzerStatusRes) String() string { return proto.CompactTextString(m) }
+func (*GetAnalyzerStatusRes) ProtoMessage()    {}
+func (*GetAnalyzerStatusRes) Descriptor() ([]byte, []int) {
+	return fileDescriptor_3a83c3d0d414ae9b, []int{7}
+}
+
+func (m *GetAnalyzerStatusRes) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetAnalyzerStatusRes.Unmarshal(m, b)
+}
+func (m *GetAnalyzerStatusRes) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetAnalyzerStatusRes.Marshal(b, m, deterministic)
+}
+func (m *GetAnalyzerStatusRes) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAnalyzerStatusRes.Merge(m, src)
+}
+func (m *GetAnalyzerStatusRes) XXX_Size() int {
+	return xxx_messageInfo_GetAnalyzerStatusRes.Size(m)
+}
+func (m *GetAnalyzerStatusRes) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAnalyzerStatusRes.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetAnalyzerStatusRes proto.InternalMessageInfo
+
+func (m *GetAnalyzerStatusRes) GetStatus() string {
+	if m != nil {
+		return m.Status
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*CreateScraperReq)(nil), "pb.svc.provision.CreateScraperReq")
 	proto.RegisterType((*CreateScraperRes)(nil), "pb.svc.provision.CreateScraperRes")
 	proto.RegisterType((*CreateAnalyzerReq)(nil), "pb.svc.provision.CreateAnalyzerReq")
 	proto.RegisterType((*CreateAnalyzerRes)(nil), "pb.svc.provision.CreateAnalyzerRes")
+	proto.RegisterType((*GetScraperStatusReq)(nil), "pb.svc.provision.GetScraperStatusReq")
+	proto.RegisterType((*GetScraperStatusRes)(nil), "pb.svc.provision.GetScraperStatusRes")
+	proto.RegisterType((*GetAnalyzerStatusReq)(nil), "pb.svc.provision.GetAnalyzerStatusReq")
+	proto.RegisterType((*GetAnalyzerStatusRes)(nil), "pb.svc.provision.GetAnalyzerStatusRes")
 }
 
 func init() { proto.RegisterFile("pb/svc/provision/provision.proto", fileDescriptor_3a83c3d0d414ae9b) }
 
 var fileDescriptor_3a83c3d0d414ae9b = []byte{
-	// 234 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x52, 0x28, 0x48, 0xd2, 0x2f,
-	0x2e, 0x4b, 0xd6, 0x2f, 0x28, 0xca, 0x2f, 0xcb, 0x2c, 0xce, 0xcc, 0xcf, 0x43, 0xb0, 0xf4, 0x0a,
-	0x8a, 0xf2, 0x4b, 0xf2, 0x85, 0x04, 0x0a, 0x92, 0xf4, 0x8a, 0xcb, 0x92, 0xf5, 0xe0, 0xe2, 0x4a,
-	0x4e, 0x5c, 0x02, 0xce, 0x45, 0xa9, 0x89, 0x25, 0xa9, 0xc1, 0xc9, 0x45, 0x89, 0x05, 0xa9, 0x45,
-	0x41, 0xa9, 0x85, 0x42, 0x12, 0x5c, 0xec, 0xd9, 0xa9, 0x95, 0xe5, 0xf9, 0x45, 0x29, 0x12, 0x8c,
-	0x0a, 0x8c, 0x1a, 0x9c, 0x41, 0x30, 0xae, 0x90, 0x08, 0x17, 0x6b, 0x7e, 0x79, 0x5e, 0x6a, 0x91,
-	0x04, 0x13, 0x58, 0x1c, 0xc2, 0x51, 0x12, 0xc2, 0x30, 0xa3, 0x58, 0x49, 0x99, 0x4b, 0x10, 0x22,
-	0xe6, 0x98, 0x97, 0x98, 0x53, 0x59, 0x05, 0x31, 0x98, 0x8f, 0x8b, 0x29, 0x13, 0x66, 0x26, 0x53,
-	0x66, 0x8a, 0x92, 0x30, 0xa6, 0xa2, 0x62, 0xa3, 0x03, 0x8c, 0x5c, 0x9c, 0x01, 0x30, 0xf7, 0x09,
-	0x85, 0x73, 0xf1, 0xa2, 0x98, 0x2d, 0xa4, 0xa4, 0x87, 0xee, 0x07, 0x3d, 0x74, 0x0f, 0x48, 0x11,
-	0x56, 0x53, 0x2c, 0x14, 0xc5, 0xc5, 0x87, 0x6a, 0xb7, 0x90, 0x32, 0x2e, 0x5d, 0x48, 0x5e, 0x90,
-	0x22, 0x42, 0x51, 0xb1, 0x93, 0x71, 0x94, 0x61, 0x7a, 0x66, 0x49, 0x46, 0x69, 0x92, 0x5e, 0x72,
-	0x7e, 0xae, 0x7e, 0x62, 0x7a, 0x4e, 0x66, 0x4a, 0xaa, 0xa1, 0x81, 0x81, 0x7e, 0x4a, 0x62, 0xb6,
-	0x2e, 0x34, 0x28, 0xf5, 0xd1, 0xe3, 0x2a, 0x89, 0x0d, 0x1c, 0x45, 0xc6, 0x80, 0x00, 0x00, 0x00,
-	0xff, 0xff, 0xe5, 0xb2, 0xe3, 0xb6, 0xc6, 0x01, 0x00, 0x00,
+	// 320 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x93, 0xcf, 0x4e, 0xf2, 0x40,
+	0x14, 0xc5, 0x03, 0x5f, 0xc2, 0x17, 0x6e, 0x22, 0x81, 0x8b, 0x31, 0xa4, 0x71, 0x41, 0xc6, 0x40,
+	0xdc, 0x30, 0x05, 0xd9, 0xba, 0x51, 0x17, 0xc4, 0x9d, 0x81, 0x85, 0x09, 0x2b, 0xa7, 0xed, 0x04,
+	0x27, 0x20, 0x53, 0xe7, 0x0e, 0x18, 0x7c, 0x01, 0x5f, 0xdb, 0x48, 0x5b, 0x90, 0xfe, 0x89, 0xdd,
+	0xf5, 0x9e, 0x9c, 0x73, 0x3a, 0xf9, 0xcd, 0x5c, 0xe8, 0x86, 0x9e, 0x4b, 0x5b, 0xdf, 0x0d, 0x8d,
+	0xde, 0x2a, 0x52, 0x7a, 0x7d, 0xfc, 0xe2, 0xa1, 0xd1, 0x56, 0x63, 0x33, 0xf4, 0x38, 0x6d, 0x7d,
+	0x7e, 0xd0, 0xd9, 0x2d, 0x34, 0x1f, 0x8c, 0x14, 0x56, 0xce, 0x7c, 0x23, 0x42, 0x69, 0xa6, 0xf2,
+	0x1d, 0x3b, 0xf0, 0x7f, 0x29, 0x77, 0x1f, 0xda, 0x04, 0x9d, 0x4a, 0xb7, 0x72, 0x5d, 0x9f, 0x26,
+	0x23, 0x36, 0xa0, 0xaa, 0x82, 0x4e, 0x75, 0x2f, 0x56, 0x55, 0xc0, 0x30, 0x93, 0x26, 0x36, 0x82,
+	0x56, 0xa4, 0xdd, 0xad, 0xc5, 0x6a, 0xf7, 0x19, 0x55, 0x5e, 0x42, 0x9d, 0x22, 0xcb, 0x63, 0x52,
+	0x7a, 0x14, 0x58, 0x3b, 0x1b, 0x21, 0xd6, 0x83, 0xf6, 0x44, 0xda, 0xb8, 0x78, 0x66, 0x85, 0xdd,
+	0xd0, 0x4f, 0x53, 0x74, 0x84, 0xca, 0xe1, 0x08, 0x83, 0x3c, 0x1b, 0xe1, 0x05, 0xd4, 0x68, 0x3f,
+	0xc4, 0xd6, 0x78, 0x62, 0x7d, 0x38, 0x9f, 0x48, 0x9b, 0xfc, 0xa7, 0xb8, 0x96, 0xe7, 0xfa, 0x0a,
+	0x7b, 0x6f, 0xbe, 0xfe, 0x41, 0xfd, 0x29, 0xa1, 0x8a, 0xcf, 0x70, 0x76, 0xc2, 0x05, 0x19, 0x4f,
+	0x93, 0xe7, 0x69, 0xec, 0xce, 0xdf, 0x1e, 0xc2, 0x39, 0x34, 0x4e, 0x49, 0xe1, 0x55, 0x51, 0xea,
+	0x17, 0x7e, 0xa7, 0x84, 0x89, 0xf0, 0x05, 0x9a, 0x69, 0x92, 0xd8, 0xcb, 0x06, 0x73, 0x2e, 0xc5,
+	0x29, 0x65, 0x23, 0xf4, 0xa1, 0x95, 0x81, 0x8a, 0xfd, 0xdc, 0x6c, 0xe6, 0x86, 0x9c, 0x72, 0x3e,
+	0xba, 0x1f, 0xcf, 0x47, 0x0b, 0x65, 0x5f, 0x37, 0x1e, 0xf7, 0xf5, 0x9b, 0x2b, 0x16, 0x2b, 0x15,
+	0xc8, 0xd1, 0x70, 0xe8, 0x06, 0x62, 0x39, 0x88, 0xdf, 0xb1, 0x9b, 0x5e, 0x14, 0xaf, 0xb6, 0xdf,
+	0x8f, 0xf1, 0x77, 0x00, 0x00, 0x00, 0xff, 0xff, 0xab, 0xde, 0x4e, 0x81, 0x43, 0x03, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -214,6 +379,8 @@ const _ = grpc.SupportPackageIsVersion4
 type ProvisionClient interface {
 	CreateScraper(ctx context.Context, in *CreateScraperReq, opts ...grpc.CallOption) (*CreateScraperRes, error)
 	CreateAnalyzer(ctx context.Context, in *CreateAnalyzerReq, opts ...grpc.CallOption) (*CreateAnalyzerRes, error)
+	GetScraperStatus(ctx context.Context, in *GetScraperStatusReq, opts ...grpc.CallOption) (*GetScraperStatusRes, error)
+	GetAnalyzerStatus(ctx context.Context, in *GetAnalyzerStatusReq, opts ...grpc.CallOption) (*GetAnalyzerStatusRes, error)
 }
 
 type provisionClient struct {
@@ -242,10 +409,30 @@ func (c *provisionClient) CreateAnalyzer(ctx context.Context, in *CreateAnalyzer
 	return out, nil
 }
 
+func (c *provisionClient) GetScraperStatus(ctx context.Context, in *GetScraperStatusReq, opts ...grpc.CallOption) (*GetScraperStatusRes, error) {
+	out := new(GetScraperStatusRes)
+	err := c.cc.Invoke(ctx, "/pb.svc.provision.Provision/GetScraperStatus", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *provisionClient) GetAnalyzerStatus(ctx context.Context, in *GetAnalyzerStatusReq, opts ...grpc.CallOption) (*GetAnalyzerStatusRes, error) {
+	out := new(GetAnalyzerStatusRes)
+	err := c.cc.Invoke(ctx, "/pb.svc.provision.Provision/GetAnalyzerStatus", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProvisionServer is the server API for Provision service.
 type ProvisionServer interface {
 	CreateScraper(context.Context, *CreateScraperReq) (*CreateScraperRes, error)
 	CreateAnalyzer(context.Context, *CreateAnalyzerReq) (*CreateAnalyzerRes, error)
+	GetScraperStatus(context.Context, *GetScraperStatusReq) (*GetScraperStatusRes, error)
+	GetAnalyzerStatus(context.Context, *GetAnalyzerStatusReq) (*GetAnalyzerStatusRes, error)
 }
 
 // UnimplementedProvisionServer can be embedded to have forward compatible implementations.
@@ -257,6 +444,12 @@ func (*UnimplementedProvisionServer) CreateScraper(ctx context.Context, req *Cre
 }
 func (*UnimplementedProvisionServer) CreateAnalyzer(ctx context.Context, req *CreateAnalyzerReq) (*CreateAnalyzerRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAnalyzer not implemented")
+}
+func (*UnimplementedProvisionServer) GetScraperStatus(ctx context.Context, req *GetScraperStatusReq) (*GetScraperStatusRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetScraperStatus not implemented")
+}
+func (*UnimplementedProvisionServer) GetAnalyzerStatus(ctx context.Context, req *GetAnalyzerStatusReq) (*GetAnalyzerStatusRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAnalyzerStatus not implemented")
 }
 
 func RegisterProvisionServer(s *grpc.Server, srv ProvisionServer) {
@@ -299,6 +492,42 @@ func _Provision_CreateAnalyzer_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Provision_GetScraperStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetScraperStatusReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProvisionServer).GetScraperStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.svc.provision.Provision/GetScraperStatus",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProvisionServer).GetScraperStatus(ctx, req.(*GetScraperStatusReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Provision_GetAnalyzerStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAnalyzerStatusReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProvisionServer).GetAnalyzerStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.svc.provision.Provision/GetAnalyzerStatus",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProvisionServer).GetAnalyzerStatus(ctx, req.(*GetAnalyzerStatusReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Provision_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "pb.svc.provision.Provision",
 	HandlerType: (*ProvisionServer)(nil),
@@ -310,6 +539,14 @@ var _Provision_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateAnalyzer",
 			Handler:    _Provision_CreateAnalyzer_Handler,
+		},
+		{
+			MethodName: "GetScraperStatus",
+			Handler:    _Provision_GetScraperStatus_Handler,
+		},
+		{
+			MethodName: "GetAnalyzerStatus",
+			Handler:    _Provision_GetAnalyzerStatus_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

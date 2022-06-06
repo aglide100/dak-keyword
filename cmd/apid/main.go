@@ -25,7 +25,6 @@ var (
 	serverKey = flag.String("cert.key", "keys/server.key", "ket file location")
 )
 
-
 func main() {
 	if err := realMain(); err != nil {
 		log.Printf("err: %s", err)
@@ -48,6 +47,7 @@ func realMain() error {
 	
 	wg, ctx := errgroup.WithContext(context.Background())
 	_ = ctx
+	
 	var opts []grpc.ServerOption
 	tls := *usingTls
 	if tls {
@@ -100,6 +100,7 @@ func realMain() error {
 		if err != nil {
 			return nil
 		}
+		
 		return nil
 	})
 

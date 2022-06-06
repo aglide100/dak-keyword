@@ -33,7 +33,7 @@ func main() {
 
 	// }
 	in := &pb_svc_provision.CreateAnalyzerReq{
-		Id: "test",
+		ScraperId: "test",
 	}
 	
 	// in := &pb_svc_provision.GetRunnerReq{

@@ -13,12 +13,14 @@ func GetKeywords(keyword string, topic string) ([]string, error) {
 	naver, err := GetKeyWordSetFromNaver(keyword)
 	if err != nil {
 		log.Printf("Can't get keywordset from naver! %v", err)
+		naver = nil
 	}
-	// // log.Printf("naver %v", naver)
+	// log.Printf("naver %v", naver)
 
 	google, err := GetKeyWordSetFromGoogle(keyword)
 	if err != nil {
 		log.Printf("Can't get keywordset from google! %v", err)
+		google = nil
 	}
 	// log.Printf("google %v", google)
 
@@ -43,7 +45,7 @@ func GetKeywords(keyword string, topic string) ([]string, error) {
 }
 
 func CreateHttpRes(url string) (*http.Response, error) {
-	res, err := http.Get("http://metalsucks.net")
+	res, err := http.Get(url)
   	
 	if err != nil {
   		// log.Fatal(err)
