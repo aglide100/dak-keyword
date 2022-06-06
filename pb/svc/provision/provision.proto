@@ -6,11 +6,13 @@ option go_package = "github.com/aglide100/dak-keyword/pb/svc/provision";
 service Provision {
     rpc CreateScraper (CreateScraperReq) returns (CreateScraperRes);
     rpc CreateAnalyzer (CreateAnalyzerReq) returns (CreateAnalyzerRes);
+    rpc GetScraperStatus (GetScraperStatusReq) returns (GetScraperStatusRes);
+    rpc GetAnalyzerStatus (GetAnalyzerStatusReq) returns (GetAnalyzerStatusRes);
 }
 
 message CreateScraperReq {
     string keyword = 1;
-    string owner = 2;
+    string id = 2;
 }
 
 message CreateScraperRes {
@@ -18,9 +20,25 @@ message CreateScraperRes {
 }
 
 message CreateAnalyzerReq {
-    string id = 1;
+    string scraperId = 1;
 }
 
 message CreateAnalyzerRes {
 
+}
+
+message GetScraperStatusReq {
+    string id = 1;
+}
+
+message GetScraperStatusRes {
+    string status = 1;
+}
+
+message GetAnalyzerStatusReq {
+    string id = 1;
+}
+
+message GetAnalyzerStatusRes {
+    string status = 1;
 }

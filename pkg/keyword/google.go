@@ -3,6 +3,7 @@ package keyword
 import (
 	"context"
 	"log"
+	"net/url"
 	"sort"
 
 	"github.com/groovili/gogtrends"
@@ -17,7 +18,7 @@ func GetKeyWordSetFromGoogle(keyword string) ([]string, error) {
 	    &gogtrends.ExploreRequest{
             ComparisonItems: []*gogtrends.ComparisonItem{
                 {
-                    Keyword: keyword,
+                    Keyword: url.QueryEscape(keyword),
                     Geo:     "KR",
                     Time:    "today 12-m",
                 },

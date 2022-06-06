@@ -9,18 +9,26 @@ import (
 )
 
 type ProvisionSrv struct {
-	pb_svc_provision.UnimplementedProvisionServer
+	pb_svc_provision.ProvisionServer
+	c *container.Controller
 }
 
-func NewProvisionServiceServer() *ProvisionSrv {
-	return &ProvisionSrv {}
+func NewProvisionServiceServer(containerCon *container.Controller) *ProvisionSrv {
+	return &ProvisionSrv {
+		c : containerCon,
+	}
 }
 
-func (s *ProvisionSrv) CreateNewScraper(ctx context.Context, in *pb_svc_provision.CreateScraperReq) (*pb_svc_provision.CreateScraperRes, error) {
+func (s *ProvisionSrv) CreateScraper(ctx context.Context, in *pb_svc_provision.CreateScraperReq) (*pb_svc_provision.CreateScraperRes, error) {
 	if in != nil {
 		log.Printf("Received: %v", in.String())
 	}
 	
+	err := s.c.CreateNewScraper(in.Id, in.Keyword)
+	if err != nil {
+		return nil, err
+	}
+
 	return &pb_svc_provision.CreateScraperRes{}, nil
 }
 
@@ -33,7 +41,7 @@ func (s *ProvisionSrv) CreateAnalyzer(ctx context.Context, in *pb_svc_provision.
 		return nil, err
 	}
 
-	err = c.CreateNewAnalyzer(in.Id)
+	err = c.CreateNewAnalyzer(in.ScraperId)
 	if err != nil {
 		return nil, err
 	}

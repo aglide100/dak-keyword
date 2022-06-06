@@ -15,6 +15,7 @@ import (
 
 	pb_svc_provision "github.com/aglide100/dak-keyword/pb/svc/provision"
 
+	"github.com/aglide100/dak-keyword/pkg/container"
 	"github.com/aglide100/dak-keyword/pkg/servers"
 )
 
@@ -31,11 +32,11 @@ func main() {
 
 func realMain() error {
 	flag.Parse()
-	provisionedAddrL, err := net.Listen("tcp", fmt.Sprintf("%s", *provisionedAddr))
+	provisionedL, err := net.Listen("tcp", fmt.Sprintf("%s", *provisionedAddr))
 	if err != nil {
 		return err
 	}
-	defer provisionedAddrL.Close()
+	defer provisionedL.Close()
 
 	var wait sync.WaitGroup
     wait.Add(1)
@@ -43,17 +44,20 @@ func realMain() error {
 	var opts []grpc.ServerOption
 
 	grpcServer := grpc.NewServer(opts...)
-	provisionSrv := servers.NewProvisionServiceServer()
+	c, err := container.NewController()
+	if err != nil {
+		return err
+	}
+	provisionSrv := servers.NewProvisionServiceServer(c)
 
 	pb_svc_provision.RegisterProvisionServer(grpcServer, provisionSrv)
-
 
 	wg, ctx := errgroup.WithContext(context.Background())
 	_ = ctx
 
 	wg.Go(func() error {
 		log.Printf("Starting normal grpcServer at: %s" ,*provisionedAddr)
-		err := grpcServer.Serve(provisionedAddrL)
+		err := grpcServer.Serve(provisionedL)
 		if err != nil {
 			log.Fatalf("failed to serve: %v", err)
 			return err
