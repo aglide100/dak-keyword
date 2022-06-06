@@ -36,6 +36,8 @@ message StopJobReq {
 
 message StopJobRes {}
 
-message DoneScraperReq {}
+message DoneScraperReq {
+    string id = 1;
+}
 
 message DoneScraperRes {}

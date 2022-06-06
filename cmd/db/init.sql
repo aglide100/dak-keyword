@@ -48,7 +48,8 @@ create table if not exists article
     job_id          varchar
         constraint job_id
             references related_keyword_job (job_id)
-            on update cascade on delete cascade
+            on update cascade on delete cascade,
+    author          varchar
 );
 
 alter table article

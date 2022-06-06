@@ -1,4 +1,4 @@
-package model
+package models
 
 type TweetArticle struct {
 	Id string

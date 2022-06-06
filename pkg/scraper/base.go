@@ -6,12 +6,14 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/aglide100/dak-keyword/pkg/model"
+	"github.com/aglide100/dak-keyword/pkg/db"
+	"github.com/aglide100/dak-keyword/pkg/models"
 )
 
 type Scraper struct {
 	AccessToken
 	Twitter
+	db *db.Database
 }
 
 type AccessToken struct {
@@ -19,13 +21,14 @@ type AccessToken struct {
 }
 
 type Twitter interface {
-	GetRecentSearch(keyword string) ([]model.TweetArticle, error) 
+	GetRecentSearch(keyword string) ([]models.TweetArticle, error) 
 	GetFullArchiveRecentSearch(keyword string) (error)
 }
 
-func NewScraper(token string) *Scraper {
+func NewScraper(token string, db *db.Database) *Scraper {
 	return &Scraper{
 		AccessToken : AccessToken{Token: token},
+		db: db,
 	}
 }
 
@@ -66,9 +69,9 @@ func HandleHttpStatusErr(res *http.Response) (error) {
 	return errors.New("status code error! "+ string(data) )
 }
 
-func (s Scraper) MakeUniqueTweet(list []model.TweetArticle) ([]model.TweetArticle) {
+func (s Scraper) MakeUniqueTweet(list []models.TweetArticle) ([]models.TweetArticle) {
 	keys := make(map[string]bool)
-	ue := []model.TweetArticle{}
+	ue := []models.TweetArticle{}
 
 	for idx, value := range list {
 		log.Printf("idx : %v, text: %v, date : %v", idx, value.Text, value.Created_at)

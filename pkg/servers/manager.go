@@ -61,6 +61,17 @@ func (s *ManagerSrv) CreateNewJob(ctx context.Context, in *pb_svc_manager.Create
 	}, nil
 } 
 
+func (s *ManagerSrv) DoneScraper(ctx context.Context, in *pb_svc_manager.DoneScraperReq) (*pb_svc_manager.DoneScraperRes, error) {
+	if in != nil {
+		log.Printf("Received: %v", in.String())
+	}
+
+	return &pb_svc_manager.DoneScraperRes{
+
+	}, nil
+} 
+
+
 func callMakeAnalaysis(id string) (error) {
 	conn, err := grpc.Dial("0.0.0.0:50012", grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	

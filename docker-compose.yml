@@ -3,24 +3,27 @@ x-services-volume: &services-volume
   type: bind
 
 services:
-  apid:
-    container_name: apid
-    image: ghcr.io/aglide100/dak-keyword-apid:latest
-    ports:
-      - 50011:50011
-      - 50010:50010
+  # apid:
+  #   container_name: apid
+  #   image: ghcr.io/aglide100/dak-keyword-apid:latest
+  #   ports:
+  #     - 50011:50011
+  #     - 50010:50010
       
-  provisioned:
-    container_name: provisioned
-    image: ghcr.io/aglide100/dak-keyword-provisioned:latest
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    ports:
-      - 50012:50012
+  # provisioned:
+  #   container_name: provisioned
+  #   image: ghcr.io/aglide100/dak-keyword-provisioned:latest
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   ports:
+  #     - 50012:50012
 
   db:
     container_name: db
-    image: ghcr.io/aglide100/dak-keyword-db:latest
+    build: 
+      context: ./
+      dockerfile: ./cmd/db/Dockerfile
+    # image: ghcr.io/aglide100/dak-keyword-db:latest
     volumes:
       - <<: *services-volume
         # source: ${HOST}/postgres

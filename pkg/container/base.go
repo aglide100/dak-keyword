@@ -18,13 +18,13 @@ type Container interface {
 	CreateNewScraper(id string, keyword string) error
 	CreateNewAnalyzer(id string) error
 	EnsureImage(image string) error
+	RemoveScraper(id string) error
 }
 
 type Controller struct {
 	cli *client.Client
 	Container
 }
-
 
 func NewController() (C *Controller, err error) {
 	c := new(Controller)

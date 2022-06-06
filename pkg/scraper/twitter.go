@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/aglide100/dak-keyword/pkg/model"
+	"github.com/aglide100/dak-keyword/pkg/models"
 	"github.com/tidwall/gjson"
 )
 
@@ -14,14 +14,13 @@ const maxResult = 100
 const limitResult = 10
 const twitterv2api = `https://api.twitter.com/2/`
 
-func (s Scraper) GetMockTweets() ([]model.TweetArticle) {
-	
-	var articles []model.TweetArticle
+func (s Scraper) GetMockTweets(keyword string) ([]models.TweetArticle) {
+	var articles []models.TweetArticle
 
 	for i:=0; i<5000; i++ { 
-		articles = append(articles, model.TweetArticle{
+		articles = append(articles, models.TweetArticle{
 			Id: strconv.Itoa(i),
-			Text: "안녕하세요!!!!",
+			Text: "안녕하세요!!!!"+keyword,
 			Created_at: time.Now().String(),
 		})
 	}
@@ -29,7 +28,7 @@ func (s Scraper) GetMockTweets() ([]model.TweetArticle) {
 	return articles
 }
 
-func (s Scraper) GetRecentSearch(keyword string, nextToken string, nums ...int) ([]model.TweetArticle, error) {
+func (s Scraper) GetRecentSearch(keyword string, nextToken string, nums ...int) ([]models.TweetArticle, error) {
 	var num int
 	if len(nums) == 0 {
 		num = 0
@@ -66,10 +65,10 @@ func (s Scraper) GetRecentSearch(keyword string, nextToken string, nums ...int) 
 
 	// log.Printf("------------------------------------------------")
 	// log.Printf("data: %v", data.String())
-	var articles []model.TweetArticle
-	// var prev model.TweetArticle
+	var articles []models.TweetArticle
+	// var prev models.TweetArticle
 	data.ForEach(func(key, value gjson.Result) bool {
-		newArticle := model.TweetArticle{
+		newArticle := models.TweetArticle{
 			Id: gjson.Get(value.String(), "id").String(),
 			Text: gjson.Get(value.String(), "text").String(),
 			Created_at: gjson.Get(value.String(), "created_at").String(),
