@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+
+	_ "github.com/lib/pq"
 )
 
 
@@ -26,7 +28,6 @@ type DBConfig struct {
 	Sslkey string 
 	Sslsert string
 }
-
 
 func ConnectDB(config *DBConfig) (*Database, error) {
 	psqInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=%s",

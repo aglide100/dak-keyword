@@ -12,10 +12,10 @@ import (
 )
 
 var (
-	addr = flag.String("addr", "0.0.0.0:50011", "the address to connect to")
+	addr = flag.String("addr", "keyword_apid:50010", "the address to connect to")
 )
 
-func CallGrpcCallDone() error {
+func CallGrpcCallDone(id string) error {
 	log.Printf("call apid at %s", *addr)
 
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
@@ -28,7 +28,7 @@ func CallGrpcCallDone() error {
 	client := pb_svc_manager.NewManagerClient(conn)
 
 	in := &pb_svc_manager.DoneScraperReq{
-		
+		Id: id,
 	}
 	
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)

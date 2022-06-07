@@ -1,0 +1,8 @@
+#!/bin/bash
+docker stack rm keyword
+
+docker build -t apid -f ./cmd/apid/Dockerfile .
+docker build -t provisioned -f ./cmd/provisioned/Dockerfile .
+docker build -t scraped -f ./cmd/scraped/Dockerfile .
+
+docker stack deploy --compose-file docker-compose.yml keyword

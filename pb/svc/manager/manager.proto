@@ -40,4 +40,6 @@ message DoneScraperReq {
     string id = 1;
 }
 
-message DoneScraperRes {}
+message DoneScraperRes {
+    string status = 1;
+}
