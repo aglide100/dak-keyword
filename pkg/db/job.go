@@ -28,10 +28,10 @@ func (db *Database) UpdateJob(id string, status string) error {
 	const q =`
 	UPDATE job 
 	SET 
-		status = $1,
+		status = $1
 	WHERE id = $2
 	`
-
+	
 	_, err := db.Conn.Exec(q,
 		status,
 		id,

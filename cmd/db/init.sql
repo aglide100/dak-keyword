@@ -14,7 +14,6 @@ create unique index if not exists job_id_uindex
 
 create table if not exists article
 (
-    keyword         varchar,
     content         varchar,
     platform        varchar,
     score_pos       integer,
@@ -27,7 +26,9 @@ create table if not exists article
     job_id          varchar
         constraint job_id
             references job
-            on update cascade on delete cascade
+            on update cascade on delete cascade,
+    author          varchar,
+    keyword         varchar
 );
 
 alter table article
