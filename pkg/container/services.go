@@ -13,7 +13,7 @@ import (
 
 func (c *Controller) CreateNewScraper(id string, keyword string, dbConfig *db.DBConfig) (err error) {
 	ctx := context.Background()
-	// c.cli.ImagePull(ctx, "ghcr.io/aglide100/dak-keyword-scraped:latest", types.ImagePullOptions{})
+	c.cli.ImagePull(ctx, "ghcr.io/aglide100/dak-keyword-scraped:latest", types.ImagePullOptions{})
 
 	log.Printf("%v", dbConfig)
 	reader, err := c.cli.ServiceCreate(ctx, swarm.ServiceSpec{
@@ -22,7 +22,7 @@ func (c *Controller) CreateNewScraper(id string, keyword string, dbConfig *db.DB
 		},
 		TaskTemplate: swarm.TaskSpec{
 			ContainerSpec: &swarm.ContainerSpec{
-				Image: "scraped",
+				Image: "ghcr.io/aglide100/dak-keyword-scraped:latest",
 				// Command: '',
 				Env: []string{"Keyword=" + keyword, 
 				"DB_ADDR=" + dbConfig.Host,
@@ -38,6 +38,9 @@ func (c *Controller) CreateNewScraper(id string, keyword string, dbConfig *db.DB
 				swarm.NetworkAttachmentConfig{
 					Target: "keyword_keyword_net",
 				},
+			},
+				Placement: &swarm.Placement{
+				Constraints: []string{"node.role == worker"},
 			},
 		},
 		// EndpointSpec: &swarm.EndpointSpec{
