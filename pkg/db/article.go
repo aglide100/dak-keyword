@@ -2,7 +2,6 @@ package db
 
 import (
 	"fmt"
-	"log"
 	"os"
 
 	"github.com/aglide100/dak-keyword/pkg/models"
@@ -18,15 +17,15 @@ func (db *Database) WriteTweetToArticle(tweet models.TweetArticle) error {
 		author
 	) VALUES ($1, $2, $3, $4, $5)`
 
-	res, err := db.Conn.Exec(q,
+	_, err := db.Conn.Exec(q,
 		os.Getenv("Keyword"),
 		tweet.Text,
 		"tweet",
-		os.Getenv("Id"),
+		os.Getenv("ID"),
 		tweet.Id,
 	)
 
-	log.Printf("res : %v", res)
+	// log.Printf("res : %v", res)
 	if err != nil {
 		return fmt.Errorf("inserting: %v", err)
 	}

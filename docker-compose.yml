@@ -29,7 +29,8 @@ services:
       - 50012:50012
 
   db:
-    image: ghcr.io/aglide100/dak-keyword-db:latest
+    # image: ghcr.io/aglide100/dak-keyword-db:latest
+    image: db
     volumes:
       - <<: *services-volume
         # source: ${HOST}/postgres
@@ -45,3 +46,4 @@ services:
 networks:
   keyword_net:
     driver: overlay
+    

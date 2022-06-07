@@ -33,7 +33,7 @@ var (
 
 func (s *ManagerSrv) CreateNewJob(ctx context.Context, in *pb_svc_manager.CreateNewJobReq) (*pb_svc_manager.CreateNewJobRes, error) {
 	if in != nil {
-		log.Printf("Received: %v", in.String())
+		log.Printf("Received CreateNewJob call: %v", in.String())
 	}
 
 	result, err := keyword.GetKeywords(in.Keyword, "")
@@ -72,7 +72,7 @@ func (s *ManagerSrv) CreateNewJob(ctx context.Context, in *pb_svc_manager.Create
 
 func (s *ManagerSrv) DoneScraper(ctx context.Context, in *pb_svc_manager.DoneScraperReq) (*pb_svc_manager.DoneScraperRes, error) {
 	if in != nil {
-		log.Printf("Received: %v", in.String())
+		log.Printf("Received DoneScraper call: %v", in.String())
 	}
 
 	err := s.db.UpdateJob(in.Id, "Done")

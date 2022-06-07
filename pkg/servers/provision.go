@@ -24,7 +24,7 @@ func NewProvisionServiceServer(containerCon *container.Controller, dbConfig db.D
 
 func (s *ProvisionSrv) CreateScraper(ctx context.Context, in *pb_svc_provision.CreateScraperReq) (*pb_svc_provision.CreateScraperRes, error) {
 	if in != nil {
-		log.Printf("Received: %v", in.String())
+		log.Printf("Received CreateScraper call: %v", in.String())
 	}
 	
 	err := s.c.CreateNewScraper(in.Id, in.Keyword, &s.dbConfig)
@@ -39,7 +39,7 @@ func (s *ProvisionSrv) CreateScraper(ctx context.Context, in *pb_svc_provision.C
 
 func (s *ProvisionSrv) CreateAnalyzer(ctx context.Context, in *pb_svc_provision.CreateAnalyzerReq) (*pb_svc_provision.CreateAnalyzerRes, error) {
 	if in != nil {
-		log.Printf("Received: %v", in.String())
+		log.Printf("Received CreateAnalyzer call: %v", in.String())
 	}
 
 	err := s.c.CreateNewAnalyzer(in.ScraperId)
@@ -54,7 +54,7 @@ func (s *ProvisionSrv) CreateAnalyzer(ctx context.Context, in *pb_svc_provision.
 
 func (s *ProvisionSrv) RemoveScraper(ctx context.Context, in *pb_svc_provision.RemoveScraperReq) (*pb_svc_provision.RemoveScraperRes, error) {
 	if in != nil {
-		log.Printf("Received: %v", in.String())
+		log.Printf("Received RemoveScraper call: %v", in.String())
 	}
 
 	err := s.c.RemoveScraper(in.Id)
