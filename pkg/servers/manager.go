@@ -9,6 +9,7 @@ import (
 	pb_svc_manager "github.com/aglide100/dak-keyword/pb/svc/manager"
 	pb_svc_provision "github.com/aglide100/dak-keyword/pb/svc/provision"
 
+	"github.com/aglide100/dak-keyword/pkg/db"
 	"github.com/aglide100/dak-keyword/pkg/keyword"
 	"github.com/google/uuid"
 	"google.golang.org/grpc"
@@ -17,14 +18,17 @@ import (
 
 type ManagerSrv struct {
 	pb_svc_manager.ManagerServer
+	db *db.Database
 }
 
-func NewManagerServiceServer() *ManagerSrv {
-	return &ManagerSrv{}
+func NewManagerServiceServer(db *db.Database) *ManagerSrv {
+	return &ManagerSrv{
+		db: db,
+	}
 }
 
 var (
-	addr = flag.String("provision addr", "0.0.0.0:50012", "the address to connect to")
+	addr = flag.String("provision addr", "keyword_provisioned:50012", "the address to connect to")
 )
 
 func (s *ManagerSrv) CreateNewJob(ctx context.Context, in *pb_svc_manager.CreateNewJobReq) (*pb_svc_manager.CreateNewJobRes, error) {
@@ -45,14 +49,19 @@ func (s *ManagerSrv) CreateNewJob(ctx context.Context, in *pb_svc_manager.Create
 	for _, value := range result {
 		id := uuid.New().String()
 		idList = append(idList, id)
-		err := callMakeScraper(id, value)
+		
+		err := s.db.AddNewJob(id)
+		if err != nil {
+			log.Printf("err: %v", err)
+		}
+
+		err = callMakeScraper(id, value)
 		if err != nil {
 			log.Printf("err: %v", err)
 		}
 		log.Printf("%v %v",id ,value)
 	}
 
-	
 	// callMakeScraper("test", "keas")
 	return &pb_svc_manager.CreateNewJobRes{
 		Keyword: result,
@@ -66,14 +75,24 @@ func (s *ManagerSrv) DoneScraper(ctx context.Context, in *pb_svc_manager.DoneScr
 		log.Printf("Received: %v", in.String())
 	}
 
-	return &pb_svc_manager.DoneScraperRes{
+	err := s.db.UpdateJob(in.Id, "Done")
+	if err != nil {
+		return nil, err
+	}
 
+	err = callRemoveScraper(in.Id)
+	if err != nil {
+		return nil, err
+	}
+
+	return &pb_svc_manager.DoneScraperRes{
+		Status: "Done!",
 	}, nil
 } 
 
 
 func callMakeAnalaysis(id string) (error) {
-	conn, err := grpc.Dial("0.0.0.0:50012", grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
+	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	
 	if err != nil {
 		log.Fatalf("can't connect grpc server : %v", err)
@@ -101,7 +120,7 @@ func callMakeAnalaysis(id string) (error) {
 }
 
 func callMakeScraper(id string, keyword string) (error) {
-	conn, err := grpc.Dial("0.0.0.0:50012", grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
+	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	
 	if err != nil {
 		log.Fatalf("can't connect grpc server : %v", err)
@@ -119,6 +138,34 @@ func callMakeScraper(id string, keyword string) (error) {
 	defer cancel()
 	
 	res, err := client.CreateScraper(ctx, in)
+
+	if err != nil {
+		log.Fatalf("Can't receive anything! %v", err)
+		return err
+	}
+	log.Printf("res %v", res)
+
+	return nil
+}
+
+func callRemoveScraper(id string) (error) {
+	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
+	
+	if err != nil {
+		log.Fatalf("can't connect grpc server : %v", err)
+	}
+	defer conn.Close()
+	
+	client := pb_svc_provision.NewProvisionClient(conn)
+
+	in := &pb_svc_provision.RemoveScraperReq{
+		Id: id,
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
+	defer cancel()
+	
+	res, err := client.RemoveScraper(ctx, in)
 
 	if err != nil {
 		log.Fatalf("Can't receive anything! %v", err)

@@ -8,8 +8,10 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"strconv"
 
 	pb_svc_manager "github.com/aglide100/dak-keyword/pb/svc/manager"
+	"github.com/aglide100/dak-keyword/pkg/db"
 	"github.com/aglide100/dak-keyword/pkg/servers"
 	"github.com/improbable-eng/grpc-web/go/grpcweb"
 	"golang.org/x/sync/errgroup"
@@ -49,6 +51,36 @@ func realMain() error {
 	_ = ctx
 	
 	var opts []grpc.ServerOption
+
+	dbAddr := os.Getenv("DB_ADDR")
+	dbPort := os.Getenv("DB_PORT")
+	dbUser := os.Getenv("DB_USER")
+	dbPasswd := os.Getenv("DB_PASSWORD")
+	dbName := os.Getenv("DB_NAME")
+	
+	dbport, err := strconv.Atoi(dbPort)
+	if err != nil {
+		return fmt.Errorf("Can't read dbPort!: %v %v", dbPort, err)
+	}
+	
+	config := &db.DBConfig{
+		Host : dbAddr, 
+		Port : dbport, 
+		User : dbUser, 
+		Password : dbPasswd, 
+		Dbname : dbName, 
+		Sslmode : "disable", 
+		// Sslmode : "verify-full", 
+		// Sslrootcert : "keys/ca.crt", 
+		// Sslkey : "keys/client.key", 
+		// Sslsert : "keys/client.crt", 
+	}
+
+	myDB, err := db.ConnectDB(config)
+	if err != nil {
+		return fmt.Errorf("Can't connect DB: %v", err)
+	}
+
 	tls := *usingTls
 	if tls {
 		fmt.Println("Using tls keys")
@@ -60,7 +92,7 @@ func realMain() error {
 		opts = append(opts, grpc.Creds(creds))
 	}
 
-	managerSrv := servers.NewManagerServiceServer()
+	managerSrv := servers.NewManagerServiceServer(myDB)
 	grpcServer := grpc.NewServer(opts...)
 
 	pb_svc_manager.RegisterManagerServer(grpcServer, managerSrv)

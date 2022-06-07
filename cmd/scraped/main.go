@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"time"
 
 	"github.com/aglide100/dak-keyword/pkg/db"
 	"github.com/aglide100/dak-keyword/pkg/scraper"
@@ -25,17 +26,18 @@ func realMain() error {
 		// }
 	// config.SaveTwitterSecret()
 
-	log.Printf(os.Getenv("Keyword"))
-
 	dbAddr := os.Getenv("DB_ADDR")
 	dbPort := os.Getenv("DB_PORT")
 	dbUser := os.Getenv("DB_USER")
 	dbPasswd := os.Getenv("DB_PASSWORD")
 	dbName := os.Getenv("DB_NAME")
 	
+	id := os.Getenv("ID")
+	
 	dbport, err := strconv.Atoi(dbPort)
 	if err != nil {
-		return fmt.Errorf("Can't read dbPort!: %v %v", dbPort, err)
+		fmt.Errorf("Can't read dbPort!: %v %v", dbPort, err)
+		dbport = 8432
 	}
 	// log.Printf("%v", dbName)
 	
@@ -64,19 +66,23 @@ func realMain() error {
 		// return err
 	// }
 
+
+
 	// result := myScraper.GetMockTweets()
 
 
 	// log.Printf("result : %v", result)
 
-	// for idx, value := range result {
-	// 	log.Printf("--------------------   %d", idx)
-	// 	log.Printf("id : %v", value.Id)
-	// 	log.Printf("date : %v", value.Created_at)
-	// 	log.Printf("text : %v", value.Text)
-	// }
+	for _, value := range result {
+		// log.Printf("--------------------   %d", idx)
+		// log.Printf("id : %v", value.Id)
+		// log.Printf("date : %v", value.Created_at)
+		// log.Printf("text : %v", value.Text)
+		myScraper.WriteTweetOnDB(value)
+	}
 
-	err = scraper.CallGrpcCallDone()
+	time.Sleep(20 * time.Second)   
+	err = scraper.CallGrpcCallDone(id)
 	if err != nil {
 		return err
 	}

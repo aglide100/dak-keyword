@@ -6,6 +6,7 @@ import (
 	"log"
 	"net"
 	"os"
+	"strconv"
 	"sync"
 
 	"context"
@@ -16,6 +17,7 @@ import (
 	pb_svc_provision "github.com/aglide100/dak-keyword/pb/svc/provision"
 
 	"github.com/aglide100/dak-keyword/pkg/container"
+	"github.com/aglide100/dak-keyword/pkg/db"
 	"github.com/aglide100/dak-keyword/pkg/servers"
 )
 
@@ -42,13 +44,40 @@ func realMain() error {
     wait.Add(1)
  
 	var opts []grpc.ServerOption
+	
+	dbAddr := os.Getenv("DB_ADDR")
+	dbPort := os.Getenv("DB_PORT")
+	dbUser := os.Getenv("DB_USER")
+	dbPasswd := os.Getenv("DB_PASSWORD")
+	dbName := os.Getenv("DB_NAME")
+	
+	dbport, err := strconv.Atoi(dbPort)
+	if err != nil {
+		return fmt.Errorf("Can't read dbPort!: %v %v", dbPort, err)
+	}
 
 	grpcServer := grpc.NewServer(opts...)
 	c, err := container.NewController()
 	if err != nil {
 		return err
 	}
-	provisionSrv := servers.NewProvisionServiceServer(c)
+
+	config := &db.DBConfig{
+		Host : dbAddr, 
+		Port : dbport, 
+		User : dbUser, 
+		Password : dbPasswd, 
+		Dbname : dbName, 
+		Sslmode : "disable", 
+		// Sslmode : "verify-full", 
+		// Sslrootcert : "keys/ca.crt", 
+		// Sslkey : "keys/client.key", 
+		// Sslsert : "keys/client.crt", 
+	}
+
+	log.Printf("%v", config)
+
+	provisionSrv := servers.NewProvisionServiceServer(c, *config)
 
 	pb_svc_provision.RegisterProvisionServer(grpcServer, provisionSrv)
 

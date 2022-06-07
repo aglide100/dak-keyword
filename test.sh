@@ -1,1 +1,0 @@
-docker run -v /var/run/docker.sock:/var/run/docker.sock go_test /opt/bin/app/runnerd  

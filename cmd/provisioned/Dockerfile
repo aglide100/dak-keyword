@@ -1,6 +1,6 @@
 FROM golang:1.18 AS builder
 
-COPY ../../ "/go/src/github.com/aglide100/dak-keyword/"
+COPY . "/go/src/github.com/aglide100/dak-keyword/"
 WORKDIR "/go/src/github.com/aglide100/dak-keyword/"
 
 RUN mkdir -p /opt/bin/app/

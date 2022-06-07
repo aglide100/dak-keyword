@@ -17,7 +17,7 @@ message CreateScraperReq {
 }
 
 message CreateScraperRes {
-
+    string status = 1;
 }
 
 message CreateAnalyzerReq {
@@ -25,7 +25,7 @@ message CreateAnalyzerReq {
 }
 
 message CreateAnalyzerRes {
-
+    string status = 1;
 }
 
 message GetScraperStatusReq {
@@ -49,5 +49,5 @@ message RemoveScraperReq {
 }
 
 message RemoveScraperRes {
-    
+    string status = 1;
 }
