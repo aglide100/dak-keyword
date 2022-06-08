@@ -11,6 +11,8 @@ import (
 	"github.com/docker/docker/api/types/swarm"
 )
 
+const nodeRole = "node.role == worker"
+
 func (c *Controller) CreateNewScraper(id string, keyword string, dbConfig *db.DBConfig) (err error) {
 	ctx := context.Background()
 	c.cli.ImagePull(ctx, "ghcr.io/aglide100/dak-keyword-scraped:latest", types.ImagePullOptions{})
@@ -32,6 +34,7 @@ func (c *Controller) CreateNewScraper(id string, keyword string, dbConfig *db.DB
 				"DB_NAME=" + dbConfig.Dbname,
 				"ID=" + id,
 			},
+			
 
 			},
 			Networks: []swarm.NetworkAttachmentConfig{
@@ -40,7 +43,7 @@ func (c *Controller) CreateNewScraper(id string, keyword string, dbConfig *db.DB
 				},
 			},
 				Placement: &swarm.Placement{
-				Constraints: []string{"node.role == worker"},
+				Constraints: []string{nodeRole},
 			},
 		},
 		// EndpointSpec: &swarm.EndpointSpec{
@@ -63,10 +66,10 @@ func (c *Controller) CreateNewScraper(id string, keyword string, dbConfig *db.DB
 	return nil
 }
 
-func (c *Controller) RemoveScraper(id string) (err error) {
+func (c *Controller) RemoveScraper(id string) (error) {
 	ctx := context.Background()
 
-	err = c.cli.ServiceRemove(ctx, id)
+	err := c.cli.ServiceRemove(ctx, id)
 	if err != nil {
 		return err
 	}
@@ -91,10 +94,7 @@ func (c *Controller) CreateNewAnalyzer(id string) (err error) {
 				Condition: swarm.RestartPolicyConditionOnFailure,
 			},
 			
-			Placement: &swarm.Placement{
-				// Constraints: []string{""},
-				MaxReplicas: 1,
-			},		
+				
 			ContainerSpec: &swarm.ContainerSpec{
 				Image: "ghcr.io/aglide100/lexicon-based-simple-korean-semantic-analyzer:latest",
 				Command: []string{"Main.py"},
@@ -104,6 +104,11 @@ func (c *Controller) CreateNewAnalyzer(id string) (err error) {
 					Target: "keyword_keyword_net",
 				},
 			},
+			Placement: &swarm.Placement{
+				// Constraints: []string{""},
+				MaxReplicas: 1,
+				Constraints: []string{nodeRole},
+			},	
 		},
 	}, types.ServiceCreateOptions{})
 	
@@ -113,4 +118,16 @@ func (c *Controller) CreateNewAnalyzer(id string) (err error) {
 
 	fmt.Println(reader.ID)
 	return nil
+}
+
+func (c *Controller) RemoveAnalyzer(id string) (error) {
+	ctx := context.Background()
+
+	err := c.cli.ServiceRemove(ctx, id)
+	if err != nil {
+		return err
+	}
+
+	return nil
+
 }
