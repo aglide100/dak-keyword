@@ -1,5 +1,6 @@
 #!/bin/bash
-docker stack rm keyword
+# docker stack rm keyword
+docker service rm $(docker service ls -q)
 
 docker build -t apid -f ./cmd/apid/Dockerfile .
 docker build -t provisioned -f ./cmd/provisioned/Dockerfile .

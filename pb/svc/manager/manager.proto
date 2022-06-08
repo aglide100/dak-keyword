@@ -7,6 +7,7 @@ service Manager {
     rpc CreateNewJob(CreateNewJobReq) returns (CreateNewJobRes);
     rpc GetJobStatus(GetJobStatusReq) returns (GetJobStatusRes);
     rpc DoneScraper(DoneScraperReq) returns (DoneScraperRes);
+    rpc DoneAnalyzer(DoneAnalyzerReq) returns (DoneAnalyzerRes);
     rpc StopJob(StopJobReq) returns (StopJobRes);
 }
 
@@ -17,7 +18,7 @@ message CreateNewJobReq {
 
 message CreateNewJobRes {
     repeated string keyword = 1;
-    repeated string scraperId = 2;
+    repeated string workerId = 2;
     string jobId = 3;
 }
 
@@ -34,12 +35,22 @@ message StopJobReq {
     string id = 1;
 }
 
-message StopJobRes {}
+message StopJobRes {
+    string status = 1;
+}
 
 message DoneScraperReq {
     string id = 1;
 }
 
 message DoneScraperRes {
+    string status = 1;
+}
+
+message DoneAnalyzerReq {
+    string id = 1;
+}
+
+message DoneAnalyzerRes {
     string status = 1;
 }

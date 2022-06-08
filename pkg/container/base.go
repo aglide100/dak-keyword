@@ -1,6 +1,7 @@
 package container
 
 import (
+	"github.com/aglide100/dak-keyword/pkg/db"
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/client"
 )
@@ -15,10 +16,11 @@ type Container interface {
 	BuildImage() error
 	RunImage(respID string) error
 	StopImage(respID string) error
-	CreateNewScraper(id string, keyword string) error
-	CreateNewAnalyzer(id string) error
+	CreateNewScraper(workerId string, jobId string, keyword string, dbConfig *db.DBConfig) error
+	CreateNewAnalyzer(workerId string, keyword string, dbConfig *db.DBConfig) error
 	EnsureImage(image string) error
 	RemoveScraper(id string) error
+	RemoveAnalyzer(id string) (error)
 }
 
 type Controller struct {
