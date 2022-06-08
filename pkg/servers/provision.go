@@ -27,7 +27,7 @@ func (s *ProvisionSrv) CreateScraper(ctx context.Context, in *pb_svc_provision.C
 		log.Printf("Received CreateScraper call: %v", in.String())
 	}
 	
-	err := s.c.CreateNewScraper(in.Id, in.Keyword, &s.dbConfig)
+	err := s.c.CreateNewScraper(in.WorkerId, in.JobId, in.Keyword, &s.dbConfig)
 	if err != nil {
 		return nil, err
 	}
@@ -42,7 +42,7 @@ func (s *ProvisionSrv) CreateAnalyzer(ctx context.Context, in *pb_svc_provision.
 		log.Printf("Received CreateAnalyzer call: %v", in.String())
 	}
 
-	err := s.c.CreateNewAnalyzer(in.ScraperId)
+	err := s.c.CreateNewAnalyzer(in.ScraperId, in.Keyword, &s.dbConfig)
 	if err != nil {
 		return nil, err
 	}

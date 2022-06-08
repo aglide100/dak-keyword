@@ -18,7 +18,7 @@ message CreateNewJobReq {
 
 message CreateNewJobRes {
     repeated string keyword = 1;
-    repeated string scraperId = 2;
+    repeated string workerId = 2;
     string jobId = 3;
 }
 
