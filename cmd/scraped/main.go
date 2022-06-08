@@ -32,8 +32,10 @@ func realMain() error {
 	dbPasswd := os.Getenv("DB_PASSWORD")
 	dbName := os.Getenv("DB_NAME")
 	
-	id := os.Getenv("ID")
+	workerId := os.Getenv("WORKER_ID")
+	// jobId := os.Getenv("JOB_ID")
 	
+
 	dbport, err := strconv.Atoi(dbPort)
 	if err != nil {
 		fmt.Errorf("Can't read dbPort!: %v %v", dbPort, err)
@@ -82,7 +84,7 @@ func realMain() error {
 	}
 
 	time.Sleep(20 * time.Second)   
-	err = scraper.CallGrpcCallDone(id)
+	err = scraper.CallGrpcCallDone(workerId)
 	if err != nil {
 		return err
 	}

@@ -10,18 +10,20 @@ import (
 func (db *Database) WriteTweetToArticle(tweet models.TweetArticle) error {
 	const q =`
 	INSERT INTO article (
-		keyword,
-		content,
-		platform,
-		job_id,
-		author
-	) VALUES ($1, $2, $3, $4, $5)`
+		"Keyword",
+		"Content",
+		"Platform",
+		"Job_id",
+		"Worker_id",
+		"Author"
+	) VALUES ($1, $2, $3, $4, $5, $6)`
 
 	_, err := db.Conn.Exec(q,
 		os.Getenv("Keyword"),
 		tweet.Text,
 		"tweet",
-		os.Getenv("ID"),
+		os.Getenv("JOB_ID"),
+		os.Getenv("WORKER_ID"),
 		tweet.Id,
 	)
 

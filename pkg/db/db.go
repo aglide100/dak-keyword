@@ -3,7 +3,6 @@ package db
 import (
 	"database/sql"
 	"fmt"
-	"log"
 
 	_ "github.com/lib/pq"
 )
@@ -32,8 +31,7 @@ type DBConfig struct {
 func ConnectDB(config *DBConfig) (*Database, error) {
 	psqInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=%s",
 	config.Host, config.Port, config.User, config.Password, config.Dbname, config.Sslmode)
-	log.Printf("Db config :%v", psqInfo)
-
+	
 	db, err := sql.Open("postgres", psqInfo)
 	if err != nil {
 		return nil, err

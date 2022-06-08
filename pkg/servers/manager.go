@@ -13,7 +13,9 @@ import (
 	"github.com/aglide100/dak-keyword/pkg/keyword"
 	"github.com/google/uuid"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials/insecure"
+	"google.golang.org/grpc/status"
 )
 
 type ManagerSrv struct {
@@ -39,33 +41,38 @@ func (s *ManagerSrv) CreateNewJob(ctx context.Context, in *pb_svc_manager.Create
 	result, err := keyword.GetKeywords(in.Keyword, "")
 	if err != nil {
 		log.Printf("Can't get keywordset! %v", err)
+		return nil, status.Error(codes.Canceled, "Can't get Keyword")
 	}
 
 	log.Printf("%v",result)
 
-	idList := []string{}
+	workerIdList := []string{}
 	jobId := uuid.New().String()
 
-	for _, value := range result {
-		id := uuid.New().String()
-		idList = append(idList, id)
-		
-		err := s.db.AddNewJob(id)
-		if err != nil {
-			log.Printf("err: %v", err)
-		}
-
-		err = callMakeScraper(id, value)
-		if err != nil {
-			log.Printf("err: %v", err)
-		}
-		log.Printf("%v %v",id ,value)
+	err = s.db.AddNewJob(jobId, in.Keyword, in.Owner)
+	if err != nil {
+		return nil, status.Error(codes.Canceled, "Can't create New job at dbms")
 	}
 
-	// callMakeScraper("test", "keas")
+	for _, value := range result {
+		workerId := uuid.New().String()
+		workerIdList = append(workerIdList, workerId)
+		
+		err := s.db.AddNewWorker(workerId, jobId, value, in.Keyword)
+		if err != nil {
+			log.Printf("err: %v", err)
+		}
+
+		err = callMakeScraper(workerId, jobId, value)
+		if err != nil {
+			log.Printf("err: %v", err)
+		}
+		log.Printf("%v %v",workerId ,value)
+	}
+
 	return &pb_svc_manager.CreateNewJobRes{
 		Keyword: result,
-		ScraperId : idList,
+		WorkerId: workerIdList,
 		JobId : jobId,
 	}, nil
 } 
@@ -75,12 +82,17 @@ func (s *ManagerSrv) DoneScraper(ctx context.Context, in *pb_svc_manager.DoneScr
 		log.Printf("Received DoneScraper call: %v", in.String())
 	}
 
-	err := s.db.UpdateJob(in.Id, "Done")
+	err := s.db.UpdateWorker(in.Id, "Scraper Done. Creating Analayzer")
 	if err != nil {
-		return nil, err
+		return nil, status.Error(codes.Canceled, "Can't update worker status at dbms")
 	}
 
 	err = callRemoveScraper(in.Id)
+	if err != nil {
+		return nil, status.Error(codes.Canceled, "Can't update remove scraper")
+	}
+
+	err = callMakeAnalaysis(in.Id)
 	if err != nil {
 		return nil, err
 	}
@@ -89,6 +101,21 @@ func (s *ManagerSrv) DoneScraper(ctx context.Context, in *pb_svc_manager.DoneScr
 		Status: "Done!",
 	}, nil
 } 
+
+func (s *ManagerSrv) GetJobStatus(ctx context.Context, in *pb_svc_manager.GetJobStatusReq) (*pb_svc_manager.GetJobStatusRes, error) {
+	if in != nil {
+		log.Printf("Received GetJobStatus call: %v", in.String())
+	}
+
+	res, err := s.db.GetJob(in.Id)
+	if err != nil {
+		return nil,  status.Error(codes.NotFound, "Can't find job in dbms")
+	}
+
+	return &pb_svc_manager.GetJobStatusRes{
+		Status: res.Status,
+	}, nil
+}
 
 
 func callMakeAnalaysis(id string) (error) {
@@ -119,7 +146,7 @@ func callMakeAnalaysis(id string) (error) {
 	return nil
 }
 
-func callMakeScraper(id string, keyword string) (error) {
+func callMakeScraper(workerId string, jobId string, keyword string) (error) {
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	
 	if err != nil {
@@ -131,7 +158,8 @@ func callMakeScraper(id string, keyword string) (error) {
 
 	in := &pb_svc_provision.CreateScraperReq{
 		Keyword: keyword,
-		Id: id,
+		WorkerId: workerId,
+		JobId: jobId,
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
