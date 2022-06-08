@@ -13,7 +13,8 @@ service Provision {
 
 message CreateScraperReq {
     string keyword = 1;
-    string id = 2;
+    string worker_id = 2;
+    string job_id = 3;
 }
 
 message CreateScraperRes {
@@ -22,6 +23,7 @@ message CreateScraperRes {
 
 message CreateAnalyzerReq {
     string scraperId = 1;
+    string keyword = 2;
 }
 
 message CreateAnalyzerRes {

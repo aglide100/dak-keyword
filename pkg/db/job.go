@@ -1,20 +1,24 @@
 package db
 
 import (
+	"database/sql"
 	"fmt"
+
+	"github.com/aglide100/dak-keyword/pkg/models"
 )
 
 
-func (db *Database) AddNewJob(id string) error {
+func (db *Database) AddNewJob(jobId string, keyword string, owner string) error {
 	const q =`
 	INSERT INTO job (
-		id,
-		status
-	) VALUES ($1, $2)`
+		"Id", "Status", "Keyword", "Owner", "Date"
+	) VALUES ($1, $2, $3, $4, now())`
 
 	_, err := db.Conn.Exec(q,
-		id,
-		"pending",
+		jobId,
+		"add scraper",
+		keyword,
+		owner,
 	)
 
 	if err != nil {
@@ -24,12 +28,37 @@ func (db *Database) AddNewJob(id string) error {
 	return nil
 }
 
+func (db *Database) GetJob(jobId string) (*models.Job, error) {
+	const q =`
+	SELECT * FROM job 
+	WHERE "Id" = $1`
+
+	job := new(models.Job)
+
+	err := db.Conn.QueryRow(q, jobId).Scan(
+		&job.Id,
+		&job.Status,
+		&job.Keyword,
+		&job.Owner,
+		&job.Date,
+	)
+	if err == sql.ErrNoRows {
+		return nil, err
+	}
+
+	if err != nil {
+		return nil, err
+	}
+
+	return job, nil
+}
+
 func (db *Database) UpdateJob(id string, status string) error {
 	const q =`
 	UPDATE job 
 	SET 
-		status = $1
-	WHERE id = $2
+		"Status" = $1
+	WHERE "Id" = $2
 	`
 	
 	_, err := db.Conn.Exec(q,
@@ -48,7 +77,7 @@ func (db *Database) DeleteJob(id string) error {
 	const q =`
 	DELETE 
 	FROM job
-	WHERE id = $1
+	WHERE "Id" = $1
 	`
 
 	_, err := db.Conn.Exec(q, id)
@@ -59,6 +88,3 @@ func (db *Database) DeleteJob(id string) error {
 
 	return nil
 }
-
-
-
