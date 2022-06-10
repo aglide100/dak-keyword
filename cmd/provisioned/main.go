@@ -75,8 +75,6 @@ func realMain() error {
 		// Sslsert : "keys/client.crt", 
 	}
 
-	log.Printf("%v", config)
-
 	provisionSrv := servers.NewProvisionServiceServer(c, *config)
 
 	pb_svc_provision.RegisterProvisionServer(grpcServer, provisionSrv)

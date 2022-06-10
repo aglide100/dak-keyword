@@ -5,7 +5,6 @@ import (
 	"log"
 	"os"
 	"strconv"
-	"time"
 
 	"github.com/aglide100/dak-keyword/pkg/db"
 	"github.com/aglide100/dak-keyword/pkg/scraper"
@@ -83,7 +82,7 @@ func realMain() error {
 		myScraper.WriteTweetOnDB(value)
 	}
 
-	time.Sleep(20 * time.Second)   
+	// time.Sleep(20 * time.Second)   
 	err = scraper.CallGrpcCallDone(workerId)
 	if err != nil {
 		return err

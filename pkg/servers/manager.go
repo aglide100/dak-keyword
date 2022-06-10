@@ -100,7 +100,27 @@ func (s *ManagerSrv) DoneScraper(ctx context.Context, in *pb_svc_manager.DoneScr
 	return &pb_svc_manager.DoneScraperRes{
 		Status: "Done!",
 	}, nil
-} 
+}
+
+func (s *ManagerSrv) DoneAnalyzer(ctx context.Context, in *pb_svc_manager.DoneAnalyzerReq) (*pb_svc_manager.DoneAnalyzerRes, error) {
+	if in != nil {
+		log.Printf("Received DoneScraper call: %v", in.String())
+	}
+
+	err := s.db.UpdateWorker(in.Id, "Analyzer Done.")
+	if err != nil {
+		return nil, status.Error(codes.Canceled, "Can't update worker status at dbms")
+	}
+
+	err = callRemoveAnalyzer(in.Id)
+	if err != nil {
+		return nil, err
+	}
+
+	return &pb_svc_manager.DoneAnalyzerRes{
+			Status: "Done!",
+	}, nil
+}
 
 func (s *ManagerSrv) GetJobStatus(ctx context.Context, in *pb_svc_manager.GetJobStatusReq) (*pb_svc_manager.GetJobStatusRes, error) {
 	if in != nil {
@@ -178,9 +198,8 @@ func callMakeScraper(workerId string, jobId string, keyword string) (error) {
 
 func callRemoveScraper(id string) (error) {
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
-	
 	if err != nil {
-		log.Fatalf("can't connect grpc server : %v", err)
+		log.Fatalf("Can't connect grpc server : %v", err)
 	}
 	defer conn.Close()
 	
@@ -194,6 +213,33 @@ func callRemoveScraper(id string) (error) {
 	defer cancel()
 	
 	res, err := client.RemoveScraper(ctx, in)
+
+	if err != nil {
+		log.Fatalf("Can't receive anything! %v", err)
+		return err
+	}
+	log.Printf("res %v", res)
+
+	return nil
+}
+
+func callRemoveAnalyzer(id string) (error) {
+	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
+	if err != nil {
+		log.Fatalf("Can't connect grpc servier : %v", err)
+	}
+	defer conn.Close()
+
+	client := pb_svc_provision.NewProvisionClient(conn)
+
+	in := &pb_svc_provision.RemoveAnalyzerReq{
+		Id: id,
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
+	defer cancel()
+
+	res, err := client.RemoveAnalyzer(ctx, in)
 
 	if err != nil {
 		log.Fatalf("Can't receive anything! %v", err)
