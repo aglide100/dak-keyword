@@ -17,7 +17,7 @@ const twitterv2api = `https://api.twitter.com/2/`
 func (s Scraper) GetMockTweets(keyword string) ([]models.TweetArticle) {
 	var articles []models.TweetArticle
 
-	for i:=0; i<5000; i++ { 
+	for i:=0; i<5; i++ { 
 		articles = append(articles, models.TweetArticle{
 			Id: strconv.Itoa(i),
 			Text: "안녕하세요!!!!"+keyword,

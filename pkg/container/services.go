@@ -86,7 +86,7 @@ func (c *Controller) CreateNewAnalyzer(workerId string, keyword string, dbConfig
 		TaskTemplate: swarm.TaskSpec{
 			ContainerSpec: &swarm.ContainerSpec{
 					Image: "ghcr.io/aglide100/lexicon-based-simple-korean-semantic-analyzer:latest",
-					Command: []string{"python3","Test.py"},
+					Command: []string{"python3", "Keyword.py"},
 
 					Env: []string{
 					"Keyword=" + keyword, 

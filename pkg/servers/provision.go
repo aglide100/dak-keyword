@@ -29,6 +29,7 @@ func (s *ProvisionSrv) CreateScraper(ctx context.Context, in *pb_svc_provision.C
 	
 	err := s.c.CreateNewScraper(in.WorkerId, in.JobId, in.Keyword, &s.dbConfig)
 	if err != nil {
+		log.Printf("Can't create new scraper : %v", err)
 		return nil, err
 	}
 
@@ -63,4 +64,17 @@ func (s *ProvisionSrv) RemoveScraper(ctx context.Context, in *pb_svc_provision.R
 	}
 
 	return &pb_svc_provision.RemoveScraperRes{}, nil
+}
+
+func (s *ProvisionSrv) RemoveAnalyzer(ctx context.Context, in *pb_svc_provision.RemoveAnalyzerReq) (*pb_svc_provision.RemoveAnalyzerRes, error) {
+	if in != nil {
+		log.Printf("Received RemoveAnalyzer call: %v", in.String())
+	}
+
+	err := s.c.RemoveAnalyzer(in.Id)
+	if err != nil {
+		return nil, err
+	}
+
+	return &pb_svc_provision.RemoveAnalyzerRes{}, nil
 }

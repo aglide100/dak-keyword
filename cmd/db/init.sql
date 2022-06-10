@@ -39,13 +39,13 @@ create table if not exists article
 (
     "Content"         varchar,
     "Platform"        varchar,
-    "Score_pos"       integer,
-    "Score_neg"       integer,
-    "Score_neut"      integer,
-    "Score_comp"      integer,
-    "Score_none"      integer,
+    "Score_pos"       varchar,
+    "Score_neg"       varchar,
+    "Score_neut"      varchar,
+    "Score_comp"      varchar,
+    "Score_none"      varchar,
     "Score_max_value" varchar,
-    "Score_max_scroe" integer,
+    "Score_max_name"  varchar,
     "Job_id"          varchar
         constraint "Job_id"
             references job
@@ -55,9 +55,15 @@ create table if not exists article
     "Worker_id"       varchar
         constraint "Worker_id"
             references worker
-            on update cascade on delete cascade
+            on update cascade on delete cascade,
+    "Id"              serial
+        constraint article_pk
+            primary key
 );
 
 alter table article
     owner to table_admin;
+
+create unique index if not exists article_id_uindex
+    on article ("Id");
 

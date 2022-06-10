@@ -30,7 +30,6 @@ services:
     depends_on:
       - db
     
-
   db:
     # image: ghcr.io/aglide100/dak-keyword-db:latest
     image: db
