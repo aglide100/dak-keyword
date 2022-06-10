@@ -1,14 +1,14 @@
 name: build-image
 
 on:
-  workflow_run:
-    workflows: ["Check mergeable"]
-    branches: [main]
-    types:
-      - completed
-  # push:
-  #   branches:
-  #     - "main"
+  # workflow_run:
+  #   workflows: ["Check mergeable"]
+  #   branches: [main]
+  #   types:
+  #     - completed
+  push:
+    branches:
+      - "main"
 
 jobs:
   buildImage:
