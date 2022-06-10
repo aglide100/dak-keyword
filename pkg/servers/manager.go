@@ -98,7 +98,7 @@ func (s *ManagerSrv) DoneScraper(ctx context.Context, in *pb_svc_manager.DoneScr
 	}
 
 	return &pb_svc_manager.DoneScraperRes{
-		Status: "Done!",
+		Result: "Scraper Done!",
 	}, nil
 }
 
@@ -118,7 +118,7 @@ func (s *ManagerSrv) DoneAnalyzer(ctx context.Context, in *pb_svc_manager.DoneAn
 	}
 
 	return &pb_svc_manager.DoneAnalyzerRes{
-			Status: "Done!",
+		Result: "Analyzer Done",
 	}, nil
 }
 
@@ -134,6 +134,21 @@ func (s *ManagerSrv) GetJobStatus(ctx context.Context, in *pb_svc_manager.GetJob
 
 	return &pb_svc_manager.GetJobStatusRes{
 		Status: res.Status,
+	}, nil
+}
+
+func (s *ManagerSrv) UpdateJobStatus(ctx context.Context, in *pb_svc_manager.UpdateJobStatusReq) (*pb_svc_manager.UpdateJobStatusRes, error) {
+	if in != nil {
+		log.Printf("Received GetJobStatus call: %v", in.String())
+	}
+
+	err := s.db.UpdateJob(in.Id, in.Status)
+	if err != nil {
+		return nil,  status.Error(codes.NotFound, "Can't find job in dbms")
+	}
+
+	return &pb_svc_manager.UpdateJobStatusRes{
+		Result: "Update Job status!",
 	}, nil
 }
 

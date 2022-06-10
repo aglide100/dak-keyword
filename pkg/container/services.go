@@ -76,7 +76,7 @@ func (c *Controller) CreateNewAnalyzer(workerId string, keyword string, dbConfig
 
 	c.cli.ImagePull(ctx, "ghcr.io/aglide100/lexicon-based-simple-korean-semantic-analyzer:latest", types.ImagePullOptions{})
 
-	// max := uint64(1)
+	max := uint64(1)
 	
 	reader, err := c.cli.ServiceCreate(ctx, swarm.ServiceSpec{
 		Annotations: swarm.Annotations{
@@ -110,10 +110,10 @@ func (c *Controller) CreateNewAnalyzer(workerId string, keyword string, dbConfig
 			},
 
 
-			// RestartPolicy: &swarm.RestartPolicy{
-			// 	MaxAttempts: &max,
-			// 	Condition: swarm.RestartPolicyConditionOnFailure,
-			// },
+			RestartPolicy: &swarm.RestartPolicy{
+				MaxAttempts: &max,
+				Condition: swarm.RestartPolicyConditionOnFailure,
+			},
 
 			// Placement: &swarm.Placement{
 			// 	// MaxReplicas: 1,
