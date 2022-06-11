@@ -3,6 +3,8 @@ syntax = "proto3";
 package pb.svc.manager;
 option go_package = "github.com/aglide100/dak-keyword/pb/svc/manager";
 
+import "pb/unit/job/job.proto";
+
 service Manager {
     rpc CreateNewJob(CreateNewJobReq) returns (CreateNewJobRes);
     rpc GetJobStatus(GetJobStatusReq) returns (GetJobStatusRes);
@@ -69,5 +71,5 @@ message UpdateJobStatusRes {
 message GetJobListReq {}
 
 message GetJobListRes {
-    repeated string id = 1;
+    repeated unit.job.Job Job = 1;
 }

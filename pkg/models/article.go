@@ -4,5 +4,5 @@ type Article struct {
 	Id string
 	Text string
 	Created_at string
-	Owner string
+	Author string
 }

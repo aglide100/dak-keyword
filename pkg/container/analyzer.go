@@ -3,7 +3,6 @@ package container
 import (
 	"context"
 	"fmt"
-	"log"
 	"strconv"
 
 	"github.com/aglide100/dak-keyword/pkg/db"
@@ -13,63 +12,6 @@ import (
 
 const nodeRole = "node.role == worker"
 
-func (c *Controller) CreateNewScraper(workerId string, jobId string, keyword string, dbConfig *db.DBConfig) (err error) {
-	ctx := context.Background()
-	// c.cli.ImagePull(ctx, "ghcr.io/aglide100/dak-keyword-scraped:latest", types.ImagePullOptions{})
-
-	log.Printf("%v", dbConfig)
-	reader, err := c.cli.ServiceCreate(ctx, swarm.ServiceSpec{
-		Annotations: swarm.Annotations{
-			Name: workerId,
-		},
-		TaskTemplate: swarm.TaskSpec{
-			ContainerSpec: &swarm.ContainerSpec{
-					Image: "scraped",
-					// Image: "ghcr.io/aglide100/dak-keyword-scraped:latest",
-					// Command: '',
-					Env: []string{
-					"Keyword=" + keyword, 
-					"DB_ADDR=" + dbConfig.Host,
-					"DB_PORT=" + strconv.Itoa(dbConfig.Port),
-					"DB_USER=" + dbConfig.User,
-					"DB_PASSWORD=" + dbConfig.Password,
-					"DB_NAME=" + dbConfig.Dbname,
-					"WORKER_ID=" + workerId,
-					"JOB_ID=" + jobId,
-				},
-			},
-
-			Networks: []swarm.NetworkAttachmentConfig{
-				swarm.NetworkAttachmentConfig{
-					Target: "keyword_keyword_net",
-				},
-			},
-
-			Placement: &swarm.Placement{
-				// Constraints: []string{nodeRole},
-			},
-		},
-	}, types.ServiceCreateOptions{
-		
-	})
-	if err != nil {
-		return err
-	}
-
-	fmt.Println(reader.ID)
-	return nil
-}
-
-func (c *Controller) RemoveScraper(id string) (error) {
-	ctx := context.Background()
-
-	err := c.cli.ServiceRemove(ctx, id)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
 
 func (c *Controller) CreateNewAnalyzer(workerId string, keyword string, dbConfig *db.DBConfig) (error) {
 	ctx := context.Background()
@@ -105,9 +47,9 @@ func (c *Controller) CreateNewAnalyzer(workerId string, keyword string, dbConfig
 				},
 			},
 
-			Placement: &swarm.Placement{
-				// Constraints: []string{nodeRole},
-			},
+			// Placement: &swarm.Placement{
+			// 	Constraints: []string{nodeRole},
+			// },
 
 
 			RestartPolicy: &swarm.RestartPolicy{
