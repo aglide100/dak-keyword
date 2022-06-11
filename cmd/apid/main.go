@@ -12,7 +12,7 @@ import (
 
 	pb_svc_manager "github.com/aglide100/dak-keyword/pb/svc/manager"
 	"github.com/aglide100/dak-keyword/pkg/db"
-	"github.com/aglide100/dak-keyword/pkg/servers"
+	"github.com/aglide100/dak-keyword/pkg/servers/manager"
 	"github.com/improbable-eng/grpc-web/go/grpcweb"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
@@ -93,7 +93,7 @@ func realMain() error {
 		opts = append(opts, grpc.Creds(creds))
 	}
 
-	managerSrv := servers.NewManagerServiceServer(myDB)
+	managerSrv := manager.NewManagerServiceServer(myDB)
 	grpcServer := grpc.NewServer(opts...)
 
 	pb_svc_manager.RegisterManagerServer(grpcServer, managerSrv)

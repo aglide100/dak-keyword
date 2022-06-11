@@ -18,7 +18,7 @@ import (
 
 	"github.com/aglide100/dak-keyword/pkg/container"
 	"github.com/aglide100/dak-keyword/pkg/db"
-	"github.com/aglide100/dak-keyword/pkg/servers"
+	"github.com/aglide100/dak-keyword/pkg/servers/provision"
 )
 
 var (
@@ -75,7 +75,7 @@ func realMain() error {
 		// Sslsert : "keys/client.crt", 
 	}
 
-	provisionSrv := servers.NewProvisionServiceServer(c, *config)
+	provisionSrv := provision.NewProvisionServiceServer(c, *config)
 
 	pb_svc_provision.RegisterProvisionServer(grpcServer, provisionSrv)
 

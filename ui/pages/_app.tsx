@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import Header from "../src/components/layout/Header/Header";
-// import { Footer } from "../src/components/layout/Footer/Footer";
 import type { AppProps } from "next/app";
 import "../src/_css/common.css";
 import "../styles/globals.css";
@@ -53,9 +52,6 @@ function MyApp({ Component, pageProps }: AppProps) {
           </motion.div>
         </AnimatePresence>
       </div>
-      {/* <div className="z-30">
-        <Footer></Footer>
-      </div> */}
     </>
   );
 }

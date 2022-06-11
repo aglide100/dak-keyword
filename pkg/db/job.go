@@ -53,6 +53,46 @@ func (db *Database) GetJob(jobId string) (*models.Job, error) {
 	return job, nil
 }
 
+func (db *Database) GetAllJob() ([]*models.Job, error) {
+	const q = `
+	SELECT 
+	* FROM job`
+
+	var (
+		Id string
+		Status string
+		Keyword string
+		Owner string
+		Date string
+	)
+
+	var jobs []*models.Job
+
+	rows, err := db.Conn.Query(q)
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		err := rows.Scan(&Id, &Status, &Keyword, &Owner, &Date)
+		if err != nil {
+			return nil, err
+		}
+
+		job := &models.Job{
+			Id: Id,
+			Status: Status,
+			Keyword: Keyword,
+			Owner: Owner,
+			Date: Date,
+		}
+
+		jobs = append(jobs, job)
+	}
+	
+	return jobs, nil
+}
+
 func (db *Database) UpdateJob(id string, status string) error {
 	const q =`
 	UPDATE job 
