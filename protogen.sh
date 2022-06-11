@@ -53,3 +53,8 @@ protoc -I=. --go_out=plugins=grpc:../../.. pb/svc/manager/*.proto
 
 protoc -I=. --go_out=plugins=grpc:../../.. pb/svc/provision/*.proto
 
+ protoc \
+ --plugin="protoc-gen-ts=./ui/node_modules/.bin/protoc-gen-ts" \
+ --js_out="import_style=commonjs,binary:./ui/gen" \
+ --ts_out="service=grpc-web:./ui/gen" \
+ pb/svc/**/*.proto
