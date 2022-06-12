@@ -37,6 +37,15 @@ Manager.GetJobList = {
   responseType: pb_svc_manager_manager_pb.GetJobListRes
 };
 
+Manager.GetWorkerList = {
+  methodName: "GetWorkerList",
+  service: Manager,
+  requestStream: false,
+  responseStream: false,
+  requestType: pb_svc_manager_manager_pb.GetWorkerListReq,
+  responseType: pb_svc_manager_manager_pb.GetWorkerListRes
+};
+
 Manager.UpdateJobStatus = {
   methodName: "UpdateJobStatus",
   service: Manager,
@@ -147,6 +156,37 @@ ManagerClient.prototype.getJobList = function getJobList(requestMessage, metadat
     callback = arguments[1];
   }
   var client = grpc.unary(Manager.GetJobList, {
+    request: requestMessage,
+    host: this.serviceHost,
+    metadata: metadata,
+    transport: this.options.transport,
+    debug: this.options.debug,
+    onEnd: function (response) {
+      if (callback) {
+        if (response.status !== grpc.Code.OK) {
+          var err = new Error(response.statusMessage);
+          err.code = response.status;
+          err.metadata = response.trailers;
+          callback(err, null);
+        } else {
+          callback(null, response.message);
+        }
+      }
+    }
+  });
+  return {
+    cancel: function () {
+      callback = null;
+      client.close();
+    }
+  };
+};
+
+ManagerClient.prototype.getWorkerList = function getWorkerList(requestMessage, metadata, callback) {
+  if (arguments.length === 2) {
+    callback = arguments[1];
+  }
+  var client = grpc.unary(Manager.GetWorkerList, {
     request: requestMessage,
     host: this.serviceHost,
     metadata: metadata,

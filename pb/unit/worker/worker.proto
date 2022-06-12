@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package pb.unit.worker;
+option go_package = "github.com/aglide100/dak-keyword/pb/unit/worker";
+
+message Worker {
+    string worrker_id = 1;
+    string status = 2;
+    string job_id = 3;
+}
