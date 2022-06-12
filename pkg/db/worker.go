@@ -1,6 +1,10 @@
 package db
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/aglide100/dak-keyword/pkg/models"
+)
 
 
 func (db *Database) AddNewWorker(workerId string, jobId string, keyword, parentKeyword string) error {
@@ -46,6 +50,45 @@ func (db *Database) UpdateWorker(workerId string, status string) error {
 	}
 
 	return nil
+}
+
+func (db *Database) GetAllWorker(jobId string) ([]*models.Worker, error) {
+	const q =`
+	SELECT * FROM worker
+	WHERE "Job_id" = $1
+	`
+
+	var (
+		WorkerId string
+		Status string
+		// JobId string
+	)
+
+	var workers []*models.Worker
+
+	rows, err := db.Conn.Query(q,
+		jobId,
+	)
+	if err != nil {
+		return nil, fmt.Errorf("updating: %v", err)
+	}
+
+	for rows.Next() {
+		err := rows.Scan(&WorkerId, &Status)
+		if err != nil {
+			return nil, err
+		}
+
+		worker := &models.Worker{
+			WorkerId: WorkerId,
+			Status: Status,
+			JobId: jobId,
+		}
+
+		workers = append(workers, worker)
+	}
+
+	return workers, nil
 }
 
 func (db *Database) DeleteWorker(workerId string) error {

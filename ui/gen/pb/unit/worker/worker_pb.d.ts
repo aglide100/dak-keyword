@@ -4,8 +4,8 @@
 import * as jspb from "google-protobuf";
 
 export class Worker extends jspb.Message {
-  getWorrkerId(): string;
-  setWorrkerId(value: string): void;
+  getWorkerId(): string;
+  setWorkerId(value: string): void;
 
   getStatus(): string;
   setStatus(value: string): void;
@@ -25,7 +25,7 @@ export class Worker extends jspb.Message {
 
 export namespace Worker {
   export type AsObject = {
-    worrkerId: string,
+    workerId: string,
     status: string,
     jobId: string,
   }

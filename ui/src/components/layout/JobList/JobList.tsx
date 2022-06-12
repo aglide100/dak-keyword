@@ -1,58 +1,56 @@
 import React, { useEffect, useState } from "react";
-import {makeGetJobList} from "../../../grpc/index"
+import { makeGetJobList } from "../../../grpc/job";
 import { JobItem } from "../../atom/Job/Job";
 
 type job = {
-    id: String,
-    status: String,
-    keyword: String,
-    owner: String,
-    date: String,
-}
+    id: String;
+    status: String;
+    keyword: String;
+    owner: String;
+    date: String;
+};
 
 const List: React.FC<{}> = ({}) => {
-    const [data, setData] = useState<job[]>([])
+    const [data, setData] = useState<job[]>([]);
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
     useEffect(() => {
         if (!isLoaded) {
-            
-            fetchJobList()
-            
+            fetchJobList();
         }
-      }, []);
-    
+    }, []);
+
     async function fetchJobList() {
         makeGetJobList((message) => {
-
             message.jobList.map((value, _) => {
-                console.log(value)
-                const newJobList = data
-                var newJob:job = {
+                console.log(value);
+                const newJobList = data;
+                var newJob: job = {
                     id: value.id,
                     status: value.status,
                     keyword: value.keyword,
                     owner: value.owner,
-                    date: value.date
-                }
-                newJobList.push(newJob)
+                    date: value.date,
+                };
+                newJobList.push(newJob);
 
-                setData(newJobList)
-                
-            })
-            
+                setData(newJobList);
+            });
+
             setIsLoaded(true);
         });
     }
-    
-    var jobList; 
-    if (data == null || data == undefined || !isLoaded) {
+
+    var jobList;
+    if (data == null || data == undefined || data.length == 0) {
         jobList = (
-            <>No jobs!</>
-        )
+            <div className="w-full flex justify-center mt-10">
+                Can't find jobs!
+            </div>
+        );
     } else {
         jobList = data.map((job, index) => {
             return (
-                <div key={"job"+index} className="w-full flex justify-center">
+                <div key={"job" + index} className="w-full flex justify-center">
                     <JobItem
                         id={job.id.toString()}
                         date={job.date.toString()}
@@ -61,13 +59,11 @@ const List: React.FC<{}> = ({}) => {
                         status={job.status.toString()}
                     ></JobItem>
                 </div>
-            )
-        })        
+            );
+        });
     }
 
-    return (
-        <>{jobList}</>
-    )
-}
+    return <>{jobList}</>;
+};
 
-export default List
+export default List;
