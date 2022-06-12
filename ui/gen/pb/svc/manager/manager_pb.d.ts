@@ -3,6 +3,7 @@
 
 import * as jspb from "google-protobuf";
 import * as pb_unit_job_job_pb from "../../../pb/unit/job/job_pb";
+import * as pb_unit_worker_worker_pb from "../../../pb/unit/worker/worker_pb";
 
 export class CreateNewJobReq extends jspb.Message {
   getKeyword(): string;
@@ -303,6 +304,48 @@ export class GetJobListRes extends jspb.Message {
 export namespace GetJobListRes {
   export type AsObject = {
     jobList: Array<pb_unit_job_job_pb.Job.AsObject>,
+  }
+}
+
+export class GetWorkerListReq extends jspb.Message {
+  getId(): string;
+  setId(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetWorkerListReq.AsObject;
+  static toObject(includeInstance: boolean, msg: GetWorkerListReq): GetWorkerListReq.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: GetWorkerListReq, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetWorkerListReq;
+  static deserializeBinaryFromReader(message: GetWorkerListReq, reader: jspb.BinaryReader): GetWorkerListReq;
+}
+
+export namespace GetWorkerListReq {
+  export type AsObject = {
+    id: string,
+  }
+}
+
+export class GetWorkerListRes extends jspb.Message {
+  clearWorkerList(): void;
+  getWorkerList(): Array<pb_unit_worker_worker_pb.Worker>;
+  setWorkerList(value: Array<pb_unit_worker_worker_pb.Worker>): void;
+  addWorker(value?: pb_unit_worker_worker_pb.Worker, index?: number): pb_unit_worker_worker_pb.Worker;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetWorkerListRes.AsObject;
+  static toObject(includeInstance: boolean, msg: GetWorkerListRes): GetWorkerListRes.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: GetWorkerListRes, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetWorkerListRes;
+  static deserializeBinaryFromReader(message: GetWorkerListRes, reader: jspb.BinaryReader): GetWorkerListRes;
+}
+
+export namespace GetWorkerListRes {
+  export type AsObject = {
+    workerList: Array<pb_unit_worker_worker_pb.Worker.AsObject>,
   }
 }
 

@@ -4,11 +4,13 @@ package pb.svc.manager;
 option go_package = "github.com/aglide100/dak-keyword/pb/svc/manager";
 
 import "pb/unit/job/job.proto";
+import "pb/unit/worker/worker.proto";
 
 service Manager {
     rpc CreateNewJob(CreateNewJobReq) returns (CreateNewJobRes);
     rpc GetJobStatus(GetJobStatusReq) returns (GetJobStatusRes);
     rpc GetJobList(GetJobListReq) returns (GetJobListRes);
+    rpc GetWorkerList(GetWorkerListReq) returns (GetWorkerListRes); 
     rpc UpdateJobStatus(UpdateJobStatusReq) returns (UpdateJobStatusRes);
     rpc DoneScraper(DoneScraperReq) returns (DoneScraperRes);
     rpc DoneAnalyzer(DoneAnalyzerReq) returns (DoneAnalyzerRes);
@@ -72,4 +74,12 @@ message GetJobListReq {}
 
 message GetJobListRes {
     repeated unit.job.Job Job = 1;
+}
+
+message GetWorkerListReq {
+    string id = 1;
+}
+
+message GetWorkerListRes {
+    repeated unit.worker.Worker Worker = 1;
 }

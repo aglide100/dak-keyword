@@ -50,6 +50,8 @@
 
 protoc -I=. --go_out=plugins=grpc:../../.. pb/unit/job/*.proto
 
+protoc -I=. --go_out=plugins=grpc:../../.. pb/unit/worker/*.proto
+
 protoc -I=. --go_out=plugins=grpc:../../.. pb/unit/article/*.proto
 
 protoc -I=. --go_out=plugins=grpc:../../.. pb/svc/analyzer/*.proto
@@ -63,3 +65,9 @@ protoc -I=. --go_out=plugins=grpc:../../.. pb/svc/provision/*.proto
  --js_out="import_style=commonjs,binary:./ui/gen" \
  --ts_out="service=grpc-web:./ui/gen" \
  pb/svc/**/*.proto
+
+ protoc \
+ --plugin="protoc-gen-ts=./ui/node_modules/.bin/protoc-gen-ts" \
+ --js_out="import_style=commonjs,binary:./ui/gen" \
+ --ts_out="service=grpc-web:./ui/gen" \
+ pb/unit/**/*.proto

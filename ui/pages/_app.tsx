@@ -42,7 +42,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         >
           <motion.div
             key={router.pathname}
-            className="w-screen flex justify-center mt-24 overflow-x-hidden"
+            className="w-screen flex justify-center mt-20 overflow-x-hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
