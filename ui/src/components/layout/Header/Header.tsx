@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import classNames from "classnames";
 import { motion } from "framer-motion";
 import Fade from "react-reveal/Fade";
+import { useRouter } from "next/router";
 
 export type HeaderProps = {
     isShow: boolean | undefined;
@@ -35,6 +36,7 @@ const Header: React.FC<HeaderProps> = ({
     scrollY,
 }) => {
     const [isIconClick, setIconClick] = useState<boolean>(false);
+    const router = useRouter();
 
     return (
         <div>
@@ -70,6 +72,18 @@ const Header: React.FC<HeaderProps> = ({
                     )}
                 >
                     <div
+                        className="w-full h-full flex flex-col justify-center"
+                        onClick={(e) => {
+                            e.preventDefault();
+
+                            router.push({
+                                pathname: "/",
+                            });
+                        }}
+                    >
+                        Home
+                    </div>
+                    <div
                         className={classNames("cursor-pointer w-52", {
                             "bg-opacity-50":
                                 scrollY > 100 &&
@@ -77,7 +91,6 @@ const Header: React.FC<HeaderProps> = ({
                                 !isIconClick,
                         })}
                     ></div>
-
                     <a
                         className={classNames(
                             "cursor-pointer menu-trigger type12 transform translate-y-4 mr-2 sm:mr-6 z-50",

@@ -10,7 +10,7 @@ import (
 func (db *Database) AddNewWorker(workerId string, jobId string, keyword, parentKeyword string) error {
 	const q =`
 	INSERT INTO worker (
-		"Id",
+		"Worker_id",
 		"Job_id",
 		"Keyword",
 		"Parent_keyword",
@@ -37,7 +37,7 @@ func (db *Database) UpdateWorker(workerId string, status string) error {
 	UPDATE worker 
 	SET 
 		"Status" = $1
-	WHERE "Id" = $2
+	WHERE "Worker_id" = $2
 	`
 	
 	_, err := db.Conn.Exec(q,
@@ -61,7 +61,9 @@ func (db *Database) GetAllWorker(jobId string) ([]*models.Worker, error) {
 	var (
 		WorkerId string
 		Status string
-		// JobId string
+		JobId string
+		Parent_keyword string
+		Keyword string
 	)
 
 	var workers []*models.Worker
@@ -74,7 +76,7 @@ func (db *Database) GetAllWorker(jobId string) ([]*models.Worker, error) {
 	}
 
 	for rows.Next() {
-		err := rows.Scan(&WorkerId, &Status)
+		err := rows.Scan(&WorkerId, &Status, &JobId, &Parent_keyword, &Keyword)
 		if err != nil {
 			return nil, err
 		}
@@ -83,6 +85,8 @@ func (db *Database) GetAllWorker(jobId string) ([]*models.Worker, error) {
 			WorkerId: WorkerId,
 			Status: Status,
 			JobId: jobId,
+			Parent_keyword: Parent_keyword,
+			Keyword: Keyword,
 		}
 
 		workers = append(workers, worker)

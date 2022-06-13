@@ -19,7 +19,7 @@ export default function Home() {
     const router = useRouter();
 
     return (
-        <div className="w-full bg-gray-100 flex flex-col content-around">
+        <div className="w-full bg-gray-100 h-full flex flex-col content-around">
             <div className="w-full flex flex-col">
                 <JobList />
                 <div className="mt-10">
@@ -27,8 +27,8 @@ export default function Home() {
                         size="large"
                         onClick={(e) => {
                             e.preventDefault();
-                            var keyword = prompt("Keyword");
-                            var owner = prompt("Owner");
+                            const keyword = prompt("Keyword");
+                            const owner = prompt("Owner");
                             makeNewJob(keyword, owner, (message) => {
                                 alert("Done" + message);
                                 router.push("/");

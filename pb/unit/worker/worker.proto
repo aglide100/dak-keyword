@@ -7,4 +7,5 @@ message Worker {
     string worker_id = 1;
     string status = 2;
     string job_id = 3;
+    string keyword = 4;
 }

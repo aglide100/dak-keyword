@@ -17,7 +17,7 @@ create unique index if not exists job_id_uindex
 
 create table if not exists worker
 (
-    "Id"             varchar not null
+    "Worker_id"             varchar not null
         constraint worker_pk
             primary key,
     "Keyword"        varchar,
@@ -33,7 +33,7 @@ alter table worker
     owner to table_admin;
 
 create unique index if not exists worker_id_uindex
-    on worker ("Id");
+    on worker ("Worker_id");
 
 create table if not exists article
 (

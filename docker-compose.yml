@@ -1,63 +1,70 @@
 version: "3.5"
 x-services-volume: &services-volume
-  type: bind
+    type: bind
 
 services:
-  apid:
-    # image: ghcr.io/aglide100/dak-keyword-apid:latest
-    image: apid
-    env_file:
-      - ./env/dbConfig.env
-    networks:
-      - keyword_net
-    ports:
-      - 50011:50011
-      - 50010:50010
-    depends_on:
-      - db
+    apid:
+        # image: ghcr.io/aglide100/dak-keyword-apid:latest
+        image: apid
+        env_file:
+            - ./env/dbConfig.env
+        networks:
+            - keyword_net
+        ports:
+            - 50011:50011
+            - 50010:50010
+        depends_on:
+            - db
 
-  provisioned:
-    # image: ghcr.io/aglide100/dak-keyword-provisioned:latest
-    image: provisioned
-    env_file:
-      - ./env/dbConfig.env
-    networks:
-      - keyword_net
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    ports:
-      - 50012:50012
-    depends_on:
-      - db
+    provisioned:
+        # image: ghcr.io/aglide100/dak-keyword-provisioned:latest
+        image: provisioned
+        env_file:
+            - ./env/dbConfig.env
+        networks:
+            - keyword_net
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+        ports:
+            - 50012:50012
+        depends_on:
+            - db
 
-  db:
-    # image: ghcr.io/aglide100/dak-keyword-db:latest
-    image: db
-    # volumes:
-    #   - <<: *services-volume
-    #     # source: ${HOST}/postgres
-    #     source: /tmp/dak-keyword
-    #     target: /var/lib/postgres
-    env_file:
-      - ./env/db.env
-    ports:
-      - 5432:5432
-    networks:
-      - keyword_net
+    db:
+        # image: ghcr.io/aglide100/dak-keyword-db:latest
+        image: db
+        # volumes:
+        #   - <<: *services-volume
+        #     # source: ${HOST}/postgres
+        #     source: /tmp/dak-keyword
+        #     target: /var/lib/postgres
+        env_file:
+            - ./env/db.env
+        ports:
+            - 5432:5432
+        networks:
+            - keyword_net
 
-  viz:
-    image: dockersamples/visualizer
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    networks:
-      - keyword_net
-    ports:
-      - 8080:8080
-    deploy:
-      placement:
-        constraints:
-          - node.role == manager
+    #webd:
+    #    image: node
+    #    ports:
+    #        - 4000:3000
+    #    networks:
+    #        - keyword_net
+
+    viz:
+        image: dockersamples/visualizer
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+        networks:
+            - keyword_net
+        ports:
+            - 8080:8080
+        deploy:
+            placement:
+                constraints:
+                    - node.role == manager
 
 networks:
-  keyword_net:
-    driver: overlay
+    keyword_net:
+        driver: overlay

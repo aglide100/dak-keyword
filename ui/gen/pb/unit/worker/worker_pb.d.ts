@@ -13,6 +13,9 @@ export class Worker extends jspb.Message {
   getJobId(): string;
   setJobId(value: string): void;
 
+  getKeyword(): string;
+  setKeyword(value: string): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Worker.AsObject;
   static toObject(includeInstance: boolean, msg: Worker): Worker.AsObject;
@@ -28,6 +31,7 @@ export namespace Worker {
     workerId: string,
     status: string,
     jobId: string,
+    keyword: string,
   }
 }
 
