@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { makeGetWorkers } from "../../../grpc/worker";
 import { useRouter } from "next/router";
-import { WorkerItem } from "../../atom/Worker/Worker";
+import { WorkerItem } from "../../atom/WorkerItem/Worker";
 
 type worker = {
-    workerId: String;
-    status: String;
-    jobId: String;
+    WorkerId: string;
+    Status: string;
+    JobId: string;
+    Keyword: string;
+    Parent_keyword: string;
 };
 
 const List: React.FC<{ JobId }> = ({ JobId }) => {
@@ -26,10 +28,12 @@ const List: React.FC<{ JobId }> = ({ JobId }) => {
             message.workerList.map((value, _) => {
                 console.log(value);
                 const newWorkerList = data;
-                var newWorker: worker = {
-                    workerId: value.worker_id,
-                    status: value.status,
-                    jobId: value.job_id,
+                const newWorker: worker = {
+                    WorkerId: value.workerId,
+                    Status: value.status,
+                    Keyword: value.keyword,
+                    JobId: value.jobId,
+                    Parent_keyword: value.parent_keyword,
                 };
                 newWorkerList.push(newWorker);
 
@@ -40,7 +44,7 @@ const List: React.FC<{ JobId }> = ({ JobId }) => {
         });
     }
 
-    var WorkerList;
+    let WorkerList;
     if (data == null || data == undefined || data.length == 0) {
         WorkerList = (
             <div className="w-full flex justify-center mt-10">
@@ -49,12 +53,13 @@ const List: React.FC<{ JobId }> = ({ JobId }) => {
         );
     } else {
         WorkerList = data.map((job, index) => {
+            console.log("!!!!!!!!" + job);
             return (
                 <div key={"job" + index} className="w-full flex justify-center">
                     <WorkerItem
-                        workerId={job.workerId.toString()}
-                        status={job.status.toString()}
-                        jobId={job.jobId.toString()}
+                        workerId={job.WorkerId}
+                        status={job.Status}
+                        jobId={job.JobId}
                     ></WorkerItem>
                 </div>
             );

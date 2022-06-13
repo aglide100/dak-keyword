@@ -1,21 +1,24 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import classNames from "classnames";
+import { Button } from "../Button/Button";
 import { useRouter } from "next/router";
 
-export type WorkerProps = {
-    workerId: string;
+export type JobProps = {
+    id: string;
     status: string;
-    jobId: string;
+    keyword: string;
+    owner: string;
+    date: string;
 };
 
-export const WorkerItem = (props: WorkerProps) => {
+export const JobItem = (props: JobProps) => {
     const router = useRouter();
 
     return (
         <>
             <motion.li
-                layoutId={props.workerId + "_view"}
+                layoutId={props.id + "_view"}
                 className={classNames(
                     "flex flex-col items-center pb-10 pt-10 mt-10 w-9/12 top-24 rounded-lg bg-white shadow-md",
                     {},
@@ -28,12 +31,14 @@ export const WorkerItem = (props: WorkerProps) => {
 
                         router.push({
                             pathname: "/job",
-                            query: { jobId: props.workerId },
+                            query: { jobId: props.id },
                         });
                     }}
                 >
-                    <div className="mb-1">WorkerId: {props.workerId}</div>
                     <div className="mb-1">Status: {props.status}</div>
+                    <div className="mb-1">Keyword: {props.keyword}</div>
+                    <div className="mb-1">Owner: {props.owner}</div>
+                    <div className="mb-1">Created at: {props.date}</div>
                 </div>
             </motion.li>
         </>

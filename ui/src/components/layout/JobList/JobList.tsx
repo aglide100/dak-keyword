@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { makeGetJobList } from "../../../grpc/job";
-import { JobItem } from "../../atom/Job/Job";
+import { JobItem } from "../../atom/JobItem/Job";
 
 type job = {
-    id: String;
-    status: String;
-    keyword: String;
-    owner: String;
-    date: String;
+    id: string;
+    status: string;
+    keyword: string;
+    owner: string;
+    date: string;
 };
 
 const List: React.FC<{}> = ({}) => {
@@ -24,7 +24,7 @@ const List: React.FC<{}> = ({}) => {
             message.jobList.map((value, _) => {
                 console.log(value);
                 const newJobList = data;
-                var newJob: job = {
+                const newJob: job = {
                     id: value.id,
                     status: value.status,
                     keyword: value.keyword,
@@ -40,7 +40,7 @@ const List: React.FC<{}> = ({}) => {
         });
     }
 
-    var jobList;
+    let jobList;
     if (data == null || data == undefined || data.length == 0) {
         jobList = (
             <div className="w-full flex justify-center mt-10">
