@@ -17,10 +17,22 @@ const WorkerList = dynamic(
 
 export default function Job() {
     const router = useRouter();
+
     return (
-        <div className="w-full h-screen bg-gray-100 flex flex-col justify-center">
+        <div className="w-full min-h-screen bg-gray-100 flex flex-col content-around">
             <div>Hell {router.query.jobId}</div>
             <WorkerList JobId={router.query.jobId}></WorkerList>
+            <div
+                onClick={(e) => {
+                    e.preventDefault();
+                    router.push({
+                        pathname: "/articles",
+                        query: { jobId: router.query.jobId },
+                    });
+                }}
+            >
+                Articles
+            </div>
         </div>
     );
 }

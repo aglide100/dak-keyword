@@ -5,7 +5,17 @@ option go_package = "github.com/aglide100/dak-keyword/pb/unit/article";
 
 message Article {
     string id = 1;
-    string text = 2;
-    string create_at = 3;
-    string author = 4;
+    string author = 2;
+    string keyword = 3;
+    string content = 4;
+    string platform = 5;
+    string score_pos = 6;
+    string score_neg = 7;
+    string score_neut = 8;
+    string score_comp = 9;
+    string score_none = 10;
+    string score_max_value= 11;
+    string score_max_name = 12;
+    string job_id = 13;
+    string worker_id = 14;
 }

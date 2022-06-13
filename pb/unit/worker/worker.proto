@@ -5,7 +5,7 @@ option go_package = "github.com/aglide100/dak-keyword/pb/unit/worker";
 
 message Worker {
     string worker_id = 1;
-    string status = 2;
-    string job_id = 3;
-    string keyword = 4;
+    string keyword = 2;
+    string status = 3;
+    string job_id = 4;
 }

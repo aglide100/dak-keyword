@@ -60,9 +60,9 @@ proto.pb.unit.worker.Worker.prototype.toObject = function(opt_includeInstance) {
 proto.pb.unit.worker.Worker.toObject = function(includeInstance, msg) {
   var f, obj = {
     workerId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    status: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    jobId: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    keyword: jspb.Message.getFieldWithDefault(msg, 4, "")
+    keyword: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    status: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    jobId: jspb.Message.getFieldWithDefault(msg, 4, "")
   };
 
   if (includeInstance) {
@@ -105,15 +105,15 @@ proto.pb.unit.worker.Worker.deserializeBinaryFromReader = function(msg, reader) 
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
-      msg.setStatus(value);
+      msg.setKeyword(value);
       break;
     case 3:
       var value = /** @type {string} */ (reader.readString());
-      msg.setJobId(value);
+      msg.setStatus(value);
       break;
     case 4:
       var value = /** @type {string} */ (reader.readString());
-      msg.setKeyword(value);
+      msg.setJobId(value);
       break;
     default:
       reader.skipField();
@@ -151,21 +151,21 @@ proto.pb.unit.worker.Worker.serializeBinaryToWriter = function(message, writer) 
       f
     );
   }
-  f = message.getStatus();
+  f = message.getKeyword();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = message.getJobId();
+  f = message.getStatus();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = message.getKeyword();
+  f = message.getJobId();
   if (f.length > 0) {
     writer.writeString(
       4,
@@ -191,46 +191,46 @@ proto.pb.unit.worker.Worker.prototype.setWorkerId = function(value) {
 
 
 /**
- * optional string status = 2;
+ * optional string keyword = 2;
  * @return {string}
  */
-proto.pb.unit.worker.Worker.prototype.getStatus = function() {
+proto.pb.unit.worker.Worker.prototype.getKeyword = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
 /** @param {string} value */
-proto.pb.unit.worker.Worker.prototype.setStatus = function(value) {
+proto.pb.unit.worker.Worker.prototype.setKeyword = function(value) {
   jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
 /**
- * optional string job_id = 3;
+ * optional string status = 3;
  * @return {string}
  */
-proto.pb.unit.worker.Worker.prototype.getJobId = function() {
+proto.pb.unit.worker.Worker.prototype.getStatus = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
 /** @param {string} value */
-proto.pb.unit.worker.Worker.prototype.setJobId = function(value) {
+proto.pb.unit.worker.Worker.prototype.setStatus = function(value) {
   jspb.Message.setProto3StringField(this, 3, value);
 };
 
 
 /**
- * optional string keyword = 4;
+ * optional string job_id = 4;
  * @return {string}
  */
-proto.pb.unit.worker.Worker.prototype.getKeyword = function() {
+proto.pb.unit.worker.Worker.prototype.getJobId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
 };
 
 
 /** @param {string} value */
-proto.pb.unit.worker.Worker.prototype.setKeyword = function(value) {
+proto.pb.unit.worker.Worker.prototype.setJobId = function(value) {
   jspb.Message.setProto3StringField(this, 4, value);
 };
 
