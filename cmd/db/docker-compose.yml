@@ -3,22 +3,22 @@ version: "3.5"
 #   type: bind
 
 services:
-  db:
-    build: 
-      context: ../../
-      dockerfile: ./cmd/db/Dockerfile
-    # image: ghcr.io/aglide100/dak-keyword-db:latest
-    # volumes:
-    #   - <<: *services-volume
-    #     # source: ${HOST}/postgres
-    #     source: /tmp/dak-keyword
-    #     target: /var/lib/postgres
-    ports:
-      - 8432:5432
-    environment:
-      #PGDATA: /var/lib/postgresql/data
-      POSTGRES_DB: keyword
-      #POSTGRES_HOST_AUTH_METHOD: trust
-      POSTGRES_USER: table_admin
-      POSTGRES_PASSWORD: HelloWorld
-      POSTGRES_INITDB_ARGS: --encoding=UTF-8
+    db:
+        # build:
+        #     context: ../../
+        #     dockerfile: ./Dockerfile
+        image: ghcr.io/aglide100/dak-keyword-db:latest
+        # volumes:
+        #   - <<: *services-volume
+        #     # source: ${HOST}/postgres
+        #     source: /tmp/dak-keyword
+        #     target: /var/lib/postgres
+        ports:
+            - 8432:5432
+        environment:
+            #PGDATA: /var/lib/postgresql/data
+            POSTGRES_DB: keyword
+            #POSTGRES_HOST_AUTH_METHOD: trust
+            POSTGRES_USER: table_admin
+            POSTGRES_PASSWORD: HelloWorld
+            POSTGRES_INITDB_ARGS: --encoding=UTF-8

@@ -76,7 +76,7 @@ const Header: React.FC<HeaderProps> = ({
                         onClick={(e) => {
                             e.preventDefault();
 
-                            router.push({
+                            router.replace({
                                 pathname: "/",
                             });
                         }}

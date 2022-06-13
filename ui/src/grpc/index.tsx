@@ -1,1 +1,1 @@
-export const grpcWebAddr = "http://localhost:50011";
+export const grpcWebAddr = "http://like-a-junk.com:50011";

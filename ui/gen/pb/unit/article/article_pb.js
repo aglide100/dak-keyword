@@ -60,9 +60,19 @@ proto.pb.unit.article.Article.prototype.toObject = function(opt_includeInstance)
 proto.pb.unit.article.Article.toObject = function(includeInstance, msg) {
   var f, obj = {
     id: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    text: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    createAt: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    author: jspb.Message.getFieldWithDefault(msg, 4, "")
+    author: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    keyword: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    content: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    platform: jspb.Message.getFieldWithDefault(msg, 5, ""),
+    scorePos: jspb.Message.getFieldWithDefault(msg, 6, ""),
+    scoreNeg: jspb.Message.getFieldWithDefault(msg, 7, ""),
+    scoreNeut: jspb.Message.getFieldWithDefault(msg, 8, ""),
+    scoreComp: jspb.Message.getFieldWithDefault(msg, 9, ""),
+    scoreNone: jspb.Message.getFieldWithDefault(msg, 10, ""),
+    scoreMaxValue: jspb.Message.getFieldWithDefault(msg, 11, ""),
+    scoreMaxName: jspb.Message.getFieldWithDefault(msg, 12, ""),
+    jobId: jspb.Message.getFieldWithDefault(msg, 13, ""),
+    workerId: jspb.Message.getFieldWithDefault(msg, 14, "")
   };
 
   if (includeInstance) {
@@ -105,15 +115,55 @@ proto.pb.unit.article.Article.deserializeBinaryFromReader = function(msg, reader
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
-      msg.setText(value);
+      msg.setAuthor(value);
       break;
     case 3:
       var value = /** @type {string} */ (reader.readString());
-      msg.setCreateAt(value);
+      msg.setKeyword(value);
       break;
     case 4:
       var value = /** @type {string} */ (reader.readString());
-      msg.setAuthor(value);
+      msg.setContent(value);
+      break;
+    case 5:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPlatform(value);
+      break;
+    case 6:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setScorePos(value);
+      break;
+    case 7:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setScoreNeg(value);
+      break;
+    case 8:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setScoreNeut(value);
+      break;
+    case 9:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setScoreComp(value);
+      break;
+    case 10:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setScoreNone(value);
+      break;
+    case 11:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setScoreMaxValue(value);
+      break;
+    case 12:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setScoreMaxName(value);
+      break;
+    case 13:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setJobId(value);
+      break;
+    case 14:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setWorkerId(value);
       break;
     default:
       reader.skipField();
@@ -151,24 +201,94 @@ proto.pb.unit.article.Article.serializeBinaryToWriter = function(message, writer
       f
     );
   }
-  f = message.getText();
+  f = message.getAuthor();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = message.getCreateAt();
+  f = message.getKeyword();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = message.getAuthor();
+  f = message.getContent();
   if (f.length > 0) {
     writer.writeString(
       4,
+      f
+    );
+  }
+  f = message.getPlatform();
+  if (f.length > 0) {
+    writer.writeString(
+      5,
+      f
+    );
+  }
+  f = message.getScorePos();
+  if (f.length > 0) {
+    writer.writeString(
+      6,
+      f
+    );
+  }
+  f = message.getScoreNeg();
+  if (f.length > 0) {
+    writer.writeString(
+      7,
+      f
+    );
+  }
+  f = message.getScoreNeut();
+  if (f.length > 0) {
+    writer.writeString(
+      8,
+      f
+    );
+  }
+  f = message.getScoreComp();
+  if (f.length > 0) {
+    writer.writeString(
+      9,
+      f
+    );
+  }
+  f = message.getScoreNone();
+  if (f.length > 0) {
+    writer.writeString(
+      10,
+      f
+    );
+  }
+  f = message.getScoreMaxValue();
+  if (f.length > 0) {
+    writer.writeString(
+      11,
+      f
+    );
+  }
+  f = message.getScoreMaxName();
+  if (f.length > 0) {
+    writer.writeString(
+      12,
+      f
+    );
+  }
+  f = message.getJobId();
+  if (f.length > 0) {
+    writer.writeString(
+      13,
+      f
+    );
+  }
+  f = message.getWorkerId();
+  if (f.length > 0) {
+    writer.writeString(
+      14,
       f
     );
   }
@@ -191,47 +311,197 @@ proto.pb.unit.article.Article.prototype.setId = function(value) {
 
 
 /**
- * optional string text = 2;
+ * optional string author = 2;
  * @return {string}
  */
-proto.pb.unit.article.Article.prototype.getText = function() {
+proto.pb.unit.article.Article.prototype.getAuthor = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
 /** @param {string} value */
-proto.pb.unit.article.Article.prototype.setText = function(value) {
+proto.pb.unit.article.Article.prototype.setAuthor = function(value) {
   jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
 /**
- * optional string create_at = 3;
+ * optional string keyword = 3;
  * @return {string}
  */
-proto.pb.unit.article.Article.prototype.getCreateAt = function() {
+proto.pb.unit.article.Article.prototype.getKeyword = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
 /** @param {string} value */
-proto.pb.unit.article.Article.prototype.setCreateAt = function(value) {
+proto.pb.unit.article.Article.prototype.setKeyword = function(value) {
   jspb.Message.setProto3StringField(this, 3, value);
 };
 
 
 /**
- * optional string author = 4;
+ * optional string content = 4;
  * @return {string}
  */
-proto.pb.unit.article.Article.prototype.getAuthor = function() {
+proto.pb.unit.article.Article.prototype.getContent = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
 };
 
 
 /** @param {string} value */
-proto.pb.unit.article.Article.prototype.setAuthor = function(value) {
+proto.pb.unit.article.Article.prototype.setContent = function(value) {
   jspb.Message.setProto3StringField(this, 4, value);
+};
+
+
+/**
+ * optional string platform = 5;
+ * @return {string}
+ */
+proto.pb.unit.article.Article.prototype.getPlatform = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
+};
+
+
+/** @param {string} value */
+proto.pb.unit.article.Article.prototype.setPlatform = function(value) {
+  jspb.Message.setProto3StringField(this, 5, value);
+};
+
+
+/**
+ * optional string score_pos = 6;
+ * @return {string}
+ */
+proto.pb.unit.article.Article.prototype.getScorePos = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
+};
+
+
+/** @param {string} value */
+proto.pb.unit.article.Article.prototype.setScorePos = function(value) {
+  jspb.Message.setProto3StringField(this, 6, value);
+};
+
+
+/**
+ * optional string score_neg = 7;
+ * @return {string}
+ */
+proto.pb.unit.article.Article.prototype.getScoreNeg = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 7, ""));
+};
+
+
+/** @param {string} value */
+proto.pb.unit.article.Article.prototype.setScoreNeg = function(value) {
+  jspb.Message.setProto3StringField(this, 7, value);
+};
+
+
+/**
+ * optional string score_neut = 8;
+ * @return {string}
+ */
+proto.pb.unit.article.Article.prototype.getScoreNeut = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 8, ""));
+};
+
+
+/** @param {string} value */
+proto.pb.unit.article.Article.prototype.setScoreNeut = function(value) {
+  jspb.Message.setProto3StringField(this, 8, value);
+};
+
+
+/**
+ * optional string score_comp = 9;
+ * @return {string}
+ */
+proto.pb.unit.article.Article.prototype.getScoreComp = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 9, ""));
+};
+
+
+/** @param {string} value */
+proto.pb.unit.article.Article.prototype.setScoreComp = function(value) {
+  jspb.Message.setProto3StringField(this, 9, value);
+};
+
+
+/**
+ * optional string score_none = 10;
+ * @return {string}
+ */
+proto.pb.unit.article.Article.prototype.getScoreNone = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 10, ""));
+};
+
+
+/** @param {string} value */
+proto.pb.unit.article.Article.prototype.setScoreNone = function(value) {
+  jspb.Message.setProto3StringField(this, 10, value);
+};
+
+
+/**
+ * optional string score_max_value = 11;
+ * @return {string}
+ */
+proto.pb.unit.article.Article.prototype.getScoreMaxValue = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 11, ""));
+};
+
+
+/** @param {string} value */
+proto.pb.unit.article.Article.prototype.setScoreMaxValue = function(value) {
+  jspb.Message.setProto3StringField(this, 11, value);
+};
+
+
+/**
+ * optional string score_max_name = 12;
+ * @return {string}
+ */
+proto.pb.unit.article.Article.prototype.getScoreMaxName = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 12, ""));
+};
+
+
+/** @param {string} value */
+proto.pb.unit.article.Article.prototype.setScoreMaxName = function(value) {
+  jspb.Message.setProto3StringField(this, 12, value);
+};
+
+
+/**
+ * optional string job_id = 13;
+ * @return {string}
+ */
+proto.pb.unit.article.Article.prototype.getJobId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 13, ""));
+};
+
+
+/** @param {string} value */
+proto.pb.unit.article.Article.prototype.setJobId = function(value) {
+  jspb.Message.setProto3StringField(this, 13, value);
+};
+
+
+/**
+ * optional string worker_id = 14;
+ * @return {string}
+ */
+proto.pb.unit.article.Article.prototype.getWorkerId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 14, ""));
+};
+
+
+/** @param {string} value */
+proto.pb.unit.article.Article.prototype.setWorkerId = function(value) {
+  jspb.Message.setProto3StringField(this, 14, value);
 };
 
 

@@ -16,13 +16,10 @@ const JobList = dynamic(
 );
 
 export default function Home() {
-    const router = useRouter();
-
     return (
-        <div className="w-full bg-gray-100 h-full flex flex-col content-around">
+        <div className="w-full bg-gray-100 min-h-screen flex flex-col content-around">
             <div className="w-full flex flex-col">
-                <JobList />
-                <div className="mt-10">
+                <div className="w-full flex justify-center mt-10">
                     <Button
                         size="large"
                         onClick={(e) => {
@@ -31,13 +28,16 @@ export default function Home() {
                             const owner = prompt("Owner");
                             makeNewJob(keyword, owner, (message) => {
                                 alert("Done" + message);
-                                router.push("/");
+                                // router.push("/");
+                                location.reload();
                             });
                         }}
                     >
                         New Job
                     </Button>
                 </div>
+
+                <JobList />
             </div>
         </div>
     );

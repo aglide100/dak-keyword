@@ -38,7 +38,7 @@ func (s *ManagerSrv) CreateNewJob(ctx context.Context, in *pb_svc_manager.Create
 		workerId := uuid.New().String()
 		workerIdList = append(workerIdList, workerId)
 		
-		err := s.db.AddNewWorker(workerId, jobId, value, in.Keyword)
+		err := s.db.AddNewWorker(workerId, jobId, value)
 		if err != nil {
 			log.Printf("err: %v", err)
 		}

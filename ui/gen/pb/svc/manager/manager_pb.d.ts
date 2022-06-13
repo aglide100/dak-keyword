@@ -4,6 +4,7 @@
 import * as jspb from "google-protobuf";
 import * as pb_unit_job_job_pb from "../../../pb/unit/job/job_pb";
 import * as pb_unit_worker_worker_pb from "../../../pb/unit/worker/worker_pb";
+import * as pb_unit_article_article_pb from "../../../pb/unit/article/article_pb";
 
 export class CreateNewJobReq extends jspb.Message {
   getKeyword(): string;
@@ -346,6 +347,48 @@ export class GetWorkerListRes extends jspb.Message {
 export namespace GetWorkerListRes {
   export type AsObject = {
     workerList: Array<pb_unit_worker_worker_pb.Worker.AsObject>,
+  }
+}
+
+export class GetArticleListReq extends jspb.Message {
+  getId(): string;
+  setId(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetArticleListReq.AsObject;
+  static toObject(includeInstance: boolean, msg: GetArticleListReq): GetArticleListReq.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: GetArticleListReq, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetArticleListReq;
+  static deserializeBinaryFromReader(message: GetArticleListReq, reader: jspb.BinaryReader): GetArticleListReq;
+}
+
+export namespace GetArticleListReq {
+  export type AsObject = {
+    id: string,
+  }
+}
+
+export class GetArticleListRes extends jspb.Message {
+  clearArticleList(): void;
+  getArticleList(): Array<pb_unit_article_article_pb.Article>;
+  setArticleList(value: Array<pb_unit_article_article_pb.Article>): void;
+  addArticle(value?: pb_unit_article_article_pb.Article, index?: number): pb_unit_article_article_pb.Article;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetArticleListRes.AsObject;
+  static toObject(includeInstance: boolean, msg: GetArticleListRes): GetArticleListRes.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: GetArticleListRes, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetArticleListRes;
+  static deserializeBinaryFromReader(message: GetArticleListRes, reader: jspb.BinaryReader): GetArticleListRes;
+}
+
+export namespace GetArticleListRes {
+  export type AsObject = {
+    articleList: Array<pb_unit_article_article_pb.Article.AsObject>,
   }
 }
 

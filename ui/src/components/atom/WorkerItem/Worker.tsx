@@ -6,6 +6,7 @@ export type WorkerProps = {
     workerId: string;
     status: string;
     jobId: string;
+    workerKeyword: string;
 };
 
 export const WorkerItem = (props: WorkerProps) => {
@@ -25,6 +26,9 @@ export const WorkerItem = (props: WorkerProps) => {
                     }}
                 >
                     <div className="mb-1">WorkerId: {props.workerId}</div>
+                    <div className="mb-1">
+                        Worker keyword: {props.workerKeyword}
+                    </div>
                     <div className="mb-1">Status: {props.status}</div>
                 </div>
             </motion.li>

@@ -21,7 +21,6 @@ create table if not exists worker
         constraint worker_pk
             primary key,
     "Keyword"        varchar,
-    "Parent_keyword" varchar,
     "Status"         varchar,
     "Job_id"         varchar
         constraint "Job_id"
@@ -37,6 +36,11 @@ create unique index if not exists worker_id_uindex
 
 create table if not exists article
 (
+    "Id"              serial
+        constraint article_pk
+            primary key,
+    "Author"          varchar,
+    "Keyword"         varchar,
     "Content"         varchar,
     "Platform"        varchar,
     "Score_pos"       varchar,
@@ -50,15 +54,10 @@ create table if not exists article
         constraint "Job_id"
             references job
             on update cascade on delete cascade,
-    "Author"          varchar,
-    "Keyword"         varchar,
     "Worker_id"       varchar
         constraint "Worker_id"
             references worker
-            on update cascade on delete cascade,
-    "Id"              serial
-        constraint article_pk
-            primary key
+            on update cascade on delete cascade
 );
 
 alter table article

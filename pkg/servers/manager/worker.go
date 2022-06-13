@@ -6,7 +6,6 @@ import (
 
 	pb_svc_manager "github.com/aglide100/dak-keyword/pb/svc/manager"
 	pb_unit_worker "github.com/aglide100/dak-keyword/pb/unit/worker"
-	"github.com/aglide100/dak-keyword/pkg/models"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -25,7 +24,14 @@ func (s *ManagerSrv) GetWorkerList(ctx context.Context, in *pb_svc_manager.GetWo
 	var pbWorkers []*pb_unit_worker.Worker
 
 	for _, value := range workerList {
-		pbWorker := models.WorkerToPbUnit(value)
+		
+		pbWorker := &pb_unit_worker.Worker{
+			WorkerId: value.WorkerId,
+			Keyword: value.Keyword,
+			Status: value.Status,
+			JobId: value.JobId,
+		}
+		// pbWorker := models.WorkerToPbUnit(value)
 		pbWorkers = append(pbWorkers, pbWorker)
 	}
 
