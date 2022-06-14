@@ -39,6 +39,7 @@ export const ArticleItem = (props: ArticleProps) => {
                         <></>
                     )}
                 </div>
+                <div>Contnet : {props.Content}</div>
                 <div className="flex flex-col mt-5">
                     <div>Score</div>
                     <div className="flex flex-row">

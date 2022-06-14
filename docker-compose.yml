@@ -3,9 +3,26 @@ x-services-volume: &services-volume
     type: bind
 
 services:
+    db:
+        # image: ghcr.io/aglide100/dak-keyword-db:latest
+        image: db
+        # volumes:
+        #   - <<: *services-volume
+        #     # source: ${HOST}/postgres
+        #     source: /tmp/dak-keyword
+        #     target: /var/lib/postgres
+        env_file:
+            - ./env/db.env
+        ports:
+            - 5432:5432
+        networks:
+            - keyword_net
+        deploy:
+            placement:
+                constraints: [node.role==manager]
     apid:
-        # image: ghcr.io/aglide100/dak-keyword-apid:latest
-        image: apid
+        image: ghcr.io/aglide100/dak-keyword-apid:latest
+        # image: apid
         env_file:
             - ./env/dbConfig.env
             - ./env/tweet_secret.env
@@ -39,43 +56,11 @@ services:
             placement:
                 constraints: [node.role==manager]
 
-    db:
-        # image: ghcr.io/aglide100/dak-keyword-db:latest
-        image: db
-        # volumes:
-        #   - <<: *services-volume
-        #     # source: ${HOST}/postgres
-        #     source: /tmp/dak-keyword
-        #     target: /var/lib/postgres
-        env_file:
-            - ./env/db.env
-        ports:
-            - 5432:5432
-        networks:
-            - keyword_net
-        deploy:
-            placement:
-                constraints: [node.role==manager]
-
-    #webd:
-    #    image: node
-    #    ports:
-    #        - 4000:3000
-    #    networks:
-    #        - keyword_net
-
-    # viz:
-    #     image: dockersamples/visualizer
-    #     volumes:
-    #         - /var/run/docker.sock:/var/run/docker.sock
-    #     networks:
-    #         - keyword_net
-    #     ports:
-    #         - 1999:8080
 
 networks:
     keyword_net:
         driver: overlay
+
 volumes:
     keys:
         external:
