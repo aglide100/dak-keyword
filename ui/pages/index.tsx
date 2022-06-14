@@ -27,7 +27,7 @@ export default function Home() {
                             const keyword = prompt("Keyword");
                             const owner = prompt("Owner");
                             makeNewJob(keyword, owner, (message) => {
-                                alert("Done" + message);
+                                // alert("Done" + message);
                                 // router.push("/");
                                 location.reload();
                             });

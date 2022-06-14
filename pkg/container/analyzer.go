@@ -7,6 +7,7 @@ import (
 
 	"github.com/aglide100/dak-keyword/pkg/db"
 	"github.com/docker/docker/api/types"
+	"github.com/docker/docker/api/types/mount"
 	"github.com/docker/docker/api/types/swarm"
 )
 
@@ -29,7 +30,14 @@ func (c *Controller) CreateNewAnalyzer(workerId string, keyword string, dbConfig
 			ContainerSpec: &swarm.ContainerSpec{
 					Image: "ghcr.io/aglide100/lexicon-based-simple-korean-semantic-analyzer:latest",
 					Command: []string{"python3", "Keyword.py"},
-
+					Mounts: []mount.Mount{
+						{
+							Type:  "volume",
+							Source: "keys",
+							Target: "/keys/",
+							VolumeOptions: &mount.VolumeOptions{},
+						},
+					},
 					Env: []string{
 					"Keyword=" + keyword, 
 					"DB_ADDR=" + dbConfig.Host,
@@ -38,8 +46,10 @@ func (c *Controller) CreateNewAnalyzer(workerId string, keyword string, dbConfig
 					"DB_PASSWORD=" + dbConfig.Password,
 					"DB_NAME=" + dbConfig.Dbname,
 					"WORKER_ID=" + workerId,
+					
 				},
 			},
+			
 
 			Networks: []swarm.NetworkAttachmentConfig{
 				swarm.NetworkAttachmentConfig{

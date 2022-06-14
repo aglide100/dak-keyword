@@ -6,46 +6,54 @@ import (
 	"log"
 	"time"
 
-	pb_svc_provision "github.com/aglide100/dak-keyword/pb/svc/provision"
+	pb_svc_manager "github.com/aglide100/dak-keyword/pb/svc/manager"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
+	"google.golang.org/grpc/credentials"
 )
 
 var (
-	addr = flag.String("addr", "0.0.0.0:50012", "the address to connect to")
+	addr = flag.String("addr", "0.0.0.0:50010", "the address to connect to")
 )
 
 func main() {
-	log.Printf("starting testing ! at %s", *addr)
+	err := CallGrpcCallDone("03f034bf-f665-4c5d-9b56-e3193f1a995a")
+	log.Printf("%v ", err)
+}
 
-	conn, err := grpc.Dial("0.0.0.0:50012", grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
-	// conn, err := grpc.DialContext(ctx ,address, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
+
+func CallGrpcCallDone(workerId string) error {
+	log.Printf("call apid at %s", *addr)
+
+	// creds, err := credentials.NewClientTLSFromFile("../keys/server.key","")
+	
+	creds, err := credentials.NewClientTLSFromFile("./keys/server.crt","localhost")
+	if err != nil {
+		return err
+	}
+
+	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(creds), grpc.WithBlock())
 	if err != nil {
 		log.Fatalf("can't connect grpc server : %v", err)
+		return err
 	}
 	defer conn.Close()
 	
-	client := pb_svc_provision.NewProvisionClient(conn)
+	client := pb_svc_manager.NewManagerClient(conn)
 
-	// ctx, cancel := context.WithTimeout(context.TODO(), time.Second)
-	// defer cancel()
-	// str := &pb_runner.Runner{
-
-	// }
-	in := &pb_svc_provision.CreateAnalyzerReq{
-		ScraperId: "test",
+	in := &pb_svc_manager.DoneScraperReq{
+		Id: workerId,
 	}
 	
-	// in := &pb_svc_provision.GetRunnerReq{
-	// 	Runner: str,
-	// }
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
-	res, err := client.CreateAnalyzer(ctx, in)
+
+	res, err := client.DoneScraper(ctx, in)
 
 	if err != nil {
 		log.Fatalf("Can't receive anything! %v", err)
+		return err
 	}
 	log.Printf("res %v", res)
-
+	
+	return nil
 }
