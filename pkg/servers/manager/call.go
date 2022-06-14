@@ -11,7 +11,7 @@ import (
 )
 
 
-func callMakeScraper(workerId string, jobId string, keyword string) (error) {
+func callMakeScraper(workerId string, jobId string, keyword string, token string) (error) {
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	
 	if err != nil {
@@ -25,6 +25,7 @@ func callMakeScraper(workerId string, jobId string, keyword string) (error) {
 		Keyword: keyword,
 		WorkerId: workerId,
 		JobId: jobId,
+		Token: token,
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)

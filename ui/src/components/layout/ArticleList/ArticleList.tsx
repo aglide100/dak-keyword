@@ -22,7 +22,7 @@ export const ArticleList: React.FC<ArticleListProps> = (JobId) => {
         makeGetArticleList(router.query.jobId, (message) => {
             const newArticleList: ArticleProps[] = [];
 
-            message.articleList.map((value, idx) => {
+            message.articleList.map((value, _) => {
                 const newArticle: ArticleProps = {
                     Id: value.id,
                     Author: value.author,
@@ -41,12 +41,9 @@ export const ArticleList: React.FC<ArticleListProps> = (JobId) => {
                 };
 
                 newArticleList.push(newArticle);
-
-                console.log("@@@@@", newArticle);
             });
 
             if (data != newArticleList) {
-                console.log("@@@", newArticleList);
                 setData(newArticleList);
             }
 

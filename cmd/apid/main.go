@@ -23,9 +23,9 @@ var (
 	apidGrpcWebAddr = flag.String("apid grpc-web addr", "0.0.0.0:50011", "grpc-web address")
 	apidGrpcAddr = flag.String("apid grpc addr", "0.0.0.0:50010", "grpc address")
 	apidAnalyzerAddr = flag.String("apid analyzer addr", "0.0.0.0:50013", "gprc address")
-	usingTls = flag.Bool("grpc.tls", false, "using http2")
-	serverCrt = flag.String("cert.crt", "keys/server.crt", "crt file location")
-	serverKey = flag.String("cert.key", "keys/server.key", "ket file location")
+	usingTls = flag.Bool("grpc.tls", true, "using http2")
+	serverCrt = flag.String("cert.crt", "../keys/server.crt", "crt file location")
+	serverKey = flag.String("cert.key", "../keys/server.key", "ket file location")
 )
 
 func main() {
@@ -121,18 +121,20 @@ func realMain() error {
 			}
 		}))
 
-		// if *usingTls { 
-			// 		err = http.ServeTLS(provisionedAddrL, handler, *serverCrt , *serverKey)
-			// 	} else {
-			// 		log.Println("starting without tls....")
-			// 		err = http.Serve(provisionedAddrL, handler)
-			// 	}
 
 		log.Printf("Start grpc-web server at %v", *apidGrpcWebAddr)
-		err := http.Serve(gRPCWebL, handler)
+		
+		if *usingTls { 
+			err = http.ServeTLS(gRPCWebL, handler, *serverCrt , *serverKey)
+		} else {
+			log.Println("starting without tls....")
+			err = http.Serve(gRPCWebL, handler)
+		}
 		if err != nil {
 			return nil
 		}
+		// err := http.Serve(gRPCWebL, handler)
+		
 		
 		return nil
 	})

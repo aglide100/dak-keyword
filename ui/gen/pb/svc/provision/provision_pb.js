@@ -72,7 +72,8 @@ proto.pb.svc.provision.CreateScraperReq.toObject = function(includeInstance, msg
   var f, obj = {
     keyword: jspb.Message.getFieldWithDefault(msg, 1, ""),
     workerId: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    jobId: jspb.Message.getFieldWithDefault(msg, 3, "")
+    jobId: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    token: jspb.Message.getFieldWithDefault(msg, 4, "")
   };
 
   if (includeInstance) {
@@ -120,6 +121,10 @@ proto.pb.svc.provision.CreateScraperReq.deserializeBinaryFromReader = function(m
     case 3:
       var value = /** @type {string} */ (reader.readString());
       msg.setJobId(value);
+      break;
+    case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setToken(value);
       break;
     default:
       reader.skipField();
@@ -171,6 +176,13 @@ proto.pb.svc.provision.CreateScraperReq.serializeBinaryToWriter = function(messa
       f
     );
   }
+  f = message.getToken();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
 };
 
 
@@ -216,6 +228,21 @@ proto.pb.svc.provision.CreateScraperReq.prototype.getJobId = function() {
 /** @param {string} value */
 proto.pb.svc.provision.CreateScraperReq.prototype.setJobId = function(value) {
   jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional string token = 4;
+ * @return {string}
+ */
+proto.pb.svc.provision.CreateScraperReq.prototype.getToken = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/** @param {string} value */
+proto.pb.svc.provision.CreateScraperReq.prototype.setToken = function(value) {
+  jspb.Message.setProto3StringField(this, 4, value);
 };
 
 

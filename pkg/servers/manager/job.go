@@ -3,6 +3,7 @@ package manager
 import (
 	"context"
 	"log"
+	"os"
 
 	pb_svc_manager "github.com/aglide100/dak-keyword/pb/svc/manager"
 	pb_unit_job "github.com/aglide100/dak-keyword/pb/unit/job"
@@ -43,7 +44,7 @@ func (s *ManagerSrv) CreateNewJob(ctx context.Context, in *pb_svc_manager.Create
 			log.Printf("err: %v", err)
 		}
 
-		err = callMakeScraper(workerId, jobId, value)
+		err = callMakeScraper(workerId, jobId, value, os.Getenv("BearerToken"))
 		if err != nil {
 			log.Printf("err: %v", err)
 		}

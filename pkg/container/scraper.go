@@ -12,7 +12,7 @@ import (
 
 // const nodeRole = "node.role == worker"
 
-func (c *Controller) CreateNewScraper(workerId string, jobId string, keyword string, dbConfig *db.DBConfig) (err error) {
+func (c *Controller) CreateNewScraper(workerId string, jobId string, keyword string, token string, dbConfig *db.DBConfig) (err error) {
 	ctx := context.Background()
 	// c.cli.ImagePull(ctx, "ghcr.io/aglide100/dak-keyword-scraped:latest", types.ImagePullOptions{})
 
@@ -34,6 +34,7 @@ func (c *Controller) CreateNewScraper(workerId string, jobId string, keyword str
 					"DB_NAME=" + dbConfig.Dbname,
 					"WORKER_ID=" + workerId,
 					"JOB_ID=" + jobId,
+					"BearerToken=" + token,
 				},
 			},
 
