@@ -11,7 +11,7 @@ import (
 )
 
 const maxResult = 100
-const limitResult = 10
+const limitResult = 2
 const twitterv2api = `https://api.twitter.com/2/`
 
 func (s Scraper) GetMockTweets(keyword string) ([]models.TweetArticle) {
@@ -61,7 +61,6 @@ func (s Scraper) GetRecentSearch(keyword string, nextToken string, nums ...int) 
 
 	meta := gjson.Get(resp, "meta")
 	data := gjson.Get(resp, "data")
-
 
 	// log.Printf("------------------------------------------------")
 	// log.Printf("data: %v", data.String())

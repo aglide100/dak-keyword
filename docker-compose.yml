@@ -8,6 +8,7 @@ services:
         image: apid
         env_file:
             - ./env/dbConfig.env
+            - ./env/tweet_secret.env
         networks:
             - keyword_net
         ports:

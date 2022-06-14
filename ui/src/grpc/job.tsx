@@ -11,7 +11,7 @@ export async function makeGetJobList(callback) {
     grpc.unary(Manager.GetJobList, {
         host: grpcWebAddr,
         request: getJobListReq,
-        transport: NodeHttpTransport(),
+        // transport: NodeHttpTransport(),
         onEnd: (res) => {
             const { status, statusMessage, headers, message, trailers } = res;
             console.log("getJobListReq.onEnd.status", status, statusMessage);
@@ -36,7 +36,7 @@ export async function makeNewJob(keyword, owner, callback) {
     grpc.unary(Manager.CreateNewJob, {
         host: grpcWebAddr,
         request: createNewJobReq,
-        transport: NodeHttpTransport(),
+        // transport: NodeHttpTransport(),
         onEnd: (res) => {
             const { status, statusMessage, headers, message, trailers } = res;
             console.log("createNewJobReq.onEnd.status", status, statusMessage);

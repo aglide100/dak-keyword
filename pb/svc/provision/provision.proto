@@ -16,6 +16,7 @@ message CreateScraperReq {
     string keyword = 1;
     string worker_id = 2;
     string job_id = 3;
+    string token = 4;
 }
 
 message CreateScraperRes {

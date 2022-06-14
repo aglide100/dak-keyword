@@ -13,6 +13,9 @@ export class CreateScraperReq extends jspb.Message {
   getJobId(): string;
   setJobId(value: string): void;
 
+  getToken(): string;
+  setToken(value: string): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CreateScraperReq.AsObject;
   static toObject(includeInstance: boolean, msg: CreateScraperReq): CreateScraperReq.AsObject;
@@ -28,6 +31,7 @@ export namespace CreateScraperReq {
     keyword: string,
     workerId: string,
     jobId: string,
+    token: string,
   }
 }
 
