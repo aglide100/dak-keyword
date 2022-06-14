@@ -6,6 +6,8 @@ COPY package*.json ./
 
 COPY . .
 
+RUN apt update && apt install -y libvips 
+
 RUN npm install --legacy-peer-deps 
 # RUN npm install --no-optional
 
