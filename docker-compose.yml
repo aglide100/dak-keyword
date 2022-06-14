@@ -18,6 +18,9 @@ services:
             - 50010:50010
         depends_on:
             - db
+        deploy:
+            placement:
+                constraints: [node.role==manager]
 
     provisioned:
         # image: ghcr.io/aglide100/dak-keyword-provisioned:latest
@@ -32,6 +35,9 @@ services:
             - 50012:50012
         depends_on:
             - db
+        deploy:
+            placement:
+                constraints: [node.role==manager]
 
     db:
         # image: ghcr.io/aglide100/dak-keyword-db:latest
@@ -47,6 +53,9 @@ services:
             - 5432:5432
         networks:
             - keyword_net
+        deploy:
+            placement:
+                constraints: [node.role==manager]
 
     #webd:
     #    image: node
@@ -55,14 +64,14 @@ services:
     #    networks:
     #        - keyword_net
 
-    viz:
-        image: dockersamples/visualizer
-        volumes:
-            - /var/run/docker.sock:/var/run/docker.sock
-        networks:
-            - keyword_net
-        ports:
-            - 1999:8080
+    # viz:
+    #     image: dockersamples/visualizer
+    #     volumes:
+    #         - /var/run/docker.sock:/var/run/docker.sock
+    #     networks:
+    #         - keyword_net
+    #     ports:
+    #         - 1999:8080
 
 networks:
     keyword_net:
