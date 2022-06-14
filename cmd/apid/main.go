@@ -47,6 +47,7 @@ func realMain() error {
 	if err != nil {
 		return err
 	}
+	defer gRPCL.Close()
 	
 	wg, ctx := errgroup.WithContext(context.Background())
 	_ = ctx
@@ -94,13 +95,16 @@ func realMain() error {
 	}
 
 	managerSrv := manager.NewManagerServiceServer(myDB)
+	
 	grpcServer := grpc.NewServer(opts...)
+	grpcNonTlsServer := grpc.NewServer()
 
 	pb_svc_manager.RegisterManagerServer(grpcServer, managerSrv)
+	pb_svc_manager.RegisterManagerServer(grpcNonTlsServer, managerSrv)
 
 	wg.Go(func() error {
 		log.Printf("Starting normal grpcServer at: %s" ,*apidGrpcAddr)
-		err := grpcServer.Serve(gRPCL)
+		err := grpcNonTlsServer.Serve(gRPCL)
 		if err != nil {
 			log.Fatalf("failed to serve: %v", err)
 			return err

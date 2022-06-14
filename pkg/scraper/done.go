@@ -18,6 +18,13 @@ var (
 func CallGrpcCallDone(workerId string) error {
 	log.Printf("call apid at %s", *addr)
 
+	// creds, err := credentials.NewClientTLSFromFile("../keys/server.key","")
+	
+	// creds, err := credentials.NewClientTLSFromFile("../keys/server.crt", "localhost")
+	// if err != nil {
+	// 	return err
+	// }
+
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
 		log.Fatalf("can't connect grpc server : %v", err)

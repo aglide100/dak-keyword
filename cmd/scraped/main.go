@@ -58,14 +58,14 @@ func realMain() error {
 		return fmt.Errorf("Can't connect DB: %v", err)
 	}
 	
-	myScraper := scraper.NewScraper("Mock", myDB)
-	result := myScraper.GetMockTweets(os.Getenv("Keyword"))
-	log.Printf("%d", len(result))
-	// myScraper := scraper.NewScraper(config.GetTwitterBearerToken())
-	// result, err := myScraper.GetRecentSearch("J.Walker", "")
-	// if err != nil {
-		// return err
-	// }
+	// myScraper := scraper.NewScraper("Mock", myDB)
+	// result := myScraper.GetMockTweets(os.Getenv("Keyword"))
+	log.Printf("%v", os.Getenv("BearerToken"))
+	myScraper := scraper.NewScraper(os.Getenv("BearerToken"), myDB)
+	result, err := myScraper.GetRecentSearch(os.Getenv("Keyword"), "")
+	if err != nil {
+		return err
+	}
 
 
 

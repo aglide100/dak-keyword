@@ -11,6 +11,8 @@ services:
             - ./env/tweet_secret.env
         networks:
             - keyword_net
+        volumes:
+            - keys:/keys/
         ports:
             - 50011:50011
             - 50010:50010
@@ -69,3 +71,7 @@ services:
 networks:
     keyword_net:
         driver: overlay
+volumes:
+    keys:
+        external:
+            name: keys
