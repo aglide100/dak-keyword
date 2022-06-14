@@ -62,11 +62,7 @@ services:
         networks:
             - keyword_net
         ports:
-            - 8080:8080
-        deploy:
-            placement:
-                constraints:
-                    - node.role == manager
+            - 1999:8080
 
 networks:
     keyword_net:
