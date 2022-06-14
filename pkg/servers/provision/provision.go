@@ -68,7 +68,7 @@ func (s *ProvisionSrv) RemoveScraper(ctx context.Context, in *pb_svc_provision.R
 
 func (s *ProvisionSrv) RemoveAnalyzer(ctx context.Context, in *pb_svc_provision.RemoveAnalyzerReq) (*pb_svc_provision.RemoveAnalyzerRes, error) {
 	if in != nil {
-		log.Printf("Received RemoveAnalyzer call: %v", in.String())
+		log.Printf("Received RemoveAnalyzer but not removed call: %v", in.String())
 	}
 
 	err := s.c.RemoveAnalyzer(in.Id)
