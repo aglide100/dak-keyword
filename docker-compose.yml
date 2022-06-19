@@ -51,8 +51,11 @@ services:
             - ./env/db.env
         ports:
             - 5432:5432
+        hostname: keyword_db
         networks:
-            - keyword_net
+            keyword_net:
+                aliases:
+                    - keyword_db
         deploy:
             placement:
                 constraints: [node.role==manager]
