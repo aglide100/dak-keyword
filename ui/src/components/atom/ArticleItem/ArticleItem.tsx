@@ -23,9 +23,9 @@ export const ArticleItem = (props: ArticleProps) => {
     return (
         <motion.li
             layoutId={props.Id + "_view"}
-            className="flex flex-col items-center pb-10 pt-10 mt-10 w-9/12 top-24 rounded-lg bg-white shadow-md"
+            className="flex flex-col items-center pb-10 pt-10  mt-10 w-9/12 top-24 rounded-lg bg-white shadow-md"
         >
-            <div className="w-full ml-5 flex flex-col ">
+            <div className="w-full ml-5 flex flex-col mr-2 ">
                 <div>Author : {props.Author}</div>
                 <div>Keyword : {props.Keyword}</div>
 
@@ -39,11 +39,11 @@ export const ArticleItem = (props: ArticleProps) => {
                         <></>
                     )}
                 </div>
+                <div>Contnet : {props.Content}</div>
                 <div className="flex flex-col mt-5">
                     <div>Score</div>
                     <div className="flex flex-row">
-                        Max Score : {props.Score_max_name} ={" "}
-                        {props.Score_max_value}
+                        Max Score : {props.Score_max_name}
                     </div>
                     <div className="flex flex-row">
                         Pos : {props.Score_pos} Neg : {props.Score_neg} Neut :{" "}
