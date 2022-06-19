@@ -65,29 +65,33 @@ export const ArticleList: React.FC<ArticleListProps> = (JobId) => {
         );
     } else {
         ArticleList = data.map((article, index) => {
-            return (
-                <div
-                    key={"article" + index}
-                    className="w-full flex justify-center"
-                >
-                    <ArticleItem
-                        Id={article.Id}
-                        Author={article.Author}
-                        Keyword={article.Keyword}
-                        Content={article.Content}
-                        Platform={article.Platform}
-                        Score_pos={article.Score_pos}
-                        Score_neg={article.Score_neg}
-                        Score_neut={article.Score_neut}
-                        Score_comp={article.Score_comp}
-                        Score_none={article.Score_none}
-                        Score_max_value={article.Score_max_value}
-                        Score_max_name={article.Score_max_name}
-                        Job_id={article.Job_id}
-                        Worker_id={article.Worker_id}
-                    ></ArticleItem>
-                </div>
-            );
+            if (article.Score_max_name == "None") {
+                // pass
+            } else {
+                return (
+                    <div
+                        key={"article" + index}
+                        className="w-full flex justify-center"
+                    >
+                        <ArticleItem
+                            Id={article.Id}
+                            Author={article.Author}
+                            Keyword={article.Keyword}
+                            Content={article.Content}
+                            Platform={article.Platform}
+                            Score_pos={article.Score_pos}
+                            Score_neg={article.Score_neg}
+                            Score_neut={article.Score_neut}
+                            Score_comp={article.Score_comp}
+                            Score_none={article.Score_none}
+                            Score_max_value={article.Score_max_value}
+                            Score_max_name={article.Score_max_name}
+                            Job_id={article.Job_id}
+                            Worker_id={article.Worker_id}
+                        ></ArticleItem>
+                    </div>
+                );
+            }
         });
     }
     return <>{ArticleList}</>;
