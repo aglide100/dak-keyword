@@ -71,3 +71,19 @@ protoc -I=. --go_out=plugins=grpc:../../.. pb/svc/provision/*.proto
  --js_out="import_style=commonjs,binary:./ui/gen" \
  --ts_out="service=grpc-web:./ui/gen" \
  pb/unit/**/*.proto
+
+python3 -m grpc_tools.protoc -I . --python_out=./analyzer --grpc_python_out=./analyzer ./pb/svc/analyzer/analyzer.proto
+
+python3 -m grpc_tools.protoc -I . --python_out=./analyzer --grpc_python_out=./analyzer ./pb/svc/manager/manager.proto
+
+
+path=$(pwd)
+
+cd ./analyzer
+
+cp ./pb/svc/analyzer/* $path/analyzer
+cp ./pb/svc/manager/* $path/analyzer
+
+rm -rf ./pb
+
+cd ..
