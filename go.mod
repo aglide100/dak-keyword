@@ -14,7 +14,7 @@ require (
 	github.com/lib/pq v1.10.6
 	github.com/tidwall/gjson v1.14.3
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
-	google.golang.org/grpc v1.49.0
+	google.golang.org/grpc v1.50.0
 )
 
 require (
