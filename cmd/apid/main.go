@@ -24,8 +24,10 @@ var (
 	apidGrpcAddr = flag.String("apid grpc addr", "0.0.0.0:50010", "grpc address")
 	apidAnalyzerAddr = flag.String("apid analyzer addr", "0.0.0.0:50013", "gprc address")
 	usingTls = flag.Bool("grpc.tls", true, "using http2")
-	serverCrt = flag.String("cert.crt", "../keys/server.crt", "crt file location")
-	serverKey = flag.String("cert.key", "../keys/server.key", "ket file location")
+	serverCrt = flag.String("cert.crt", "/run/secrets/crt-file/server.crt", "crt file location")
+	serverKey = flag.String("cert.key", "/run/secrets/key-file/server.key", "ket file location")
+	// serverCrt = flag.String("cert.crt", "../keys/server.crt", "crt file location")
+	// serverKey = flag.String("cert.key", "../keys/server.key", "ket file location")
 )
 
 func main() {

@@ -4,8 +4,8 @@ x-services-volume: &services-volume
 
 services:
     db:
-        # image: ghcr.io/aglide100/dak-keyword-db:latest
-        image: db
+        image: ghcr.io/aglide100/dak-keyword-db:latest
+        # image: db
         # volumes:
         #   - <<: *services-volume
         #     # source: ${HOST}/postgres
@@ -28,20 +28,21 @@ services:
             - ./env/tweet_secret.env
         networks:
             - keyword_net
-        volumes:
-            - keys:/keys/
+        secrets:
+            - crt-file
+            - key-file
         ports:
             - 50011:50011
             - 50010:50010
         depends_on:
             - db
-        # deploy:
-        #     placement:
-        #         constraints: [node.role==manager]
+        deploy:
+            placement:
+                constraints: [node.role==manager]
 
     provisioned:
-        # image: ghcr.io/aglide100/dak-keyword-provisioned:latest
-        image: provisioned
+        image: ghcr.io/aglide100/dak-keyword-provisioned:latest
+        # image: provisioned
         env_file:
             - ./env/dbConfig.env
         networks:
@@ -56,12 +57,26 @@ services:
         #     placement:
         #         constraints: [node.role==manager]
 
-    #webd:
-    #    image: node
-    #    ports:
-    #        - 4000:3000
-    #    networks:
-    #        - keyword_net
+    webd:
+        image: ghcr.io/aglide100/dak-keyword-ui:latest
+        # image: node
+        ports:
+            - 3000:3000
+        networks:
+            - keyword_net
+            - traefik-network
+        deploy:
+            labels:
+                - traefik.enable=true
+                - traefik.docker.network=traefik-network
+                - traefik.http.routers.keyword-node.rule=Host(`keyword.${Domain1}`)
+                - traefik.http.routers.keyword-node.middlewares=redirect-to-https
+                - traefik.http.routers.keyword-node.entrypoints=web
+                - traefik.http.services.keyword-node.loadbalancer.server.port=3000
+                - traefik.http.routers.keyword-node--https.rule=Host(`keyword.${Domain1}`)
+                - traefik.http.routers.keyword-node--https.tls=true
+                - traefik.http.routers.keyword-node--https.tls.certresolver=myresolver
+                - traefik.http.routers.keyword-node--https.entrypoints=websecure
 
     # viz:
     #     image: dockersamples/visualizer
@@ -72,9 +87,19 @@ services:
     #     ports:
     #         - 1999:8080
 
+secrets:
+    crt-file:
+        file: ./keys/server.crt
+    key-file:
+        file: ./keys/server.key
+    # firebase-key:
+    #     external: true
+
 networks:
     keyword_net:
         driver: overlay
+    traefik-network:
+        external: true
 
 volumes:
     keys:
