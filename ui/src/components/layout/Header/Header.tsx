@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import classNames from "classnames";
 import { motion } from "framer-motion";
-import Fade from "react-reveal/Fade";
 import { useRouter } from "next/router";
 
 export type HeaderProps = {
@@ -146,16 +145,16 @@ const Header: React.FC<HeaderProps> = ({
                     {isIconClick && (
                         <div className="mt-20 text-white">
                             <div className="ml-32 flex flex-col">
-                                <Fade duration={1000} delay={1000} bottom>
+                                <div>
                                     <span className="text-7xl mt-36 mb-28 transition delay-150 hover:underline">
                                         Hello
                                     </span>
-                                </Fade>
-                                <Fade duration={1000} delay={1300} bottom>
+                                </div>
+                                <div>
                                     <span className="text-7xl transition delay-150 hover:underline">
                                         World
                                     </span>
-                                </Fade>
+                                </div>
                             </div>
                         </div>
                     )}
