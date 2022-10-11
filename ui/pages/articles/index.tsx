@@ -1,6 +1,6 @@
 import React from "react";
 import dynamic from "next/dynamic";
-import { GetServerSideProps } from "next";
+// import { GetServerSideProps } from "next";
 
 const ArticleList = dynamic(
     () =>
@@ -15,15 +15,15 @@ const ArticleList = dynamic(
     },
 );
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const { query } = context;
-    const { jobId } = query;
-    return {
-        props: {
-            jobId,
-        },
-    };
-};
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//     const { query } = context;
+//     const { jobId } = query;
+//     return {
+//         props: {
+//             jobId,
+//         },
+//     };
+// };
 
 interface IHOCProp {
     jobId?: string;

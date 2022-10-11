@@ -23,7 +23,7 @@ var (
 	apidGrpcWebAddr = flag.String("apid grpc-web addr", "0.0.0.0:50011", "grpc-web address")
 	apidGrpcAddr = flag.String("apid grpc addr", "0.0.0.0:50010", "grpc address")
 	apidAnalyzerAddr = flag.String("apid analyzer addr", "0.0.0.0:50013", "gprc address")
-	usingTls = flag.Bool("grpc.tls", true, "using http2")
+	usingTls = flag.Bool("grpc.tls", false, "using http2")
 	serverCrt = flag.String("cert.crt", "/run/secrets/crt-file", "crt file location")
 	serverKey = flag.String("cert.key", "/run/secrets/key-file", "ket file location")
 	// serverCrt = flag.String("cert.crt", "../keys/server.crt", "crt file location")
@@ -55,6 +55,12 @@ func realMain() error {
 	_ = ctx
 	
 	var opts []grpc.ServerOption
+
+	tls := os.Getenv("TLS")
+
+	if tls == "true" {
+		usingTls = true
+	}
 
 	dbAddr := os.Getenv("DB_ADDR")
 	dbPort := os.Getenv("DB_PORT")
