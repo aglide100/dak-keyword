@@ -13,10 +13,10 @@ services:
         #     target: /var/lib/postgres
         env_file:
             - ./env/db.env
-        ports:
-            - 5432:5432
+        # ports:
+        #     - 5432:5432
         networks:
-            - keyword_net
+            - keyword-network
         deploy:
             placement:
                 constraints: [node.role==manager]
@@ -27,7 +27,8 @@ services:
             - ./env/dbConfig.env
             - ./env/tweet_secret.env
         networks:
-            - keyword_net
+            - keyword-network
+            - traefik-network
         secrets:
             - crt-file
             - key-file
@@ -39,6 +40,17 @@ services:
         deploy:
             placement:
                 constraints: [node.role==manager]
+            labels:
+                - traefik.enable=true
+                - traefik.docker.network=traefik-network
+                - traefik.http.routers.keyword-apid.rule=Host(`keyword-grpc.${DOMAIN}`)
+                - traefik.http.routers.keyword-apid.middlewares=redirect-to-https
+                - traefik.http.routers.keyword-apid.entrypoints=web
+                - traefik.http.services.keyword-apid.loadbalancer.server.port=50011
+                - traefik.http.routers.keyword-apid--https.rule=Host(`keyword-grpc.${DOMAIN}`)
+                - traefik.http.routers.keyword-apid--https.tls=true
+                - traefik.http.routers.keyword-apid--https.tls.certresolver=myresolver
+                - traefik.http.routers.keyword-apid--https.entrypoints=websecure
 
     provisioned:
         image: ghcr.io/aglide100/dak-keyword-provisioned:latest
@@ -46,16 +58,16 @@ services:
         env_file:
             - ./env/dbConfig.env
         networks:
-            - keyword_net
+            - keyword-network
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
-        ports:
-            - 50012:50012
+        # ports:
+        #     - 50012:50012
         depends_on:
             - db
-        # deploy:
-        #     placement:
-        #         constraints: [node.role==manager]
+        deploy:
+            placement:
+                constraints: [node.role==manager]
 
     webd:
         image: ghcr.io/aglide100/dak-keyword-ui:latest
@@ -63,17 +75,19 @@ services:
         ports:
             - 3000:3000
         networks:
-            - keyword_net
+            - keyword-network
             - traefik-network
+        environment:
+            - GRPCWEBADDR=keyword-grpc.${DOMAIN}
         deploy:
             labels:
                 - traefik.enable=true
                 - traefik.docker.network=traefik-network
-                - traefik.http.routers.keyword-node.rule=Host(`keyword.${Domain1}`)
+                - traefik.http.routers.keyword-node.rule=Host(`keyword.${DOMAIN}`)
                 - traefik.http.routers.keyword-node.middlewares=redirect-to-https
                 - traefik.http.routers.keyword-node.entrypoints=web
                 - traefik.http.services.keyword-node.loadbalancer.server.port=3000
-                - traefik.http.routers.keyword-node--https.rule=Host(`keyword.${Domain1}`)
+                - traefik.http.routers.keyword-node--https.rule=Host(`keyword.${DOMAIN}`)
                 - traefik.http.routers.keyword-node--https.tls=true
                 - traefik.http.routers.keyword-node--https.tls.certresolver=myresolver
                 - traefik.http.routers.keyword-node--https.entrypoints=websecure
@@ -83,7 +97,7 @@ services:
     #     volumes:
     #         - /var/run/docker.sock:/var/run/docker.sock
     #     networks:
-    #         - keyword_net
+    #         - keyword-network
     #     ports:
     #         - 1999:8080
 
@@ -92,11 +106,9 @@ secrets:
         file: ./keys/server.crt
     key-file:
         file: ./keys/server.key
-    # firebase-key:
-    #     external: true
 
 networks:
-    keyword_net:
+    keyword-network:
         driver: overlay
     traefik-network:
         external: true
