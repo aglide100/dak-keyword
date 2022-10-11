@@ -32,6 +32,8 @@ var (
 
 func main() {
 	if err := realMain(); err != nil {
+		flag.Parse()
+
 		log.Printf("err: %s", err)
 		// log.Fatal(err)
 		os.Exit(1)
@@ -56,10 +58,10 @@ func realMain() error {
 	
 	var opts []grpc.ServerOption
 
-	tls := os.Getenv("TLS")
+	checkTls := os.Getenv("TLS")
 
-	if tls == "true" {
-		usingTls = true
+	if checkTls == "true" {
+		flag.Set("grpc.tls", "true")
 	}
 
 	dbAddr := os.Getenv("DB_ADDR")
@@ -146,7 +148,6 @@ func realMain() error {
 			return nil
 		}
 		// err := http.Serve(gRPCWebL, handler)
-		
 		
 		return nil
 	})
