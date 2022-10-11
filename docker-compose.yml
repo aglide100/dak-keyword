@@ -35,6 +35,8 @@ services:
         ports:
             - 50011:50011
             - 50010:50010
+        environment:
+            - TLS=true
         depends_on:
             - db
         deploy:
