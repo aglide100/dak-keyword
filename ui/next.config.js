@@ -14,17 +14,20 @@ const withPlugins = require("next-compose-plugins");
 const withVideos = require("next-videos");
 
 module.exports = withPlugins([
-  [withVideos],
-  {
-    typescript: {
-      // !! WARN !!
-      // Dangerously allow production builds to successfully complete even if
-      // your project has type errors.
-      // !! WARN !!
-      ignoreBuildErrors: true,
+    [withVideos],
+    {
+        typescript: {
+            // !! WARN !!
+            // Dangerously allow production builds to successfully complete even if
+            // your project has type errors.
+            // !! WARN !!
+            ignoreBuildErrors: true,
+        },
+        images: {
+            domains: ["img.youtube.com", "assets.example.com"],
+        },
+        env: {
+            GRPCWEBADDR: process.env.GRPCWEBADDR,
+        },
     },
-    images: {
-      domains: ["img.youtube.com", "assets.example.com"],
-    },
-  },
 ]);

@@ -2,13 +2,16 @@ import * as pb_svc_manager from "../../gen/pb/svc/manager/manager_pb";
 import { Manager } from "../../gen/pb/svc/manager/manager_pb_service";
 import { grpc } from "@improbable-eng/grpc-web";
 import { NodeHttpTransport } from "@improbable-eng/grpc-web-node-http-transport";
-import { grpcWebAddr } from ".";
 // const myTransport = grpc.CrossBrowserHttpTransport({ withCredentials: false });
+// import { UseSampleState } from ".";
+import { grpcWebAddr } from ".";
 
 export async function makeGetJobList(callback) {
     const getJobListReq = new pb_svc_manager.GetJobListReq();
+    // const state = UseSampleState();
 
     grpc.unary(Manager.GetJobList, {
+        // host: state.text,
         host: grpcWebAddr,
         request: getJobListReq,
         // transport: NodeHttpTransport(),
@@ -29,11 +32,13 @@ export async function makeGetJobList(callback) {
 
 export async function makeNewJob(keyword, owner, callback) {
     const createNewJobReq = new pb_svc_manager.CreateNewJobReq();
+    // const state = UseSampleState();
 
     createNewJobReq.setKeyword(keyword);
     createNewJobReq.setOwner(owner);
 
     grpc.unary(Manager.CreateNewJob, {
+        // host: state.text,
         host: grpcWebAddr,
         request: createNewJobReq,
         // transport: NodeHttpTransport(),

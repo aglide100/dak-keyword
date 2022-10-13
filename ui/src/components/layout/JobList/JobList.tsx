@@ -17,7 +17,7 @@ const List: React.FC<{}> = ({}) => {
         if (!isLoaded) {
             fetchJobList();
         }
-    }, []);
+    });
 
     async function fetchJobList() {
         makeGetJobList((message) => {

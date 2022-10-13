@@ -23,6 +23,7 @@ COPY --from=builder /app/out/ /usr/share/nginx/html
 #     && rm -rf /var/cache/apk/*
 
 # RUN apk add --no-cache --upgrade bash
+RUN echo "GRPCWEBADDR=$GRPCWEBADDR" >> /usr/share/nginx/html/.env.local 
 
 #COPY nginx.conf /etc/nginx/nginx.conf
 

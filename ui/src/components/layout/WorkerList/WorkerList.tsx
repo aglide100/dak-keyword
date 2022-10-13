@@ -32,7 +32,7 @@ const List: React.FC<{ JobId }> = ({ JobId }) => {
                 if (number_ref.current === 10) clearInterval(loop);
             }, 5000);
         }
-    }, []);
+    });
 
     async function fetchWorkerList(jobId) {
         makeGetWorkers(jobId, (message) => {
