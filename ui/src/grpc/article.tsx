@@ -2,19 +2,16 @@ import * as pb_svc_manager from "../../gen/pb/svc/manager/manager_pb";
 import { Manager } from "../../gen/pb/svc/manager/manager_pb_service";
 import { grpc } from "@improbable-eng/grpc-web";
 import { NodeHttpTransport } from "@improbable-eng/grpc-web-node-http-transport";
-import { grpcWebAddr } from ".";
-// import { UseSampleState } from ".";
+import { GrpcManager } from ".";
 
 export async function makeGetArticleList(id, callback) {
     const getArticleListReq = new pb_svc_manager.GetArticleListReq();
-    // const state = UseSampleState();
 
     getArticleListReq.setId(id);
     console.log("!!!!!", id);
 
     grpc.unary(Manager.GetArticleList, {
-        // host: state.text,
-        host: grpcWebAddr,
+        host: GrpcManager.getInstance().GetHost(),
         request: getArticleListReq,
         transport: NodeHttpTransport(),
         onEnd: (res) => {

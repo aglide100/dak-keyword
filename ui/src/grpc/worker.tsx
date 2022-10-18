@@ -2,17 +2,14 @@ import * as pb_svc_manager from "../../gen/pb/svc/manager/manager_pb";
 import { Manager } from "../../gen/pb/svc/manager/manager_pb_service";
 import { grpc } from "@improbable-eng/grpc-web";
 import { NodeHttpTransport } from "@improbable-eng/grpc-web-node-http-transport";
-// import { UseSampleState } from ".";
-import { grpcWebAddr } from ".";
+import { GrpcManager } from ".";
 
 export async function makeGetWorkers(jobId, callback) {
     const getWorkerListReq = new pb_svc_manager.GetWorkerListReq();
     getWorkerListReq.setId(jobId);
-    // const state = UseSampleState();
 
     grpc.unary(Manager.GetWorkerList, {
-        // host: state.text,
-        host: grpcWebAddr,
+        host: GrpcManager.getInstance().GetHost(),
         request: getWorkerListReq,
         transport: NodeHttpTransport(),
         onEnd: (res) => {

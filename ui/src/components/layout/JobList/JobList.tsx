@@ -10,7 +10,7 @@ type job = {
     date: string;
 };
 
-const List: React.FC<{}> = ({}) => {
+const List: React.FC = () => {
     const [data, setData] = useState<job[]>([]);
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
     useEffect(() => {

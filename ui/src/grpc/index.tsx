@@ -1,32 +1,37 @@
 // import { secrets } from "docker-secret";
+import * as axios from "axios";
+import { makeGetArticleList } from "./article";
+import { makeNewJob } from "./job";
 
-export const grpcWebAddr = getGrpcWebAddr();
+export class GrpcManager {
+    private static instance: GrpcManager;
+    private static host: string;
 
-function getGrpcWebAddr() {
-    const val = process.env.NEXT_PUBLIC_GRPCWEBADDR;
+    constructor() {}
 
-    console.log("addr : " + val);
+    public static getInstance(): GrpcManager {
+        if (!GrpcManager.instance) {
+            GrpcManager.instance = new GrpcManager();
 
-    return "";
-    // var val = process.env.NEXT_PUBLIC_GRPCWEBADDR;
+            GrpcManager.instance.GetHost();
+        }
 
-    // if (val) {
-    //     return val;
-    // } else {
-    //     return "https://localhost:50011";
-    // }
+        return GrpcManager.instance;
+    }
+
+    public GetHost(): string {
+        return GrpcManager.host;
+    }
+
+    public static async SetHost() {
+        const axiosObj = axios.default;
+        let addr;
+
+        axiosObj.get("/env").then((res) => {
+            console.log(res.data.addr);
+            addr = res.data.addr;
+        });
+
+        GrpcManager.host = addr;
+    }
 }
-
-// export async function getStaticProps() {
-//     const val = process.env.NEXT_PUBLIC_GRPCWEBADDR;
-
-//     console.log(val);
-
-//     return {
-//         props: {
-//             val,
-//         },
-//     };
-// }
-
-// export const grpcWebAddr = "https://localhost:50011";
