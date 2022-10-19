@@ -9,7 +9,7 @@ export async function makeGetWorkers(jobId, callback) {
     getWorkerListReq.setId(jobId);
 
     grpc.unary(Manager.GetWorkerList, {
-        host: GrpcManager.getInstance().GetHost(),
+        host: (await GrpcManager.getInstance()).GetHost(),
         request: getWorkerListReq,
         transport: NodeHttpTransport(),
         onEnd: (res) => {

@@ -1,19 +1,19 @@
 // import { secrets } from "docker-secret";
 import * as axios from "axios";
-import { makeGetArticleList } from "./article";
-import { makeNewJob } from "./job";
 
 export class GrpcManager {
     private static instance: GrpcManager;
     private static host: string;
 
-    constructor() {}
+    // constructor() {}
 
-    public static getInstance(): GrpcManager {
+    public static async getInstance(): Promise<GrpcManager> {
         if (!GrpcManager.instance) {
+            const result = await Promise.all([GrpcManager.GetAddr()]);
+            GrpcManager.SetHost(result);
             GrpcManager.instance = new GrpcManager();
 
-            GrpcManager.instance.GetHost();
+            return GrpcManager.instance;
         }
 
         return GrpcManager.instance;
@@ -23,15 +23,20 @@ export class GrpcManager {
         return GrpcManager.host;
     }
 
-    public static async SetHost() {
+    public static async GetAddr() {
         const axiosObj = axios.default;
+        axiosObj.defaults.withCredentials = true;
         let addr;
 
-        axiosObj.get("/env").then((res) => {
+        await axiosObj.get("/env").then((res) => {
             console.log(res.data.addr);
             addr = res.data.addr;
         });
 
+        return addr;
+    }
+
+    public static async SetHost(addr) {
         GrpcManager.host = addr;
     }
 }

@@ -1,4 +1,6 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { GrpcManager } from "../../../grpc";
 import { makeGetJobList } from "../../../grpc/job";
 import { JobItem } from "../../atom/JobItem/Job";
 

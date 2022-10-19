@@ -6,9 +6,9 @@ import { GrpcManager } from ".";
 
 export async function makeGetJobList(callback) {
     const getJobListReq = new pb_svc_manager.GetJobListReq();
-
+    console.log((await GrpcManager.getInstance()).GetHost());
     grpc.unary(Manager.GetJobList, {
-        host: GrpcManager.getInstance().GetHost(),
+        host: (await GrpcManager.getInstance()).GetHost(),
         request: getJobListReq,
         // transport: NodeHttpTransport(),
         onEnd: (res) => {
@@ -33,7 +33,7 @@ export async function makeNewJob(keyword, owner, callback) {
     createNewJobReq.setOwner(owner);
 
     grpc.unary(Manager.CreateNewJob, {
-        host: GrpcManager.getInstance().GetHost(),
+        host: (await GrpcManager.getInstance()).GetHost(),
         request: createNewJobReq,
         // transport: NodeHttpTransport(),
         onEnd: (res) => {
