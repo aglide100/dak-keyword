@@ -105,9 +105,13 @@ services:
 
 secrets:
     crt-file:
-        file: ./keys/server.crt
+        file: ./keys/localhost.crt
     key-file:
-        file: ./keys/server.key
+        file: ./keys/localhost.key
+    # crt-file:
+    #     file: ./keys/server.crt
+    # key-file:
+    #     file: ./keys/server.key
 
 networks:
     keyword-network:
