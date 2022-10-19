@@ -129,20 +129,29 @@ func realMain() error {
 			return true
 		}))
 
-		handler := http.Handler(http.HandlerFunc(func(resp http.ResponseWriter, req *http.Request) {
-			if wrappedServer.IsGrpcWebRequest(req) || wrappedServer.IsAcceptableGrpcCorsRequest(req) {
-				wrappedServer.ServeHTTP(resp, req)
-			}
-		}))
+		handler := func(resp http.ResponseWriter, req *http.Request) {
+			wrappedServer.ServeHTTP(resp, req)
+		}
 
+		// handler := http.Handler(http.HandlerFunc(func(resp http.ResponseWriter, req *http.Request) {
+		// 	if wrappedServer.IsGrpcWebRequest(req) || wrappedServer.IsAcceptableGrpcCorsRequest(req) {
+		// 		wrappedServer.ServeHTTP(resp, req)
+		// 	}
+		// }))
 
+		httpServer := http.Server{
+			Addr:    fmt.Sprintf(":%d", *apidGrpcWebAddr),
+			Handler: http.HandlerFunc(handler),
+		}
 		log.Printf("Start grpc-web server at %v", *apidGrpcWebAddr)
 		
 		if *usingTls { 
-			err = http.ServeTLS(gRPCWebL, handler, *serverCrt , *serverKey)
+			err = httpServer.ListenAndServeTLS(*serverCrt, *serverKey)
+			// err = httpServer.ServeTLS(gRPCWebL, handler, *serverCrt , *serverKey)
 		} else {
 			log.Println("starting without tls....")
-			err = http.Serve(gRPCWebL, handler)
+			err = httpServer.ListenAndServe()
+			// err = httpServer.Serve(gRPCWebL, handler)
 		}
 		if err != nil {
 			return nil

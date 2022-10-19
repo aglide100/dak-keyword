@@ -10,7 +10,7 @@ services:
         ports:
             - 80:80
         environment:
-            - GRPCWEBADDR=http://localhost
+            - GRPCWEBADDR=https://like-a-junk.com:50010
 networks:
     docker_network:
         driver: bridge
