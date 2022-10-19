@@ -11,7 +11,7 @@ export async function makeGetArticleList(id, callback) {
     console.log("!!!!!", id);
 
     grpc.unary(Manager.GetArticleList, {
-        host: GrpcManager.getInstance().GetHost(),
+        host: (await GrpcManager.getInstance()).GetHost(),
         request: getArticleListReq,
         transport: NodeHttpTransport(),
         onEnd: (res) => {

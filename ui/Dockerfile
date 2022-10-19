@@ -22,11 +22,16 @@ COPY --from=builder /app/out/ /usr/share/nginx/html
 # RUN apk add --update apache2-utils \
 #     && rm -rf /var/cache/apk/*
 
-# RUN apk add --no-cache --upgrade bash
-RUN echo "GRPCWEBADDR=$GRPCWEBADDR" >> /usr/share/nginx/html/.env.local 
+RUN apk add --no-cache --upgrade bash
+COPY nginx.conf /etc/nginx/nginx.conf
 
-#COPY nginx.conf /etc/nginx/nginx.conf
+RUN mkdir -p /etc/nginx/template/env/
+
+COPY env.template /etc/nginx/template/env/
+COPY entrypoint.sh .
+
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
 
 WORKDIR /etc/nginx 
 CMD nginx -g "daemon off;"
-

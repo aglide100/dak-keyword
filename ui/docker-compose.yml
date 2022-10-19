@@ -10,7 +10,7 @@ services:
         ports:
             - 80:80
         environment:
-            - GRPCWEBADDR=sadsadsa
+            - GRPCWEBADDR=http://localhost
 networks:
     docker_network:
         driver: bridge
