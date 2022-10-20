@@ -129,19 +129,19 @@ func realMain() error {
 			return true
 		}))
 
-		handler := func(resp http.ResponseWriter, req *http.Request) {
-			wrappedServer.ServeHTTP(resp, req)
-		}
+		// handler := func(resp http.ResponseWriter, req *http.Request) {
+		// 	wrappedServer.ServeHTTP(resp, req)
+		// }
 
-		// handler := http.Handler(http.HandlerFunc(func(resp http.ResponseWriter, req *http.Request) {
-		// 	if wrappedServer.IsGrpcWebRequest(req) || wrappedServer.IsAcceptableGrpcCorsRequest(req) {
-		// 		wrappedServer.ServeHTTP(resp, req)
-		// 	}
-		// }))
+		handler := http.Handler(http.HandlerFunc(func(resp http.ResponseWriter, req *http.Request) {
+			if wrappedServer.IsGrpcWebRequest(req) || wrappedServer.IsAcceptableGrpcCorsRequest(req) {
+				wrappedServer.ServeHTTP(resp, req)
+			}
+		}))
 
 		httpServer := http.Server{
 			Addr:    fmt.Sprintf(":%d", *apidGrpcWebAddr),
-			Handler: http.HandlerFunc(handler),
+			Handler: handler,
 		}
 		log.Printf("Start grpc-web server at %v", *apidGrpcWebAddr)
 		
