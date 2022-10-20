@@ -104,11 +104,11 @@ func realMain() error {
 		opts = append(opts, grpc.Creds(creds))
 	}
 
+	grpcNonTlsServer := grpc.NewServer()
+	grpcServer := grpc.NewServer(opts...)
+
 	managerSrv := manager.NewManagerServiceServer(myDB)
 	
-	grpcServer := grpc.NewServer(opts...)
-	grpcNonTlsServer := grpc.NewServer()
-
 	pb_svc_manager.RegisterManagerServer(grpcServer, managerSrv)
 	pb_svc_manager.RegisterManagerServer(grpcNonTlsServer, managerSrv)
 
@@ -123,15 +123,12 @@ func realMain() error {
 		return nil
 	})
 
+
 	wg.Go(func() error {
 		// wrapped grpc srv
 		wrappedServer := grpcweb.WrapServer(grpcServer, grpcweb.WithOriginFunc(func(origin string) bool {
 			return true
 		}))
-
-		// handler := func(resp http.ResponseWriter, req *http.Request) {
-		// 	wrappedServer.ServeHTTP(resp, req)
-		// }
 
 		handler := http.Handler(http.HandlerFunc(func(resp http.ResponseWriter, req *http.Request) {
 			if wrappedServer.IsGrpcWebRequest(req) || wrappedServer.IsAcceptableGrpcCorsRequest(req) {
@@ -140,23 +137,19 @@ func realMain() error {
 		}))
 
 		httpServer := http.Server{
-			Addr:    fmt.Sprintf(":%d", *apidGrpcWebAddr),
 			Handler: handler,
 		}
 		log.Printf("Start grpc-web server at %v", *apidGrpcWebAddr)
 		
 		if *usingTls { 
-			err = httpServer.ListenAndServeTLS(*serverCrt, *serverKey)
-			// err = httpServer.ServeTLS(gRPCWebL, handler, *serverCrt , *serverKey)
+			err = httpServer.ServeTLS(gRPCWebL, *serverCrt , *serverKey)
 		} else {
 			log.Println("starting without tls....")
-			err = httpServer.ListenAndServe()
-			// err = httpServer.Serve(gRPCWebL, handler)
+			err = httpServer.Serve(gRPCWebL)
 		}
 		if err != nil {
 			return nil
 		}
-		// err := http.Serve(gRPCWebL, handler)
 		
 		return nil
 	})
