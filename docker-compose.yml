@@ -36,7 +36,7 @@ services:
             - 50011:50011
             - 50010:50010
         environment:
-            - TLS=true
+            - TLS=false
         depends_on:
             - db
         deploy:
@@ -74,8 +74,6 @@ services:
     ui:
         image: ghcr.io/aglide100/dak-keyword-ui:latest
         # image: node
-        ports:
-            - 3000:3000
         networks:
             - keyword-network
             - traefik-network
@@ -88,20 +86,11 @@ services:
                 - traefik.http.routers.keyword-node.rule=Host(`keyword.${DOMAIN}`)
                 - traefik.http.routers.keyword-node.middlewares=redirect-to-https
                 - traefik.http.routers.keyword-node.entrypoints=web
-                - traefik.http.services.keyword-node.loadbalancer.server.port=3000
+                - traefik.http.services.keyword-node.loadbalancer.server.port=80
                 - traefik.http.routers.keyword-node--https.rule=Host(`keyword.${DOMAIN}`)
                 - traefik.http.routers.keyword-node--https.tls=true
                 - traefik.http.routers.keyword-node--https.tls.certresolver=myresolver
                 - traefik.http.routers.keyword-node--https.entrypoints=websecure
-
-    # viz:
-    #     image: dockersamples/visualizer
-    #     volumes:
-    #         - /var/run/docker.sock:/var/run/docker.sock
-    #     networks:
-    #         - keyword-network
-    #     ports:
-    #         - 1999:8080
 
 secrets:
     crt-file:

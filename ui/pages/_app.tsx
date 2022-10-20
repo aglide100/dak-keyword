@@ -30,6 +30,10 @@ function MyApp({ Component, pageProps }: AppProps) {
                     content="width=device-width, initial-scale=1.0"
                 />
                 <meta name="description" content="hello!" />
+                <meta
+                    httpEquiv="Content-Security-Policy"
+                    content="upgrade-insecure-requests"
+                />
                 <link
                     rel="stylesheet"
                     type="text/css"
