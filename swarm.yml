@@ -13,8 +13,8 @@ services:
         #     target: /var/lib/postgres
         env_file:
             - ./env/db.env
-        # ports:
-        #     - 5432:5432
+        ports:
+            - 5432:5432
         networks:
             - keyword-network
     apid:
