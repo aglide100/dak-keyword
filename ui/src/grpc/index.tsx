@@ -25,7 +25,6 @@ export class GrpcManager {
 
     public static async GetAddr() {
         const axiosObj = axios.default;
-        axiosObj.defaults.withCredentials = true;
         let addr;
 
         await axiosObj.get("/env").then((res) => {
