@@ -1,0 +1,88 @@
+version: "3.5"
+x-services-volume: &services-volume
+    type: bind
+
+services:
+    db:
+        image: ghcr.io/aglide100/dak-keyword-db:latest
+        # image: db
+        # volumes:
+        #   - <<: *services-volume
+        #     # source: ${HOST}/postgres
+        #     source: /tmp/dak-keyword
+        #     target: /var/lib/postgres
+        env_file:
+            - ./env/db.env
+        # ports:
+        #     - 5432:5432
+        networks:
+            - keyword-network
+    apid:
+        image: ghcr.io/aglide100/dak-keyword-apid:latest
+        # image: apid
+        env_file:
+            - ./env/dbConfig.env
+            - ./env/tweet_secret.env
+        networks:
+            - keyword-network
+        secrets:
+            - crt-file
+            - key-file
+        ports:
+            - 50011:50011
+            - 50010:50010
+        environment:
+            - TLS=false
+        depends_on:
+            - db
+    provisioned:
+        image: ghcr.io/aglide100/dak-keyword-provisioned:latest
+        # image: provisioned
+        env_file:
+            - ./env/dbConfig.env
+        networks:
+            - keyword-network
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+        # ports:
+        #     - 50012:50012
+        depends_on:
+            - db
+
+    ui:
+        image: ghcr.io/aglide100/dak-keyword-ui:latest
+        # image: node
+        ports:
+            - 3000:3000
+        networks:
+            - keyword-network
+        environment:
+            - GRPCWEBADDR=keyword-grpc.${DOMAIN}
+
+    # viz:
+    #     image: dockersamples/visualizer
+    #     volumes:
+    #         - /var/run/docker.sock:/var/run/docker.sock
+    #     networks:
+    #         - keyword-network
+    #     ports:
+    #         - 1999:8080
+
+secrets:
+    crt-file:
+        file: ./keys/localhost.crt
+    key-file:
+        file: ./keys/localhost.key
+    # crt-file:
+    #     file: ./keys/server.crt
+    # key-file:
+    #     file: ./keys/server.key
+
+networks:
+    keyword-network:
+        driver: overlay
+
+volumes:
+    keys:
+        external:
+            name: keys
