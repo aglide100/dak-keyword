@@ -79,6 +79,9 @@ services:
             - traefik-network
         environment:
             - GRPCWEBADDR=keyword-grpc.${DOMAIN}
+        secrets:
+            - crt-file
+            - key-file
         deploy:
             labels:
                 - traefik.enable=true
