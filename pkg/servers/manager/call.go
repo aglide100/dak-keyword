@@ -96,7 +96,7 @@ func callRemoveAnalyzer(id string) (error) {
 	return nil
 }
 
-func callMakeAnalaysis(id string) (error) {
+func callMakeAnalysis(id string) (error) {
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	
 	if err != nil {

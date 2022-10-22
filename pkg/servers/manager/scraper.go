@@ -15,18 +15,21 @@ func (s *ManagerSrv) DoneScraper(ctx context.Context, in *pb_svc_manager.DoneScr
 		log.Printf("Received DoneScraper call: %v", in.String())
 	}
 
-	err := s.db.UpdateWorker(in.Id, "Scraper Done. Creating Analayzer")
+	err := s.db.UpdateWorker(in.Id, "Scraper Done. Creating Analyzer")
 	if err != nil {
+		s.db.UpdateJob(in.Id, "Can't remove Analyzer")
 		return nil, status.Error(codes.Canceled, "Can't update worker status at dbms")
 	}
 
 	err = callRemoveScraper(in.Id)
 	if err != nil {
+		s.db.UpdateJob(in.Id, "Can't remove scraper")
 		return nil, status.Error(codes.Canceled, "Can't update remove scraper")
 	}
 
-	err = callMakeAnalaysis(in.Id)
+	err = callMakeAnalysis(in.Id)
 	if err != nil {
+		s.db.UpdateJob(in.Id, "Can't make analysis")
 		return nil, err
 	}
 
