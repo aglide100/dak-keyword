@@ -39,6 +39,7 @@ func (db *Database) GetArticles(id string) ([]*models.Article, error) {
 	const q = `
 	SELECT * FROM article
 	WHERE "Job_id" = $1
+	AND article."Score_max_value" is not null
 	`
 	
 	rows, err := db.Conn.Query(q, id)
