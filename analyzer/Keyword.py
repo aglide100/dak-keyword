@@ -45,6 +45,7 @@ if __name__ == '__main__':
     for value in result:
         print(value[3])
         score = Analyzer.analyze_word(value[3], dictionary)
+        print(score)
         Database.CRUD.updateScore(db, score['pos'].values[0], score['neg'].values[0], score['neut'].values[0], score['comp'].values[0], score['none'].values[0], score['max'].name, score[score['max'].name].values[0], value[13], value[0])
 
     sendDoneMSG()

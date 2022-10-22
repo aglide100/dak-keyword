@@ -109,7 +109,8 @@ networks:
     keyword-network:
         driver: overlay
     traefik-network:
-        external: true
+        driver: overlay
+        # external: true
 
 volumes:
     keys:
