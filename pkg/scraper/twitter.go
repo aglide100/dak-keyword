@@ -11,7 +11,7 @@ import (
 )
 
 const maxResult = 100
-const limitResult = 2
+const limitResult = 10
 const twitterv2api = `https://api.twitter.com/2/`
 
 func (s Scraper) GetMockTweets(keyword string) ([]models.TweetArticle) {

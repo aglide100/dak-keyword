@@ -50,6 +50,7 @@ create table if not exists article
     "Score_none"      varchar,
     "Score_max_value" varchar,
     "Score_max_name"  varchar,
+    "Create_at"       varchar,
     "Job_id"          varchar
         constraint "Job_id"
             references job
