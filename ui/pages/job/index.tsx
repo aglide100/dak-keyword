@@ -21,7 +21,7 @@ export default function Job() {
 
     return (
         <div className="w-full min-h-screen bg-gray-100 flex flex-col content-around">
-            <div>Hell {router.query.jobId}</div>
+            <div>{router.query.jobId}</div>
             <WorkerList JobId={router.query.jobId}></WorkerList>
             <div className="flex flex-row w-full justify-center">
                 <Button
