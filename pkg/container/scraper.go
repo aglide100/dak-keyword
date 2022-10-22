@@ -40,7 +40,7 @@ func (c *Controller) CreateNewScraper(workerId string, jobId string, keyword str
 
 			Networks: []swarm.NetworkAttachmentConfig{
 				swarm.NetworkAttachmentConfig{
-					Target: "keyword_keyword_net",
+					Target: "keyword_keyword-network",
 				},
 			},
 

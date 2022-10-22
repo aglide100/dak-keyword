@@ -53,7 +53,7 @@ func (c *Controller) CreateNewAnalyzer(workerId string, keyword string, dbConfig
 
 			Networks: []swarm.NetworkAttachmentConfig{
 				swarm.NetworkAttachmentConfig{
-					Target: "keyword_keyword_net",
+					Target: "keyword_keyword-network",
 				},
 			},
 
