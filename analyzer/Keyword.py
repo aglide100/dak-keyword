@@ -8,26 +8,26 @@ from Lexicon import Analyzer
 import manager_pb2
 import manager_pb2_grpc
 
-host = "localhost"
-dbname = "keyword"
-user = "table_admin"
-password = "HelloWorld"
-port = "8432"
-worerId = "22"
+# host = "localhost"
+# dbname = "keyword"
+# user = "table_admin"
+# password = "HelloWorld"
+# port = "8432"
+# worerId = "22"
 
 
 dictionary = pd.read_csv('lexicon/polarity.csv')
 
-# host = os.environ['DB_ADDR']
-# dbname = os.environ['DB_NAME']
-# user = os.environ['DB_USER']
-# password = os.environ['DB_PASSWORD']
-# port = os.environ['DB_PORT']
-# worerId = os.environ['WORKER_ID']
+host = os.environ['DB_ADDR']
+dbname = os.environ['DB_NAME']
+user = os.environ['DB_USER']
+password = os.environ['DB_PASSWORD']
+port = os.environ['DB_PORT']
+worerId = os.environ['WORKER_ID']
 
 def sendDoneMSG():
-    #with grpc.insecure_channel("keyword_apid:50010") as channel:
-    with grpc.insecure_channel("localhost:50010") as channel:
+    with grpc.insecure_channel("keyword_apid:50010") as channel:
+    # with grpc.insecure_channel("localhost:50010") as channel:
 
         client = manager_pb2_grpc.ManagerStub(channel)
         response = client.DoneAnalyzer(manager_pb2.DoneAnalyzerReq(id=worerId))

@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from pb.svc.analyzer import analyzer_pb2 as pb_dot_svc_dot_analyzer_dot_analyzer__pb2
+import analyzer_pb2 as analyzer__pb2
 
 
 class AnalyzerStub(object):
@@ -15,14 +15,14 @@ class AnalyzerStub(object):
             channel: A grpc.Channel.
         """
         self.StartAnalyzer = channel.unary_unary(
-                '/pb.svc.analyzer.Analyzer/StartAnalyzer',
-                request_serializer=pb_dot_svc_dot_analyzer_dot_analyzer__pb2.StartAnalyzerReq.SerializeToString,
-                response_deserializer=pb_dot_svc_dot_analyzer_dot_analyzer__pb2.StartAnalyzerRes.FromString,
+                '/dak_keyword_worker.svc.Analyzer/StartAnalyzer',
+                request_serializer=analyzer__pb2.StartAnalyzerReq.SerializeToString,
+                response_deserializer=analyzer__pb2.StartAnalyzerRes.FromString,
                 )
         self.GetStatus = channel.unary_unary(
-                '/pb.svc.analyzer.Analyzer/GetStatus',
-                request_serializer=pb_dot_svc_dot_analyzer_dot_analyzer__pb2.GetStatusReq.SerializeToString,
-                response_deserializer=pb_dot_svc_dot_analyzer_dot_analyzer__pb2.GetStatusRes.FromString,
+                '/dak_keyword_worker.svc.Analyzer/GetStatus',
+                request_serializer=analyzer__pb2.GetStatusReq.SerializeToString,
+                response_deserializer=analyzer__pb2.GetStatusRes.FromString,
                 )
 
 
@@ -46,17 +46,17 @@ def add_AnalyzerServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'StartAnalyzer': grpc.unary_unary_rpc_method_handler(
                     servicer.StartAnalyzer,
-                    request_deserializer=pb_dot_svc_dot_analyzer_dot_analyzer__pb2.StartAnalyzerReq.FromString,
-                    response_serializer=pb_dot_svc_dot_analyzer_dot_analyzer__pb2.StartAnalyzerRes.SerializeToString,
+                    request_deserializer=analyzer__pb2.StartAnalyzerReq.FromString,
+                    response_serializer=analyzer__pb2.StartAnalyzerRes.SerializeToString,
             ),
             'GetStatus': grpc.unary_unary_rpc_method_handler(
                     servicer.GetStatus,
-                    request_deserializer=pb_dot_svc_dot_analyzer_dot_analyzer__pb2.GetStatusReq.FromString,
-                    response_serializer=pb_dot_svc_dot_analyzer_dot_analyzer__pb2.GetStatusRes.SerializeToString,
+                    request_deserializer=analyzer__pb2.GetStatusReq.FromString,
+                    response_serializer=analyzer__pb2.GetStatusRes.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'pb.svc.analyzer.Analyzer', rpc_method_handlers)
+            'dak_keyword_worker.svc.Analyzer', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -75,9 +75,9 @@ class Analyzer(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/pb.svc.analyzer.Analyzer/StartAnalyzer',
-            pb_dot_svc_dot_analyzer_dot_analyzer__pb2.StartAnalyzerReq.SerializeToString,
-            pb_dot_svc_dot_analyzer_dot_analyzer__pb2.StartAnalyzerRes.FromString,
+        return grpc.experimental.unary_unary(request, target, '/dak_keyword_worker.svc.Analyzer/StartAnalyzer',
+            analyzer__pb2.StartAnalyzerReq.SerializeToString,
+            analyzer__pb2.StartAnalyzerRes.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -92,8 +92,8 @@ class Analyzer(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/pb.svc.analyzer.Analyzer/GetStatus',
-            pb_dot_svc_dot_analyzer_dot_analyzer__pb2.GetStatusReq.SerializeToString,
-            pb_dot_svc_dot_analyzer_dot_analyzer__pb2.GetStatusRes.FromString,
+        return grpc.experimental.unary_unary(request, target, '/dak_keyword_worker.svc.Analyzer/GetStatus',
+            analyzer__pb2.GetStatusReq.SerializeToString,
+            analyzer__pb2.GetStatusRes.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
