@@ -40,7 +40,7 @@ func (db *Database) GetArticles(id string) ([]*models.Article, error) {
 	SELECT * FROM article
 	WHERE "Job_id" = $1
 	`
-
+	
 	rows, err := db.Conn.Query(q, id)
 	if err != nil {
 		return nil, fmt.Errorf("Querying: %v", err)

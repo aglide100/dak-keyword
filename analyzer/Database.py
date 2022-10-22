@@ -69,7 +69,7 @@ class CRUD(Databases):
         " \"Worker_id\""
         " = '{Id}' AND " 
         " \"Id\""
-        " = '{articleId}"
+        " = '{articleId}'"
         ).format(Score_neg = Score_neg, Score_pos = Score_pos, Score_neut = Score_neut, Score_comp = Score_comp, Score_none = Score_none, Score_max_value = Score_max_value, Score_max_name = Score_max_name, Id = Id, articleId = articleId)
         
         try :
