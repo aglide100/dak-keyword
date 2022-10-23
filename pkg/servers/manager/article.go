@@ -21,7 +21,7 @@ func (s *ManagerSrv) GetArticleList(ctx context.Context, in *pb_svc_manager.GetA
 	articles, err := s.db.GetArticles(in.Id)
 	if err != nil {
 		log.Printf("err %v", err)
-		return nil, status.Error(codes.Internal, "Can't querying :")
+		return nil, status.Error(codes.Internal, "Can't querying :" + err.Error())
 	}
 
 	var pbArticles []*pb_unit_article.Article
