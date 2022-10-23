@@ -8,7 +8,7 @@ export async function makeGetArticleList(id, callback) {
     const getArticleListReq = new pb_svc_manager.GetArticleListReq();
 
     getArticleListReq.setId(id);
-    console.log("!!!!!", id);
+    // console.log("!!!!!", id);
 
     grpc.unary(Manager.GetArticleList, {
         host: (await GrpcManager.getInstance()).GetHost(),
