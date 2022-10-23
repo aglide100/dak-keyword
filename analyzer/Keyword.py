@@ -13,7 +13,7 @@ import manager_pb2_grpc
 # user = "table_admin"
 # password = "HelloWorld"
 # port = "5432"
-# workerId = "d264c884-eb6e-495a-9ed7-b0bc80335e76"
+# workerId = "b1d6542f-d5b1-4a83-b45b-a6ebc22a8f48"
 
 dictionary = pd.read_csv('lexicon/polarity.csv')
 
@@ -41,8 +41,12 @@ if __name__ == '__main__':
     # result = Database.CRUD.readTextFromArticleInJob(db, 'Job_id', 'test')
     result = Database.CRUD.readTextFromArticleInJob(db, 'Worker_id', workerId)
 
+    # for value in result:
+    #     print(type(value))
     for value in result:
-        print(value[3])
+        value = value[:12] + value[13:]
+        # print(value)
+        # print("----------")
         score = Analyzer.analyze_word(value[3], dictionary)
         Database.CRUD.updateScore(db, score['pos'].values[0], score['neg'].values[0], score['neut'].values[0], score['comp'].values[0], score['none'].values[0], score['max'].name, score[score['max'].name].values[0], value[13], value[0])
 
