@@ -46,11 +46,11 @@ services:
                 - traefik.enable=true
                 - traefik.docker.network=traefik-network
                 - traefik.http.routers.keyword-apid.rule=Host(`keyword-grpc.${DOMAIN}`)
-                #- traefik.http.routers.keyword-apid.middlewares=redirect-to-https
+                - traefik.http.routers.keyword-apid.middlewares=redirect-to-https
                 - traefik.http.routers.keyword-apid.entrypoints=web
                 - traefik.http.services.keyword-apid.loadbalancer.server.port=50011
                 - traefik.http.routers.keyword-apid--https.rule=Host(`keyword-grpc.${DOMAIN}`)
-                # - traefik.http.routers.keyword-apid--https.tls=true
+                - traefik.http.routers.keyword-apid--https.tls=true
                 # - traefik.http.routers.keyword-apid--https.tls.certresolver=myresolver
                 - traefik.http.routers.keyword-apid--https.entrypoints=websecure
 
@@ -109,8 +109,8 @@ networks:
     keyword-network:
         driver: overlay
     traefik-network:
-        driver: overlay
-        # external: true
+        #driver: overlay
+        external: true
 
 volumes:
     keys:
