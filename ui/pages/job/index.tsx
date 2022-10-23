@@ -22,22 +22,38 @@ export default function Job() {
     return (
         <div className="w-full min-h-screen bg-gray-100 flex flex-col content-around">
             {/* <div>{router.query.jobId}</div> */}
-            <WorkerList JobId={router.query.jobId}></WorkerList>
-            <div className="flex flex-row w-full justify-center">
-                <Button
-                    size={"large"}
-                    color={"gray"}
-                    onClick={(e) => {
-                        e.preventDefault();
-                        router.push({
-                            pathname: "/articles",
-                            query: { jobId: router.query.jobId },
-                        });
-                    }}
-                >
-                    Articles
-                </Button>
+            <div className="flex flex-row w-full mt-12 mb-10 justify-center">
+                <div className="flex flex-row w-2/5 justify-around">
+                    <Button
+                        size={"large"}
+                        color={"gray"}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            router.push({
+                                pathname: "/articles",
+                                query: { jobId: router.query.jobId },
+                            });
+                        }}
+                    >
+                        Articles
+                    </Button>
+                    <Button
+                        size={"large"}
+                        color={"gray"}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            router.push({
+                                pathname: "/graph",
+                                query: { jobId: router.query.jobId },
+                            });
+                        }}
+                    >
+                        Graph
+                    </Button>
+                </div>
             </div>
+
+            <WorkerList JobId={router.query.jobId}></WorkerList>
         </div>
     );
 }

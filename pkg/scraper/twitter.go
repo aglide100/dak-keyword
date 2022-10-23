@@ -10,8 +10,8 @@ import (
 	"github.com/tidwall/gjson"
 )
 
-const maxResult = 300
-const limitResult = 10
+const maxResult = 100
+const limitResult = 30
 const twitterv2api = `https://api.twitter.com/2/`
 
 func (s Scraper) GetMockTweets(keyword string) ([]models.TweetArticle) {
