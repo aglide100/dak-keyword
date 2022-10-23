@@ -10,7 +10,7 @@ import (
 	"github.com/tidwall/gjson"
 )
 
-const maxResult = 100
+const maxResult = 300
 const limitResult = 10
 const twitterv2api = `https://api.twitter.com/2/`
 
