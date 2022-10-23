@@ -40,6 +40,9 @@ export class Article extends jspb.Message {
   getScoreMaxName(): string;
   setScoreMaxName(value: string): void;
 
+  getCreateAt(): string;
+  setCreateAt(value: string): void;
+
   getJobId(): string;
   setJobId(value: string): void;
 
@@ -70,6 +73,7 @@ export namespace Article {
     scoreNone: string,
     scoreMaxValue: string,
     scoreMaxName: string,
+    createAt: string,
     jobId: string,
     workerId: string,
   }

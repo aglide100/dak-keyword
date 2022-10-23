@@ -16,6 +16,7 @@ message Article {
     string score_none = 10;
     string score_max_value= 11;
     string score_max_name = 12;
-    string job_id = 13;
-    string worker_id = 14;
+    string create_at = 13;
+    string job_id = 14;
+    string worker_id = 15;
 }

@@ -62,6 +62,7 @@ func (db *Database) GetArticles(id string) ([]*models.Article, error) {
 		Score_none string
 		Score_max_value string
 		Score_max_name string
+		Create_at string
 		Job_id string
 		Worker_id string	
 	)
@@ -82,6 +83,7 @@ func (db *Database) GetArticles(id string) ([]*models.Article, error) {
 			&Score_none,
 			&Score_max_value,
 			&Score_max_name,
+			&Create_at,
 			&Job_id,
 			&Worker_id,
 
@@ -103,6 +105,7 @@ func (db *Database) GetArticles(id string) ([]*models.Article, error) {
 			Score_none: Score_none,
 			Score_max_value: Score_max_value,
 			Score_max_name: Score_max_name,
+			Create_at: Create_at,
 			Job_id: Job_id,
 			Worker_id: Worker_id,
 		}
