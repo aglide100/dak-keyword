@@ -16,6 +16,8 @@ import {
     Cell,
     PieChart,
     Pie,
+    BarChart,
+    Bar,
     ResponsiveContainer,
 } from "recharts";
 import Switch from "react-switch";
@@ -26,12 +28,22 @@ type ArticleGraphProps = {
     JobId: any;
 };
 
+type ArticleCount = {
+    Create_at: string;
+    Score_max_name: string;
+    Count_pos: number;
+    Count_neg: number;
+};
+
 export const ArticleGraph = (props: ArticleGraphProps) => {
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
+
     const [isClick, setClick] = useState<boolean>(false);
+    const [isBarChartClick, setIsBarChartClick] = useState<boolean>(false);
 
     const router = useRouter();
     const [data, setData] = useState<ArticleProps[]>([]);
+    const [dataCount, setDataCount] = useState<ArticleCount[]>([]);
 
     useEffect(() => {
         if (!isLoaded) {
@@ -40,8 +52,39 @@ export const ArticleGraph = (props: ArticleGraphProps) => {
         }
     });
 
+    function countArticle() {
+        let create_at = "";
+        let count_pos = 0;
+        let count_neg = 0;
+        let countArray = new Array<ArticleCount>();
+        data.map((value, index) => {
+            if (index == 0) {
+                create_at = value.Create_at;
+            } else {
+                if (value.Create_at != create_at) {
+                    countArray.push({
+                        Create_at: create_at,
+                        Score_max_name: "POS",
+                        Count_pos: count_pos,
+                        Count_neg: count_neg,
+                    });
+
+                    create_at = value.Create_at;
+                    count_pos = 0;
+                    count_neg = 0;
+                } else {
+                    if (value.Score_max_name == "POS") {
+                        count_pos++;
+                    } else if (value.Score_max_name == "NEG") {
+                        count_neg++;
+                    }
+                }
+            }
+        });
+        setDataCount(countArray);
+    }
+
     async function fetchArticleList(jobId) {
-        console.log(jobId);
         makeGetArticleList(router.query.jobId, (message) => {
             const newArticleList: ArticleProps[] = [];
 
@@ -59,7 +102,7 @@ export const ArticleGraph = (props: ArticleGraphProps) => {
                     Score_none: value.scoreNone,
                     Score_max_value: value.scoreMaxValue,
                     Score_max_name: value.scoreMaxName,
-                    Create_at: value.createAt,
+                    Create_at: value.createAt.slice(0, 13),
                     Job_id: value.job_id,
                     Worker_id: value.worker_id,
                 };
@@ -71,11 +114,13 @@ export const ArticleGraph = (props: ArticleGraphProps) => {
                 setData(newArticleList);
             }
 
+            countArticle();
             setIsLoaded(true);
         });
     }
 
     let renderLineChart;
+    let renderBarChart;
 
     if (isLoaded) {
         renderLineChart = (
@@ -95,7 +140,7 @@ export const ArticleGraph = (props: ArticleGraphProps) => {
                                     bottom: 0,
                                 }}
                             >
-                                <CartesianGrid strokeDasharray="3 3" />
+                                <CartesianGrid strokeDasharray="5 5" />
                                 <XAxis dataKey="Create_at" />
                                 <YAxis />
                                 <Tooltip />
@@ -193,11 +238,62 @@ export const ArticleGraph = (props: ArticleGraphProps) => {
                 <div></div>
             </div>
         );
+
+        renderBarChart = (
+            <div className="w-full h-96">
+                <ResponsiveContainer width="100%" height="100%">
+                    <BarChart
+                        width={500}
+                        height={300}
+                        data={dataCount}
+                        margin={{
+                            top: 5,
+                            right: 10,
+                            left: 10,
+                            bottom: 5,
+                        }}
+                    >
+                        <CartesianGrid strokeDasharray="5 5" />
+                        <XAxis dataKey="Create_at" />
+                        <YAxis
+                            yAxisId="left"
+                            orientation="left"
+                            stroke="#8884d8"
+                        />
+                        <YAxis
+                            yAxisId="right"
+                            orientation="right"
+                            stroke="#82ca9d"
+                        />
+                        <Tooltip />
+                        <Legend />
+                        <Bar
+                            yAxisId="left"
+                            dataKey="Count_pos"
+                            fill="#8884d8"
+                            minPointSize={2}
+                        />
+                        <Bar
+                            yAxisId="right"
+                            dataKey="Count_neg"
+                            fill="#82ca9d"
+                            minPointSize={2}
+                        />
+                        <Brush />
+                    </BarChart>
+                </ResponsiveContainer>
+            </div>
+        );
     } else {
         renderLineChart = <>is loading...</>;
+        renderBarChart = <>is loadgin...</>;
     }
 
     function handleChange() {
+        setClick(!isClick);
+    }
+
+    function handleBarChartChange() {
         setClick(!isClick);
     }
 
@@ -223,10 +319,11 @@ export const ArticleGraph = (props: ArticleGraphProps) => {
                         className="react-switch"
                         id="material-switch"
                     />
-                    <span className="ml-3">Graph</span>
+                    <span className="ml-1">Graph</span>
                 </div>
+                <div>{renderLineChart}</div>
 
-                {renderLineChart}
+                <div className="mt-20">{renderBarChart}</div>
             </div>
         </motion.li>
     );
