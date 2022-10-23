@@ -77,13 +77,13 @@ python3 -m grpc_tools.protoc -I . --python_out=./analyzer --grpc_python_out=./an
 python3 -m grpc_tools.protoc -I . --python_out=./analyzer --grpc_python_out=./analyzer ./pb/svc/manager/manager.proto
 
 
-path=$(pwd)
+# path=$(pwd)
 
-cd ./analyzer
+# cd ./analyzer
 
-cp ./pb/svc/analyzer/* $path/analyzer
-cp ./pb/svc/manager/* $path/analyzer
+# cp ./pb/svc/analyzer/* $path/analyzer
+# cp ./pb/svc/manager/* $path/analyzer
 
-rm -rf ./pb
+# rm -rf ./pb
 
-cd ..
+# cd ..

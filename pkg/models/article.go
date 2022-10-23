@@ -17,6 +17,7 @@ type Article struct {
 	Score_none string
 	Score_max_value string
 	Score_max_name string
+	Create_at string
 	Job_id string
 	Worker_id string	
 }
@@ -35,6 +36,7 @@ func ArticleToPbUnit(article *Article) (*pb_unit_article.Article) {
 		ScoreNone: article.Score_none,
 		ScoreMaxValue: article.Score_max_value,
 		ScoreMaxName: article.Score_max_name,
+		CreateAt: article.Create_at,
 		JobId: article.Job_id,
 		WorkerId: article.Worker_id,
 	}
