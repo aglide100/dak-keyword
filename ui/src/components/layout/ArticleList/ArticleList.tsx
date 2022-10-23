@@ -36,6 +36,7 @@ export const ArticleList: React.FC<ArticleListProps> = (JobId) => {
                     Score_none: value.scoreNone,
                     Score_max_value: value.scoreMaxValue,
                     Score_max_name: value.scoreMaxName,
+                    Create_at: value.createAt,
                     Job_id: value.job_id,
                     Worker_id: value.worker_id,
                 };
@@ -86,6 +87,7 @@ export const ArticleList: React.FC<ArticleListProps> = (JobId) => {
                             Score_none={article.Score_none}
                             Score_max_value={article.Score_max_value}
                             Score_max_name={article.Score_max_name}
+                            Create_at={article.Create_at}
                             Job_id={article.Job_id}
                             Worker_id={article.Worker_id}
                         ></ArticleItem>

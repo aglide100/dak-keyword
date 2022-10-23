@@ -17,7 +17,8 @@ func (db *Database) WriteTweetToArticle(tweet models.TweetArticle) error {
 		"Worker_id",
 		"Author",
 		"Create_at"
-	) VALUES ($1, $2, $3, $4, $5, $6, $7)`
+	) VALUES ($1, $2, $3, $4, $5, $6, $7)
+	ON CONFLICT ("Content") DO NOTHING`
 
 	_, err := db.Conn.Exec(q,
 		os.Getenv("Keyword"),

@@ -17,12 +17,12 @@ create unique index if not exists job_id_uindex
 
 create table if not exists worker
 (
-    "Worker_id"             varchar not null
+    "Worker_id" varchar not null
         constraint worker_pk
             primary key,
-    "Keyword"        varchar,
-    "Status"         varchar,
-    "Job_id"         varchar
+    "Keyword"   varchar,
+    "Status"    varchar,
+    "Job_id"    varchar
         constraint "Job_id"
             references job
             on update cascade on delete cascade
@@ -41,7 +41,8 @@ create table if not exists article
             primary key,
     "Author"          varchar,
     "Keyword"         varchar,
-    "Content"         varchar,
+    "Content"         varchar
+        unique,
     "Platform"        varchar,
     "Score_pos"       varchar,
     "Score_neg"       varchar,

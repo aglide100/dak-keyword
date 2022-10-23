@@ -15,6 +15,7 @@ export type ArticleProps = {
     Score_none: string;
     Score_max_value: string;
     Score_max_name: string;
+    Create_at: string;
     Job_id: string;
     Worker_id: string;
 };
@@ -40,6 +41,7 @@ export const ArticleItem = (props: ArticleProps) => {
                     )}
                 </div>
                 <div>Contnet : {props.Content}</div>
+                <div>Create_at : {props.Create_at}</div>
                 <div className="flex flex-col mt-5">
                     <div>Score</div>
                     <div className="flex flex-row">
