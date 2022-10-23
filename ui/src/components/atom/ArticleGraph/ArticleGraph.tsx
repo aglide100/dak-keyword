@@ -13,133 +13,14 @@ import {
     Brush,
     AreaChart,
     Area,
+    Cell,
+    PieChart,
+    Pie,
     ResponsiveContainer,
 } from "recharts";
-
+import Switch from "react-switch";
 import { ArticleProps } from "../ArticleItem/ArticleItem";
 import { useRouter } from "next/router";
-
-// const data: ArticleProps[] = [
-//     {
-//         Id: "1",
-//         Author: "test",
-//         Keyword: "test",
-//         Content: "test",
-//         Platform: "tweet",
-//         Score_pos: "0",
-//         Score_neg: "0",
-//         Score_neut: "0",
-//         Score_comp: "1",
-//         Score_none: "0",
-//         Score_max_value: "1",
-//         Score_max_name: "comp",
-//         Create_at: "2022-10-23T02:11:48.000Z",
-//         Job_id: "",
-//         Worker_id: "",
-//     },
-//     {
-//         Id: "1",
-//         Author: "test",
-//         Keyword: "test",
-//         Content: "test",
-//         Platform: "tweet",
-//         Score_pos: "0",
-//         Score_neg: "0",
-//         Score_neut: "0",
-//         Score_comp: "1",
-//         Score_none: "0",
-//         Score_max_value: "1",
-//         Score_max_name: "comp",
-//         Create_at: "2022-10-23T01:58:48.000Z",
-//         Job_id: "",
-//         Worker_id: "",
-//     },
-//     {
-//         Id: "1",
-//         Author: "test",
-//         Keyword: "test",
-//         Content: "test",
-//         Platform: "tweet",
-//         Score_pos: "0",
-//         Score_neg: "0",
-//         Score_neut: "0",
-//         Score_comp: "1",
-//         Score_none: "0",
-//         Score_max_value: "1",
-//         Score_max_name: "comp",
-//         Create_at: "2022-10-23T01:44:11.000Z",
-//         Job_id: "",
-//         Worker_id: "",
-//     },
-//     {
-//         Id: "1",
-//         Author: "test",
-//         Keyword: "test",
-//         Content: "test",
-//         Platform: "tweet",
-//         Score_pos: "0",
-//         Score_neg: "0",
-//         Score_neut: "0",
-//         Score_comp: "1",
-//         Score_none: "0",
-//         Score_max_value: "1",
-//         Score_max_name: "comp",
-//         Create_at: "2022-10-23T01:43:02.000Z",
-//         Job_id: "",
-//         Worker_id: "",
-//     },
-//     {
-//         Id: "1",
-//         Author: "test",
-//         Keyword: "test",
-//         Content: "test",
-//         Platform: "tweet",
-//         Score_pos: "1",
-//         Score_neg: "0",
-//         Score_neut: "0",
-//         Score_comp: "0",
-//         Score_none: "0",
-//         Score_max_value: "1",
-//         Score_max_name: "pos",
-//         Create_at: "2022-10-23T01:25:11.000Z",
-//         Job_id: "",
-//         Worker_id: "",
-//     },
-//     {
-//         Id: "1",
-//         Author: "test",
-//         Keyword: "test",
-//         Content: "test",
-//         Platform: "tweet",
-//         Score_pos: "0",
-//         Score_neg: "0",
-//         Score_neut: "0",
-//         Score_comp: "1",
-//         Score_none: "0",
-//         Score_max_value: "0.99",
-//         Score_max_name: "comp",
-//         Create_at: "2022-10-22T23:32:09.000Z",
-//         Job_id: "",
-//         Worker_id: "",
-//     },
-//     {
-//         Id: "1",
-//         Author: "test",
-//         Keyword: "test",
-//         Content: "test",
-//         Platform: "tweet",
-//         Score_pos: "0",
-//         Score_neg: "0",
-//         Score_neut: "0",
-//         Score_comp: "1",
-//         Score_none: "0",
-//         Score_max_value: "0.75",
-//         Score_max_name: "comp",
-//         Create_at: "2022-10-T23:35:40.000Z",
-//         Job_id: "",
-//         Worker_id: "",
-//     },
-// ];
 
 type ArticleGraphProps = {
     JobId: any;
@@ -147,6 +28,8 @@ type ArticleGraphProps = {
 
 export const ArticleGraph = (props: ArticleGraphProps) => {
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
+    const [isClick, setClick] = useState<boolean>(false);
+
     const router = useRouter();
     const [data, setData] = useState<ArticleProps[]>([]);
 
@@ -196,89 +79,155 @@ export const ArticleGraph = (props: ArticleGraphProps) => {
 
     if (isLoaded) {
         renderLineChart = (
-            <div className="w-full mt-10">
-                <ResponsiveContainer width="100%" height={200}>
-                    <LineChart
-                        width={1000}
-                        height={500}
-                        data={data}
-                        syncId="anyId"
-                        margin={{
-                            top: 10,
-                            right: 30,
-                            left: 0,
-                            bottom: 0,
-                        }}
-                    >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="Create_at" />
-                        <YAxis />
-                        <Tooltip />
-                        <Line
-                            type="monotone"
-                            dataKey="Score_pos"
-                            stroke="#8884d8"
-                        />
+            <div className="w-full mt-10 flex flex-col justify-content">
+                {isClick ? (
+                    <>
+                        <ResponsiveContainer width="100%" height={350}>
+                            <LineChart
+                                width={1000}
+                                height={350}
+                                data={data}
+                                syncId="anyId"
+                                margin={{
+                                    top: 10,
+                                    right: 30,
+                                    left: 0,
+                                    bottom: 0,
+                                }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="Create_at" />
+                                <YAxis />
+                                <Tooltip />
+                                <Line
+                                    type="monotone"
+                                    dataKey="Score_neg"
+                                    stroke="#82ca9d"
+                                />
 
-                        <Line
-                            type="monotone"
-                            dataKey="Score_neg"
-                            stroke="#82ca9d"
-                        />
-                        <Brush />
-                    </LineChart>
-                </ResponsiveContainer>
+                                <Brush />
+                            </LineChart>
+                        </ResponsiveContainer>
+                        <ResponsiveContainer width="100%" height={350}>
+                            <LineChart
+                                width={1000}
+                                height={350}
+                                data={data}
+                                syncId="anyId"
+                                margin={{
+                                    top: 10,
+                                    right: 30,
+                                    left: 0,
+                                    bottom: 0,
+                                }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="Create_at" />
+                                <YAxis />
+                                <Tooltip />
+                                <Line
+                                    type="monotone"
+                                    dataKey="Score_pos"
+                                    stroke="#8884d8"
+                                />
+                            </LineChart>
+                        </ResponsiveContainer>
+                    </>
+                ) : (
+                    <>
+                        <ResponsiveContainer width="100%" height={350}>
+                            <AreaChart
+                                width={1000}
+                                height={350}
+                                data={data}
+                                syncId="anyId"
+                                margin={{
+                                    top: 10,
+                                    right: 30,
+                                    left: 0,
+                                    bottom: 0,
+                                }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="Create_at" />
+                                <YAxis />
+                                <Tooltip />
+                                <Area
+                                    type="monotone"
+                                    dataKey="Score_neg"
+                                    stroke="#82ca9d"
+                                    fill="#82ca9d"
+                                />
 
-                <ResponsiveContainer width="100%" height={200}>
-                    <AreaChart
-                        width={1000}
-                        height={500}
-                        data={data}
-                        syncId="anyId"
-                        margin={{
-                            top: 10,
-                            right: 30,
-                            left: 0,
-                            bottom: 0,
-                        }}
-                    >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis />
-                        <Tooltip />
-                        <Area
-                            type="monotone"
-                            dataKey="Score_neg"
-                            stroke="#82ca9d"
-                            fill="#82ca9d"
-                        />
-                        <Area
-                            type="monotone"
-                            dataKey="Score_pos"
-                            stroke="#8884d8"
-                            fill="#8884d8"
-                        />
-                    </AreaChart>
-                </ResponsiveContainer>
+                                <Brush />
+                            </AreaChart>
+                        </ResponsiveContainer>
+                        <ResponsiveContainer width="100%" height={350}>
+                            <AreaChart
+                                width={1000}
+                                height={350}
+                                data={data}
+                                syncId="anyId"
+                                margin={{
+                                    top: 10,
+                                    right: 30,
+                                    left: 0,
+                                    bottom: 0,
+                                }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="Create_at" />
+                                <YAxis />
+                                <Tooltip />
+                                <Area
+                                    type="monotone"
+                                    dataKey="Score_pos"
+                                    stroke="#8884d8"
+                                    fill="#8884d8"
+                                />
+                            </AreaChart>
+                        </ResponsiveContainer>
+                    </>
+                )}
+
+                <div></div>
             </div>
         );
     } else {
         renderLineChart = <>is loading...</>;
     }
 
+    function handleChange() {
+        setClick(!isClick);
+    }
+
     return (
         <motion.li className="flex flex-col items-center">
-            {/* <LineChart width={600} height={300} data={data}>
-                <Line
-                    type="monotone"
-                    dataKey="Score_max_name"
-                    stroke="#8884d8"
-                />
-                <CartesianGrid stroke="#ccc" />
-                <XAxis dataKey="Score_max_name" />
-                <YAxis />
-            </LineChart> */}
-            <div className="w-full mt-20">{renderLineChart}</div>
+            <div className="w-full mt-15">
+                <div className="ml-10 flex">
+                    <span className="mr-3">Area</span>
+                    <Switch
+                        onChange={() => {
+                            handleChange();
+                        }}
+                        checked={isClick}
+                        onColor="#86d3ff"
+                        onHandleColor="#2693e6"
+                        handleDiameter={30}
+                        uncheckedIcon={false}
+                        checkedIcon={false}
+                        boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                        activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                        height={20}
+                        width={48}
+                        className="react-switch"
+                        id="material-switch"
+                    />
+                    <span className="ml-3">Graph</span>
+                </div>
+
+                {renderLineChart}
+            </div>
         </motion.li>
     );
 };

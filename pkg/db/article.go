@@ -43,6 +43,7 @@ func (db *Database) GetArticles(id string) ([]*models.Article, error) {
 	SELECT * FROM article
 	WHERE "Job_id" = $1
 	AND article."Score_max_value" is not null
+	ORDER BY article."Create_at" ASC
 	`
 	
 	rows, err := db.Conn.Query(q, id)
