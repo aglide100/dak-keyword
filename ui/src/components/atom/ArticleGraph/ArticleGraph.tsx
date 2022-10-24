@@ -56,7 +56,7 @@ export const ArticleGraph = (props: ArticleGraphProps) => {
         let create_at = "";
         let count_pos = 0;
         let count_neg = 0;
-        let countArray = new Array<ArticleCount>();
+        const countArray = new Array<ArticleCount>();
         data.map((value, index) => {
             if (index == 0) {
                 create_at = value.Create_at;
