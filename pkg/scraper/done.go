@@ -51,3 +51,33 @@ func CallGrpcCallDone(workerId string) error {
 	
 	return nil
 }
+
+func CallGrpcCallUpdateJob(workerId string, status string) error {
+	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
+	if err != nil {
+		log.Fatalf("can't connect grpc server : %v", err)
+		return err
+	}
+
+	defer conn.Close()
+
+	client := pb_svc_manager.NewManagerClient(conn)
+
+	in := &pb_svc_manager.UpdateJobStatusReq{
+		Id: workerId,
+		Status: status,
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
+	defer cancel()
+
+	res, err := client.UpdateJobStatus(ctx, in)
+
+	if err != nil {
+		log.Fatalf("Can't receive anything! %v", err)
+		return err
+	}
+	log.Printf("res %v", res)
+
+	return nil
+}

@@ -61,7 +61,7 @@ func realMain() error {
 	// myScraper := scraper.NewScraper("Mock", myDB)
 	// result := myScraper.GetMockTweets(os.Getenv("Keyword"))
 	log.Printf("%v", os.Getenv("BearerToken"))
-	myScraper := scraper.NewScraper(os.Getenv("BearerToken"), myDB)
+	myScraper := scraper.NewScraper(os.Getenv("BearerToken"), myDB, workerId)
 	result, err := myScraper.GetRecentSearch(os.Getenv("Keyword"), "")
 	if err != nil {
 		return err
