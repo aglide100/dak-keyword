@@ -39,7 +39,6 @@ export const ArticleGraph = (props: ArticleGraphProps) => {
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
     const [isClick, setClick] = useState<boolean>(false);
-    const [isBarChartClick, setIsBarChartClick] = useState<boolean>(false);
 
     const router = useRouter();
     const [data, setData] = useState<ArticleProps[]>([]);
@@ -255,26 +254,15 @@ export const ArticleGraph = (props: ArticleGraphProps) => {
                     >
                         <CartesianGrid strokeDasharray="5 5" />
                         <XAxis dataKey="Create_at" />
-                        <YAxis
-                            yAxisId="left"
-                            orientation="left"
-                            stroke="#8884d8"
-                        />
-                        <YAxis
-                            yAxisId="right"
-                            orientation="right"
-                            stroke="#82ca9d"
-                        />
+                        <YAxis orientation="left" stroke="#8884d8" />
                         <Tooltip />
                         <Legend />
                         <Bar
-                            yAxisId="left"
                             dataKey="Count_pos"
                             fill="#8884d8"
                             minPointSize={2}
                         />
                         <Bar
-                            yAxisId="right"
                             dataKey="Count_neg"
                             fill="#82ca9d"
                             minPointSize={2}
@@ -286,14 +274,10 @@ export const ArticleGraph = (props: ArticleGraphProps) => {
         );
     } else {
         renderLineChart = <>is loading...</>;
-        renderBarChart = <>is loadgin...</>;
+        renderBarChart = <>is loading...</>;
     }
 
     function handleChange() {
-        setClick(!isClick);
-    }
-
-    function handleBarChartChange() {
         setClick(!isClick);
     }
 

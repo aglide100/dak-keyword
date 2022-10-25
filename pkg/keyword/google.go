@@ -51,8 +51,8 @@ func GetKeyWordSetFromGoogle(keyword string) ([]string, error) {
 
 	result := []string{}
 
-	if len(relQ) > 5 {
-		for _, val := range relQ[0:4] {
+	if len(relQ) > 7 {
+		for _, val := range relQ[0:6] {
 			result = append(result, val.Query)
 		}
 	} else {
