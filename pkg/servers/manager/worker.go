@@ -11,9 +11,9 @@ import (
 )
 
 func (s *ManagerSrv) GetWorkerList(ctx context.Context, in *pb_svc_manager.GetWorkerListReq) (*pb_svc_manager.GetWorkerListRes, error) {
-	if in != nil {
-		log.Printf("Received GetWorkerList call: %v", in.String())
-	}
+	// if in != nil {
+	// 	log.Printf("Received GetWorkerList call: %v", in.String())
+	// }
 
 	workerList, err := s.db.GetAllWorker(in.Id)
 	if err != nil {

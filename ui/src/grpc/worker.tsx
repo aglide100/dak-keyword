@@ -14,13 +14,13 @@ export async function makeGetWorkers(jobId, callback) {
         transport: NodeHttpTransport(),
         onEnd: (res) => {
             const { status, statusMessage, headers, message, trailers } = res;
-            console.log("getWorkerListReq.onEnd.status", status, statusMessage);
-            console.log("getWorkerListReq.onEnd.headers", headers);
+            // console.log("getWorkerListReq.onEnd.status", status, statusMessage);
+            // console.log("getWorkerListReq.onEnd.headers", headers);
             if (status === grpc.Code.OK && message) {
-                console.log(
-                    "getWorkerListReq.onEnd.message",
-                    message.toObject(),
-                );
+                // console.log(
+                //     "getWorkerListReq.onEnd.message",
+                //     message.toObject(),
+                // );
 
                 callback(message.toObject());
             }

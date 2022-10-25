@@ -9,10 +9,11 @@ import (
 
 func main() {
 	log.Println("Starting scraper...")
-	result, err := keyword.GetKeywords("드론쇼", "")
+	result, err := keyword.GetKeywords("인터넷", "")
 	if err != nil {
 		log.Printf("Can't get keywordset! %v", err)
 	}
+
 
 	log.Printf("result: %v", result)
 	// files, err := config.ReadEnvList()
