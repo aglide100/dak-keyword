@@ -2,7 +2,7 @@ package keyword
 
 import (
 	"log"
-	"net/url"
+	// "net/url"
 
 	"github.com/tidwall/gjson"
 )
