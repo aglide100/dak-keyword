@@ -33,6 +33,7 @@ type ArticleCount = {
     Score_max_name: string;
     Count_pos: number;
     Count_neg: number;
+    Count_neut: number;
 };
 
 export const ArticleGraph = (props: ArticleGraphProps) => {
@@ -55,6 +56,7 @@ export const ArticleGraph = (props: ArticleGraphProps) => {
         let create_at = "";
         let count_pos = 0;
         let count_neg = 0;
+        let count_neut = 0;
         const countArray = new Array<ArticleCount>();
         data.map((value, index) => {
             if (index == 0) {
@@ -66,16 +68,20 @@ export const ArticleGraph = (props: ArticleGraphProps) => {
                         Score_max_name: "POS",
                         Count_pos: count_pos,
                         Count_neg: count_neg,
+                        Count_neut: count_neut,
                     });
 
                     create_at = value.Create_at;
                     count_pos = 0;
                     count_neg = 0;
+                    count_neut = 0;
                 } else {
                     if (value.Score_max_name == "POS") {
                         count_pos++;
                     } else if (value.Score_max_name == "NEG") {
                         count_neg++;
+                    } else if (value.Score_max_name == "NEUT") {
+                        count_neut++;
                     }
                 }
             }
@@ -265,6 +271,11 @@ export const ArticleGraph = (props: ArticleGraphProps) => {
                         <Bar
                             dataKey="Count_neg"
                             fill="#82ca9d"
+                            minPointSize={2}
+                        />
+                        <Bar
+                            dataKey="Count_neut"
+                            fill="#ffa500"
                             minPointSize={2}
                         />
                         <Brush />
