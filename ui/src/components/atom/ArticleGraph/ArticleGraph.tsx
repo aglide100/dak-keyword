@@ -30,7 +30,7 @@ type ArticleGraphProps = {
 
 type ArticleCount = {
     Create_at: string;
-    Score_max_name: string;
+    // Score_max_name: string;
     Count_pos: number;
     Count_neg: number;
     Count_neut: number;
@@ -59,13 +59,22 @@ export const ArticleGraph = (props: ArticleGraphProps) => {
         let count_neut = 0;
         const countArray = new Array<ArticleCount>();
         data.map((value, index) => {
+            console.log(index, value);
             if (index == 0) {
                 create_at = value.Create_at;
             } else {
+                if (index == data.length - 1) {
+                    countArray.push({
+                        Create_at: create_at,
+                        Count_pos: count_pos,
+                        Count_neg: count_neg,
+                        Count_neut: count_neut,
+                    });
+                }
+
                 if (value.Create_at != create_at) {
                     countArray.push({
                         Create_at: create_at,
-                        Score_max_name: "POS",
                         Count_pos: count_pos,
                         Count_neg: count_neg,
                         Count_neut: count_neut,
