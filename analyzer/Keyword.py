@@ -48,6 +48,8 @@ if __name__ == '__main__':
         # print(value)
         # print("----------")
         score = Analyzer.analyze_word(value[3], dictionary)
-        Database.CRUD.updateScore(db, score['pos'].values[0], score['neg'].values[0], score['neut'].values[0], score['comp'].values[0], score['none'].values[0], score['max'].name, score[score['max'].name].values[0], value[13], value[0])
-
+        if score is not None:
+            Database.CRUD.updateScore(db, score['pos'].values[0], score['neg'].values[0], score['neut'].values[0], score['comp'].values[0], score['none'].values[0], score['max'].name, score[score['max'].name].values[0], value[13], value[0])
+        else:
+            print("result is None!")
     sendDoneMSG()
