@@ -80,7 +80,7 @@ secrets:
 
 networks:
     keyword-network:
-        driver: overlay
+        driver: default
 
 volumes:
     keys:

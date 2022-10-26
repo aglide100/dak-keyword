@@ -25,12 +25,13 @@ export class GrpcManager {
 
     public static async GetAddr() {
         const axiosObj = axios.default;
-        let addr;
+        const addr = "https://localhost";
+        // let addr;
 
-        await axiosObj.get("/env").then((res) => {
-            console.log(res.data.addr);
-            addr = res.data.addr;
-        });
+        // await axiosObj.get("/env").then((res) => {
+        //     console.log(res.data.addr);
+        //     addr = res.data.addr;
+        // });
 
         return addr;
     }

@@ -1,0 +1,19 @@
+version: "3.5"
+
+services:
+    db:
+        image: ghcr.io/aglide100/dak-keyword-db:latest
+        # image: db
+        ports:
+            - "8432:5432"
+        networks:
+            - keyword-network
+        environment:
+            - POSTGRES_DB=keyword
+            - POSTGRES_USER=table_admin
+            - POSTGRES_PASSWORD=HelloWorld
+            - POSTGRES_INITDB_ARGS=--encoding=UTF-8
+
+networks:
+    keyword-network:
+        driver: bridge

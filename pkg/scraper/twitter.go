@@ -65,10 +65,12 @@ func (s Scraper) GetRecentSearch(keyword string, nextToken string, nums ...int) 
 	data := gjson.Get(resp, "data")
 
 	// log.Printf("------------------------------------------------")
-	// log.Printf("data: %v", data.String())
+	// log.Printf("data: %v, %d", data.Num, data.Index)
 	var articles []models.TweetArticle
 	// var prev models.TweetArticle
+	var count =0;
 	data.ForEach(func(key, value gjson.Result) bool {
+		count++;
 		newArticle := models.TweetArticle{
 			Id: gjson.Get(value.String(), "id").String(),
 			Text: gjson.Get(value.String(), "text").String(),
@@ -85,12 +87,20 @@ func (s Scraper) GetRecentSearch(keyword string, nextToken string, nums ...int) 
 		return true
 	})
 
+	// log.Println("count: ", count)
+	
+	// log.Println("article count: ", len(articles))
+
 	if len(gjson.Get(meta.String(), "next_token").String()) > 1 {
 		// log.Printf("---------------------------------------------")
 		log.Printf("next_token: %v", gjson.Get(meta.String(), "next_token").String())
-		_, err := s.GetRecentSearch(keyword, gjson.Get(meta.String(), "next_token").String(), num+1)
+		result, err := s.GetRecentSearch(keyword, gjson.Get(meta.String(), "next_token").String(), num+1)
 		if err != nil {
 			log.Printf("error: %v", err)
+		}
+
+		for _, v := range result {
+			articles = append(articles, v)
 		}
 	}
 

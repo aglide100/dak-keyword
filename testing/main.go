@@ -1,21 +1,18 @@
 package main
 
-import (
-	"log"
-
-	// "github.com/aglide100/dak-keyword/pkg/config"
-	"github.com/aglide100/dak-keyword/pkg/keyword"
-)
+// "github.com/aglide100/dak-keyword/pkg/config"
 
 func main() {
-	log.Println("Starting scraper...")
-	result, err := keyword.GetKeywords("인터넷", "")
-	if err != nil {
-		log.Printf("Can't get keywordset! %v", err)
-	}
+	
+	
+	// log.Println("Starting scraper...")
+	// result, err := keyword.GetKeywords("인터넷", "")
+	// if err != nil {
+	// 	log.Printf("Can't get keywordset! %v", err)
+	// }
 
 
-	log.Printf("result: %v", result)
+	// log.Printf("result: %v", result)
 	// files, err := config.ReadEnvList()
 	// if err != nil {
 	// 	log.Print("err!", err)
