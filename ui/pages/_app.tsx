@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import { useGetScroll, UseScrollHooksProps } from "../src/Hooks";
 import { AnimatePresence, motion } from "framer-motion";
+import { Footer } from "../src/components/atom/Footer/Footer";
 
 function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter();
@@ -41,7 +42,8 @@ function MyApp({ Component, pageProps }: AppProps) {
                 />
                 <title>Hello!</title>
             </Head>
-            <div className="flex flex-col justify-between">
+
+            <div className="flex flex-col min-h-screen bg-gray-100">
                 <div ref={headerNode}>
                     <Header {...result}></Header>
                 </div>
@@ -61,6 +63,9 @@ function MyApp({ Component, pageProps }: AppProps) {
                         <Component {...pageProps} key={router.pathname} />
                     </motion.div>
                 </AnimatePresence>
+                <div>
+                    <Footer></Footer>
+                </div>
             </div>
         </>
     );

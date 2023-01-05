@@ -15,16 +15,6 @@ const ArticleList = dynamic(
     },
 );
 
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//     const { query } = context;
-//     const { jobId } = query;
-//     return {
-//         props: {
-//             jobId,
-//         },
-//     };
-// };
-
 interface IHOCProp {
     jobId?: string;
 }
@@ -32,7 +22,6 @@ interface IHOCProp {
 export const Articles: React.FC<IHOCProp> = ({ jobId }) => {
     return (
         <div className="w-full min-h-screen bg-gray-100 flex flex-col content-around">
-            {/* <div>{jobId}</div> */}
             <div></div>
             <ArticleList JobId={jobId}></ArticleList>
         </div>

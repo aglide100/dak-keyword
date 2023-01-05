@@ -68,3 +68,19 @@ alter table article
 create unique index if not exists article_id_uindex
     on article ("Id");
 
+create table if not exists job_article_count
+(
+    "Job_Id"      varchar not null
+        primary key
+        constraint "Job_Id"
+            references job
+            on update cascade on delete cascade,
+    "Total_count" integer,
+    "Total_neg"   integer,
+    "Total_neut"  integer,
+    "Total_pos"   integer
+);
+
+alter table job_article_count
+    owner to table_admin;
+

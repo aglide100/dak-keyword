@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import classNames from "classnames";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
+import { Button } from "../../atom/Button/Button";
 
 export type HeaderProps = {
     isShow: boolean | undefined;
@@ -70,17 +71,32 @@ const Header: React.FC<HeaderProps> = ({
                         },
                     )}
                 >
-                    <div
-                        className="w-full h-full flex flex-col justify-center"
-                        onClick={(e) => {
-                            e.preventDefault();
+                    <div className=" h-full flex flex-row justify-center">
+                        <div className="w-full flex ml-2 mr-2">
+                            <Button
+                                size="medium"
+                                isDisabled={!isShow}
+                                onClick={(e) => {
+                                    e.preventDefault();
 
-                            router.replace({
-                                pathname: "/",
-                            });
-                        }}
-                    >
-                        Home
+                                    router.push("/NewJob");
+                                }}
+                            >
+                                New Job
+                            </Button>
+                        </div>
+                        <div
+                            className="flex flex-col mt-1.5 text-center"
+                            onClick={(e) => {
+                                e.preventDefault();
+
+                                router.replace({
+                                    pathname: "/",
+                                });
+                            }}
+                        >
+                            Home
+                        </div>
                     </div>
                     <div
                         className={classNames("cursor-pointer w-52", {
