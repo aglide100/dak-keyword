@@ -4,11 +4,12 @@ import { grpc } from "@improbable-eng/grpc-web";
 import { NodeHttpTransport } from "@improbable-eng/grpc-web-node-http-transport";
 import { GrpcManager } from ".";
 
-export async function makeGetArticleList(id, callback) {
+export async function CallGetArticleList(id, callback) {
     const getArticleListReq = new pb_svc_manager.GetArticleListReq();
 
     getArticleListReq.setId(id);
-    // console.log("!!!!!", id);
+    // TODO add page
+    getArticleListReq.setPage(0);
 
     grpc.unary(Manager.GetArticleList, {
         host: (await GrpcManager.getInstance()).GetHost(),

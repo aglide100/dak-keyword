@@ -4,7 +4,7 @@ import { grpc } from "@improbable-eng/grpc-web";
 import { NodeHttpTransport } from "@improbable-eng/grpc-web-node-http-transport";
 import { GrpcManager } from ".";
 
-export async function makeGetWorkers(jobId, callback) {
+export async function CallGetWorkers(jobId, callback) {
     const getWorkerListReq = new pb_svc_manager.GetWorkerListReq();
     getWorkerListReq.setId(jobId);
 

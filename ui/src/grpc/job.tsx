@@ -1,10 +1,10 @@
 import * as pb_svc_manager from "../../gen/pb/svc/manager/manager_pb";
 import { Manager } from "../../gen/pb/svc/manager/manager_pb_service";
 import { grpc } from "@improbable-eng/grpc-web";
-import { NodeHttpTransport } from "@improbable-eng/grpc-web-node-http-transport";
+// import { NodeHttpTransport } from "@improbable-eng/grpc-web-node-http-transport";
 import { GrpcManager } from ".";
 
-export async function makeGetJobList(callback) {
+export async function CallGetJobList(callback) {
     const getJobListReq = new pb_svc_manager.GetJobListReq();
     console.log((await GrpcManager.getInstance()).GetHost());
     grpc.unary(Manager.GetJobList, {
@@ -26,7 +26,7 @@ export async function makeGetJobList(callback) {
     });
 }
 
-export async function makeNewJob(keyword, owner, callback) {
+export async function CallNewJob(keyword, owner, callback) {
     const createNewJobReq = new pb_svc_manager.CreateNewJobReq();
 
     createNewJobReq.setKeyword(keyword);

@@ -354,6 +354,9 @@ export class GetArticleListReq extends jspb.Message {
   getId(): string;
   setId(value: string): void;
 
+  getPage(): number;
+  setPage(value: number): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetArticleListReq.AsObject;
   static toObject(includeInstance: boolean, msg: GetArticleListReq): GetArticleListReq.AsObject;
@@ -367,6 +370,7 @@ export class GetArticleListReq extends jspb.Message {
 export namespace GetArticleListReq {
   export type AsObject = {
     id: string,
+    page: number,
   }
 }
 
@@ -389,6 +393,50 @@ export class GetArticleListRes extends jspb.Message {
 export namespace GetArticleListRes {
   export type AsObject = {
     articleList: Array<pb_unit_article_article_pb.Article.AsObject>,
+  }
+}
+
+export class GetArticleInfoReq extends jspb.Message {
+  getId(): string;
+  setId(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetArticleInfoReq.AsObject;
+  static toObject(includeInstance: boolean, msg: GetArticleInfoReq): GetArticleInfoReq.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: GetArticleInfoReq, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetArticleInfoReq;
+  static deserializeBinaryFromReader(message: GetArticleInfoReq, reader: jspb.BinaryReader): GetArticleInfoReq;
+}
+
+export namespace GetArticleInfoReq {
+  export type AsObject = {
+    id: string,
+  }
+}
+
+export class GetArticleInfoRes extends jspb.Message {
+  getTotalcount(): number;
+  setTotalcount(value: number): void;
+
+  getPagecount(): number;
+  setPagecount(value: number): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetArticleInfoRes.AsObject;
+  static toObject(includeInstance: boolean, msg: GetArticleInfoRes): GetArticleInfoRes.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: GetArticleInfoRes, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetArticleInfoRes;
+  static deserializeBinaryFromReader(message: GetArticleInfoRes, reader: jspb.BinaryReader): GetArticleInfoRes;
+}
+
+export namespace GetArticleInfoRes {
+  export type AsObject = {
+    totalcount: number,
+    pagecount: number,
   }
 }
 

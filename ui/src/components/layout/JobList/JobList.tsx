@@ -1,8 +1,6 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { GrpcManager } from "../../../grpc";
-import { makeGetJobList } from "../../../grpc/job";
-import { JobItem } from "../../atom/JobItem/Job";
+import { CallGetJobList } from "../../../grpc/job";
+import { JobItem } from "../../atom/JobItem/JobItem";
 
 type job = {
     id: string;
@@ -15,6 +13,7 @@ type job = {
 const List: React.FC = () => {
     const [data, setData] = useState<job[]>([]);
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
+
     useEffect(() => {
         if (!isLoaded) {
             fetchJobList();
@@ -22,24 +21,29 @@ const List: React.FC = () => {
     });
 
     async function fetchJobList() {
-        makeGetJobList((message) => {
-            message.jobList.map((value, _) => {
-                console.log(value);
-                const newJobList = data;
-                const newJob: job = {
-                    id: value.id,
-                    status: value.status,
-                    keyword: value.keyword,
-                    owner: value.owner,
-                    date: value.date,
-                };
-                newJobList.push(newJob);
+        try {
+            CallGetJobList((message) => {
+                message.jobList.map((value, _) => {
+                    console.log(value);
+                    const newJobList = data;
+                    const newJob: job = {
+                        id: value.id,
+                        status: value.status,
+                        keyword: value.keyword,
+                        owner: value.owner,
+                        date: value.date,
+                    };
+                    newJobList.push(newJob);
 
-                setData(newJobList);
+                    setData(newJobList);
+                });
+
+                setIsLoaded(true);
             });
-
-            setIsLoaded(true);
-        });
+        } catch (err) {
+            console.log("Can't fetch data from server");
+            throw err;
+        }
     }
 
     let jobList;
@@ -65,7 +69,11 @@ const List: React.FC = () => {
         });
     }
 
-    return <>{jobList}</>;
+    return (
+        <>
+            <>{jobList}</>
+        </>
+    );
 };
 
 export default List;

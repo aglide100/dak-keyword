@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
-import { makeGetWorkers } from "../../../grpc/worker";
-import { WorkerItem } from "../../atom/WorkerItem/Worker";
+import { CallGetWorkers } from "../../../grpc/worker";
+import { WorkerItem } from "../../atom/WorkerItem/WorkerItem";
 import { useRouter } from "next/router";
 
 type worker = {
@@ -14,28 +14,37 @@ const List: React.FC<{ JobId }> = ({ JobId }) => {
     const [data, setData] = useState<worker[]>([]);
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
     const [number, setNumber] = useState(0);
+    const [path, setPath] = useState("");
     const number_ref = useRef(0);
     const router = useRouter();
 
     useEffect(() => {
         if (!isLoaded && router.pathname == "/job") {
             fetchWorkerList(JobId);
+            // setPath("job");
 
             const loop = setInterval(() => {
                 number_ref.current += 1;
                 setNumber(number_ref.current);
 
+                console.log("!");
                 if (router.pathname == "/job") {
                     fetchWorkerList(JobId);
                 }
-
-                if (number_ref.current === 10) clearInterval(loop);
             }, 5000);
+
+            if (number_ref.current === 10) clearInterval(loop);
+
+            return () => clearInterval(loop);
         }
+
+        // if (router.pathname != "/job") {
+        //     clearInterval(loop);
+        // }
     });
 
     async function fetchWorkerList(jobId) {
-        makeGetWorkers(jobId, (message) => {
+        CallGetWorkers(jobId, (message) => {
             const newWorkerList: worker[] = [];
 
             message.workerList.map((value, _) => {
