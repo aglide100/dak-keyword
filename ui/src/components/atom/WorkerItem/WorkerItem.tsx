@@ -25,11 +25,18 @@ export const WorkerItem = (props: WorkerProps) => {
                         ev.preventDefault();
                     }}
                 >
-                    <div className="mb-1">WorkerId: {props.workerId}</div>
                     <div className="mb-1">
-                        Worker keyword: {props.workerKeyword}
+                        <span className="font-semibold">Worker Id : </span>
+                        {props.workerId}
                     </div>
-                    <div className="mb-1">Status: {props.status}</div>
+                    <div className="mb-1">
+                        <span className="font-semibold">keyword : </span>
+                        {props.workerKeyword}
+                    </div>
+                    <div className="mb-1">
+                        <span className="font-semibold">Status : </span>
+                        {props.status}
+                    </div>
                 </div>
             </motion.li>
         </>

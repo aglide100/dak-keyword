@@ -5,8 +5,6 @@ export class GrpcManager {
     private static instance: GrpcManager;
     private static host: string;
 
-    // constructor() {}
-
     public static async getInstance(): Promise<GrpcManager> {
         if (!GrpcManager.instance) {
             const result = await Promise.all([GrpcManager.GetAddr()]);
@@ -27,10 +25,15 @@ export class GrpcManager {
         const axiosObj = axios.default;
         let addr;
 
-        await axiosObj.get("/env").then((res) => {
-            console.log(res.data.addr);
-            addr = res.data.addr;
-        });
+        try {
+            await axiosObj.get("/env").then((res) => {
+                console.log(res.data.addr);
+                addr = res.data.addr;
+            });
+        } catch {
+            console.log("Can't get env from server!");
+            addr = "https://keyword-grpc.like-a-junk.com";
+        }
 
         return addr;
     }

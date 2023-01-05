@@ -35,10 +35,22 @@ export const JobItem = (props: JobProps) => {
                         });
                     }}
                 >
-                    <div className="mb-1">Status: {props.status}</div>
-                    <div className="mb-1">Keyword: {props.keyword}</div>
-                    <div className="mb-1">Owner: {props.owner}</div>
-                    <div className="mb-1">Created at: {props.date}</div>
+                    <div className="mb-1">
+                        <span className="font-semibold">Status: </span>
+                        {props.status}
+                    </div>
+                    <div className="mb-1">
+                        <span className="font-semibold">Keyword : </span>
+                        {props.keyword}
+                    </div>
+                    <div className="mb-1">
+                        <span className="font-semibold">Owner : </span>
+                        {props.owner}
+                    </div>
+                    <div className="mb-1">
+                        <span className="font-semibold">Created at : </span>
+                        {props.date}
+                    </div>
                 </div>
             </motion.li>
         </>

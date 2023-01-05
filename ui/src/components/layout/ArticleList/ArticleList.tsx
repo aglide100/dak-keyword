@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { ArticleItem, ArticleProps } from "../../atom/ArticleItem/ArticleItem";
-import { makeGetArticleList } from "../../../grpc/article";
+import { CallGetArticleList } from "../../../grpc/article";
 import { useRouter } from "next/router";
+import { TailSpin } from "react-loader-spinner";
 
 type ArticleListProps = {
     JobId: any;
@@ -19,7 +20,7 @@ export const ArticleList: React.FC<ArticleListProps> = (JobId) => {
     }, []);
 
     async function fetchArticleList(jobId) {
-        makeGetArticleList(router.query.jobId, (message) => {
+        CallGetArticleList(router.query.jobId, (message) => {
             const newArticleList: ArticleProps[] = [];
 
             message.articleList.map((value, _) => {
@@ -61,7 +62,16 @@ export const ArticleList: React.FC<ArticleListProps> = (JobId) => {
     ) {
         ArticleList = (
             <div className="w-full flex justify-center mt-10">
-                Can't find articles!
+                <TailSpin
+                    height="80"
+                    width="80"
+                    color="#4fa94d"
+                    ariaLabel="tail-spin-loading"
+                    radius="1"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                />
             </div>
         );
     } else {

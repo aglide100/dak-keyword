@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Icon, IconType } from "../Icon/Icon";
-import { makeGetArticleList } from "../../../grpc/article";
+import { CallGetArticleList } from "../../../grpc/article";
 import {
     LineChart,
     Line,
@@ -98,7 +98,7 @@ export const ArticleGraph = (props: ArticleGraphProps) => {
     }
 
     async function fetchArticleList(jobId) {
-        makeGetArticleList(router.query.jobId, (message) => {
+        CallGetArticleList(router.query.jobId, (message) => {
             const newArticleList: ArticleProps[] = [];
 
             message.articleList.map((value, _) => {

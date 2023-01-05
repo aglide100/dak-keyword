@@ -40,6 +40,15 @@ type ManagerGetWorkerList = {
   readonly responseType: typeof pb_svc_manager_manager_pb.GetWorkerListRes;
 };
 
+type ManagerGetArticleInfo = {
+  readonly methodName: string;
+  readonly service: typeof Manager;
+  readonly requestStream: false;
+  readonly responseStream: false;
+  readonly requestType: typeof pb_svc_manager_manager_pb.GetArticleInfoReq;
+  readonly responseType: typeof pb_svc_manager_manager_pb.GetArticleInfoRes;
+};
+
 type ManagerGetArticleList = {
   readonly methodName: string;
   readonly service: typeof Manager;
@@ -91,6 +100,7 @@ export class Manager {
   static readonly GetJobStatus: ManagerGetJobStatus;
   static readonly GetJobList: ManagerGetJobList;
   static readonly GetWorkerList: ManagerGetWorkerList;
+  static readonly GetArticleInfo: ManagerGetArticleInfo;
   static readonly GetArticleList: ManagerGetArticleList;
   static readonly UpdateJobStatus: ManagerUpdateJobStatus;
   static readonly DoneScraper: ManagerDoneScraper;
@@ -165,6 +175,15 @@ export class ManagerClient {
   getWorkerList(
     requestMessage: pb_svc_manager_manager_pb.GetWorkerListReq,
     callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.GetWorkerListRes|null) => void
+  ): UnaryResponse;
+  getArticleInfo(
+    requestMessage: pb_svc_manager_manager_pb.GetArticleInfoReq,
+    metadata: grpc.Metadata,
+    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.GetArticleInfoRes|null) => void
+  ): UnaryResponse;
+  getArticleInfo(
+    requestMessage: pb_svc_manager_manager_pb.GetArticleInfoReq,
+    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.GetArticleInfoRes|null) => void
   ): UnaryResponse;
   getArticleList(
     requestMessage: pb_svc_manager_manager_pb.GetArticleListReq,

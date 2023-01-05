@@ -46,6 +46,15 @@ Manager.GetWorkerList = {
   responseType: pb_svc_manager_manager_pb.GetWorkerListRes
 };
 
+Manager.GetArticleInfo = {
+  methodName: "GetArticleInfo",
+  service: Manager,
+  requestStream: false,
+  responseStream: false,
+  requestType: pb_svc_manager_manager_pb.GetArticleInfoReq,
+  responseType: pb_svc_manager_manager_pb.GetArticleInfoRes
+};
+
 Manager.GetArticleList = {
   methodName: "GetArticleList",
   service: Manager,
@@ -196,6 +205,37 @@ ManagerClient.prototype.getWorkerList = function getWorkerList(requestMessage, m
     callback = arguments[1];
   }
   var client = grpc.unary(Manager.GetWorkerList, {
+    request: requestMessage,
+    host: this.serviceHost,
+    metadata: metadata,
+    transport: this.options.transport,
+    debug: this.options.debug,
+    onEnd: function (response) {
+      if (callback) {
+        if (response.status !== grpc.Code.OK) {
+          var err = new Error(response.statusMessage);
+          err.code = response.status;
+          err.metadata = response.trailers;
+          callback(err, null);
+        } else {
+          callback(null, response.message);
+        }
+      }
+    }
+  });
+  return {
+    cancel: function () {
+      callback = null;
+      client.close();
+    }
+  };
+};
+
+ManagerClient.prototype.getArticleInfo = function getArticleInfo(requestMessage, metadata, callback) {
+  if (arguments.length === 2) {
+    callback = arguments[1];
+  }
+  var client = grpc.unary(Manager.GetArticleInfo, {
     request: requestMessage,
     host: this.serviceHost,
     metadata: metadata,
