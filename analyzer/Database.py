@@ -48,22 +48,24 @@ class CRUD(Databases):
         except Exception as e :
             result = ("Read DB err : ", e)
 
-        print(result)
+        # print(result)
         return result
 
-    def updateScore(self, Score_pos, Score_neg, Score_neut, Score_comp, Score_none, Score_max_value, Score_max_name, Id, articleId):
+    def updateScore(self, Score_happy, Score_fear, Score_embarrassed, Score_sad, Score_rage, Score_hurt, Score_max_value, Score_max_name, Id, articleId):
         sql = ("UPDATE \"article\"" 
         " SET "
-        " \"Score_pos\" "
-        " = '{Score_pos}',"
-        " \"Score_neg\" "
-        " = '{Score_neg}',"
-        " \"Score_neut\" "
-        " = '{Score_neut}',"
-        " \"Score_comp\" "
-        " = '{Score_comp}',"
-        " \"Score_none\" "
-        " = '{Score_none}',"
+        " \"Score_happy\" "
+        " = '{Score_happy}',"
+        " \"Score_fear\" "
+        " = '{Score_fear}',"
+        " \"Score_embarrassed\" "
+        " = '{Score_embarrassed}',"
+        " \"Score_sad\" "
+        " = '{Score_sad}',"
+        " \"Score_rage\" "
+        " = '{Score_rage}',"
+        " \"Score_hurt\" "
+        " = '{Score_hurt}',"
         " \"Score_max_value\" "
         " = '{Score_max_value}',"
         " \"Score_max_name\" "
@@ -73,7 +75,7 @@ class CRUD(Databases):
         " = '{Id}' AND " 
         " \"Id\""
         " = '{articleId}'"
-        ).format(Score_neg = Score_neg, Score_pos = Score_pos, Score_neut = Score_neut, Score_comp = Score_comp, Score_none = Score_none, Score_max_value = Score_max_value, Score_max_name = Score_max_name, Id = Id, articleId = articleId)
+        ).format(Score_happy = Score_happy, Score_fear = Score_fear,  Score_embarrassed = Score_embarrassed, Score_sad = Score_sad, Score_rage = Score_rage, Score_hurt = Score_hurt, Score_max_value = Score_max_value, Score_max_name = Score_max_name, Id = Id, articleId = articleId)
         
         try :
             self.cursor.execute(sql)

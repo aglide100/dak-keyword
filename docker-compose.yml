@@ -6,15 +6,12 @@ services:
     db:
         image: ghcr.io/aglide100/dak-keyword-db:latest
         # image: db
-        # volumes:
-        #   - <<: *services-volume
-        #     # source: ${HOST}/postgres
-        #     source: /tmp/dak-keyword
-        #     target: /var/lib/postgres
+        volumes:
+            - <<: *services-volume
+              source: /tmp/dak-keyword
+              target: /var/lib/postgres
         env_file:
             - ./env/db.env
-        # ports:
-        #     - 5432:5432
         networks:
             - keyword-network
         deploy:
@@ -32,9 +29,9 @@ services:
         secrets:
             - crt-file
             - key-file
-        ports:
-            - 50011:50011
-            - 50010:50010
+        # ports:
+        #     - 50011:50011
+        #     - 50010:50010
         environment:
             - TLS=false
         depends_on:
@@ -100,16 +97,11 @@ secrets:
         file: ./keys/localhost.crt
     key-file:
         file: ./keys/localhost.key
-    # crt-file:
-    #     file: ./keys/server.crt
-    # key-file:
-    #     file: ./keys/server.key
 
 networks:
     keyword-network:
         driver: overlay
     traefik-network:
-        #driver: overlay
         external: true
 
 volumes:

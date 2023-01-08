@@ -10,11 +10,12 @@ type Article struct {
 	Keyword string
 	Content string
 	Platform string
-	Score_pos string
-	Score_neg string
-	Score_neut string
-	Score_comp string
-	Score_none string
+	Score_happy string
+	Score_fear string
+	Score_embarrassed string
+	Score_sad string
+	Score_rage string
+	Score_hurt string
 	Score_max_value string
 	Score_max_name string
 	Create_at string
@@ -27,13 +28,14 @@ func ArticleToPbUnit(article *Article) (*pb_unit_article.Article) {
 		Id: article.Id,
 		Author: article.Author,
 		Keyword: article.Keyword,
-		Content: article.Content,
+		Content: article.Content, 
 		Platform: article.Platform,
-		ScorePos: article.Score_pos,
-		ScoreNeg: article.Score_neg,
-		ScoreNeut: article.Score_neut,
-		ScoreComp: article.Score_comp,
-		ScoreNone: article.Score_none,
+		ScoreHappy: article.Score_happy,
+		ScoreFear: article.Score_fear,
+		ScoreEmbarrassed: article.Score_embarrassed,
+		ScoreSad: article.Score_sad,
+		ScoreRage: article.Score_rage,
+		ScoreHurt: article.Score_hurt,
 		ScoreMaxValue: article.Score_max_value,
 		ScoreMaxName: article.Score_max_name,
 		CreateAt: article.Create_at,
