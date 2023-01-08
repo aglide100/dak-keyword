@@ -30,11 +30,12 @@ export const ArticleList: React.FC<ArticleListProps> = (JobId) => {
                     Keyword: value.keyword,
                     Content: value.content,
                     Platform: value.platform,
-                    Score_pos: value.scorePos,
-                    Score_neg: value.scoreNeg,
-                    Score_neut: value.scoreNeut,
-                    Score_comp: value.scoreComp,
-                    Score_none: value.scoreNone,
+                    Score_happy: value.scoreHappy,
+                    Score_fear: value.scoreFear,
+                    Score_embarrassed: value.scoreEmbarrassed,
+                    Score_sad: value.scoreSad,
+                    Score_rage: value.scoreRage,
+                    Score_hurt: value.scoreHurt,
                     Score_max_value: value.scoreMaxValue,
                     Score_max_name: value.scoreMaxName,
                     Create_at: value.createAt,
@@ -90,11 +91,12 @@ export const ArticleList: React.FC<ArticleListProps> = (JobId) => {
                             Keyword={article.Keyword}
                             Content={article.Content}
                             Platform={article.Platform}
-                            Score_pos={article.Score_pos}
-                            Score_neg={article.Score_neg}
-                            Score_neut={article.Score_neut}
-                            Score_comp={article.Score_comp}
-                            Score_none={article.Score_none}
+                            Score_happy={article.Score_happy}
+                            Score_fear={article.Score_fear}
+                            Score_embarrassed={article.Score_embarrassed}
+                            Score_sad={article.Score_sad}
+                            Score_rage={article.Score_rage}
+                            Score_hurt={article.Score_hurt}
                             Score_max_value={article.Score_max_value}
                             Score_max_name={article.Score_max_name}
                             Create_at={article.Create_at}

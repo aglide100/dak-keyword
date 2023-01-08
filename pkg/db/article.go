@@ -57,11 +57,12 @@ func (db *Database) GetArticles(id string) ([]*models.Article, error) {
 		Keyword string
 		Content string
 		Platform string
-		Score_pos string
-		Score_neg string
-		Score_neut string
-		Score_comp string
-		Score_none string
+		Score_happy string
+		Score_fear string
+		Score_embarrassed string
+		Score_sad string
+		Score_rage string
+		Score_hurt string
 		Score_max_value string
 		Score_max_name string
 		Create_at string
@@ -78,11 +79,12 @@ func (db *Database) GetArticles(id string) ([]*models.Article, error) {
 			&Keyword,
 			&Content,
 			&Platform,
-			&Score_pos,
-			&Score_neg,
-			&Score_neut,
-			&Score_comp,
-			&Score_none,
+			&Score_happy,
+			&Score_fear,
+			&Score_embarrassed,
+			&Score_sad,
+			&Score_rage,
+			&Score_hurt,
 			&Score_max_value,
 			&Score_max_name,
 			&Create_at,
@@ -100,11 +102,12 @@ func (db *Database) GetArticles(id string) ([]*models.Article, error) {
 			Keyword: Keyword,
 			Content: Content,
 			Platform: Platform,
-			Score_pos: Score_pos,
-			Score_neg: Score_neg,
-			Score_neut: Score_neut,
-			Score_comp: Score_comp,
-			Score_none: Score_none,
+			Score_happy: Score_happy,
+			Score_fear: Score_fear,
+			Score_embarrassed: Score_embarrassed,
+			Score_sad: Score_sad,
+			Score_rage: Score_rage,
+			Score_hurt: Score_hurt,
 			Score_max_value: Score_max_value,
 			Score_max_name: Score_max_name,
 			Create_at: Create_at,

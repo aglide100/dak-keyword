@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/url"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/aglide100/dak-keyword/pkg/models"
@@ -30,19 +31,19 @@ func (s Scraper) GetMockTweets(keyword string) ([]models.TweetArticle) {
 	return articles
 }
 
-func (s Scraper) GetRecentSearch(keyword string, nextToken string, nums ...int) ([]models.TweetArticle, error) {
+func (s Scraper) GetRecentSearch(keyword string, nextToken string, injectNum ...int) ([]models.TweetArticle, error) {
 	var num int
-	if len(nums) == 0 {
+	if len(injectNum) == 0 {
 		num = 0
 	} else {
-		num = nums[0]
+		num = injectNum[0]
 	}
 
 	if num == limitResult {
 		return nil, nil
 	}
 
-	log.Printf("Starting get recent tweets.... %v", nums)
+	log.Printf("Starting get recent tweets.... %v", injectNum)
 
 	var resp string
 	var err error
@@ -77,23 +78,17 @@ func (s Scraper) GetRecentSearch(keyword string, nextToken string, nums ...int) 
 			Created_at: gjson.Get(value.String(), "created_at").String(),
 		}
 
-		// if prev.Text == newArticle.Text {
-		// 	// pass
-		// } else {
-		// 	prev = newArticle
+		if (!strings.Contains(newArticle.Text, "http")) {
 			articles = append(articles, newArticle)
-		// }
+		}
 		
 		return true
 	})
 
-	// log.Println("count: ", count)
-	
-	// log.Println("article count: ", len(articles))
 
 	if len(gjson.Get(meta.String(), "next_token").String()) > 1 {
 		// log.Printf("---------------------------------------------")
-		log.Printf("next_token: %v", gjson.Get(meta.String(), "next_token").String())
+		// log.Printf("next_token: %v", gjson.Get(meta.String(), "next_token").String())
 		result, err := s.GetRecentSearch(keyword, gjson.Get(meta.String(), "next_token").String(), num+1)
 		if err != nil {
 			log.Printf("error: %v", err)
@@ -104,7 +99,6 @@ func (s Scraper) GetRecentSearch(keyword string, nextToken string, nums ...int) 
 		}
 	}
 
-	// return s.MakeUniqueTweet(articles), err
 	return articles, err
 }
 
