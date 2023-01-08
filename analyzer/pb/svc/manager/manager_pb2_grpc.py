@@ -34,6 +34,11 @@ class ManagerStub(object):
                 request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetWorkerListReq.SerializeToString,
                 response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetWorkerListRes.FromString,
                 )
+        self.GetArticleInfo = channel.unary_unary(
+                '/pb.svc.manager.Manager/GetArticleInfo',
+                request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleInfoReq.SerializeToString,
+                response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleInfoRes.FromString,
+                )
         self.GetArticleList = channel.unary_unary(
                 '/pb.svc.manager.Manager/GetArticleList',
                 request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleListReq.SerializeToString,
@@ -83,6 +88,12 @@ class ManagerServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetWorkerList(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetArticleInfo(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -140,6 +151,11 @@ def add_ManagerServicer_to_server(servicer, server):
                     servicer.GetWorkerList,
                     request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetWorkerListReq.FromString,
                     response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetWorkerListRes.SerializeToString,
+            ),
+            'GetArticleInfo': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetArticleInfo,
+                    request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleInfoReq.FromString,
+                    response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleInfoRes.SerializeToString,
             ),
             'GetArticleList': grpc.unary_unary_rpc_method_handler(
                     servicer.GetArticleList,
@@ -241,6 +257,23 @@ class Manager(object):
         return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/GetWorkerList',
             pb_dot_svc_dot_manager_dot_manager__pb2.GetWorkerListReq.SerializeToString,
             pb_dot_svc_dot_manager_dot_manager__pb2.GetWorkerListRes.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetArticleInfo(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/GetArticleInfo',
+            pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleInfoReq.SerializeToString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleInfoRes.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

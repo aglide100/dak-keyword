@@ -39,20 +39,21 @@ create table if not exists article
     "Id"              serial
         constraint article_pk
             primary key,
-    "Author"          varchar,
-    "Keyword"         varchar,
-    "Content"         varchar
+    "Author"              varchar,
+    "Keyword"             varchar,
+    "Content"             varchar
         unique,
-    "Platform"        varchar,
-    "Score_pos"       varchar,
-    "Score_neg"       varchar,
-    "Score_neut"      varchar,
-    "Score_comp"      varchar,
-    "Score_none"      varchar,
-    "Score_max_value" varchar,
-    "Score_max_name"  varchar,
-    "Create_at"       varchar,
-    "Job_id"          varchar
+    "Platform"            varchar,
+    "Score_happy"         varchar,
+    "Score_fear"          varchar,
+    "Score_embarrassed"   varchar,
+    "Score_sad"           varchar,
+    "Score_rage"          varchar,
+    "Score_hurt"          varchar,
+    "Score_max_value"     varchar,
+    "Score_max_name"      varchar,
+    "Create_at"           varchar,
+    "Job_id"              varchar
         constraint "Job_id"
             references job
             on update cascade on delete cascade,

@@ -8,11 +8,12 @@ export type ArticleProps = {
     Keyword: string;
     Content: string;
     Platform: string;
-    Score_pos: string;
-    Score_neg: string;
-    Score_neut: string;
-    Score_comp: string;
-    Score_none: string;
+    Score_happy: string;
+    Score_fear: string;
+    Score_embarrassed: string;
+    Score_sad: string;
+    Score_rage: string;
+    Score_hurt: string;
     Score_max_value: string;
     Score_max_name: string;
     Create_at: string;
@@ -64,24 +65,28 @@ export const ArticleItem = (props: ArticleProps) => {
                     </div>
                     <div className="flex flex-col">
                         <div className="flex flex-row">
-                            <span className="font-semibold">Pos : </span>
-                            {props.Score_pos}
+                            <span className="font-semibold">기쁨 : </span>
+                            {props.Score_happy}
                         </div>
                         <div className="flex flex-row">
-                            <span className="font-semibold">Neg : </span>
-                            {props.Score_neg}
+                            <span className="font-semibold">분노 : </span>
+                            {props.Score_fear}
                         </div>
                         <div className="flex flex-row">
-                            <span className="font-semibold">Neut : </span>
-                            {props.Score_neut}
+                            <span className="font-semibold">당황 : </span>
+                            {props.Score_embarrassed}
                         </div>
                         <div className="flex flex-row">
-                            <span className="font-semibold">Comp : </span>
-                            {props.Score_comp}
+                            <span className="font-semibold">슬픔 : </span>
+                            {props.Score_sad}
                         </div>
                         <div className="flex flex-row">
-                            <span className="font-semibold">None : </span>
-                            {props.Score_none}
+                            <span className="font-semibold">분노 : </span>
+                            {props.Score_rage}
+                        </div>
+                        <div className="flex flex-row">
+                            <span className="font-semibold">상처 : </span>
+                            {props.Score_hurt}
                         </div>
                     </div>
                 </div>

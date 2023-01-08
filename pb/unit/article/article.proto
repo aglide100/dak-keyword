@@ -9,14 +9,15 @@ message Article {
     string keyword = 3;
     string content = 4;
     string platform = 5;
-    string score_pos = 6;
-    string score_neg = 7;
-    string score_neut = 8;
-    string score_comp = 9;
-    string score_none = 10;
-    string score_max_value= 11;
-    string score_max_name = 12;
-    string create_at = 13;
-    string job_id = 14;
-    string worker_id = 15;
+    string Score_happy = 6;
+    string Score_fear = 7;
+    string Score_embarrassed = 8;
+    string Score_sad = 9;
+    string Score_rage = 10;
+    string Score_hurt = 11;
+    string score_max_value= 12;
+    string score_max_name = 13;
+    string create_at = 14;
+    string job_id = 15;
+    string worker_id = 16;
 }

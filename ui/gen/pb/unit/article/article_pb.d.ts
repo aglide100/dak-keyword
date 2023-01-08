@@ -19,20 +19,23 @@ export class Article extends jspb.Message {
   getPlatform(): string;
   setPlatform(value: string): void;
 
-  getScorePos(): string;
-  setScorePos(value: string): void;
+  getScoreHappy(): string;
+  setScoreHappy(value: string): void;
 
-  getScoreNeg(): string;
-  setScoreNeg(value: string): void;
+  getScoreFear(): string;
+  setScoreFear(value: string): void;
 
-  getScoreNeut(): string;
-  setScoreNeut(value: string): void;
+  getScoreEmbarrassed(): string;
+  setScoreEmbarrassed(value: string): void;
 
-  getScoreComp(): string;
-  setScoreComp(value: string): void;
+  getScoreSad(): string;
+  setScoreSad(value: string): void;
 
-  getScoreNone(): string;
-  setScoreNone(value: string): void;
+  getScoreRage(): string;
+  setScoreRage(value: string): void;
+
+  getScoreHurt(): string;
+  setScoreHurt(value: string): void;
 
   getScoreMaxValue(): string;
   setScoreMaxValue(value: string): void;
@@ -66,11 +69,12 @@ export namespace Article {
     keyword: string,
     content: string,
     platform: string,
-    scorePos: string,
-    scoreNeg: string,
-    scoreNeut: string,
-    scoreComp: string,
-    scoreNone: string,
+    scoreHappy: string,
+    scoreFear: string,
+    scoreEmbarrassed: string,
+    scoreSad: string,
+    scoreRage: string,
+    scoreHurt: string,
     scoreMaxValue: string,
     scoreMaxName: string,
     createAt: string,
