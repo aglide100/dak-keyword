@@ -32,7 +32,7 @@ export class GrpcManager {
             });
         } catch {
             console.log("Can't get env from server!");
-            addr = "https://keyword-grpc.like-a-junk.com";
+            addr = "/";
         }
 
         return addr;

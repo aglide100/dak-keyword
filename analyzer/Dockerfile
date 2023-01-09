@@ -7,4 +7,6 @@ RUN pip3 install psycopg2-binary
 
 RUN pip3 install iteration-utilities
 
+RUN cat Keyword.py >> Analyzer.py
+
 ENTRYPOINT ["python3"]
