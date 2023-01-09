@@ -63,7 +63,7 @@ export default function NewJob() {
                             onClick={(e) => {
                                 e.preventDefault();
                                 CallNewJob(keyword, author, (message) => {
-                                    alert("Received" + message);
+                                    // alert("Received" + message);
                                     router.push("/");
                                     // location.reload();
                                 });
