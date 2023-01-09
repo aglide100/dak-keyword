@@ -1,10 +1,7 @@
-import os
+
 import grpc
 import psycopg2
 import Database
-import pandas as pd
-import numpy as np
-import Analyzer 
 
 import manager_pb2
 import manager_pb2_grpc
@@ -16,6 +13,8 @@ import manager_pb2_grpc
 # port = "5432"
 # workerId = "b1d6542f-d5b1-4a83-b45b-a6ebc22a8f48"
 
+
+import os
 host = os.environ['DB_ADDR']
 dbname = os.environ['DB_NAME']
 user = os.environ['DB_USER']
@@ -40,7 +39,7 @@ if __name__ == '__main__':
     # (2, 'author', 'keyword', 'contant', 'platform', 'happy', 'fear', 'emb', 'sad', 'rage', 'hurt', 'max_value', 'create_at', 'test', 'test')
     result = Database.CRUD.readTextFromArticleInJob(db, 'Worker_id', workerId)
 
-    score = Analyzer.Analyzer.analyze_word(result[3])
+    score = analyze_word(result[3])
     if score is not None:
         Database.CRUD.updateScore(db, score[0][5], score[0][6], score[0][7], score[0][8], score[0][9], score[0][10], score[2], score[1], result[13], result[0])
     else:

@@ -32,7 +32,7 @@ export class GrpcManager {
             });
         } catch {
             console.log("Can't get env from server!");
-            addr = "https://localhost";
+            addr = "/";
         }
 
         return addr;
