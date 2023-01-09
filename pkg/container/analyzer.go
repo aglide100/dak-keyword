@@ -19,7 +19,7 @@ func (c *Controller) CreateNewAnalyzer(workerId string, keyword string, dbConfig
 	c.cli.ImagePull(ctx, "ghcr.io/aglide100/dak-keyword-analyzer:latest", types.ImagePullOptions{})
 	
 	max := uint64(1)
-	
+
 	reader, err := c.cli.ServiceCreate(ctx, swarm.ServiceSpec{
 		Annotations: swarm.Annotations{
 			Name: workerId,
@@ -28,7 +28,10 @@ func (c *Controller) CreateNewAnalyzer(workerId string, keyword string, dbConfig
 		TaskTemplate: swarm.TaskSpec{
 			ContainerSpec: &swarm.ContainerSpec{
 					Image: "ghcr.io/aglide100/dak-keyword-analyzer:latest",
-					Command: []string{"python3", "Keyword.py"},
+					Labels: map[string]string{
+						"com.docker.stack.namespace" : "keyword_analyzer",
+					},
+					Command: []string{"python3", "Analyzer.py"},
 					Mounts: []mount.Mount{
 						{
 							Type:  "volume",
@@ -53,10 +56,6 @@ func (c *Controller) CreateNewAnalyzer(workerId string, keyword string, dbConfig
 					Target: "keyword_keyword-network",
 				},
 			},
-
-			// Placement: &swarm.Placement{
-			// 	Constraints: []string{nodeRole},
-			// },
 
 
 			RestartPolicy: &swarm.RestartPolicy{
