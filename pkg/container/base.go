@@ -31,7 +31,7 @@ type Controller struct {
 func NewController() (C *Controller, err error) {
 	c := new(Controller)
 	c.cli, err = client.NewClientWithOpts(client.FromEnv)
-	
+
 	if err != nil {
 		return nil, err
 	}
