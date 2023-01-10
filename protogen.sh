@@ -83,6 +83,7 @@ protoc --go_out=../../.. --go-grpc_out=../../.. pb/svc/provision/*.proto
 
 python3 -m grpc_tools.protoc -I . --python_out=./analyzer --grpc_python_out=./analyzer ./pb/svc/manager/manager.proto
 
+python3 -m grpc_tools.protoc -I . --python_out=./analyzer --grpc_python_out=./analyzer ./pb/unit/**/*.proto
 
 # path=$(pwd)
 
