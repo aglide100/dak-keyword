@@ -1,11 +1,5 @@
 
-import grpc
-import psycopg2
-import Database
-
-import manager_pb2
-import manager_pb2_grpc
-
+import Calling
 # host = "localhost"
 # dbname = "keyword"
 # user = "table_admin"
@@ -21,22 +15,9 @@ password = os.environ['DB_PASSWORD']
 port = os.environ['DB_PORT']
 workerId = os.environ['WORKER_ID']
 
+import Database
+import psycopg2
 
-def sendStartMSG():
-    with grpc.insecure_channel("keyword_apid:50010") as channel:
-    # with grpc.insecure_channel("localhost:50010") as channel:
-
-        client = manager_pb2_grpc.ManagerStub(channel)
-        response = client.WhenStartAnalyzer(manager_pb2.WhenStartAnalyzerReq(id=workerId))
-        print(response)
-
-def sendDoneMSG():
-    with grpc.insecure_channel("keyword_apid:50010") as channel:
-    # with grpc.insecure_channel("localhost:50010") as channel:
-
-        client = manager_pb2_grpc.ManagerStub(channel)
-        response = client.DoneAnalyzer(manager_pb2.DoneAnalyzerReq(id=workerId))
-        print(response)
 
 try:
     db = Database.Databases(host, dbname, user, password, port)
@@ -46,11 +27,12 @@ except psycopg2.DatabaseError as db_err:
 if __name__ == '__main__':
     # (2, 'author', 'keyword', 'contant', 'platform', 'happy', 'fear', 'emb', 'sad', 'rage', 'hurt', 'max_value', 'create_at', 'test', 'test')
     result = Database.CRUD.readTextFromArticleInJob(db, 'Worker_id', workerId)
-
+    Calling.sendStartMSG(workerId)
+    
     score = analyze_word(result[3])
     if score is not None:
         Database.CRUD.updateScore(db, score[0][5], score[0][6], score[0][7], score[0][8], score[0][9], score[0][10], score[2], score[1], result[13], result[0])
     else:
         print("result is None!")
     
-    sendDoneMSG()
+    Calling.sendDoneMSG(workerId)
