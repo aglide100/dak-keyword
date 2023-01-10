@@ -29,9 +29,9 @@ services:
         secrets:
             - crt-file
             - key-file
-        # ports:
-        #     - 50011:50011
-        #     - 50010:50010
+        ports:
+            - 50011:50011
+            - 50010:50010
         environment:
             - TLS=false
         depends_on:

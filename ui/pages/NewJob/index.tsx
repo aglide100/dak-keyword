@@ -64,8 +64,8 @@ export default function NewJob() {
                                 e.preventDefault();
                                 CallNewJob(keyword, author, (message) => {
                                     // alert("Received" + message);
-                                    router.push("/");
-                                    // location.reload();
+                                    // router.push("/");
+                                    location.replace("/");
                                 });
                             }}
                         >

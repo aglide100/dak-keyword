@@ -15,7 +15,9 @@ service Manager {
     rpc GetArticleInfo(GetArticleInfoReq) returns (GetArticleInfoRes); 
     rpc GetArticleList(GetArticleListReq) returns (GetArticleListRes);
     rpc UpdateJobStatus(UpdateJobStatusReq) returns (UpdateJobStatusRes);
+    rpc WhenStartScraper(WhenStartScraperReq) returns (WhenStartScraperRes);
     rpc DoneScraper(DoneScraperReq) returns (DoneScraperRes);
+    rpc WhenStartAnalyzer(WhenStartAnalyzerReq) returns (WhenStartAnalyzerRes);
     rpc DoneAnalyzer(DoneAnalyzerReq) returns (DoneAnalyzerRes);
     rpc StopJob(StopJobReq) returns (StopJobRes);
 }
@@ -103,4 +105,20 @@ message GetArticleInfoReq {
 message GetArticleInfoRes {
     int32 totalCount = 1;
     int32 pageCount = 2;
+}
+
+message WhenStartScraperReq{
+    string id = 1;
+}
+
+message WhenStartScraperRes {
+    string result = 1;
+}
+
+message WhenStartAnalyzerReq {
+    string id = 1;
+}
+
+message WhenStartAnalyzerRes {
+    string result = 1;
 }

@@ -10,6 +10,24 @@ import (
 	"google.golang.org/grpc/status"
 )
 
+func (s *ManagerSrv) WhenStartScraper(ctx context.Context, in *pb_svc_manager.WhenStartScraperReq) (*pb_svc_manager.WhenStartScraperRes, error) {
+	if in != nil {
+		log.Printf("Received WhenStartScraper call: %v", in.String())
+	}
+
+	err := s.db.UpdateWorker(in.Id, "Scraping data from internets...")
+	if err != nil {
+		s.db.UpdateJob(in.Id, "Can't start scraper")
+		return nil, status.Error(codes.Canceled, "Can't update worker status at dbms")
+	}
+
+	return &pb_svc_manager.WhenStartScraperRes{
+		Result: "Scraper staring...!",
+	}, nil
+}
+
+
+
 func (s *ManagerSrv) DoneScraper(ctx context.Context, in *pb_svc_manager.DoneScraperReq) (*pb_svc_manager.DoneScraperRes, error) {
 	if in != nil {
 		log.Printf("Received DoneScraper call: %v", in.String())

@@ -67,6 +67,15 @@ type ManagerUpdateJobStatus = {
   readonly responseType: typeof pb_svc_manager_manager_pb.UpdateJobStatusRes;
 };
 
+type ManagerWhenStartScraper = {
+  readonly methodName: string;
+  readonly service: typeof Manager;
+  readonly requestStream: false;
+  readonly responseStream: false;
+  readonly requestType: typeof pb_svc_manager_manager_pb.WhenStartScraperReq;
+  readonly responseType: typeof pb_svc_manager_manager_pb.WhenStartScraperRes;
+};
+
 type ManagerDoneScraper = {
   readonly methodName: string;
   readonly service: typeof Manager;
@@ -74,6 +83,15 @@ type ManagerDoneScraper = {
   readonly responseStream: false;
   readonly requestType: typeof pb_svc_manager_manager_pb.DoneScraperReq;
   readonly responseType: typeof pb_svc_manager_manager_pb.DoneScraperRes;
+};
+
+type ManagerWhenStartAnalyzer = {
+  readonly methodName: string;
+  readonly service: typeof Manager;
+  readonly requestStream: false;
+  readonly responseStream: false;
+  readonly requestType: typeof pb_svc_manager_manager_pb.WhenStartAnalyzerReq;
+  readonly responseType: typeof pb_svc_manager_manager_pb.WhenStartAnalyzerRes;
 };
 
 type ManagerDoneAnalyzer = {
@@ -103,7 +121,9 @@ export class Manager {
   static readonly GetArticleInfo: ManagerGetArticleInfo;
   static readonly GetArticleList: ManagerGetArticleList;
   static readonly UpdateJobStatus: ManagerUpdateJobStatus;
+  static readonly WhenStartScraper: ManagerWhenStartScraper;
   static readonly DoneScraper: ManagerDoneScraper;
+  static readonly WhenStartAnalyzer: ManagerWhenStartAnalyzer;
   static readonly DoneAnalyzer: ManagerDoneAnalyzer;
   static readonly StopJob: ManagerStopJob;
 }
@@ -203,6 +223,15 @@ export class ManagerClient {
     requestMessage: pb_svc_manager_manager_pb.UpdateJobStatusReq,
     callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.UpdateJobStatusRes|null) => void
   ): UnaryResponse;
+  whenStartScraper(
+    requestMessage: pb_svc_manager_manager_pb.WhenStartScraperReq,
+    metadata: grpc.Metadata,
+    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.WhenStartScraperRes|null) => void
+  ): UnaryResponse;
+  whenStartScraper(
+    requestMessage: pb_svc_manager_manager_pb.WhenStartScraperReq,
+    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.WhenStartScraperRes|null) => void
+  ): UnaryResponse;
   doneScraper(
     requestMessage: pb_svc_manager_manager_pb.DoneScraperReq,
     metadata: grpc.Metadata,
@@ -211,6 +240,15 @@ export class ManagerClient {
   doneScraper(
     requestMessage: pb_svc_manager_manager_pb.DoneScraperReq,
     callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.DoneScraperRes|null) => void
+  ): UnaryResponse;
+  whenStartAnalyzer(
+    requestMessage: pb_svc_manager_manager_pb.WhenStartAnalyzerReq,
+    metadata: grpc.Metadata,
+    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.WhenStartAnalyzerRes|null) => void
+  ): UnaryResponse;
+  whenStartAnalyzer(
+    requestMessage: pb_svc_manager_manager_pb.WhenStartAnalyzerReq,
+    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.WhenStartAnalyzerRes|null) => void
   ): UnaryResponse;
   doneAnalyzer(
     requestMessage: pb_svc_manager_manager_pb.DoneAnalyzerReq,

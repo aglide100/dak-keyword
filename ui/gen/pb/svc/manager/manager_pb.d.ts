@@ -440,3 +440,83 @@ export namespace GetArticleInfoRes {
   }
 }
 
+export class WhenStartScraperReq extends jspb.Message {
+  getId(): string;
+  setId(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): WhenStartScraperReq.AsObject;
+  static toObject(includeInstance: boolean, msg: WhenStartScraperReq): WhenStartScraperReq.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: WhenStartScraperReq, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): WhenStartScraperReq;
+  static deserializeBinaryFromReader(message: WhenStartScraperReq, reader: jspb.BinaryReader): WhenStartScraperReq;
+}
+
+export namespace WhenStartScraperReq {
+  export type AsObject = {
+    id: string,
+  }
+}
+
+export class WhenStartScraperRes extends jspb.Message {
+  getResult(): string;
+  setResult(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): WhenStartScraperRes.AsObject;
+  static toObject(includeInstance: boolean, msg: WhenStartScraperRes): WhenStartScraperRes.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: WhenStartScraperRes, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): WhenStartScraperRes;
+  static deserializeBinaryFromReader(message: WhenStartScraperRes, reader: jspb.BinaryReader): WhenStartScraperRes;
+}
+
+export namespace WhenStartScraperRes {
+  export type AsObject = {
+    result: string,
+  }
+}
+
+export class WhenStartAnalyzerReq extends jspb.Message {
+  getId(): string;
+  setId(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): WhenStartAnalyzerReq.AsObject;
+  static toObject(includeInstance: boolean, msg: WhenStartAnalyzerReq): WhenStartAnalyzerReq.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: WhenStartAnalyzerReq, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): WhenStartAnalyzerReq;
+  static deserializeBinaryFromReader(message: WhenStartAnalyzerReq, reader: jspb.BinaryReader): WhenStartAnalyzerReq;
+}
+
+export namespace WhenStartAnalyzerReq {
+  export type AsObject = {
+    id: string,
+  }
+}
+
+export class WhenStartAnalyzerRes extends jspb.Message {
+  getResult(): string;
+  setResult(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): WhenStartAnalyzerRes.AsObject;
+  static toObject(includeInstance: boolean, msg: WhenStartAnalyzerRes): WhenStartAnalyzerRes.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: WhenStartAnalyzerRes, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): WhenStartAnalyzerRes;
+  static deserializeBinaryFromReader(message: WhenStartAnalyzerRes, reader: jspb.BinaryReader): WhenStartAnalyzerRes;
+}
+
+export namespace WhenStartAnalyzerRes {
+  export type AsObject = {
+    result: string,
+  }
+}
+

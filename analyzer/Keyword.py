@@ -13,7 +13,6 @@ import manager_pb2_grpc
 # port = "5432"
 # workerId = "b1d6542f-d5b1-4a83-b45b-a6ebc22a8f48"
 
-
 import os
 host = os.environ['DB_ADDR']
 dbname = os.environ['DB_NAME']
@@ -21,6 +20,15 @@ user = os.environ['DB_USER']
 password = os.environ['DB_PASSWORD']
 port = os.environ['DB_PORT']
 workerId = os.environ['WORKER_ID']
+
+
+def sendStartMSG():
+    with grpc.insecure_channel("keyword_apid:50010") as channel:
+    # with grpc.insecure_channel("localhost:50010") as channel:
+
+        client = manager_pb2_grpc.ManagerStub(channel)
+        response = client.WhenStartAnalyzer(manager_pb2.WhenStartAnalyzerReq(id=workerId))
+        print(response)
 
 def sendDoneMSG():
     with grpc.insecure_channel("keyword_apid:50010") as channel:
