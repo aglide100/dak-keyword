@@ -3,7 +3,9 @@ FROM ghcr.io/aglide100/kobert-based-simple-korean-semantic-analyzer:latest
 
 COPY . .
 
-RUN pip3 install psycopg2-binary && pip install protobuf==3.19.0
+RUN pip3 install psycopg2-binary && pip install protobuf
+
+RUN pip install --upgrade protobuf
 
 RUN pip3 install iteration-utilities 
 
