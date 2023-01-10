@@ -39,7 +39,7 @@ class CRUD(Databases):
     def readTextFromArticleInJob(self, colum, id):
         # sql = "SELECT (\"Content\", \"Id\") FROM article WHERE \"" + colum + "\" = '" + id + "'"
         # 
-        sql = "SELECT * FROM article WHERE \"" + colum + "\" = '" + id + "'"
+        sql = "SELECT (\"Content\", \"Id\") FROM article WHERE \"" + colum + "\" = '" + id + "'"
         #sql = "SELECT (\"Id\", \"Author\", \"Keyword\", \"Content\", \"Platform\", \"Score_pos\", \"Score_neg\", \"Score_neut\", \"Score_comp\", \"Score_comp\", \"Score_none\", \"Score_max_value\", \"Score_max_name\", \"Job_id\", \"Worker_id\") FROM article WHERE \"" + colum + "\" = '" + id + "'"
         
         try:
@@ -47,7 +47,7 @@ class CRUD(Databases):
             result = self.cursor.fetchall()
         except Exception as e :
             result = ("Read DB err : ", e)
-
+        
         # print(result)
         return result
 
