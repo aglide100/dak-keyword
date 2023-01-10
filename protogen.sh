@@ -79,7 +79,7 @@ protoc --go_out=../../.. --go-grpc_out=../../.. pb/svc/provision/*.proto
  --ts_out="service=grpc-web:./ui/gen" \
  pb/unit/**/*.proto
 
-python3 -m grpc_tools.protoc -I . --python_out=./analyzer --grpc_python_out=./analyzer ./pb/svc/analyzer/analyzer.proto
+# python3 -m grpc_tools.protoc -I . --python_out=./analyzer --grpc_python_out=./analyzer ./pb/svc/analyzer/analyzer.proto
 
 python3 -m grpc_tools.protoc -I . --python_out=./analyzer --grpc_python_out=./analyzer ./pb/svc/manager/manager.proto
 

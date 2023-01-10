@@ -73,6 +73,15 @@ Manager.UpdateJobStatus = {
   responseType: pb_svc_manager_manager_pb.UpdateJobStatusRes
 };
 
+Manager.WhenStartScraper = {
+  methodName: "WhenStartScraper",
+  service: Manager,
+  requestStream: false,
+  responseStream: false,
+  requestType: pb_svc_manager_manager_pb.WhenStartScraperReq,
+  responseType: pb_svc_manager_manager_pb.WhenStartScraperRes
+};
+
 Manager.DoneScraper = {
   methodName: "DoneScraper",
   service: Manager,
@@ -80,6 +89,15 @@ Manager.DoneScraper = {
   responseStream: false,
   requestType: pb_svc_manager_manager_pb.DoneScraperReq,
   responseType: pb_svc_manager_manager_pb.DoneScraperRes
+};
+
+Manager.WhenStartAnalyzer = {
+  methodName: "WhenStartAnalyzer",
+  service: Manager,
+  requestStream: false,
+  responseStream: false,
+  requestType: pb_svc_manager_manager_pb.WhenStartAnalyzerReq,
+  responseType: pb_svc_manager_manager_pb.WhenStartAnalyzerRes
 };
 
 Manager.DoneAnalyzer = {
@@ -324,11 +342,73 @@ ManagerClient.prototype.updateJobStatus = function updateJobStatus(requestMessag
   };
 };
 
+ManagerClient.prototype.whenStartScraper = function whenStartScraper(requestMessage, metadata, callback) {
+  if (arguments.length === 2) {
+    callback = arguments[1];
+  }
+  var client = grpc.unary(Manager.WhenStartScraper, {
+    request: requestMessage,
+    host: this.serviceHost,
+    metadata: metadata,
+    transport: this.options.transport,
+    debug: this.options.debug,
+    onEnd: function (response) {
+      if (callback) {
+        if (response.status !== grpc.Code.OK) {
+          var err = new Error(response.statusMessage);
+          err.code = response.status;
+          err.metadata = response.trailers;
+          callback(err, null);
+        } else {
+          callback(null, response.message);
+        }
+      }
+    }
+  });
+  return {
+    cancel: function () {
+      callback = null;
+      client.close();
+    }
+  };
+};
+
 ManagerClient.prototype.doneScraper = function doneScraper(requestMessage, metadata, callback) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
   var client = grpc.unary(Manager.DoneScraper, {
+    request: requestMessage,
+    host: this.serviceHost,
+    metadata: metadata,
+    transport: this.options.transport,
+    debug: this.options.debug,
+    onEnd: function (response) {
+      if (callback) {
+        if (response.status !== grpc.Code.OK) {
+          var err = new Error(response.statusMessage);
+          err.code = response.status;
+          err.metadata = response.trailers;
+          callback(err, null);
+        } else {
+          callback(null, response.message);
+        }
+      }
+    }
+  });
+  return {
+    cancel: function () {
+      callback = null;
+      client.close();
+    }
+  };
+};
+
+ManagerClient.prototype.whenStartAnalyzer = function whenStartAnalyzer(requestMessage, metadata, callback) {
+  if (arguments.length === 2) {
+    callback = arguments[1];
+  }
+  var client = grpc.unary(Manager.WhenStartAnalyzer, {
     request: requestMessage,
     host: this.serviceHost,
     metadata: metadata,

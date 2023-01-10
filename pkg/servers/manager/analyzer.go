@@ -10,6 +10,23 @@ import (
 	pb_svc_manager "github.com/aglide100/dak-keyword/pb/svc/manager"
 )
 
+
+func (s *ManagerSrv) WhenStartAnalyzer(ctx context.Context, in *pb_svc_manager.WhenStartAnalyzerReq) (*pb_svc_manager.WhenStartAnalyzerRes, error) {
+	if in != nil {
+		log.Printf("Received WhenStartAnalyzer call: %v", in.String())
+	}
+
+	err := s.db.UpdateWorker(in.Id, "Analyze words...")
+	if err != nil {
+		return nil, status.Error(codes.Canceled, "Can't update worker status at dbms")
+	}
+
+	return &pb_svc_manager.WhenStartAnalyzerRes{
+		Result: "Analyzer staring...!",
+	}, nil
+}
+
+
 func (s *ManagerSrv) DoneAnalyzer(ctx context.Context, in *pb_svc_manager.DoneAnalyzerReq) (*pb_svc_manager.DoneAnalyzerRes, error) {
 	if in != nil {
 		log.Printf("Received DoneScraper call: %v", in.String())

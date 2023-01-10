@@ -55,12 +55,8 @@ export const ArticleList: React.FC<ArticleListProps> = (JobId) => {
     }
 
     let ArticleList;
-    if (
-        data == null ||
-        data == undefined ||
-        data.length == 0 ||
-        JobId == undefined
-    ) {
+
+    if (!isLoaded) {
         ArticleList = (
             <div className="w-full flex justify-center mt-10">
                 <TailSpin
@@ -75,7 +71,17 @@ export const ArticleList: React.FC<ArticleListProps> = (JobId) => {
                 />
             </div>
         );
-    } else {
+    }
+    if (
+        data == null ||
+        data == undefined ||
+        data.length == 0 ||
+        JobId == undefined
+    ) {
+        ArticleList = <>There's no articles....</>;
+    }
+
+    if (isLoaded) {
         ArticleList = data.map((article, index) => {
             if (article.Score_max_name == "None") {
                 // pass
