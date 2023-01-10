@@ -28,9 +28,9 @@ func (c *Controller) CreateNewAnalyzer(workerId string, keyword string, dbConfig
 		TaskTemplate: swarm.TaskSpec{
 			ContainerSpec: &swarm.ContainerSpec{
 					Image: "ghcr.io/aglide100/dak-keyword-analyzer:latest",
-					Labels: map[string]string{
-						"com.docker.stack.namespace" : "keyword_analyzer",
-					},
+					// Labels: map[string]string{
+					// 	"com.docker.stack.namespace" : "keyword_analyzer",
+					// },
 					Command: []string{"python3", "Analyzer.py"},
 					Mounts: []mount.Mount{
 						{

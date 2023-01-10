@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import manager_pb2 as manager__pb2
+from pb.svc.manager import manager_pb2 as pb_dot_svc_dot_manager_dot_manager__pb2
 
 
 class ManagerStub(object):
@@ -16,33 +16,63 @@ class ManagerStub(object):
         """
         self.CreateNewJob = channel.unary_unary(
                 '/pb.svc.manager.Manager/CreateNewJob',
-                request_serializer=manager__pb2.CreateNewJobReq.SerializeToString,
-                response_deserializer=manager__pb2.CreateNewJobRes.FromString,
+                request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.CreateNewJobReq.SerializeToString,
+                response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.CreateNewJobRes.FromString,
                 )
         self.GetJobStatus = channel.unary_unary(
                 '/pb.svc.manager.Manager/GetJobStatus',
-                request_serializer=manager__pb2.GetJobStatusReq.SerializeToString,
-                response_deserializer=manager__pb2.GetJobStatusRes.FromString,
+                request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetJobStatusReq.SerializeToString,
+                response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetJobStatusRes.FromString,
+                )
+        self.GetJobList = channel.unary_unary(
+                '/pb.svc.manager.Manager/GetJobList',
+                request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetJobListReq.SerializeToString,
+                response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetJobListRes.FromString,
+                )
+        self.GetWorkerList = channel.unary_unary(
+                '/pb.svc.manager.Manager/GetWorkerList',
+                request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetWorkerListReq.SerializeToString,
+                response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetWorkerListRes.FromString,
+                )
+        self.GetArticleInfo = channel.unary_unary(
+                '/pb.svc.manager.Manager/GetArticleInfo',
+                request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleInfoReq.SerializeToString,
+                response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleInfoRes.FromString,
+                )
+        self.GetArticleList = channel.unary_unary(
+                '/pb.svc.manager.Manager/GetArticleList',
+                request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleListReq.SerializeToString,
+                response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleListRes.FromString,
                 )
         self.UpdateJobStatus = channel.unary_unary(
                 '/pb.svc.manager.Manager/UpdateJobStatus',
-                request_serializer=manager__pb2.UpdateJobStatusReq.SerializeToString,
-                response_deserializer=manager__pb2.UpdateJobStatusRes.FromString,
+                request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.UpdateJobStatusReq.SerializeToString,
+                response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.UpdateJobStatusRes.FromString,
+                )
+        self.WhenStartScraper = channel.unary_unary(
+                '/pb.svc.manager.Manager/WhenStartScraper',
+                request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenStartScraperReq.SerializeToString,
+                response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenStartScraperRes.FromString,
                 )
         self.DoneScraper = channel.unary_unary(
                 '/pb.svc.manager.Manager/DoneScraper',
-                request_serializer=manager__pb2.DoneScraperReq.SerializeToString,
-                response_deserializer=manager__pb2.DoneScraperRes.FromString,
+                request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.DoneScraperReq.SerializeToString,
+                response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.DoneScraperRes.FromString,
+                )
+        self.WhenStartAnalyzer = channel.unary_unary(
+                '/pb.svc.manager.Manager/WhenStartAnalyzer',
+                request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenStartAnalyzerReq.SerializeToString,
+                response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenStartAnalyzerRes.FromString,
                 )
         self.DoneAnalyzer = channel.unary_unary(
                 '/pb.svc.manager.Manager/DoneAnalyzer',
-                request_serializer=manager__pb2.DoneAnalyzerReq.SerializeToString,
-                response_deserializer=manager__pb2.DoneAnalyzerRes.FromString,
+                request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.DoneAnalyzerReq.SerializeToString,
+                response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.DoneAnalyzerRes.FromString,
                 )
         self.StopJob = channel.unary_unary(
                 '/pb.svc.manager.Manager/StopJob',
-                request_serializer=manager__pb2.StopJobReq.SerializeToString,
-                response_deserializer=manager__pb2.StopJobRes.FromString,
+                request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.StopJobReq.SerializeToString,
+                response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.StopJobRes.FromString,
                 )
 
 
@@ -61,13 +91,49 @@ class ManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetJobList(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetWorkerList(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetArticleInfo(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetArticleList(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def UpdateJobStatus(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def WhenStartScraper(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def DoneScraper(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def WhenStartAnalyzer(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -90,33 +156,63 @@ def add_ManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'CreateNewJob': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateNewJob,
-                    request_deserializer=manager__pb2.CreateNewJobReq.FromString,
-                    response_serializer=manager__pb2.CreateNewJobRes.SerializeToString,
+                    request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.CreateNewJobReq.FromString,
+                    response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.CreateNewJobRes.SerializeToString,
             ),
             'GetJobStatus': grpc.unary_unary_rpc_method_handler(
                     servicer.GetJobStatus,
-                    request_deserializer=manager__pb2.GetJobStatusReq.FromString,
-                    response_serializer=manager__pb2.GetJobStatusRes.SerializeToString,
+                    request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetJobStatusReq.FromString,
+                    response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetJobStatusRes.SerializeToString,
+            ),
+            'GetJobList': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetJobList,
+                    request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetJobListReq.FromString,
+                    response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetJobListRes.SerializeToString,
+            ),
+            'GetWorkerList': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetWorkerList,
+                    request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetWorkerListReq.FromString,
+                    response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetWorkerListRes.SerializeToString,
+            ),
+            'GetArticleInfo': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetArticleInfo,
+                    request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleInfoReq.FromString,
+                    response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleInfoRes.SerializeToString,
+            ),
+            'GetArticleList': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetArticleList,
+                    request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleListReq.FromString,
+                    response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleListRes.SerializeToString,
             ),
             'UpdateJobStatus': grpc.unary_unary_rpc_method_handler(
                     servicer.UpdateJobStatus,
-                    request_deserializer=manager__pb2.UpdateJobStatusReq.FromString,
-                    response_serializer=manager__pb2.UpdateJobStatusRes.SerializeToString,
+                    request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.UpdateJobStatusReq.FromString,
+                    response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.UpdateJobStatusRes.SerializeToString,
+            ),
+            'WhenStartScraper': grpc.unary_unary_rpc_method_handler(
+                    servicer.WhenStartScraper,
+                    request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenStartScraperReq.FromString,
+                    response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenStartScraperRes.SerializeToString,
             ),
             'DoneScraper': grpc.unary_unary_rpc_method_handler(
                     servicer.DoneScraper,
-                    request_deserializer=manager__pb2.DoneScraperReq.FromString,
-                    response_serializer=manager__pb2.DoneScraperRes.SerializeToString,
+                    request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.DoneScraperReq.FromString,
+                    response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.DoneScraperRes.SerializeToString,
+            ),
+            'WhenStartAnalyzer': grpc.unary_unary_rpc_method_handler(
+                    servicer.WhenStartAnalyzer,
+                    request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenStartAnalyzerReq.FromString,
+                    response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenStartAnalyzerRes.SerializeToString,
             ),
             'DoneAnalyzer': grpc.unary_unary_rpc_method_handler(
                     servicer.DoneAnalyzer,
-                    request_deserializer=manager__pb2.DoneAnalyzerReq.FromString,
-                    response_serializer=manager__pb2.DoneAnalyzerRes.SerializeToString,
+                    request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.DoneAnalyzerReq.FromString,
+                    response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.DoneAnalyzerRes.SerializeToString,
             ),
             'StopJob': grpc.unary_unary_rpc_method_handler(
                     servicer.StopJob,
-                    request_deserializer=manager__pb2.StopJobReq.FromString,
-                    response_serializer=manager__pb2.StopJobRes.SerializeToString,
+                    request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.StopJobReq.FromString,
+                    response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.StopJobRes.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -140,8 +236,8 @@ class Manager(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/CreateNewJob',
-            manager__pb2.CreateNewJobReq.SerializeToString,
-            manager__pb2.CreateNewJobRes.FromString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.CreateNewJobReq.SerializeToString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.CreateNewJobRes.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -157,8 +253,76 @@ class Manager(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/GetJobStatus',
-            manager__pb2.GetJobStatusReq.SerializeToString,
-            manager__pb2.GetJobStatusRes.FromString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.GetJobStatusReq.SerializeToString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.GetJobStatusRes.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetJobList(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/GetJobList',
+            pb_dot_svc_dot_manager_dot_manager__pb2.GetJobListReq.SerializeToString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.GetJobListRes.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetWorkerList(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/GetWorkerList',
+            pb_dot_svc_dot_manager_dot_manager__pb2.GetWorkerListReq.SerializeToString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.GetWorkerListRes.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetArticleInfo(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/GetArticleInfo',
+            pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleInfoReq.SerializeToString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleInfoRes.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetArticleList(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/GetArticleList',
+            pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleListReq.SerializeToString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleListRes.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -174,8 +338,25 @@ class Manager(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/UpdateJobStatus',
-            manager__pb2.UpdateJobStatusReq.SerializeToString,
-            manager__pb2.UpdateJobStatusRes.FromString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.UpdateJobStatusReq.SerializeToString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.UpdateJobStatusRes.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def WhenStartScraper(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/WhenStartScraper',
+            pb_dot_svc_dot_manager_dot_manager__pb2.WhenStartScraperReq.SerializeToString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.WhenStartScraperRes.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -191,8 +372,25 @@ class Manager(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/DoneScraper',
-            manager__pb2.DoneScraperReq.SerializeToString,
-            manager__pb2.DoneScraperRes.FromString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.DoneScraperReq.SerializeToString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.DoneScraperRes.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def WhenStartAnalyzer(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/WhenStartAnalyzer',
+            pb_dot_svc_dot_manager_dot_manager__pb2.WhenStartAnalyzerReq.SerializeToString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.WhenStartAnalyzerRes.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -208,8 +406,8 @@ class Manager(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/DoneAnalyzer',
-            manager__pb2.DoneAnalyzerReq.SerializeToString,
-            manager__pb2.DoneAnalyzerRes.FromString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.DoneAnalyzerReq.SerializeToString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.DoneAnalyzerRes.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -225,7 +423,7 @@ class Manager(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/StopJob',
-            manager__pb2.StopJobReq.SerializeToString,
-            manager__pb2.StopJobRes.FromString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.StopJobReq.SerializeToString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.StopJobRes.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

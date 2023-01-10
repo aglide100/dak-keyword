@@ -29,7 +29,9 @@ type ManagerClient interface {
 	GetArticleInfo(ctx context.Context, in *GetArticleInfoReq, opts ...grpc.CallOption) (*GetArticleInfoRes, error)
 	GetArticleList(ctx context.Context, in *GetArticleListReq, opts ...grpc.CallOption) (*GetArticleListRes, error)
 	UpdateJobStatus(ctx context.Context, in *UpdateJobStatusReq, opts ...grpc.CallOption) (*UpdateJobStatusRes, error)
+	WhenStartScraper(ctx context.Context, in *WhenStartScraperReq, opts ...grpc.CallOption) (*WhenStartScraperRes, error)
 	DoneScraper(ctx context.Context, in *DoneScraperReq, opts ...grpc.CallOption) (*DoneScraperRes, error)
+	WhenStartAnalyzer(ctx context.Context, in *WhenStartAnalyzerReq, opts ...grpc.CallOption) (*WhenStartAnalyzerRes, error)
 	DoneAnalyzer(ctx context.Context, in *DoneAnalyzerReq, opts ...grpc.CallOption) (*DoneAnalyzerRes, error)
 	StopJob(ctx context.Context, in *StopJobReq, opts ...grpc.CallOption) (*StopJobRes, error)
 }
@@ -105,9 +107,27 @@ func (c *managerClient) UpdateJobStatus(ctx context.Context, in *UpdateJobStatus
 	return out, nil
 }
 
+func (c *managerClient) WhenStartScraper(ctx context.Context, in *WhenStartScraperReq, opts ...grpc.CallOption) (*WhenStartScraperRes, error) {
+	out := new(WhenStartScraperRes)
+	err := c.cc.Invoke(ctx, "/pb.svc.manager.Manager/WhenStartScraper", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *managerClient) DoneScraper(ctx context.Context, in *DoneScraperReq, opts ...grpc.CallOption) (*DoneScraperRes, error) {
 	out := new(DoneScraperRes)
 	err := c.cc.Invoke(ctx, "/pb.svc.manager.Manager/DoneScraper", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *managerClient) WhenStartAnalyzer(ctx context.Context, in *WhenStartAnalyzerReq, opts ...grpc.CallOption) (*WhenStartAnalyzerRes, error) {
+	out := new(WhenStartAnalyzerRes)
+	err := c.cc.Invoke(ctx, "/pb.svc.manager.Manager/WhenStartAnalyzer", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -143,7 +163,9 @@ type ManagerServer interface {
 	GetArticleInfo(context.Context, *GetArticleInfoReq) (*GetArticleInfoRes, error)
 	GetArticleList(context.Context, *GetArticleListReq) (*GetArticleListRes, error)
 	UpdateJobStatus(context.Context, *UpdateJobStatusReq) (*UpdateJobStatusRes, error)
+	WhenStartScraper(context.Context, *WhenStartScraperReq) (*WhenStartScraperRes, error)
 	DoneScraper(context.Context, *DoneScraperReq) (*DoneScraperRes, error)
+	WhenStartAnalyzer(context.Context, *WhenStartAnalyzerReq) (*WhenStartAnalyzerRes, error)
 	DoneAnalyzer(context.Context, *DoneAnalyzerReq) (*DoneAnalyzerRes, error)
 	StopJob(context.Context, *StopJobReq) (*StopJobRes, error)
 	mustEmbedUnimplementedManagerServer()
@@ -174,8 +196,14 @@ func (UnimplementedManagerServer) GetArticleList(context.Context, *GetArticleLis
 func (UnimplementedManagerServer) UpdateJobStatus(context.Context, *UpdateJobStatusReq) (*UpdateJobStatusRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateJobStatus not implemented")
 }
+func (UnimplementedManagerServer) WhenStartScraper(context.Context, *WhenStartScraperReq) (*WhenStartScraperRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method WhenStartScraper not implemented")
+}
 func (UnimplementedManagerServer) DoneScraper(context.Context, *DoneScraperReq) (*DoneScraperRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DoneScraper not implemented")
+}
+func (UnimplementedManagerServer) WhenStartAnalyzer(context.Context, *WhenStartAnalyzerReq) (*WhenStartAnalyzerRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method WhenStartAnalyzer not implemented")
 }
 func (UnimplementedManagerServer) DoneAnalyzer(context.Context, *DoneAnalyzerReq) (*DoneAnalyzerRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DoneAnalyzer not implemented")
@@ -322,6 +350,24 @@ func _Manager_UpdateJobStatus_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Manager_WhenStartScraper_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(WhenStartScraperReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManagerServer).WhenStartScraper(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.svc.manager.Manager/WhenStartScraper",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManagerServer).WhenStartScraper(ctx, req.(*WhenStartScraperReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Manager_DoneScraper_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DoneScraperReq)
 	if err := dec(in); err != nil {
@@ -336,6 +382,24 @@ func _Manager_DoneScraper_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ManagerServer).DoneScraper(ctx, req.(*DoneScraperReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Manager_WhenStartAnalyzer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(WhenStartAnalyzerReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManagerServer).WhenStartAnalyzer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.svc.manager.Manager/WhenStartAnalyzer",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManagerServer).WhenStartAnalyzer(ctx, req.(*WhenStartAnalyzerReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -412,8 +476,16 @@ var Manager_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Manager_UpdateJobStatus_Handler,
 		},
 		{
+			MethodName: "WhenStartScraper",
+			Handler:    _Manager_WhenStartScraper_Handler,
+		},
+		{
 			MethodName: "DoneScraper",
 			Handler:    _Manager_DoneScraper_Handler,
+		},
+		{
+			MethodName: "WhenStartAnalyzer",
+			Handler:    _Manager_WhenStartAnalyzer_Handler,
 		},
 		{
 			MethodName: "DoneAnalyzer",
