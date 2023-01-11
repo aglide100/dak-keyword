@@ -1,4 +1,4 @@
-FROM ghcr.io/aglide100/docker-node-with-libvips--16:latest AS builder
+FROM ghcr.io/aglide100/docker-node-with-libvips--18:latest AS builder
 
 RUN mkdir /app
 

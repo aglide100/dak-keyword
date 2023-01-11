@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "../../src/components/atom/Button/Button";
 import { useRouter } from "next/router";
-import { CallNewJob } from "../../src/grpc/job";
+import { CallNewJob } from "../../src/Grpc/job";
 
 export default function NewJob() {
     const router = useRouter();

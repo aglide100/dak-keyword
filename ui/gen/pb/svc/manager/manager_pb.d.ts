@@ -600,3 +600,43 @@ export namespace WhenAnalyzerHavingErrRes {
   }
 }
 
+export class UpdateWorkerStatusReq extends jspb.Message {
+  getId(): string;
+  setId(value: string): void;
+
+  getMsg(): string;
+  setMsg(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): UpdateWorkerStatusReq.AsObject;
+  static toObject(includeInstance: boolean, msg: UpdateWorkerStatusReq): UpdateWorkerStatusReq.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: UpdateWorkerStatusReq, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): UpdateWorkerStatusReq;
+  static deserializeBinaryFromReader(message: UpdateWorkerStatusReq, reader: jspb.BinaryReader): UpdateWorkerStatusReq;
+}
+
+export namespace UpdateWorkerStatusReq {
+  export type AsObject = {
+    id: string,
+    msg: string,
+  }
+}
+
+export class UpdateWorkerStatusRes extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): UpdateWorkerStatusRes.AsObject;
+  static toObject(includeInstance: boolean, msg: UpdateWorkerStatusRes): UpdateWorkerStatusRes.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: UpdateWorkerStatusRes, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): UpdateWorkerStatusRes;
+  static deserializeBinaryFromReader(message: UpdateWorkerStatusRes, reader: jspb.BinaryReader): UpdateWorkerStatusRes;
+}
+
+export namespace UpdateWorkerStatusRes {
+  export type AsObject = {
+  }
+}
+
