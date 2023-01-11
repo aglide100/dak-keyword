@@ -40,14 +40,14 @@ func CallGrpcCallDone(workerId string) error {
 	
 	client := pb_svc_manager.NewManagerClient(conn)
 
-	in := &pb_svc_manager.DoneScraperReq{
+	in := &pb_svc_manager.WhenDoneScraperReq{
 		Id: workerId,
 	}
 	
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
 
-	res, err := client.DoneScraper(ctx, in)
+	res, err := client.WhenDoneScraper(ctx, in)
 
 	if err != nil {
 		log.Fatalf("Can't receive anything! %v", err)

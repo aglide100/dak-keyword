@@ -16,7 +16,7 @@ from pb.unit.worker import worker_pb2 as pb_dot_unit_dot_worker_dot_worker__pb2
 from pb.unit.article import article_pb2 as pb_dot_unit_dot_article_dot_article__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1cpb/svc/manager/manager.proto\x12\x0epb.svc.manager\x1a\x15pb/unit/job/job.proto\x1a\x1bpb/unit/worker/worker.proto\x1a\x1dpb/unit/article/article.proto\"1\n\x0f\x43reateNewJobReq\x12\x0f\n\x07keyword\x18\x01 \x01(\t\x12\r\n\x05owner\x18\x02 \x01(\t\"C\n\x0f\x43reateNewJobRes\x12\x0f\n\x07keyword\x18\x01 \x03(\t\x12\x10\n\x08workerId\x18\x02 \x03(\t\x12\r\n\x05jobId\x18\x03 \x01(\t\",\n\x0fGetJobStatusReq\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05owner\x18\x02 \x01(\t\"!\n\x0fGetJobStatusRes\x12\x0e\n\x06status\x18\x01 \x01(\t\"\x18\n\nStopJobReq\x12\n\n\x02id\x18\x01 \x01(\t\"\x1c\n\nStopJobRes\x12\x0e\n\x06result\x18\x01 \x01(\t\"\x1c\n\x0e\x44oneScraperReq\x12\n\n\x02id\x18\x01 \x01(\t\" \n\x0e\x44oneScraperRes\x12\x0e\n\x06result\x18\x01 \x01(\t\"\x1d\n\x0f\x44oneAnalyzerReq\x12\n\n\x02id\x18\x01 \x01(\t\"!\n\x0f\x44oneAnalyzerRes\x12\x0e\n\x06result\x18\x01 \x01(\t\"0\n\x12UpdateJobStatusReq\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0e\n\x06status\x18\x02 \x01(\t\"$\n\x12UpdateJobStatusRes\x12\x0e\n\x06result\x18\x01 \x01(\t\"\x0f\n\rGetJobListReq\".\n\rGetJobListRes\x12\x1d\n\x03Job\x18\x01 \x03(\x0b\x32\x10.pb.unit.job.Job\"\x1e\n\x10GetWorkerListReq\x12\n\n\x02id\x18\x01 \x01(\t\":\n\x10GetWorkerListRes\x12&\n\x06Worker\x18\x01 \x03(\x0b\x32\x16.pb.unit.worker.Worker\"-\n\x11GetArticleListReq\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04page\x18\x02 \x01(\x05\">\n\x11GetArticleListRes\x12)\n\x07\x41rticle\x18\x01 \x03(\x0b\x32\x18.pb.unit.article.Article\"\x1f\n\x11GetArticleInfoReq\x12\n\n\x02id\x18\x01 \x01(\t\":\n\x11GetArticleInfoRes\x12\x12\n\ntotalCount\x18\x01 \x01(\x05\x12\x11\n\tpageCount\x18\x02 \x01(\x05\"!\n\x13WhenStartScraperReq\x12\n\n\x02id\x18\x01 \x01(\t\"%\n\x13WhenStartScraperRes\x12\x0e\n\x06result\x18\x01 \x01(\t\"\"\n\x14WhenStartAnalyzerReq\x12\n\n\x02id\x18\x01 \x01(\t\"&\n\x14WhenStartAnalyzerRes\x12\x0e\n\x06result\x18\x01 \x01(\t2\xfc\x07\n\x07Manager\x12P\n\x0c\x43reateNewJob\x12\x1f.pb.svc.manager.CreateNewJobReq\x1a\x1f.pb.svc.manager.CreateNewJobRes\x12P\n\x0cGetJobStatus\x12\x1f.pb.svc.manager.GetJobStatusReq\x1a\x1f.pb.svc.manager.GetJobStatusRes\x12J\n\nGetJobList\x12\x1d.pb.svc.manager.GetJobListReq\x1a\x1d.pb.svc.manager.GetJobListRes\x12S\n\rGetWorkerList\x12 .pb.svc.manager.GetWorkerListReq\x1a .pb.svc.manager.GetWorkerListRes\x12V\n\x0eGetArticleInfo\x12!.pb.svc.manager.GetArticleInfoReq\x1a!.pb.svc.manager.GetArticleInfoRes\x12V\n\x0eGetArticleList\x12!.pb.svc.manager.GetArticleListReq\x1a!.pb.svc.manager.GetArticleListRes\x12Y\n\x0fUpdateJobStatus\x12\".pb.svc.manager.UpdateJobStatusReq\x1a\".pb.svc.manager.UpdateJobStatusRes\x12\\\n\x10WhenStartScraper\x12#.pb.svc.manager.WhenStartScraperReq\x1a#.pb.svc.manager.WhenStartScraperRes\x12M\n\x0b\x44oneScraper\x12\x1e.pb.svc.manager.DoneScraperReq\x1a\x1e.pb.svc.manager.DoneScraperRes\x12_\n\x11WhenStartAnalyzer\x12$.pb.svc.manager.WhenStartAnalyzerReq\x1a$.pb.svc.manager.WhenStartAnalyzerRes\x12P\n\x0c\x44oneAnalyzer\x12\x1f.pb.svc.manager.DoneAnalyzerReq\x1a\x1f.pb.svc.manager.DoneAnalyzerRes\x12\x41\n\x07StopJob\x12\x1a.pb.svc.manager.StopJobReq\x1a\x1a.pb.svc.manager.StopJobResB1Z/github.com/aglide100/dak-keyword/pb/svc/managerb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1cpb/svc/manager/manager.proto\x12\x0epb.svc.manager\x1a\x15pb/unit/job/job.proto\x1a\x1bpb/unit/worker/worker.proto\x1a\x1dpb/unit/article/article.proto\"1\n\x0f\x43reateNewJobReq\x12\x0f\n\x07keyword\x18\x01 \x01(\t\x12\r\n\x05owner\x18\x02 \x01(\t\"C\n\x0f\x43reateNewJobRes\x12\x0f\n\x07keyword\x18\x01 \x03(\t\x12\x10\n\x08workerId\x18\x02 \x03(\t\x12\r\n\x05jobId\x18\x03 \x01(\t\",\n\x0fGetJobStatusReq\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05owner\x18\x02 \x01(\t\"!\n\x0fGetJobStatusRes\x12\x0e\n\x06status\x18\x01 \x01(\t\"\x18\n\nStopJobReq\x12\n\n\x02id\x18\x01 \x01(\t\"\x1c\n\nStopJobRes\x12\x0e\n\x06result\x18\x01 \x01(\t\" \n\x12WhenDoneScraperReq\x12\n\n\x02id\x18\x01 \x01(\t\"$\n\x12WhenDoneScraperRes\x12\x0e\n\x06result\x18\x01 \x01(\t\"!\n\x13WhenDoneAnalyzerReq\x12\n\n\x02id\x18\x01 \x01(\t\"%\n\x13WhenDoneAnalyzerRes\x12\x0e\n\x06result\x18\x01 \x01(\t\"0\n\x12UpdateJobStatusReq\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0e\n\x06status\x18\x02 \x01(\t\"$\n\x12UpdateJobStatusRes\x12\x0e\n\x06result\x18\x01 \x01(\t\"\x0f\n\rGetJobListReq\".\n\rGetJobListRes\x12\x1d\n\x03Job\x18\x01 \x03(\x0b\x32\x10.pb.unit.job.Job\"\x1e\n\x10GetWorkerListReq\x12\n\n\x02id\x18\x01 \x01(\t\":\n\x10GetWorkerListRes\x12&\n\x06Worker\x18\x01 \x03(\x0b\x32\x16.pb.unit.worker.Worker\"-\n\x11GetArticleListReq\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04page\x18\x02 \x01(\x05\">\n\x11GetArticleListRes\x12)\n\x07\x41rticle\x18\x01 \x03(\x0b\x32\x18.pb.unit.article.Article\"\x1f\n\x11GetArticleInfoReq\x12\n\n\x02id\x18\x01 \x01(\t\":\n\x11GetArticleInfoRes\x12\x12\n\ntotalCount\x18\x01 \x01(\x05\x12\x11\n\tpageCount\x18\x02 \x01(\x05\"!\n\x13WhenStartScraperReq\x12\n\n\x02id\x18\x01 \x01(\t\"%\n\x13WhenStartScraperRes\x12\x0e\n\x06result\x18\x01 \x01(\t\"\"\n\x14WhenStartAnalyzerReq\x12\n\n\x02id\x18\x01 \x01(\t\"&\n\x14WhenStartAnalyzerRes\x12\x0e\n\x06result\x18\x01 \x01(\t\"2\n\x17WhenScraperHavingErrReq\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0b\n\x03msg\x18\x02 \x01(\t\"\x19\n\x17WhenScraperHavingErrRes\"3\n\x18WhenAnalyzerHavingErrReq\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0b\n\x03msg\x18\x02 \x01(\t\"\x1a\n\x18WhenAnalyzerHavingErrRes2\xeb\t\n\x07Manager\x12P\n\x0c\x43reateNewJob\x12\x1f.pb.svc.manager.CreateNewJobReq\x1a\x1f.pb.svc.manager.CreateNewJobRes\x12P\n\x0cGetJobStatus\x12\x1f.pb.svc.manager.GetJobStatusReq\x1a\x1f.pb.svc.manager.GetJobStatusRes\x12J\n\nGetJobList\x12\x1d.pb.svc.manager.GetJobListReq\x1a\x1d.pb.svc.manager.GetJobListRes\x12S\n\rGetWorkerList\x12 .pb.svc.manager.GetWorkerListReq\x1a .pb.svc.manager.GetWorkerListRes\x12V\n\x0eGetArticleInfo\x12!.pb.svc.manager.GetArticleInfoReq\x1a!.pb.svc.manager.GetArticleInfoRes\x12V\n\x0eGetArticleList\x12!.pb.svc.manager.GetArticleListReq\x1a!.pb.svc.manager.GetArticleListRes\x12Y\n\x0fUpdateJobStatus\x12\".pb.svc.manager.UpdateJobStatusReq\x1a\".pb.svc.manager.UpdateJobStatusRes\x12\\\n\x10WhenStartScraper\x12#.pb.svc.manager.WhenStartScraperReq\x1a#.pb.svc.manager.WhenStartScraperRes\x12Y\n\x0fWhenDoneScraper\x12\".pb.svc.manager.WhenDoneScraperReq\x1a\".pb.svc.manager.WhenDoneScraperRes\x12_\n\x11WhenStartAnalyzer\x12$.pb.svc.manager.WhenStartAnalyzerReq\x1a$.pb.svc.manager.WhenStartAnalyzerRes\x12\\\n\x10WhenDoneAnalyzer\x12#.pb.svc.manager.WhenDoneAnalyzerReq\x1a#.pb.svc.manager.WhenDoneAnalyzerRes\x12h\n\x14WhenScraperHavingErr\x12\'.pb.svc.manager.WhenScraperHavingErrReq\x1a\'.pb.svc.manager.WhenScraperHavingErrRes\x12k\n\x15WhenAnalyzerHavingErr\x12(.pb.svc.manager.WhenAnalyzerHavingErrReq\x1a(.pb.svc.manager.WhenAnalyzerHavingErrRes\x12\x41\n\x07StopJob\x12\x1a.pb.svc.manager.StopJobReq\x1a\x1a.pb.svc.manager.StopJobResB1Z/github.com/aglide100/dak-keyword/pb/svc/managerb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'pb.svc.manager.manager_pb2', globals())
@@ -36,42 +36,50 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _STOPJOBREQ._serialized_end=356
   _STOPJOBRES._serialized_start=358
   _STOPJOBRES._serialized_end=386
-  _DONESCRAPERREQ._serialized_start=388
-  _DONESCRAPERREQ._serialized_end=416
-  _DONESCRAPERRES._serialized_start=418
-  _DONESCRAPERRES._serialized_end=450
-  _DONEANALYZERREQ._serialized_start=452
-  _DONEANALYZERREQ._serialized_end=481
-  _DONEANALYZERRES._serialized_start=483
-  _DONEANALYZERRES._serialized_end=516
-  _UPDATEJOBSTATUSREQ._serialized_start=518
-  _UPDATEJOBSTATUSREQ._serialized_end=566
-  _UPDATEJOBSTATUSRES._serialized_start=568
-  _UPDATEJOBSTATUSRES._serialized_end=604
-  _GETJOBLISTREQ._serialized_start=606
-  _GETJOBLISTREQ._serialized_end=621
-  _GETJOBLISTRES._serialized_start=623
-  _GETJOBLISTRES._serialized_end=669
-  _GETWORKERLISTREQ._serialized_start=671
-  _GETWORKERLISTREQ._serialized_end=701
-  _GETWORKERLISTRES._serialized_start=703
-  _GETWORKERLISTRES._serialized_end=761
-  _GETARTICLELISTREQ._serialized_start=763
-  _GETARTICLELISTREQ._serialized_end=808
-  _GETARTICLELISTRES._serialized_start=810
-  _GETARTICLELISTRES._serialized_end=872
-  _GETARTICLEINFOREQ._serialized_start=874
-  _GETARTICLEINFOREQ._serialized_end=905
-  _GETARTICLEINFORES._serialized_start=907
-  _GETARTICLEINFORES._serialized_end=965
-  _WHENSTARTSCRAPERREQ._serialized_start=967
-  _WHENSTARTSCRAPERREQ._serialized_end=1000
-  _WHENSTARTSCRAPERRES._serialized_start=1002
-  _WHENSTARTSCRAPERRES._serialized_end=1039
-  _WHENSTARTANALYZERREQ._serialized_start=1041
-  _WHENSTARTANALYZERREQ._serialized_end=1075
-  _WHENSTARTANALYZERRES._serialized_start=1077
-  _WHENSTARTANALYZERRES._serialized_end=1115
-  _MANAGER._serialized_start=1118
-  _MANAGER._serialized_end=2138
+  _WHENDONESCRAPERREQ._serialized_start=388
+  _WHENDONESCRAPERREQ._serialized_end=420
+  _WHENDONESCRAPERRES._serialized_start=422
+  _WHENDONESCRAPERRES._serialized_end=458
+  _WHENDONEANALYZERREQ._serialized_start=460
+  _WHENDONEANALYZERREQ._serialized_end=493
+  _WHENDONEANALYZERRES._serialized_start=495
+  _WHENDONEANALYZERRES._serialized_end=532
+  _UPDATEJOBSTATUSREQ._serialized_start=534
+  _UPDATEJOBSTATUSREQ._serialized_end=582
+  _UPDATEJOBSTATUSRES._serialized_start=584
+  _UPDATEJOBSTATUSRES._serialized_end=620
+  _GETJOBLISTREQ._serialized_start=622
+  _GETJOBLISTREQ._serialized_end=637
+  _GETJOBLISTRES._serialized_start=639
+  _GETJOBLISTRES._serialized_end=685
+  _GETWORKERLISTREQ._serialized_start=687
+  _GETWORKERLISTREQ._serialized_end=717
+  _GETWORKERLISTRES._serialized_start=719
+  _GETWORKERLISTRES._serialized_end=777
+  _GETARTICLELISTREQ._serialized_start=779
+  _GETARTICLELISTREQ._serialized_end=824
+  _GETARTICLELISTRES._serialized_start=826
+  _GETARTICLELISTRES._serialized_end=888
+  _GETARTICLEINFOREQ._serialized_start=890
+  _GETARTICLEINFOREQ._serialized_end=921
+  _GETARTICLEINFORES._serialized_start=923
+  _GETARTICLEINFORES._serialized_end=981
+  _WHENSTARTSCRAPERREQ._serialized_start=983
+  _WHENSTARTSCRAPERREQ._serialized_end=1016
+  _WHENSTARTSCRAPERRES._serialized_start=1018
+  _WHENSTARTSCRAPERRES._serialized_end=1055
+  _WHENSTARTANALYZERREQ._serialized_start=1057
+  _WHENSTARTANALYZERREQ._serialized_end=1091
+  _WHENSTARTANALYZERRES._serialized_start=1093
+  _WHENSTARTANALYZERRES._serialized_end=1131
+  _WHENSCRAPERHAVINGERRREQ._serialized_start=1133
+  _WHENSCRAPERHAVINGERRREQ._serialized_end=1183
+  _WHENSCRAPERHAVINGERRRES._serialized_start=1185
+  _WHENSCRAPERHAVINGERRRES._serialized_end=1210
+  _WHENANALYZERHAVINGERRREQ._serialized_start=1212
+  _WHENANALYZERHAVINGERRREQ._serialized_end=1263
+  _WHENANALYZERHAVINGERRRES._serialized_start=1265
+  _WHENANALYZERHAVINGERRRES._serialized_end=1291
+  _MANAGER._serialized_start=1294
+  _MANAGER._serialized_end=2553
 # @@protoc_insertion_point(module_scope)

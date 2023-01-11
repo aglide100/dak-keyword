@@ -76,13 +76,13 @@ type ManagerWhenStartScraper = {
   readonly responseType: typeof pb_svc_manager_manager_pb.WhenStartScraperRes;
 };
 
-type ManagerDoneScraper = {
+type ManagerWhenDoneScraper = {
   readonly methodName: string;
   readonly service: typeof Manager;
   readonly requestStream: false;
   readonly responseStream: false;
-  readonly requestType: typeof pb_svc_manager_manager_pb.DoneScraperReq;
-  readonly responseType: typeof pb_svc_manager_manager_pb.DoneScraperRes;
+  readonly requestType: typeof pb_svc_manager_manager_pb.WhenDoneScraperReq;
+  readonly responseType: typeof pb_svc_manager_manager_pb.WhenDoneScraperRes;
 };
 
 type ManagerWhenStartAnalyzer = {
@@ -94,13 +94,31 @@ type ManagerWhenStartAnalyzer = {
   readonly responseType: typeof pb_svc_manager_manager_pb.WhenStartAnalyzerRes;
 };
 
-type ManagerDoneAnalyzer = {
+type ManagerWhenDoneAnalyzer = {
   readonly methodName: string;
   readonly service: typeof Manager;
   readonly requestStream: false;
   readonly responseStream: false;
-  readonly requestType: typeof pb_svc_manager_manager_pb.DoneAnalyzerReq;
-  readonly responseType: typeof pb_svc_manager_manager_pb.DoneAnalyzerRes;
+  readonly requestType: typeof pb_svc_manager_manager_pb.WhenDoneAnalyzerReq;
+  readonly responseType: typeof pb_svc_manager_manager_pb.WhenDoneAnalyzerRes;
+};
+
+type ManagerWhenScraperHavingErr = {
+  readonly methodName: string;
+  readonly service: typeof Manager;
+  readonly requestStream: false;
+  readonly responseStream: false;
+  readonly requestType: typeof pb_svc_manager_manager_pb.WhenScraperHavingErrReq;
+  readonly responseType: typeof pb_svc_manager_manager_pb.WhenScraperHavingErrRes;
+};
+
+type ManagerWhenAnalyzerHavingErr = {
+  readonly methodName: string;
+  readonly service: typeof Manager;
+  readonly requestStream: false;
+  readonly responseStream: false;
+  readonly requestType: typeof pb_svc_manager_manager_pb.WhenAnalyzerHavingErrReq;
+  readonly responseType: typeof pb_svc_manager_manager_pb.WhenAnalyzerHavingErrRes;
 };
 
 type ManagerStopJob = {
@@ -122,9 +140,11 @@ export class Manager {
   static readonly GetArticleList: ManagerGetArticleList;
   static readonly UpdateJobStatus: ManagerUpdateJobStatus;
   static readonly WhenStartScraper: ManagerWhenStartScraper;
-  static readonly DoneScraper: ManagerDoneScraper;
+  static readonly WhenDoneScraper: ManagerWhenDoneScraper;
   static readonly WhenStartAnalyzer: ManagerWhenStartAnalyzer;
-  static readonly DoneAnalyzer: ManagerDoneAnalyzer;
+  static readonly WhenDoneAnalyzer: ManagerWhenDoneAnalyzer;
+  static readonly WhenScraperHavingErr: ManagerWhenScraperHavingErr;
+  static readonly WhenAnalyzerHavingErr: ManagerWhenAnalyzerHavingErr;
   static readonly StopJob: ManagerStopJob;
 }
 
@@ -232,14 +252,14 @@ export class ManagerClient {
     requestMessage: pb_svc_manager_manager_pb.WhenStartScraperReq,
     callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.WhenStartScraperRes|null) => void
   ): UnaryResponse;
-  doneScraper(
-    requestMessage: pb_svc_manager_manager_pb.DoneScraperReq,
+  whenDoneScraper(
+    requestMessage: pb_svc_manager_manager_pb.WhenDoneScraperReq,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.DoneScraperRes|null) => void
+    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.WhenDoneScraperRes|null) => void
   ): UnaryResponse;
-  doneScraper(
-    requestMessage: pb_svc_manager_manager_pb.DoneScraperReq,
-    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.DoneScraperRes|null) => void
+  whenDoneScraper(
+    requestMessage: pb_svc_manager_manager_pb.WhenDoneScraperReq,
+    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.WhenDoneScraperRes|null) => void
   ): UnaryResponse;
   whenStartAnalyzer(
     requestMessage: pb_svc_manager_manager_pb.WhenStartAnalyzerReq,
@@ -250,14 +270,32 @@ export class ManagerClient {
     requestMessage: pb_svc_manager_manager_pb.WhenStartAnalyzerReq,
     callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.WhenStartAnalyzerRes|null) => void
   ): UnaryResponse;
-  doneAnalyzer(
-    requestMessage: pb_svc_manager_manager_pb.DoneAnalyzerReq,
+  whenDoneAnalyzer(
+    requestMessage: pb_svc_manager_manager_pb.WhenDoneAnalyzerReq,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.DoneAnalyzerRes|null) => void
+    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.WhenDoneAnalyzerRes|null) => void
   ): UnaryResponse;
-  doneAnalyzer(
-    requestMessage: pb_svc_manager_manager_pb.DoneAnalyzerReq,
-    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.DoneAnalyzerRes|null) => void
+  whenDoneAnalyzer(
+    requestMessage: pb_svc_manager_manager_pb.WhenDoneAnalyzerReq,
+    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.WhenDoneAnalyzerRes|null) => void
+  ): UnaryResponse;
+  whenScraperHavingErr(
+    requestMessage: pb_svc_manager_manager_pb.WhenScraperHavingErrReq,
+    metadata: grpc.Metadata,
+    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.WhenScraperHavingErrRes|null) => void
+  ): UnaryResponse;
+  whenScraperHavingErr(
+    requestMessage: pb_svc_manager_manager_pb.WhenScraperHavingErrReq,
+    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.WhenScraperHavingErrRes|null) => void
+  ): UnaryResponse;
+  whenAnalyzerHavingErr(
+    requestMessage: pb_svc_manager_manager_pb.WhenAnalyzerHavingErrReq,
+    metadata: grpc.Metadata,
+    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.WhenAnalyzerHavingErrRes|null) => void
+  ): UnaryResponse;
+  whenAnalyzerHavingErr(
+    requestMessage: pb_svc_manager_manager_pb.WhenAnalyzerHavingErrReq,
+    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.WhenAnalyzerHavingErrRes|null) => void
   ): UnaryResponse;
   stopJob(
     requestMessage: pb_svc_manager_manager_pb.StopJobReq,

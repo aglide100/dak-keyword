@@ -26,9 +26,23 @@ func (s *ManagerSrv) WhenStartScraper(ctx context.Context, in *pb_svc_manager.Wh
 	}, nil
 }
 
+func (s *ManagerSrv) WhenScraperHavingErr(ctx context.Context, in *pb_svc_manager.WhenScraperHavingErrReq) (*pb_svc_manager.WhenScraperHavingErrRes, error) {
+	if in != nil {
+		log.Printf("Received WhenScraperHavingErr call: %v", in.String())
+	}
+
+	err := s.db.UpdateWorker(in.Id, "Scraper having some error.... " + in.GetMsg())
+	if err != nil {
+		s.db.UpdateJob(in.Id, "Can't start scraper")
+		return nil, status.Error(codes.Canceled, "Can't update worker status at dbms")
+	}
+
+	return &pb_svc_manager.WhenScraperHavingErrRes{
+	}, nil
+}
 
 
-func (s *ManagerSrv) DoneScraper(ctx context.Context, in *pb_svc_manager.DoneScraperReq) (*pb_svc_manager.DoneScraperRes, error) {
+func (s *ManagerSrv) WhenDoneScraper(ctx context.Context, in *pb_svc_manager.WhenDoneScraperReq) (*pb_svc_manager.WhenDoneScraperRes, error) {
 	if in != nil {
 		log.Printf("Received DoneScraper call: %v", in.String())
 	}
@@ -51,8 +65,8 @@ func (s *ManagerSrv) DoneScraper(ctx context.Context, in *pb_svc_manager.DoneScr
 		return nil, err
 	}
 
-	return &pb_svc_manager.DoneScraperRes{
-		Result: "Scraper Done!",
+	return &pb_svc_manager.WhenDoneScraperRes{
+		Result: "Scraping is Done!",
 	}, nil
 }
 
