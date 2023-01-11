@@ -4,7 +4,6 @@ import (
 	"log"
 	"net/url"
 	"strconv"
-	"strings"
 	"time"
 
 	"github.com/aglide100/dak-keyword/pkg/models"
@@ -14,7 +13,8 @@ import (
 // maxResult is between 10-100
 const maxResult = 100
 // Twitter limit 3200 per oncs
-const limitResult = 32
+// const limitResult = 32
+const limitResult = 50
 const twitterv2api = `https://api.twitter.com/2/`
 
 func (s Scraper) GetMockTweets(keyword string) ([]models.TweetArticle) {
@@ -69,18 +69,18 @@ func (s Scraper) GetRecentSearch(keyword string, nextToken string, injectNum ...
 	// log.Printf("data: %v, %d", data.Num, data.Index)
 	var articles []models.TweetArticle
 	// var prev models.TweetArticle
-	var count =0;
+	// var count=0;
 	data.ForEach(func(key, value gjson.Result) bool {
-		count++;
+		// count++;
 		newArticle := models.TweetArticle{
 			Id: gjson.Get(value.String(), "id").String(),
 			Text: gjson.Get(value.String(), "text").String(),
 			Created_at: gjson.Get(value.String(), "created_at").String(),
 		}
 
-		if (!strings.Contains(newArticle.Text, "http")) {
-			articles = append(articles, newArticle)
-		}
+		// if (!strings.Contains(newArticle.Text, "http")) {
+		articles = append(articles, newArticle)
+		// }
 		
 		return true
 	})
