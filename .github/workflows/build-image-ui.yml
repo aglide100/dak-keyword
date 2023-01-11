@@ -33,4 +33,4 @@ jobs:
                   context: ./ui
                   platforms: linux/amd64,linux/arm64
                   push: true
-                  tags: ghcr.io/aglide100/dak-keyword-ui:latest
+                  tags: ghcr.io/aglide100/dak-keyword--ui:latest

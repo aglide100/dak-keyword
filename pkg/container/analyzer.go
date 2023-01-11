@@ -16,18 +16,18 @@ import (
 func (c *Controller) CreateNewAnalyzer(workerId string, keyword string, dbConfig *db.DBConfig) (error) {
 	ctx := context.Background()
 
-	c.cli.ImagePull(ctx, "ghcr.io/aglide100/dak-keyword-analyzer:latest", types.ImagePullOptions{})
+	c.cli.ImagePull(ctx, "ghcr.io/aglide100/dak-keyword--analyzer:latest", types.ImagePullOptions{})
 	
 	max := uint64(1)
 
 	reader, err := c.cli.ServiceCreate(ctx, swarm.ServiceSpec{
 		Annotations: swarm.Annotations{
-			Name: workerId,
+			Name: "analyzer_"+workerId,
 		},
 
 		TaskTemplate: swarm.TaskSpec{
 			ContainerSpec: &swarm.ContainerSpec{
-					Image: "ghcr.io/aglide100/dak-keyword-analyzer:latest",
+					Image: "ghcr.io/aglide100/dak-keyword--analyzer:latest",
 					// Labels: map[string]string{
 					// 	"com.docker.stack.namespace" : "keyword_analyzer",
 					// },
@@ -81,7 +81,7 @@ func (c *Controller) CreateNewAnalyzer(workerId string, keyword string, dbConfig
 func (c *Controller) RemoveAnalyzer(id string) (error) {
 	ctx := context.Background()
 
-	err := c.cli.ServiceRemove(ctx, id)
+	err := c.cli.ServiceRemove(ctx, "analyzer_"+id)
 	if err != nil {
 		return err
 	}
