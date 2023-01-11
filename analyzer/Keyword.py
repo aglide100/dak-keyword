@@ -1,5 +1,4 @@
 
-import Calling
 # host = "localhost"
 # dbname = "keyword"
 # user = "table_admin"
@@ -17,32 +16,32 @@ workerId = os.environ['WORKER_ID']
 
 import Database
 import psycopg2
-
+# from hanspell import spell_checker
+from soynlp.normalizer import *
+import Calling
 if __name__ == '__main__':
     try:
         db = Database.Databases(host, dbname, user, password, port)
         # (2, 'author', 'keyword', 'contant', 'platform', 'happy', 'fear', 'emb', 'sad', 'rage', 'hurt', 'max_value', 'create_at', 'test', 'test')
-        result = Database.CRUD.readTextFromArticleInJob(db, 'Worker_id', workerId)
+        rows = Database.CRUD.readTextFromArticleInJob(db, 'Worker_id', workerId)
         Calling.sendStartMSG(workerId)
 
-        i=0;
-        for value in result:
-            val = value[0].replace("(","").replace(")","")
-            val = tuple(map(str, val.split(',')))
 
-            # Content
-            # print(val[0])
+        for index, row in rows.iterrows():
+            # sent = spell_checker.check(row['Content']).checked
+            score = analyze_word(repeat_normalize(row['Content'], num_repeats=2))
+            # score = analyze_word(repeat_normalize(sent, num_repeats=2))
+            # print(row[''])
+            # print(row.head() )
+            # print(row[1])
+            # print(row['Content'])
+            # print(row['Article_id'])
 
-            # Article ID
-            # print(val[1])
-            score = analyze_word(val[0])
-
-            i+=1
             if score is not None:
                 try:
-                    Database.CRUD.updateScore(db, score[0][0], score[0][1], score[0][2], score[0][3], score[0][4], score[0][5], score[2], score[1], workerId, val[1])
+                    Database.CRUD.updateScore(db, score[0][0], score[0][1], score[0][2], score[0][3], score[0][4], score[0][5], score[2], score[1], workerId, row['Id'])
                     
-                    msg = "Analyzing... : " + str(i) + " / " + str(len(result))
+                    msg = "Analyzing... : " + str(index) + " / " + str(len(rows))
                     Calling.sendUpdating(workerId, msg)
                     
                 except Exception as err:
@@ -53,6 +52,8 @@ if __name__ == '__main__':
                 print("result is None!")
 
         Calling.sendDoneMSG(workerId)
+
+ 
 
 
     except psycopg2.DatabaseError as db_err:

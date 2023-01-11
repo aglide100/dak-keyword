@@ -31,9 +31,12 @@ type ArticleGraphProps = {
 type ArticleCount = {
     Create_at: string;
     // Score_max_name: string;
-    Count_pos: number;
-    Count_neg: number;
-    Count_neut: number;
+    Count_happy: number;
+    Count_fear: number;
+    Count_embarrassed: number;
+    Count_sad: number;
+    Count_rage: number;
+    Count_hurt: number;
 };
 
 export const ArticleGraph = (props: ArticleGraphProps) => {
@@ -54,9 +57,12 @@ export const ArticleGraph = (props: ArticleGraphProps) => {
 
     function countArticle() {
         let create_at = "";
-        let count_pos = 0;
-        let count_neg = 0;
-        let count_neut = 0;
+        let count_happy = 0;
+        let count_fear = 0;
+        let count_embarrassed = 0;
+        let count_sad = 0;
+        let count_rage = 0;
+        let count_hurt = 0;
         const countArray = new Array<ArticleCount>();
         data.map((value, index) => {
             if (index == 0) {
@@ -65,31 +71,56 @@ export const ArticleGraph = (props: ArticleGraphProps) => {
                 if (index == data.length - 1) {
                     countArray.push({
                         Create_at: create_at,
-                        Count_pos: count_pos,
-                        Count_neg: count_neg,
-                        Count_neut: count_neut,
+                        Count_happy: count_happy,
+                        Count_fear: count_fear,
+                        Count_embarrassed: count_embarrassed,
+                        Count_sad: count_sad,
+                        Count_rage: count_rage,
+                        Count_hurt: count_hurt,
                     });
                 }
 
                 if (value.Create_at != create_at) {
                     countArray.push({
                         Create_at: create_at,
-                        Count_pos: count_pos,
-                        Count_neg: count_neg,
-                        Count_neut: count_neut,
+                        Count_happy: count_happy,
+                        Count_fear: count_fear,
+                        Count_embarrassed: count_embarrassed,
+                        Count_sad: count_sad,
+                        Count_rage: count_rage,
+                        Count_hurt: count_hurt,
                     });
 
                     create_at = value.Create_at;
-                    count_pos = 0;
-                    count_neg = 0;
-                    count_neut = 0;
+                    count_happy = 0;
+                    count_fear = 0;
+                    count_embarrassed = 0;
+                    count_sad = 0;
+                    count_rage = 0;
+                    count_hurt = 0;
                 } else {
-                    if (value.Score_max_name == "POS") {
-                        count_pos++;
-                    } else if (value.Score_max_name == "NEG") {
-                        count_neg++;
-                    } else if (value.Score_max_name == "NEUT") {
-                        count_neut++;
+                    if (value.Score_max_name == "Happy") {
+                        count_happy++;
+                    }
+
+                    if (value.Score_max_name == "Fear") {
+                        count_fear++;
+                    }
+
+                    if (value.Score_max_name == "Embarrassed") {
+                        count_embarrassed++;
+                    }
+
+                    if (value.Score_max_name == "Sad") {
+                        count_sad++;
+                    }
+
+                    if (value.Score_max_name == "Hurt") {
+                        count_rage++;
+                    }
+
+                    if (value.Score_max_name == "Rage") {
+                        count_hurt++;
                     }
                 }
             }
@@ -104,15 +135,16 @@ export const ArticleGraph = (props: ArticleGraphProps) => {
             message.articleList.map((value, _) => {
                 const newArticle: ArticleProps = {
                     Id: value.id,
-                    Author: value.author,
-                    Keyword: value.keyword,
-                    Content: value.content,
+                    Author: "",
+                    Keyword: "",
+                    Content: "",
                     Platform: value.platform,
-                    Score_pos: value.scorePos,
-                    Score_neg: value.scoreNeg,
-                    Score_neut: value.scoreNeut,
-                    Score_comp: value.scoreComp,
-                    Score_none: value.scoreNone,
+                    Score_happy: value.scoreHappy,
+                    Score_fear: value.scoreFear,
+                    Score_embarrassed: value.scoreEmbarrassed,
+                    Score_sad: value.scoreSad,
+                    Score_rage: value.scoreRage,
+                    Score_hurt: value.scoreHurt,
                     Score_max_value: value.scoreMaxValue,
                     Score_max_name: value.scoreMaxName,
                     Create_at: value.createAt.slice(0, 13),

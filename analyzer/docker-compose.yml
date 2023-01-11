@@ -3,7 +3,7 @@ version: "3.5"
 #   type: bind
 
 services:
-    py:
+    py1:
         build:
             context: .
             dockerfile: ./Dockerfile
@@ -16,8 +16,9 @@ services:
             DB_NAME: keyword
             DB_USER: table_admin
             DB_PASSWORD: HelloWorld
-            DB_PORT: 5432
-            WORKER_ID: test
+            # DB_PORT: 5432
+            DB_PORT: 8432
+            WORKER_ID: ab402684-9a33-4583-9d50-a48e8f1aabca
 
 networks:
     db_keyword-network:

@@ -1,5 +1,6 @@
 import psycopg2
 
+import pandas
 class Databases():
     def __init__(self, host, dbname, user, password, port):
         self.db = psycopg2.connect(host=host, dbname=dbname,user=user,password=password,port=port)
@@ -13,6 +14,7 @@ class Databases():
         self.cursor.execute(query,args)
         row = self.cursor.fetchall()
         return row
+
 
     def commit(self):
         self.cursor.commit()
@@ -37,19 +39,24 @@ class CRUD(Databases):
         return result
 
     def readTextFromArticleInJob(self, colum, id):
+       
+        # No idea, Get a selected columns in df or list 
         # sql = "SELECT (\"Content\", \"Id\") FROM article WHERE \"" + colum + "\" = '" + id + "'"
-        # 
-        sql = "SELECT (\"Content\", \"Id\") FROM article WHERE \"" + colum + "\" = '" + id + "'"
-        #sql = "SELECT (\"Id\", \"Author\", \"Keyword\", \"Content\", \"Platform\", \"Score_pos\", \"Score_neg\", \"Score_neut\", \"Score_comp\", \"Score_comp\", \"Score_none\", \"Score_max_value\", \"Score_max_name\", \"Job_id\", \"Worker_id\") FROM article WHERE \"" + colum + "\" = '" + id + "'"
+        sql = "SELECT * FROM article WHERE \"" + colum + "\" = '" + id + "'"
         
         try:
-            self.cursor.execute(sql)
-            result = self.cursor.fetchall()
+            # self.cursor.execute(sql)
+            # result = self.cursor.fetchall()
+            # print(self.cursor.description)
+            # cols = list(map(lambda x: x[0], self.cursor.description))
+            df = pandas.read_sql_query(sql, self.db)
+            # df.columns = ['Id', 'Content']
+            # df = pandas.io.sql.frame_query(sql, self.db)
+
         except Exception as e :
-            result = ("Read DB err : ", e)
+            df = ("Read DB err : ", e)
         
-        # print(result)
-        return result
+        return df
 
     def updateScore(self, Score_happy, Score_fear, Score_embarrassed, Score_sad, Score_rage, Score_hurt, Score_max_value, Score_max_name, workerId, articleId):
         sql = ("UPDATE \"article\"" 
