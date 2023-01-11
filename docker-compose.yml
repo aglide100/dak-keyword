@@ -8,8 +8,8 @@ services:
         # image: db
         volumes:
             - <<: *services-volume
-              source: /tmp/dak-keyword
-              target: /var/lib/postgres
+              source: /media/pi/OS3/db/dak-keyword
+              target: /var/lib/postgres/data
         env_file:
             - ./env/db.env
         networks:
