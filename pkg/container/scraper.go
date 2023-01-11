@@ -14,16 +14,16 @@ import (
 
 func (c *Controller) CreateNewScraper(workerId string, jobId string, keyword string, token string, dbConfig *db.DBConfig) (err error) {
 	ctx := context.Background()
-	c.cli.ImagePull(ctx, "ghcr.io/aglide100/dak-keyword-scraped:latest", types.ImagePullOptions{})
+	c.cli.ImagePull(ctx, "ghcr.io/aglide100/dak-keyword--scraped:latest", types.ImagePullOptions{})
 
 	reader, err := c.cli.ServiceCreate(ctx, swarm.ServiceSpec{
 		Annotations: swarm.Annotations{
-			Name: workerId,
+			Name: "scraper_"+workerId,
 		},
 		TaskTemplate: swarm.TaskSpec{
 			ContainerSpec: &swarm.ContainerSpec{
 					// Image: "scraped",
-					Image: "ghcr.io/aglide100/dak-keyword-scraped:latest",
+					Image: "ghcr.io/aglide100/dak-keyword--scraped:latest",
 					// Command: '',
 					Env: []string{
 					"Keyword=" + keyword, 
@@ -62,7 +62,7 @@ func (c *Controller) CreateNewScraper(workerId string, jobId string, keyword str
 func (c *Controller) RemoveScraper(id string) (error) {
 	ctx := context.Background()
 
-	err := c.cli.ServiceRemove(ctx, id)
+	err := c.cli.ServiceRemove(ctx, "scraper_"+id)
 	if err != nil {
 		return err
 	}

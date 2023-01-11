@@ -33,4 +33,4 @@ jobs:
                   context: ./analyzer
                   platforms: linux/amd64,linux/arm64
                   push: true
-                  tags: ghcr.io/aglide100/dak-keyword-analyzer:latest
+                  tags: ghcr.io/aglide100/dak-keyword--analyzer:latest

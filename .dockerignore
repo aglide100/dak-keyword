@@ -4,3 +4,6 @@ ui/
 testing/
 .vscode/
 .github/
+.prettierrc
+conf/
+analyzer/
