@@ -2,7 +2,7 @@ version: "3.5"
 
 services:
     db:
-        image: ghcr.io/aglide100/dak-keyword-db:latest
+        image: ghcr.io/aglide100/dak-keyword--db:latest
         # image: db
         ports:
             - "8432:5432"

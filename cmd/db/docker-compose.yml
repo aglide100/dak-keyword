@@ -7,7 +7,7 @@ services:
         build:
             context: ../../
             dockerfile: ./cmd/db/Dockerfile
-        #image: ghcr.io/aglide100/dak-keyword-db:latest
+        #image: ghcr.io/aglide100/dak-keyword--db:latest
         # volumes:
         #   - <<: *services-volume
         #     # source: ${HOST}/postgres
