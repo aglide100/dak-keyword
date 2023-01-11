@@ -43,7 +43,7 @@ if __name__ == '__main__':
                     Database.CRUD.updateScore(db, score[0][0], score[0][1], score[0][2], score[0][3], score[0][4], score[0][5], score[2], score[1], workerId, val[1])
                     
                     msg = "Analyzing... : " + str(i) + " / " + str(len(result))
-                    Calling.sendUpdating(msg)
+                    Calling.sendUpdating(workerId, msg)
                     
                 except Exception as err:
                     print(err)
