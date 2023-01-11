@@ -1,4 +1,3 @@
-
 import grpc
 
 import pb.svc.manager.manager_pb2 as manager_pb2
@@ -19,5 +18,13 @@ def sendDoneMSG(workerId):
     # with grpc.insecure_channel("localhost:50010") as channel:
 
         client = manager_pb2_grpc.ManagerStub(channel)
-        response = client.DoneAnalyzer(manager_pb2.DoneAnalyzerReq(id=workerId))
+        response = client.WhenDoneAnalyzer(manager_pb2.WhenDoneAnalyzerReq(id=workerId))
+        print(response)
+
+def sendErrMSG(workerId, errMSG):
+    with grpc.insecure_channel("keyword_apid:50010") as channel:
+    # with grpc.insecure_channel("localhost:50010") as channel:
+
+        client = manager_pb2_grpc.ManagerStub(channel)
+        response = client.WhenAnalyzerHavingErr(manager_pb2.WhenAnalyzerHavingErrReq(id=workerId, msg=errMSG))
         print(response)

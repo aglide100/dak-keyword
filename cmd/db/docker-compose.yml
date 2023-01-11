@@ -13,6 +13,9 @@ services:
         #     # source: ${HOST}/postgres
         #     source: /tmp/dak-keyword
         #     target: /var/lib/postgres
+        hostname: db
+        networks:
+            - keyword-network
         ports:
             - 8432:5432
         environment:
@@ -22,3 +25,6 @@ services:
             POSTGRES_USER: table_admin
             POSTGRES_PASSWORD: HelloWorld
             POSTGRES_INITDB_ARGS: --encoding=UTF-8
+networks:
+    keyword-network:
+        driver: bridge

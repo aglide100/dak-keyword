@@ -82,13 +82,13 @@ Manager.WhenStartScraper = {
   responseType: pb_svc_manager_manager_pb.WhenStartScraperRes
 };
 
-Manager.DoneScraper = {
-  methodName: "DoneScraper",
+Manager.WhenDoneScraper = {
+  methodName: "WhenDoneScraper",
   service: Manager,
   requestStream: false,
   responseStream: false,
-  requestType: pb_svc_manager_manager_pb.DoneScraperReq,
-  responseType: pb_svc_manager_manager_pb.DoneScraperRes
+  requestType: pb_svc_manager_manager_pb.WhenDoneScraperReq,
+  responseType: pb_svc_manager_manager_pb.WhenDoneScraperRes
 };
 
 Manager.WhenStartAnalyzer = {
@@ -100,13 +100,31 @@ Manager.WhenStartAnalyzer = {
   responseType: pb_svc_manager_manager_pb.WhenStartAnalyzerRes
 };
 
-Manager.DoneAnalyzer = {
-  methodName: "DoneAnalyzer",
+Manager.WhenDoneAnalyzer = {
+  methodName: "WhenDoneAnalyzer",
   service: Manager,
   requestStream: false,
   responseStream: false,
-  requestType: pb_svc_manager_manager_pb.DoneAnalyzerReq,
-  responseType: pb_svc_manager_manager_pb.DoneAnalyzerRes
+  requestType: pb_svc_manager_manager_pb.WhenDoneAnalyzerReq,
+  responseType: pb_svc_manager_manager_pb.WhenDoneAnalyzerRes
+};
+
+Manager.WhenScraperHavingErr = {
+  methodName: "WhenScraperHavingErr",
+  service: Manager,
+  requestStream: false,
+  responseStream: false,
+  requestType: pb_svc_manager_manager_pb.WhenScraperHavingErrReq,
+  responseType: pb_svc_manager_manager_pb.WhenScraperHavingErrRes
+};
+
+Manager.WhenAnalyzerHavingErr = {
+  methodName: "WhenAnalyzerHavingErr",
+  service: Manager,
+  requestStream: false,
+  responseStream: false,
+  requestType: pb_svc_manager_manager_pb.WhenAnalyzerHavingErrReq,
+  responseType: pb_svc_manager_manager_pb.WhenAnalyzerHavingErrRes
 };
 
 Manager.StopJob = {
@@ -373,11 +391,11 @@ ManagerClient.prototype.whenStartScraper = function whenStartScraper(requestMess
   };
 };
 
-ManagerClient.prototype.doneScraper = function doneScraper(requestMessage, metadata, callback) {
+ManagerClient.prototype.whenDoneScraper = function whenDoneScraper(requestMessage, metadata, callback) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
-  var client = grpc.unary(Manager.DoneScraper, {
+  var client = grpc.unary(Manager.WhenDoneScraper, {
     request: requestMessage,
     host: this.serviceHost,
     metadata: metadata,
@@ -435,11 +453,73 @@ ManagerClient.prototype.whenStartAnalyzer = function whenStartAnalyzer(requestMe
   };
 };
 
-ManagerClient.prototype.doneAnalyzer = function doneAnalyzer(requestMessage, metadata, callback) {
+ManagerClient.prototype.whenDoneAnalyzer = function whenDoneAnalyzer(requestMessage, metadata, callback) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
-  var client = grpc.unary(Manager.DoneAnalyzer, {
+  var client = grpc.unary(Manager.WhenDoneAnalyzer, {
+    request: requestMessage,
+    host: this.serviceHost,
+    metadata: metadata,
+    transport: this.options.transport,
+    debug: this.options.debug,
+    onEnd: function (response) {
+      if (callback) {
+        if (response.status !== grpc.Code.OK) {
+          var err = new Error(response.statusMessage);
+          err.code = response.status;
+          err.metadata = response.trailers;
+          callback(err, null);
+        } else {
+          callback(null, response.message);
+        }
+      }
+    }
+  });
+  return {
+    cancel: function () {
+      callback = null;
+      client.close();
+    }
+  };
+};
+
+ManagerClient.prototype.whenScraperHavingErr = function whenScraperHavingErr(requestMessage, metadata, callback) {
+  if (arguments.length === 2) {
+    callback = arguments[1];
+  }
+  var client = grpc.unary(Manager.WhenScraperHavingErr, {
+    request: requestMessage,
+    host: this.serviceHost,
+    metadata: metadata,
+    transport: this.options.transport,
+    debug: this.options.debug,
+    onEnd: function (response) {
+      if (callback) {
+        if (response.status !== grpc.Code.OK) {
+          var err = new Error(response.statusMessage);
+          err.code = response.status;
+          err.metadata = response.trailers;
+          callback(err, null);
+        } else {
+          callback(null, response.message);
+        }
+      }
+    }
+  });
+  return {
+    cancel: function () {
+      callback = null;
+      client.close();
+    }
+  };
+};
+
+ManagerClient.prototype.whenAnalyzerHavingErr = function whenAnalyzerHavingErr(requestMessage, metadata, callback) {
+  if (arguments.length === 2) {
+    callback = arguments[1];
+  }
+  var client = grpc.unary(Manager.WhenAnalyzerHavingErr, {
     request: requestMessage,
     host: this.serviceHost,
     metadata: metadata,
