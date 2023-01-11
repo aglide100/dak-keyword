@@ -11,6 +11,7 @@ RUN pip3 install protobuf && pip3 install grpcio
 
 RUN pip3 install grpcio-tools && pip3 install protobuf==3.20.1
 
+RUN pip3 install git+https://github.com/ssut/py-hanspell.git && pip3 install soynlp
 
 COPY . .
 
