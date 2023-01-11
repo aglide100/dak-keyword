@@ -14,6 +14,8 @@ import (
 func main() {
 	if err := realMain(); err != nil {
 		log.Printf("err :%s", err)
+		workerId := os.Getenv("WORKER_ID")
+		scraper.CallGrpcCallWhenScraperHaving(workerId, err.Error())
 		os.Exit(1)
 	}
 }
@@ -30,10 +32,7 @@ func realMain() error {
 	dbUser := os.Getenv("DB_USER")
 	dbPasswd := os.Getenv("DB_PASSWORD")
 	dbName := os.Getenv("DB_NAME")
-	
 	workerId := os.Getenv("WORKER_ID")
-	// jobId := os.Getenv("JOB_ID")
-	
 
 	dbport, err := strconv.Atoi(dbPort)
 	if err != nil {
@@ -57,6 +56,11 @@ func realMain() error {
 	if err != nil {
 		return fmt.Errorf("Can't connect DB: %v", err)
 	}
+
+	err = scraper.CallGrpcCallWhenStaring(workerId)
+	if err != nil {
+		return err
+	}
 	
 	// myScraper := scraper.NewScraper("Mock", myDB)
 	// result := myScraper.GetMockTweets(os.Getenv("Keyword"))
@@ -67,13 +71,6 @@ func realMain() error {
 		return err
 	}
 
-
-
-	// result := myScraper.GetMockTweets()
-
-
-	// log.Printf("result : %v", result)
-
 	for _, value := range result {
 		// log.Printf("--------------------   %d", idx)
 		// log.Printf("id : %v", value.Id)
@@ -83,7 +80,7 @@ func realMain() error {
 	}
 
 	// time.Sleep(20 * time.Second)   
-	err = scraper.CallGrpcCallDone(workerId)
+	err = scraper.CallGrpcCallWhenDone(workerId)
 	if err != nil {
 		return err
 	}

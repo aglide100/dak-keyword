@@ -26,8 +26,28 @@ func (s *ManagerSrv) WhenStartAnalyzer(ctx context.Context, in *pb_svc_manager.W
 	}, nil
 }
 
+func (s *ManagerSrv) WhenAnalyzerHavingErr(ctx context.Context, in *pb_svc_manager.WhenAnalyzerHavingErrReq) (*pb_svc_manager.WhenAnalyzerHavingErrRes, error) {
+	if in != nil {
+		log.Printf("Received WhenAnalyzerHavingErr call: %v", in.String())
+	}
 
-func (s *ManagerSrv) DoneAnalyzer(ctx context.Context, in *pb_svc_manager.DoneAnalyzerReq) (*pb_svc_manager.DoneAnalyzerRes, error) {
+	err := s.db.UpdateWorker(in.Id, "Analyzer having err..." + in.GetMsg())
+	if err != nil {
+		return nil, status.Error(codes.Canceled, "Can't update worker status at dbms")
+	}
+
+	err = callRemoveAnalyzer(in.Id)
+	if err != nil {
+		return nil, err
+	}
+
+	return &pb_svc_manager.WhenAnalyzerHavingErrRes{
+	}, nil
+}
+
+
+
+func (s *ManagerSrv) WhenDoneAnalyzer(ctx context.Context, in *pb_svc_manager.WhenDoneAnalyzerReq) (*pb_svc_manager.WhenDoneAnalyzerRes, error) {
 	if in != nil {
 		log.Printf("Received DoneScraper call: %v", in.String())
 	}
@@ -43,7 +63,7 @@ func (s *ManagerSrv) DoneAnalyzer(ctx context.Context, in *pb_svc_manager.DoneAn
 		return nil, err
 	}
 
-	return &pb_svc_manager.DoneAnalyzerRes{
+	return &pb_svc_manager.WhenDoneAnalyzerRes{
 		Result: "Analyzer Done",
 	}, nil
 }

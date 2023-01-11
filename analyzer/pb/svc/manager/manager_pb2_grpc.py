@@ -54,20 +54,30 @@ class ManagerStub(object):
                 request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenStartScraperReq.SerializeToString,
                 response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenStartScraperRes.FromString,
                 )
-        self.DoneScraper = channel.unary_unary(
-                '/pb.svc.manager.Manager/DoneScraper',
-                request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.DoneScraperReq.SerializeToString,
-                response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.DoneScraperRes.FromString,
+        self.WhenDoneScraper = channel.unary_unary(
+                '/pb.svc.manager.Manager/WhenDoneScraper',
+                request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenDoneScraperReq.SerializeToString,
+                response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenDoneScraperRes.FromString,
                 )
         self.WhenStartAnalyzer = channel.unary_unary(
                 '/pb.svc.manager.Manager/WhenStartAnalyzer',
                 request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenStartAnalyzerReq.SerializeToString,
                 response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenStartAnalyzerRes.FromString,
                 )
-        self.DoneAnalyzer = channel.unary_unary(
-                '/pb.svc.manager.Manager/DoneAnalyzer',
-                request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.DoneAnalyzerReq.SerializeToString,
-                response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.DoneAnalyzerRes.FromString,
+        self.WhenDoneAnalyzer = channel.unary_unary(
+                '/pb.svc.manager.Manager/WhenDoneAnalyzer',
+                request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenDoneAnalyzerReq.SerializeToString,
+                response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenDoneAnalyzerRes.FromString,
+                )
+        self.WhenScraperHavingErr = channel.unary_unary(
+                '/pb.svc.manager.Manager/WhenScraperHavingErr',
+                request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenScraperHavingErrReq.SerializeToString,
+                response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenScraperHavingErrRes.FromString,
+                )
+        self.WhenAnalyzerHavingErr = channel.unary_unary(
+                '/pb.svc.manager.Manager/WhenAnalyzerHavingErr',
+                request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenAnalyzerHavingErrReq.SerializeToString,
+                response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenAnalyzerHavingErrRes.FromString,
                 )
         self.StopJob = channel.unary_unary(
                 '/pb.svc.manager.Manager/StopJob',
@@ -127,7 +137,7 @@ class ManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def DoneScraper(self, request, context):
+    def WhenDoneScraper(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -139,7 +149,19 @@ class ManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def DoneAnalyzer(self, request, context):
+    def WhenDoneAnalyzer(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def WhenScraperHavingErr(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def WhenAnalyzerHavingErr(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -194,20 +216,30 @@ def add_ManagerServicer_to_server(servicer, server):
                     request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenStartScraperReq.FromString,
                     response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenStartScraperRes.SerializeToString,
             ),
-            'DoneScraper': grpc.unary_unary_rpc_method_handler(
-                    servicer.DoneScraper,
-                    request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.DoneScraperReq.FromString,
-                    response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.DoneScraperRes.SerializeToString,
+            'WhenDoneScraper': grpc.unary_unary_rpc_method_handler(
+                    servicer.WhenDoneScraper,
+                    request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenDoneScraperReq.FromString,
+                    response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenDoneScraperRes.SerializeToString,
             ),
             'WhenStartAnalyzer': grpc.unary_unary_rpc_method_handler(
                     servicer.WhenStartAnalyzer,
                     request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenStartAnalyzerReq.FromString,
                     response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenStartAnalyzerRes.SerializeToString,
             ),
-            'DoneAnalyzer': grpc.unary_unary_rpc_method_handler(
-                    servicer.DoneAnalyzer,
-                    request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.DoneAnalyzerReq.FromString,
-                    response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.DoneAnalyzerRes.SerializeToString,
+            'WhenDoneAnalyzer': grpc.unary_unary_rpc_method_handler(
+                    servicer.WhenDoneAnalyzer,
+                    request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenDoneAnalyzerReq.FromString,
+                    response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenDoneAnalyzerRes.SerializeToString,
+            ),
+            'WhenScraperHavingErr': grpc.unary_unary_rpc_method_handler(
+                    servicer.WhenScraperHavingErr,
+                    request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenScraperHavingErrReq.FromString,
+                    response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenScraperHavingErrRes.SerializeToString,
+            ),
+            'WhenAnalyzerHavingErr': grpc.unary_unary_rpc_method_handler(
+                    servicer.WhenAnalyzerHavingErr,
+                    request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenAnalyzerHavingErrReq.FromString,
+                    response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.WhenAnalyzerHavingErrRes.SerializeToString,
             ),
             'StopJob': grpc.unary_unary_rpc_method_handler(
                     servicer.StopJob,
@@ -361,7 +393,7 @@ class Manager(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def DoneScraper(request,
+    def WhenDoneScraper(request,
             target,
             options=(),
             channel_credentials=None,
@@ -371,9 +403,9 @@ class Manager(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/DoneScraper',
-            pb_dot_svc_dot_manager_dot_manager__pb2.DoneScraperReq.SerializeToString,
-            pb_dot_svc_dot_manager_dot_manager__pb2.DoneScraperRes.FromString,
+        return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/WhenDoneScraper',
+            pb_dot_svc_dot_manager_dot_manager__pb2.WhenDoneScraperReq.SerializeToString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.WhenDoneScraperRes.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -395,7 +427,7 @@ class Manager(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def DoneAnalyzer(request,
+    def WhenDoneAnalyzer(request,
             target,
             options=(),
             channel_credentials=None,
@@ -405,9 +437,43 @@ class Manager(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/DoneAnalyzer',
-            pb_dot_svc_dot_manager_dot_manager__pb2.DoneAnalyzerReq.SerializeToString,
-            pb_dot_svc_dot_manager_dot_manager__pb2.DoneAnalyzerRes.FromString,
+        return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/WhenDoneAnalyzer',
+            pb_dot_svc_dot_manager_dot_manager__pb2.WhenDoneAnalyzerReq.SerializeToString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.WhenDoneAnalyzerRes.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def WhenScraperHavingErr(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/WhenScraperHavingErr',
+            pb_dot_svc_dot_manager_dot_manager__pb2.WhenScraperHavingErrReq.SerializeToString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.WhenScraperHavingErrRes.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def WhenAnalyzerHavingErr(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/WhenAnalyzerHavingErr',
+            pb_dot_svc_dot_manager_dot_manager__pb2.WhenAnalyzerHavingErrReq.SerializeToString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.WhenAnalyzerHavingErrRes.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

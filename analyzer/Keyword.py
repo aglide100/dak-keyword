@@ -30,13 +30,19 @@ if __name__ == '__main__':
             val = tuple(map(str, val.split(',')))
 
             # Content
-            # print(val[0])
+            print(val[0])
 
             # Article ID
-            # print(val[1])
+            print(val[1])
             score = analyze_word(val[0])
+
+            
             if score is not None:
-                Database.CRUD.updateScore(score[0][0], score[0][1], score[0][2], score[0][3], score[0][4], score[0][5], score[2], score[1], workerId, val[1])
+                try:
+                    Database.CRUD.updateScore(db, score[0][0], score[0][1], score[0][2], score[0][3], score[0][4], score[0][5], score[2], score[1], workerId, val[1])
+                except Exception as err:
+                    Calling.sendErrMSG(workerId, err)
+
             else:
                 print("result is None!")
 
@@ -45,6 +51,7 @@ if __name__ == '__main__':
 
     except psycopg2.DatabaseError as db_err:
         print(db_err)
+        Calling.sendErrMSG(workerId, db_err)
 
 
     
