@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { CallGetWorkers } from "../../../grpc/worker";
+import { CallGetWorkers } from "../../../Grpc/worker";
 import { WorkerItem } from "../../atom/WorkerItem/WorkerItem";
 import { useRouter } from "next/router";
 
@@ -19,28 +19,20 @@ const List: React.FC<{ JobId }> = ({ JobId }) => {
     const router = useRouter();
 
     useEffect(() => {
-        if (!isLoaded && router.pathname == "/job") {
-            fetchWorkerList(JobId);
-            // setPath("job");
-
-            const loop = setInterval(() => {
-                number_ref.current += 1;
-                setNumber(number_ref.current);
-
-                console.log("!");
-                if (router.pathname == "/job") {
-                    fetchWorkerList(JobId);
-                }
-            }, 5000);
-
-            if (number_ref.current === 10) clearInterval(loop);
-
-            return () => clearInterval(loop);
-        }
-
-        // if (router.pathname != "/job") {
-        //     clearInterval(loop);
+        // if (!isLoaded && router.pathname == "/job") {
+        //     fetchWorkerList(JobId);
+        //     // setPath("job");
         // }
+
+        const loop = setInterval(() => {
+            number_ref.current += 1;
+            setNumber(number_ref.current);
+
+            if (router.pathname == "/job") {
+                fetchWorkerList(JobId);
+            }
+        }, 1000);
+        return () => clearInterval(loop);
     });
 
     async function fetchWorkerList(jobId) {

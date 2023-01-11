@@ -28,6 +28,7 @@ type ManagerClient interface {
 	GetWorkerList(ctx context.Context, in *GetWorkerListReq, opts ...grpc.CallOption) (*GetWorkerListRes, error)
 	GetArticleInfo(ctx context.Context, in *GetArticleInfoReq, opts ...grpc.CallOption) (*GetArticleInfoRes, error)
 	GetArticleList(ctx context.Context, in *GetArticleListReq, opts ...grpc.CallOption) (*GetArticleListRes, error)
+	UpdateWorkerStatus(ctx context.Context, in *UpdateWorkerStatusReq, opts ...grpc.CallOption) (*UpdateWorkerStatusRes, error)
 	UpdateJobStatus(ctx context.Context, in *UpdateJobStatusReq, opts ...grpc.CallOption) (*UpdateJobStatusRes, error)
 	WhenStartScraper(ctx context.Context, in *WhenStartScraperReq, opts ...grpc.CallOption) (*WhenStartScraperRes, error)
 	WhenDoneScraper(ctx context.Context, in *WhenDoneScraperReq, opts ...grpc.CallOption) (*WhenDoneScraperRes, error)
@@ -94,6 +95,15 @@ func (c *managerClient) GetArticleInfo(ctx context.Context, in *GetArticleInfoRe
 func (c *managerClient) GetArticleList(ctx context.Context, in *GetArticleListReq, opts ...grpc.CallOption) (*GetArticleListRes, error) {
 	out := new(GetArticleListRes)
 	err := c.cc.Invoke(ctx, "/pb.svc.manager.Manager/GetArticleList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *managerClient) UpdateWorkerStatus(ctx context.Context, in *UpdateWorkerStatusReq, opts ...grpc.CallOption) (*UpdateWorkerStatusRes, error) {
+	out := new(UpdateWorkerStatusRes)
+	err := c.cc.Invoke(ctx, "/pb.svc.manager.Manager/UpdateWorkerStatus", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -182,6 +192,7 @@ type ManagerServer interface {
 	GetWorkerList(context.Context, *GetWorkerListReq) (*GetWorkerListRes, error)
 	GetArticleInfo(context.Context, *GetArticleInfoReq) (*GetArticleInfoRes, error)
 	GetArticleList(context.Context, *GetArticleListReq) (*GetArticleListRes, error)
+	UpdateWorkerStatus(context.Context, *UpdateWorkerStatusReq) (*UpdateWorkerStatusRes, error)
 	UpdateJobStatus(context.Context, *UpdateJobStatusReq) (*UpdateJobStatusRes, error)
 	WhenStartScraper(context.Context, *WhenStartScraperReq) (*WhenStartScraperRes, error)
 	WhenDoneScraper(context.Context, *WhenDoneScraperReq) (*WhenDoneScraperRes, error)
@@ -214,6 +225,9 @@ func (UnimplementedManagerServer) GetArticleInfo(context.Context, *GetArticleInf
 }
 func (UnimplementedManagerServer) GetArticleList(context.Context, *GetArticleListReq) (*GetArticleListRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetArticleList not implemented")
+}
+func (UnimplementedManagerServer) UpdateWorkerStatus(context.Context, *UpdateWorkerStatusReq) (*UpdateWorkerStatusRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateWorkerStatus not implemented")
 }
 func (UnimplementedManagerServer) UpdateJobStatus(context.Context, *UpdateJobStatusReq) (*UpdateJobStatusRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateJobStatus not implemented")
@@ -356,6 +370,24 @@ func _Manager_GetArticleList_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ManagerServer).GetArticleList(ctx, req.(*GetArticleListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Manager_UpdateWorkerStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateWorkerStatusReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManagerServer).UpdateWorkerStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.svc.manager.Manager/UpdateWorkerStatus",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManagerServer).UpdateWorkerStatus(ctx, req.(*UpdateWorkerStatusReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -534,6 +566,10 @@ var Manager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetArticleList",
 			Handler:    _Manager_GetArticleList_Handler,
+		},
+		{
+			MethodName: "UpdateWorkerStatus",
+			Handler:    _Manager_UpdateWorkerStatus_Handler,
 		},
 		{
 			MethodName: "UpdateJobStatus",
