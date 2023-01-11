@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Icon, IconType } from "../Icon/Icon";
-import { CallGetArticleList } from "../../../grpc/article";
+import { CallGetArticleList } from "../../../Grpc/article";
 import {
     LineChart,
     Line,

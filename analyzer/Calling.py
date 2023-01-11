@@ -12,7 +12,6 @@ def sendStartMSG(workerId):
         response = client.WhenStartAnalyzer(manager_pb2.WhenStartAnalyzerReq(id=workerId))
         print(response)
 
-
 def sendDoneMSG(workerId):
     with grpc.insecure_channel("keyword_apid:50010") as channel:
     # with grpc.insecure_channel("localhost:50010") as channel:
@@ -27,4 +26,12 @@ def sendErrMSG(workerId, errMSG):
 
         client = manager_pb2_grpc.ManagerStub(channel)
         response = client.WhenAnalyzerHavingErr(manager_pb2.WhenAnalyzerHavingErrReq(id=workerId, msg=errMSG))
+        print(response)
+
+def sendUpdating(workerId, msg):
+    with grpc.insecure_channel("keyword_apid:50010") as channel:
+    # with grpc.insecure_channel("localhost:50010") as channel:
+
+        client = manager_pb2_grpc.ManagerStub(channel)
+        response = client.UpdateWorkerStatus(manager_pb2.UpdateWorkerStatusReq(id=workerId, msg=msg))
         print(response)

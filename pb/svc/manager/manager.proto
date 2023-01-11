@@ -14,6 +14,7 @@ service Manager {
     rpc GetWorkerList(GetWorkerListReq) returns (GetWorkerListRes);
     rpc GetArticleInfo(GetArticleInfoReq) returns (GetArticleInfoRes); 
     rpc GetArticleList(GetArticleListReq) returns (GetArticleListRes);
+    rpc UpdateWorkerStatus(UpdateWorkerStatusReq) returns (UpdateWorkerStatusRes);
     rpc UpdateJobStatus(UpdateJobStatusReq) returns (UpdateJobStatusRes);
     rpc WhenStartScraper(WhenStartScraperReq) returns (WhenStartScraperRes);
     rpc WhenDoneScraper(WhenDoneScraperReq) returns (WhenDoneScraperRes);
@@ -140,4 +141,13 @@ message WhenAnalyzerHavingErrReq {
 }
 message WhenAnalyzerHavingErrRes {
     // passed
+}
+
+message UpdateWorkerStatusReq {
+    string id = 1;
+    string msg = 2;
+}
+
+message UpdateWorkerStatusRes {
+    //  passed
 }
