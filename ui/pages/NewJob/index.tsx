@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "../../src/components/atom/Button/Button";
-import { CallNewJob } from "../../src/Grpc/job";
+import { CallNewJob } from "../../src/grpc/job";
 
 export default function NewJob() {
     const [keyword, setKeyword] = useState<string>("");

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { CallGetWorkers } from "../../../Grpc/worker";
+import { CallGetWorkers } from "../../../grpc/worker";
 import { WorkerItem } from "../../atom/WorkerItem/WorkerItem";
 import { useRouter } from "next/router";
 

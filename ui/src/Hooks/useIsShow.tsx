@@ -1,4 +1,4 @@
-import { useCallback, useState, useRef } from "react";
+import { useState } from "react";
 import { useEffect } from "react";
 import { UseScrollHooksProps } from "./index";
 
@@ -7,14 +7,18 @@ const useScrollHooks = ({ receivedRef }: UseScrollHooksProps) => {
 
     const [isShow, setIsShow] = useState<boolean>();
 
-    const callBackFunction = useCallback(([entry]) => {
-        const { current } = node;
-        if (entry.isIntersecting) {
-            setIsShow(true);
-        } else {
-            setIsShow(false);
-        }
-    }, []);
+    const callBackFunction = (entries: IntersectionObserverEntry[]) => {
+        const [entry] = entries;
+        setIsShow(entry.isIntersecting);
+    };
+    // const callBackFunction = useCallback(([entry]) => {
+    //     const { current } = node;
+    //     if (entry.isIntersecting) {
+    //         setIsShow(true);
+    //     } else {
+    //         setIsShow(false);
+    //     }
+    // }, []);
 
     useEffect(() => {
         const observer = new IntersectionObserver(callBackFunction);

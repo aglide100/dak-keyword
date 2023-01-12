@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { CallGetJobList } from "../../../Grpc/job";
+import { CallGetJobList } from "../../../grpc/job";
 import { JobItem } from "../../atom/JobItem/JobItem";
 
 type job = {
