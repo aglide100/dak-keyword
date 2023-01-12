@@ -9,7 +9,7 @@ services:
         volumes:
             - <<: *services-volume
               source: /media/pi/OS3/db/dak-keyword
-              target: /var/lib/postgres/data
+              target: /var/lib/postgresql/data
         env_file:
             - ./env/db.env
         networks:
