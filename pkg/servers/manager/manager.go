@@ -11,11 +11,13 @@ import (
 type ManagerSrv struct {
 	pb_svc_manager.ManagerServer
 	db *db.Database
+	accessCode string
 }
 
-func NewManagerServiceServer(db *db.Database) *ManagerSrv {
+func NewManagerServiceServer(db *db.Database, accessCode string) *ManagerSrv {
 	return &ManagerSrv{
 		db: db,
+		accessCode : accessCode,
 	}
 }
 

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import Header from "../src/components/layout/Header/Header";
 import type { AppProps } from "next/app";
 import "../src/_css/common.css";

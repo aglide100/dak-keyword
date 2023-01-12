@@ -28,12 +28,14 @@ service Manager {
 message CreateNewJobReq {
     string keyword = 1;
     string owner = 2;
+    string accessCode = 3;
 }
 
 message CreateNewJobRes {
-    repeated string keyword = 1;
-    repeated string workerId = 2;
-    string jobId = 3;
+    string msg = 1;
+    // repeated string keyword = 1;
+    // repeated string workerId = 2;
+    // string jobId = 3;
 }
 
 message GetJobStatusReq {

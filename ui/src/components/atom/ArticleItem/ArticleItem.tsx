@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Icon, IconType } from "../Icon/Icon";
+import { Icon } from "../Icon/Icon";
 
 export type ArticleProps = {
     Id: string;

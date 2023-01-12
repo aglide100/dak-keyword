@@ -19,6 +19,13 @@ func (s *ManagerSrv) CreateNewJob(ctx context.Context, in *pb_svc_manager.Create
 		log.Printf("Received CreateNewJob call: %v", in.String())
 	}
 
+	if (s.accessCode != in.AccessCode) {
+		log.Printf("Wrong accessCode")
+		return &pb_svc_manager.CreateNewJobRes{
+			Msg: "Wrong code",
+		}, status.Error(codes.Canceled, "Wrong AccessCode")
+	}
+
 	result, err := keyword.GetKeywords(in.Keyword, "")
 	if err != nil {
 		log.Printf("Can't get keywordset! %v", err)
@@ -51,11 +58,15 @@ func (s *ManagerSrv) CreateNewJob(ctx context.Context, in *pb_svc_manager.Create
 		log.Printf("%v %v",workerId ,value)
 	}
 
-	return &pb_svc_manager.CreateNewJobRes{
-		Keyword: result,
-		WorkerId: workerIdList,
-		JobId : jobId,
-	}, nil
+	if (err != nil ) {
+		return &pb_svc_manager.CreateNewJobRes{
+			Msg: err.Error(),
+		}, nil
+	} else {
+		return &pb_svc_manager.CreateNewJobRes{
+			Msg: "Done",
+		}, nil
+	}
 } 
 
 func (s *ManagerSrv) GetJobStatus(ctx context.Context, in *pb_svc_manager.GetJobStatusReq) (*pb_svc_manager.GetJobStatusRes, error) {

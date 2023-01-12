@@ -27,12 +27,12 @@ export class GrpcManager {
 
         try {
             await axiosObj.get("/env").then((res) => {
-                console.log(res.data.addr);
+                // console.log(res.data.addr);
                 addr = res.data.addr;
             });
         } catch {
             console.log("Can't get env from server!");
-            addr = "./";
+            addr = "/";
         }
 
         return addr;
