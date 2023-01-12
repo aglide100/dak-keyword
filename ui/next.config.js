@@ -20,6 +20,9 @@ const nextConfig = {
             },
         ];
     },
+    env: {
+        GRPCWEBADDR: process.env.GRPCWEBADDR,
+    },
 };
 
 module.exports = nextConfig;
