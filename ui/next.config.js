@@ -8,7 +8,14 @@
 //     },
 // };
 
-const NEXT_PUBLIC_GRPCWEBADDR = process.env.GRPCWEBADDR;
+// const nextEnv = require("next-env");
+const dotenvLoad = require("dotenv-load");
+
+dotenvLoad();
+
+// const withEnv = nextEnv();
+
+const GRPCWEBADDR = process.env.GRPCWEBADDR;
 
 module.exports = {
     reactStrictMode: true,
@@ -17,7 +24,7 @@ module.exports = {
             fallback: [
                 {
                     source: "/:path*",
-                    destination: NEXT_PUBLIC_GRPCWEBADDR + `//:path*`,
+                    destination: GRPCWEBADDR + `//:path*`,
                 },
             ],
         };
