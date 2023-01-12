@@ -8,7 +8,7 @@
 //     },
 // };
 
-const GRPCWEBADDR = process.env.GRPCWEBADDR;
+const NEXT_PUBLIC_GRPCWEBADDR = process.env.GRPCWEBADDR;
 
 module.exports = {
     reactStrictMode: true,
@@ -17,7 +17,7 @@ module.exports = {
             fallback: [
                 {
                     source: "/:path*",
-                    destination: `${GRPCWEBADDR}//:path*`,
+                    destination: NEXT_PUBLIC_GRPCWEBADDR + `//:path*`,
                 },
             ],
         };
