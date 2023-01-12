@@ -8,6 +8,7 @@ import Head from "next/head";
 import { useGetScroll, UseScrollHooksProps } from "../src/Hooks";
 import { AnimatePresence, motion } from "framer-motion";
 import { Footer } from "../src/components/atom/Footer/Footer";
+import { Analytics } from "@vercel/analytics/react";
 
 function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter();
@@ -61,6 +62,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                         transition={{ duration: 0.2 }}
                     >
                         <Component {...pageProps} key={router.pathname} />
+                        <Analytics />
                     </motion.div>
                 </AnimatePresence>
                 <div>
