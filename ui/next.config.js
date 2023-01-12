@@ -24,7 +24,7 @@ module.exports = {
             fallback: [
                 {
                     source: "/:path*",
-                    destination: GRPCWEBADDR + `//:path*`,
+                    destination: "https://localhost" + `//:path*`,
                 },
             ],
         };
