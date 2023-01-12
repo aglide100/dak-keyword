@@ -83,7 +83,7 @@ if (goog.DEBUG && !COMPILED) {
  * @constructor
  */
 proto.pb.svc.manager.CreateNewJobRes = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.pb.svc.manager.CreateNewJobRes.repeatedFields_, null);
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.pb.svc.manager.CreateNewJobRes, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
@@ -714,7 +714,8 @@ proto.pb.svc.manager.CreateNewJobReq.prototype.toObject = function(opt_includeIn
 proto.pb.svc.manager.CreateNewJobReq.toObject = function(includeInstance, msg) {
   var f, obj = {
     keyword: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    owner: jspb.Message.getFieldWithDefault(msg, 2, "")
+    owner: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    accesscode: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
   if (includeInstance) {
@@ -759,6 +760,10 @@ proto.pb.svc.manager.CreateNewJobReq.deserializeBinaryFromReader = function(msg,
       var value = /** @type {string} */ (reader.readString());
       msg.setOwner(value);
       break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setAccesscode(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -802,6 +807,13 @@ proto.pb.svc.manager.CreateNewJobReq.serializeBinaryToWriter = function(message,
       f
     );
   }
+  f = message.getAccesscode();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
 };
 
 
@@ -841,13 +853,24 @@ proto.pb.svc.manager.CreateNewJobReq.prototype.setOwner = function(value) {
 };
 
 
+/**
+ * optional string accessCode = 3;
+ * @return {string}
+ */
+proto.pb.svc.manager.CreateNewJobReq.prototype.getAccesscode = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
 
 /**
- * List of repeated fields within this message type.
- * @private {!Array<number>}
- * @const
+ * @param {string} value
+ * @return {!proto.pb.svc.manager.CreateNewJobReq} returns this
  */
-proto.pb.svc.manager.CreateNewJobRes.repeatedFields_ = [1,2];
+proto.pb.svc.manager.CreateNewJobReq.prototype.setAccesscode = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
 
 
 
@@ -880,9 +903,7 @@ proto.pb.svc.manager.CreateNewJobRes.prototype.toObject = function(opt_includeIn
  */
 proto.pb.svc.manager.CreateNewJobRes.toObject = function(includeInstance, msg) {
   var f, obj = {
-    keywordList: (f = jspb.Message.getRepeatedField(msg, 1)) == null ? undefined : f,
-    workeridList: (f = jspb.Message.getRepeatedField(msg, 2)) == null ? undefined : f,
-    jobid: jspb.Message.getFieldWithDefault(msg, 3, "")
+    msg: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -921,15 +942,7 @@ proto.pb.svc.manager.CreateNewJobRes.deserializeBinaryFromReader = function(msg,
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.addKeyword(value);
-      break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.addWorkerid(value);
-      break;
-    case 3:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setJobid(value);
+      msg.setMsg(value);
       break;
     default:
       reader.skipField();
@@ -960,110 +973,22 @@ proto.pb.svc.manager.CreateNewJobRes.prototype.serializeBinary = function() {
  */
 proto.pb.svc.manager.CreateNewJobRes.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getKeywordList();
+  f = message.getMsg();
   if (f.length > 0) {
-    writer.writeRepeatedString(
+    writer.writeString(
       1,
       f
     );
   }
-  f = message.getWorkeridList();
-  if (f.length > 0) {
-    writer.writeRepeatedString(
-      2,
-      f
-    );
-  }
-  f = message.getJobid();
-  if (f.length > 0) {
-    writer.writeString(
-      3,
-      f
-    );
-  }
 };
 
 
 /**
- * repeated string keyword = 1;
- * @return {!Array<string>}
- */
-proto.pb.svc.manager.CreateNewJobRes.prototype.getKeywordList = function() {
-  return /** @type {!Array<string>} */ (jspb.Message.getRepeatedField(this, 1));
-};
-
-
-/**
- * @param {!Array<string>} value
- * @return {!proto.pb.svc.manager.CreateNewJobRes} returns this
- */
-proto.pb.svc.manager.CreateNewJobRes.prototype.setKeywordList = function(value) {
-  return jspb.Message.setField(this, 1, value || []);
-};
-
-
-/**
- * @param {string} value
- * @param {number=} opt_index
- * @return {!proto.pb.svc.manager.CreateNewJobRes} returns this
- */
-proto.pb.svc.manager.CreateNewJobRes.prototype.addKeyword = function(value, opt_index) {
-  return jspb.Message.addToRepeatedField(this, 1, value, opt_index);
-};
-
-
-/**
- * Clears the list making it empty but non-null.
- * @return {!proto.pb.svc.manager.CreateNewJobRes} returns this
- */
-proto.pb.svc.manager.CreateNewJobRes.prototype.clearKeywordList = function() {
-  return this.setKeywordList([]);
-};
-
-
-/**
- * repeated string workerId = 2;
- * @return {!Array<string>}
- */
-proto.pb.svc.manager.CreateNewJobRes.prototype.getWorkeridList = function() {
-  return /** @type {!Array<string>} */ (jspb.Message.getRepeatedField(this, 2));
-};
-
-
-/**
- * @param {!Array<string>} value
- * @return {!proto.pb.svc.manager.CreateNewJobRes} returns this
- */
-proto.pb.svc.manager.CreateNewJobRes.prototype.setWorkeridList = function(value) {
-  return jspb.Message.setField(this, 2, value || []);
-};
-
-
-/**
- * @param {string} value
- * @param {number=} opt_index
- * @return {!proto.pb.svc.manager.CreateNewJobRes} returns this
- */
-proto.pb.svc.manager.CreateNewJobRes.prototype.addWorkerid = function(value, opt_index) {
-  return jspb.Message.addToRepeatedField(this, 2, value, opt_index);
-};
-
-
-/**
- * Clears the list making it empty but non-null.
- * @return {!proto.pb.svc.manager.CreateNewJobRes} returns this
- */
-proto.pb.svc.manager.CreateNewJobRes.prototype.clearWorkeridList = function() {
-  return this.setWorkeridList([]);
-};
-
-
-/**
- * optional string jobId = 3;
+ * optional string msg = 1;
  * @return {string}
  */
-proto.pb.svc.manager.CreateNewJobRes.prototype.getJobid = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+proto.pb.svc.manager.CreateNewJobRes.prototype.getMsg = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
@@ -1071,8 +996,8 @@ proto.pb.svc.manager.CreateNewJobRes.prototype.getJobid = function() {
  * @param {string} value
  * @return {!proto.pb.svc.manager.CreateNewJobRes} returns this
  */
-proto.pb.svc.manager.CreateNewJobRes.prototype.setJobid = function(value) {
-  return jspb.Message.setProto3StringField(this, 3, value);
+proto.pb.svc.manager.CreateNewJobRes.prototype.setMsg = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 

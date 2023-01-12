@@ -13,6 +13,9 @@ export class CreateNewJobReq extends jspb.Message {
   getOwner(): string;
   setOwner(value: string): void;
 
+  getAccesscode(): string;
+  setAccesscode(value: string): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CreateNewJobReq.AsObject;
   static toObject(includeInstance: boolean, msg: CreateNewJobReq): CreateNewJobReq.AsObject;
@@ -27,22 +30,13 @@ export namespace CreateNewJobReq {
   export type AsObject = {
     keyword: string,
     owner: string,
+    accesscode: string,
   }
 }
 
 export class CreateNewJobRes extends jspb.Message {
-  clearKeywordList(): void;
-  getKeywordList(): Array<string>;
-  setKeywordList(value: Array<string>): void;
-  addKeyword(value: string, index?: number): string;
-
-  clearWorkeridList(): void;
-  getWorkeridList(): Array<string>;
-  setWorkeridList(value: Array<string>): void;
-  addWorkerid(value: string, index?: number): string;
-
-  getJobid(): string;
-  setJobid(value: string): void;
+  getMsg(): string;
+  setMsg(value: string): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): CreateNewJobRes.AsObject;
@@ -56,9 +50,7 @@ export class CreateNewJobRes extends jspb.Message {
 
 export namespace CreateNewJobRes {
   export type AsObject = {
-    keywordList: Array<string>,
-    workeridList: Array<string>,
-    jobid: string,
+    msg: string,
   }
 }
 

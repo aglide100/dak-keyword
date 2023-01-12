@@ -13,7 +13,7 @@ export async function CallGetWorkers(jobId, callback) {
         request: getWorkerListReq,
         transport: NodeHttpTransport(),
         onEnd: (res) => {
-            const { status, statusMessage, headers, message, trailers } = res;
+            const { status, message } = res;
             // console.log("getWorkerListReq.onEnd.status", status, statusMessage);
             // console.log("getWorkerListReq.onEnd.headers", headers);
             if (status === grpc.Code.OK && message) {
@@ -25,7 +25,7 @@ export async function CallGetWorkers(jobId, callback) {
                 callback(message.toObject());
             }
 
-            console.log("getWorkerListReq.onEnd.trailers", trailers);
+            // console.log("getWorkerListReq.onEnd.trailers", trailers);
         },
     });
 }

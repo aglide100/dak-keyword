@@ -16,23 +16,24 @@ export async function CallGetArticleList(id, callback) {
         request: getArticleListReq,
         transport: NodeHttpTransport(),
         onEnd: (res) => {
-            const { status, statusMessage, headers, message, trailers } = res;
-            console.log(
-                "getArticleListReq.onEnd.status",
-                status,
-                statusMessage,
-            );
-            console.log("getArticleListReq.onEnd.headers", headers);
+            const { status, message } = res;
+            // const { status, statusMessage, headers, message, trailers } = res;
+            // console.log(
+            //     "getArticleListReq.onEnd.status",
+            //     status,
+            //     statusMessage,
+            // );
+            // console.log("getArticleListReq.onEnd.headers", headers);
             if (status === grpc.Code.OK && message) {
-                console.log(
-                    "getArticleListReq.onEnd.message",
-                    message.toObject(),
-                );
+                // console.log(
+                //     "getArticleListReq.onEnd.message",
+                //     message.toObject(),
+                // );
 
                 callback(message.toObject());
             }
 
-            console.log("getArticleListReq.onEnd.trailers", trailers);
+            // console.log("getArticleListReq.onEnd.trailers", trailers);
         },
     });
 }

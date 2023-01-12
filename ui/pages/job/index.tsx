@@ -7,7 +7,7 @@ const WorkerList = dynamic(
     () =>
         import("../../src/components/layout/WorkerList/WorkerList").catch(
             (err) => {
-                return () => <>Can't load worker list</>;
+                return () => <>Can't load worker list {err}</>;
             },
         ),
     {
@@ -21,7 +21,6 @@ export default function Job() {
 
     return (
         <div className="w-full min-h-screen bg-gray-100 flex flex-col content-around">
-            {/* <div>{router.query.jobId}</div> */}
             <div className="flex flex-row w-full mt-12 mb-5 justify-center">
                 <div className="flex flex-row w-2/5 mr-5 justify-around">
                     <div className="mr-5">

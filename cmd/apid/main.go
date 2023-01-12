@@ -64,6 +64,12 @@ func realMain() error {
 		flag.Set("grpc.tls", "true")
 	}
 
+	accessCode := os.Getenv("ACCESS_CODE")
+	if len(accessCode) == 0 {
+		fmt.Println("Can't get accessCode, using default one")
+		accessCode = "HelloWOrld"
+	} 
+
 	dbAddr := os.Getenv("DB_ADDR")
 	dbPort := os.Getenv("DB_PORT")
 	dbUser := os.Getenv("DB_USER")
@@ -107,7 +113,7 @@ func realMain() error {
 	grpcNonTlsServer := grpc.NewServer()
 	grpcServer := grpc.NewServer(opts...)
 
-	managerSrv := manager.NewManagerServiceServer(myDB)
+	managerSrv := manager.NewManagerServiceServer(myDB, accessCode)
 	
 	pb_svc_manager.RegisterManagerServer(grpcServer, managerSrv)
 	pb_svc_manager.RegisterManagerServer(grpcNonTlsServer, managerSrv)
