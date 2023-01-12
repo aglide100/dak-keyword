@@ -1,4 +1,4 @@
-import { useCallback, useState, useRef } from "react";
+import { useState } from "react";
 import { useEffect } from "react";
 
 export type UseScrollHooksProps = {
@@ -28,7 +28,7 @@ const useScrollHooks = ({ receivedRef }: UseScrollHooksProps) => {
     //     }
     // }, []);
 
-    const listener = (e) => {
+    const listener = () => {
         const rect = document.body.getBoundingClientRect();
         setScrollY(-rect.top);
         setScrollDirection(lastScrollTop > -rect.top ? "down" : "up");

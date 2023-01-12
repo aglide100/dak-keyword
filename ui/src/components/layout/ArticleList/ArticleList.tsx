@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ArticleItem, ArticleProps } from "../../atom/ArticleItem/ArticleItem";
-import { CallGetArticleList } from "../../../Grpc/article";
+import { CallGetArticleList } from "../../../grpc/article";
 import { useRouter } from "next/router";
 import { TailSpin } from "react-loader-spinner";
 
