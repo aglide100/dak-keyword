@@ -8,11 +8,7 @@
 //     },
 // };
 
-let GRPCWEBADDR = process.env.GRPCWEBADDR;
-
-if (GRPCWEBADDR == undefined) {
-    GRPCWEBADDR = "http://localhost";
-}
+const GRPCWEBADDR = process.env.GRPCWEBADDR;
 
 const nextConfig = {
     reactStrictMode: true,

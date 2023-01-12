@@ -52,31 +52,37 @@ export const ArticleList: React.FC = () => {
 
     let ArticleList;
 
-    if (isLoaded) {
+    if (isLoaded && data != undefined) {
+        // console.log(data);
         ArticleList = data.map((article, index) => {
-            <div key={"article" + index} className="w-full flex justify-center">
-                <ArticleItem
-                    Id={article.Id}
-                    Author={article.Author}
-                    Keyword={article.Keyword}
-                    Content={article.Content}
-                    Platform={article.Platform}
-                    Score_happy={article.Score_happy}
-                    Score_fear={article.Score_fear}
-                    Score_embarrassed={article.Score_embarrassed}
-                    Score_sad={article.Score_sad}
-                    Score_rage={article.Score_rage}
-                    Score_hurt={article.Score_hurt}
-                    Score_max_value={article.Score_max_value}
-                    Score_max_name={article.Score_max_name}
-                    Create_at={article.Create_at}
-                    Job_id={article.Job_id}
-                    Worker_id={article.Worker_id}
-                ></ArticleItem>
-            </div>;
+            return (
+                <div
+                    key={"article" + index}
+                    className="w-full flex justify-center"
+                >
+                    <ArticleItem
+                        Id={article.Id}
+                        Author={article.Author}
+                        Keyword={article.Keyword}
+                        Content={article.Content}
+                        Platform={article.Platform}
+                        Score_happy={article.Score_happy}
+                        Score_fear={article.Score_fear}
+                        Score_embarrassed={article.Score_embarrassed}
+                        Score_sad={article.Score_sad}
+                        Score_rage={article.Score_rage}
+                        Score_hurt={article.Score_hurt}
+                        Score_max_value={article.Score_max_value}
+                        Score_max_name={article.Score_max_name}
+                        Create_at={article.Create_at}
+                        Job_id={article.Job_id}
+                        Worker_id={article.Worker_id}
+                    ></ArticleItem>
+                </div>
+            );
         });
 
-        if (data == undefined || data.length <= 0) {
+        if (data == undefined || data.length == 0) {
             ArticleList = <>There's no articles...</>;
         }
     } else {
