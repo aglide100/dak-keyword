@@ -20,12 +20,9 @@ import {
     Bar,
     ResponsiveContainer,
 } from "recharts";
-// import Switch from "react-switch";
+import Switch from "react-switch";
 import { ArticleProps } from "../ArticleItem/ArticleItem";
-
-type ArticleGraphProps = {
-    JobId: any;
-};
+import { useRouter } from "next/router";
 
 type ArticleCount = {
     Create_at: string;
@@ -55,10 +52,10 @@ const ColorIndex = {
     5: "#999999",
 };
 
-export const ArticleGraph = (props: ArticleGraphProps) => {
+export const ArticleGraph = () => {
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
-
-    // const [isClick, setClick] = useState<boolean>(false);
+    const router = useRouter();
+    const [isClick, setClick] = useState<boolean>(false);
 
     const [data, setData] = useState<ArticleProps[]>([]);
     const [dataCount, setDataCount] = useState<ArticleCount[]>([]);
@@ -68,7 +65,7 @@ export const ArticleGraph = (props: ArticleGraphProps) => {
 
     useEffect(() => {
         if (!isLoaded) {
-            fetchArticleList(props.JobId);
+            fetchArticleList(router.query.jobId);
         }
     });
 
@@ -80,10 +77,22 @@ export const ArticleGraph = (props: ArticleGraphProps) => {
         let count_sad = 0;
         let count_rage = 0;
         let count_hurt = 0;
+
+        const tmpArray = data.sort(function (a, b) {
+            return (
+                new Date(a.Create_at).valueOf() -
+                new Date(b.Create_at).valueOf()
+            );
+        });
+
         const countArray = new Array<ArticleCount>();
-        data.map((value, index) => {
+        tmpArray.map((value, index) => {
             if (index == 0) {
-                create_at = value.Create_at;
+                if (isClick) {
+                    create_at = value.Create_at;
+                } else {
+                    create_at = value.Create_at.slice(0, 11);
+                }
             } else {
                 if (index == data.length - 1) {
                     countArray.push({
@@ -97,7 +106,14 @@ export const ArticleGraph = (props: ArticleGraphProps) => {
                     });
                 }
 
-                if (value.Create_at != create_at) {
+                let check;
+                if (isClick) {
+                    check = value.Create_at;
+                } else {
+                    check = value.Create_at.slice(0, 11);
+                }
+
+                if (check != create_at) {
                     countArray.push({
                         Create_at: create_at,
                         Count_happy: count_happy,
@@ -108,7 +124,12 @@ export const ArticleGraph = (props: ArticleGraphProps) => {
                         Count_hurt: count_hurt,
                     });
 
-                    create_at = value.Create_at;
+                    // create_at = value.Create_at;
+                    if (isClick) {
+                        create_at = value.Create_at;
+                    } else {
+                        create_at = value.Create_at.slice(0, 11);
+                    }
                     count_happy = 0;
                     count_fear = 0;
                     count_embarrassed = 0;
@@ -175,7 +196,7 @@ export const ArticleGraph = (props: ArticleGraphProps) => {
             if (data != newArticleList) {
                 setData(newArticleList);
             }
-
+            // console.log(data);
             countArticle();
             setIsLoaded(true);
         });
@@ -201,13 +222,12 @@ export const ArticleGraph = (props: ArticleGraphProps) => {
     checkedItems.forEach((value: any) => {
         if (value) {
             const tmp = (
-                <>
-                    <Bar
-                        dataKey={String(CountIndexToName[Number(value)])}
-                        fill={String(ColorIndex[Number(value)])}
-                        minPointSize={2}
-                    />
-                </>
+                <Bar
+                    key={"Bar_" + value}
+                    dataKey={String(CountIndexToName[Number(value)])}
+                    fill={String(ColorIndex[Number(value)])}
+                    minPointSize={2}
+                />
             );
             elements.push(tmp);
         }
@@ -384,15 +404,16 @@ export const ArticleGraph = (props: ArticleGraphProps) => {
         // renderLineChart = <>is loading...</>;
         renderBarChart = <>is loading...</>;
     }
-    // function handleChange() {
-    //     setClick(!isClick);
-    // }
+    function handleChange() {
+        setClick(!isClick);
+        countArticle();
+    }
 
     return (
         <motion.li className="flex flex-col items-center">
             <div className="w-full mt-15">
-                {/* <div className="ml-10 flex">
-                    <span className="mr-3">Area</span>
+                <div className="ml-10 flex">
+                    <span className="mr-3">Time</span>
                     <Switch
                         onChange={() => {
                             handleChange();
@@ -410,8 +431,8 @@ export const ArticleGraph = (props: ArticleGraphProps) => {
                         className="react-switch"
                         id="material-switch"
                     />
-                    <span className="ml-1">Graph</span> */}
-                {/* </div> */}
+                    <span className="ml-1">Day</span>
+                </div>
                 <div>{checkBoxList}</div>
                 {elements}
                 {/* <div className="flex flex-row">{renderLineChart}</div> */}

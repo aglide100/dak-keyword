@@ -5,7 +5,7 @@
     "scripts": {
         "dev": "next",
         "build": "next build",
-        "start-next": "next start",
+        "next": "next start",
         "start": "node server.js",
         "start-http": "next start -p 80",
         "test": "echo \"Error: no test specified\"",
