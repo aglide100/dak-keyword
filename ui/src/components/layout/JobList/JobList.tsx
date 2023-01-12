@@ -24,7 +24,6 @@ const List: React.FC = () => {
         try {
             CallGetJobList((message) => {
                 message.jobList.map((value, _) => {
-                    console.log(value);
                     const newJobList = data;
                     const newJob: job = {
                         id: value.id,

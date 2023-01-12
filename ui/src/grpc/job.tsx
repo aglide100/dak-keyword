@@ -6,50 +6,51 @@ import { GrpcManager } from ".";
 
 export async function CallGetJobList(callback) {
     const getJobListReq = new pb_svc_manager.GetJobListReq();
-    console.log((await GrpcManager.getInstance()).GetHost());
+    // console.log((await GrpcManager.getInstance()).GetHost());
     grpc.unary(Manager.GetJobList, {
         host: (await GrpcManager.getInstance()).GetHost(),
         request: getJobListReq,
         // transport: NodeHttpTransport(),
         onEnd: (res) => {
-            const { status, statusMessage, headers, message, trailers } = res;
-            console.log("getJobListReq.onEnd.status", status, statusMessage);
-            console.log("getJobListReq.onEnd.headers", headers);
+            const { status, message } = res;
+            // console.log("getJobListReq.onEnd.status", status, statusMessage);
+            // console.log("getJobListReq.onEnd.headers", headers);
             if (status === grpc.Code.OK && message) {
-                console.log("getJobListReq.onEnd.message", message.toObject());
+                // console.log("getJobListReq.onEnd.message", message.toObject());
 
                 callback(message.toObject());
             }
 
-            console.log("getJobListReq.onEnd.trailers", trailers);
+            // console.log("getJobListReq.onEnd.trailers", trailers);
         },
     });
 }
 
-export async function CallNewJob(keyword, owner, callback) {
+export async function CallNewJob(keyword, owner, accessCode, callback) {
     const createNewJobReq = new pb_svc_manager.CreateNewJobReq();
 
     createNewJobReq.setKeyword(keyword);
     createNewJobReq.setOwner(owner);
+    createNewJobReq.setAccesscode(accessCode);
 
     grpc.unary(Manager.CreateNewJob, {
         host: (await GrpcManager.getInstance()).GetHost(),
         request: createNewJobReq,
         // transport: NodeHttpTransport(),
         onEnd: (res) => {
-            const { status, statusMessage, headers, message, trailers } = res;
-            console.log("createNewJobReq.onEnd.status", status, statusMessage);
-            console.log("createNewJobReq.onEnd.headers", headers);
+            const { status, message } = res;
+            // console.log("createNewJobReq.onEnd.status", status, statusMessage);
+            // console.log("createNewJobReq.onEnd.headers", headers);
             if (status === grpc.Code.OK && message) {
-                console.log(
-                    "createNewJobReq.onEnd.message",
-                    message.toObject(),
-                );
+                // console.log(
+                //     "createNewJobReq.onEnd.message",
+                //     message.toObject(),
+                // );
 
                 callback(message.toObject());
             }
 
-            console.log("createNewJobReq.onEnd.trailers", trailers);
+            // console.log("createNewJobReq.onEnd.trailers", trailers);
         },
     });
 }

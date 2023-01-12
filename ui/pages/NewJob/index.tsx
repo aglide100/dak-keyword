@@ -1,26 +1,33 @@
 import React, { useState } from "react";
 import { Button } from "../../src/components/atom/Button/Button";
-import { useRouter } from "next/router";
 import { CallNewJob } from "../../src/Grpc/job";
 
 export default function NewJob() {
-    const router = useRouter();
     const [keyword, setKeyword] = useState<string>("");
     const [author, setAuthor] = useState<string>("");
+    const [accessCode, setAccessCode] = useState<string>("");
     const [isOk, setIsOk] = useState<boolean>(false);
 
     const handleKeywordChange = (e) => {
         setKeyword(e.target.value);
-        ValidateFormData();
+
+        ValidateFormData(e.target.value.length);
     };
 
     const handleAuthorChange = (e) => {
         setAuthor(e.target.value);
-        ValidateFormData();
+
+        ValidateFormData(e.target.value.length);
     };
 
-    const ValidateFormData = () => {
-        if (author.length > 0 && keyword.length > 0) {
+    const handleAccessCodeChange = (e) => {
+        setAccessCode(e.target.value);
+
+        ValidateFormData(e.target.value.length);
+    };
+
+    const ValidateFormData = (value) => {
+        if (value <= 0) {
             setIsOk(false);
         } else {
             setIsOk(true);
@@ -42,7 +49,7 @@ export default function NewJob() {
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-3/4 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     ></input>
                 </div>
-                <div className="flex flex-col w-96">
+                <div className="flex flex-col w-96 mb-5">
                     <span className="font-semibold">Author : </span>
                     <input
                         type="text"
@@ -54,19 +61,47 @@ export default function NewJob() {
                         onChange={handleAuthorChange}
                     ></input>
                 </div>
+                <div className="flex flex-col w-96">
+                    <span className="font-semibold">AccessCode : </span>
+                    <input
+                        type="text"
+                        name="AccessCode"
+                        value={accessCode}
+                        placeholder={"AccessCode"}
+                        required
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-3/4 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        onChange={handleAccessCodeChange}
+                    ></input>
+                </div>
                 <div className="flex flex-row mt-20">
                     <div className="mr-10">
                         <Button
                             size="large"
                             color="white"
-                            isDisabled={isOk}
+                            isDisabled={!isOk}
                             onClick={(e) => {
                                 e.preventDefault();
-                                CallNewJob(keyword, author, (message) => {
-                                    // alert("Received" + message);
-                                    // router.push("/");
+                                if (
+                                    author.length <= 0 ||
+                                    keyword.length <= 0 ||
+                                    accessCode.length <= 0
+                                ) {
+                                    alert(
+                                        "Please write more information at field",
+                                    );
+                                } else {
                                     location.replace("/");
-                                });
+                                    CallNewJob(
+                                        keyword,
+                                        author,
+                                        accessCode,
+                                        (message) => {
+                                            alert("Received" + message.msg);
+                                            // router.push("/");
+                                            location.replace("/");
+                                        },
+                                    );
+                                }
                             }}
                         >
                             Submit
@@ -78,6 +113,7 @@ export default function NewJob() {
                             color="gray"
                             onClick={(e) => {
                                 e.preventDefault();
+                                location.replace("/");
                             }}
                         >
                             Cancel

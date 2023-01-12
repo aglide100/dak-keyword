@@ -14,24 +14,26 @@ const List: React.FC<{ JobId }> = ({ JobId }) => {
     const [data, setData] = useState<worker[]>([]);
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
     const [number, setNumber] = useState(0);
-    const [path, setPath] = useState("");
     const number_ref = useRef(0);
     const router = useRouter();
 
     useEffect(() => {
-        // if (!isLoaded && router.pathname == "/job") {
-        //     fetchWorkerList(JobId);
-        //     // setPath("job");
-        // }
+        if (router.pathname == "/job" && !isLoaded) {
+            fetchWorkerList(JobId);
+        }
 
         const loop = setInterval(() => {
             number_ref.current += 1;
             setNumber(number_ref.current);
 
+            if (number == 1000) {
+                clearInterval(loop);
+            }
+
             if (router.pathname == "/job") {
                 fetchWorkerList(JobId);
             }
-        }, 1000);
+        }, 1500);
         return () => clearInterval(loop);
     });
 
@@ -49,6 +51,9 @@ const List: React.FC<{ JobId }> = ({ JobId }) => {
                 newWorkerList.push(newWorker);
             });
 
+            newWorkerList.sort(function (a, b) {
+                return a.Keyword.length - b.Keyword.length;
+            });
             if (data != newWorkerList) {
                 setData(newWorkerList);
             }
@@ -58,10 +63,10 @@ const List: React.FC<{ JobId }> = ({ JobId }) => {
     }
 
     let WorkerList;
-    if (data == null || data == undefined || data.length == 0) {
+    if (!isLoaded) {
         WorkerList = (
             <div className="w-full flex justify-center mt-10">
-                Can't find workers!
+                is loading...
             </div>
         );
     } else {
@@ -77,6 +82,10 @@ const List: React.FC<{ JobId }> = ({ JobId }) => {
                 </div>
             );
         });
+
+        if (data == undefined || data.length <= 0) {
+            WorkerList = <>There's no worker...</>;
+        }
     }
 
     return <>{WorkerList}</>;

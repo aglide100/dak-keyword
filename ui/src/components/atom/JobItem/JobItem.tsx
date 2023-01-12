@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import React from "react";
+import { motion } from "framer-motion";
 import classNames from "classnames";
-import { Button } from "../Button/Button";
 import { useRouter } from "next/router";
 
 export type JobProps = {
@@ -35,10 +34,10 @@ export const JobItem = (props: JobProps) => {
                         });
                     }}
                 >
-                    <div className="mb-1">
-                        <span className="font-semibold">Status: </span>
+                    {/* <div className="mb-1">
+                        <span className="font-semibold">Status : </span>
                         {props.status}
-                    </div>
+                    </div> */}
                     <div className="mb-1">
                         <span className="font-semibold">Keyword : </span>
                         {props.keyword}

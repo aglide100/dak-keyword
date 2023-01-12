@@ -1,12 +1,28 @@
-module.exports = {
-    typescript: {
-        // !! WARN !!
-        // Dangerously allow production builds to successfully complete even if
-        // your project has type errors.
-        // !! WARN !!
-        ignoreBuildErrors: true,
+// module.exports = {
+//     typescript: {
+//         // !! WARN !!
+//         // Dangerously allow production builds to successfully complete even if
+//         // your project has type errors.
+//         // !! WARN !!
+//         ignoreBuildErrors: true,
+//     },
+// };
+
+const GRPCWEBADDR = process.env.GRPCWEBADDR;
+
+const nextConfig = {
+    reactStrictMode: true,
+    async rewrites() {
+        return [
+            {
+                source: "/:path*",
+                destination: `${GRPCWEBADDR}//:path*`,
+            },
+        ];
     },
 };
+
+module.exports = nextConfig;
 // };
 // const withPlugins = require("next-compose-plugins");
 // // const optimizedImages = require("next-optimized-images");

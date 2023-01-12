@@ -34,6 +34,7 @@ services:
             - 50010:50010
         environment:
             - TLS=false
+            - ACCESS_CODE=${ACCESS_CODE}
         depends_on:
             - db
         deploy:

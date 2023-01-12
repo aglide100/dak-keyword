@@ -6,7 +6,7 @@ const ArticleList = dynamic(
     () =>
         import("../../src/components/layout/ArticleList/ArticleList").catch(
             (err) => {
-                return () => <>Can't load worker list</>;
+                return () => <>Can't load worker list {err}</>;
             },
         ),
     {
@@ -15,15 +15,15 @@ const ArticleList = dynamic(
     },
 );
 
-interface IHOCProp {
-    jobId?: string;
-}
+// interface IHOCProp {
+//     jobId?: string;
+// }
 
-export const Articles: React.FC<IHOCProp> = ({ jobId }) => {
+export const Articles: React.FC = () => {
     return (
         <div className="w-full min-h-screen bg-gray-100 flex flex-col content-around">
             <div></div>
-            <ArticleList JobId={jobId}></ArticleList>
+            <ArticleList></ArticleList>
         </div>
     );
 };

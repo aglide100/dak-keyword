@@ -4,22 +4,18 @@ import { CallGetArticleList } from "../../../Grpc/article";
 import { useRouter } from "next/router";
 import { TailSpin } from "react-loader-spinner";
 
-type ArticleListProps = {
-    JobId: any;
-};
-
-export const ArticleList: React.FC<ArticleListProps> = (JobId) => {
+export const ArticleList: React.FC = () => {
     const router = useRouter();
     const [data, setData] = useState<ArticleProps[]>([]);
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
     useEffect(() => {
         if (!isLoaded) {
-            fetchArticleList(JobId);
+            fetchArticleList();
         }
     }, []);
 
-    async function fetchArticleList(jobId) {
+    async function fetchArticleList() {
         CallGetArticleList(router.query.jobId, (message) => {
             const newArticleList: ArticleProps[] = [];
 
@@ -56,7 +52,34 @@ export const ArticleList: React.FC<ArticleListProps> = (JobId) => {
 
     let ArticleList;
 
-    if (!isLoaded) {
+    if (isLoaded) {
+        ArticleList = data.map((article, index) => {
+            <div key={"article" + index} className="w-full flex justify-center">
+                <ArticleItem
+                    Id={article.Id}
+                    Author={article.Author}
+                    Keyword={article.Keyword}
+                    Content={article.Content}
+                    Platform={article.Platform}
+                    Score_happy={article.Score_happy}
+                    Score_fear={article.Score_fear}
+                    Score_embarrassed={article.Score_embarrassed}
+                    Score_sad={article.Score_sad}
+                    Score_rage={article.Score_rage}
+                    Score_hurt={article.Score_hurt}
+                    Score_max_value={article.Score_max_value}
+                    Score_max_name={article.Score_max_name}
+                    Create_at={article.Create_at}
+                    Job_id={article.Job_id}
+                    Worker_id={article.Worker_id}
+                ></ArticleItem>
+            </div>;
+        });
+
+        if (data == undefined || data.length <= 0) {
+            ArticleList = <>There's no articles...</>;
+        }
+    } else {
         ArticleList = (
             <div className="w-full flex justify-center mt-10">
                 <TailSpin
@@ -71,48 +94,6 @@ export const ArticleList: React.FC<ArticleListProps> = (JobId) => {
                 />
             </div>
         );
-    }
-    if (
-        data == null ||
-        data == undefined ||
-        data.length == 0 ||
-        JobId == undefined
-    ) {
-        ArticleList = <>There's no articles....</>;
-    }
-
-    if (isLoaded) {
-        ArticleList = data.map((article, index) => {
-            if (article.Score_max_name == "None") {
-                // pass
-            } else {
-                return (
-                    <div
-                        key={"article" + index}
-                        className="w-full flex justify-center"
-                    >
-                        <ArticleItem
-                            Id={article.Id}
-                            Author={article.Author}
-                            Keyword={article.Keyword}
-                            Content={article.Content}
-                            Platform={article.Platform}
-                            Score_happy={article.Score_happy}
-                            Score_fear={article.Score_fear}
-                            Score_embarrassed={article.Score_embarrassed}
-                            Score_sad={article.Score_sad}
-                            Score_rage={article.Score_rage}
-                            Score_hurt={article.Score_hurt}
-                            Score_max_value={article.Score_max_value}
-                            Score_max_name={article.Score_max_name}
-                            Create_at={article.Create_at}
-                            Job_id={article.Job_id}
-                            Worker_id={article.Worker_id}
-                        ></ArticleItem>
-                    </div>
-                );
-            }
-        });
     }
     return <>{ArticleList}</>;
 };

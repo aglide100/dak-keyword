@@ -18,7 +18,7 @@ services:
             DB_PASSWORD: HelloWorld
             # DB_PORT: 5432
             DB_PORT: 8432
-            WORKER_ID: ab402684-9a33-4583-9d50-a48e8f1aabca
+            WORKER_ID: cfb0cc69-6700-46f5-ac41-c70cade581b6
 
 networks:
     db_keyword-network:
