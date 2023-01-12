@@ -12,7 +12,10 @@ const JobList = dynamic(
     },
 );
 
+const GRPCWEBADDR = process.env.GRPCWEBADDR;
+
 export default function Home() {
+    console.log("!", GRPCWEBADDR);
     return (
         <div className="w-full bg-gray-100 flex flex-col content-around">
             <div className="w-full flex flex-col">
