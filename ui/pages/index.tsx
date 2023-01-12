@@ -13,8 +13,6 @@ const JobList = dynamic(
 );
 
 export default function Home() {
-    console.log("!", process.env.GRPCWEBADDR);
-
     return (
         <div className="w-full bg-gray-100 flex flex-col content-around">
             <div className="w-full flex flex-col">

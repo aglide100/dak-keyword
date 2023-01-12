@@ -10,22 +10,20 @@
 
 const GRPCWEBADDR = process.env.GRPCWEBADDR;
 
-const nextConfig = {
+module.exports = {
     reactStrictMode: true,
     async rewrites() {
-        return [
-            {
-                source: "/:path*",
-                destination: `${GRPCWEBADDR}//:path*`,
-            },
-        ];
-    },
-    env: {
-        GRPCWEBADDR: process.env.GRPCWEBADDR,
+        return {
+            fallback: [
+                {
+                    source: "/:path*",
+                    destination: `${GRPCWEBADDR}//:path*`,
+                },
+            ],
+        };
     },
 };
 
-module.exports = nextConfig;
 // };
 // const withPlugins = require("next-compose-plugins");
 // // const optimizedImages = require("next-optimized-images");
