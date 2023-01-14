@@ -31,8 +31,8 @@ export class GrpcManager {
                 addr = res.data.addr;
             });
         } catch {
-            console.log("Can't get env from server!");
-            addr = "/";
+            console.log("Can't get env from server! ");
+            addr = "./pb";
         }
 
         return addr;
