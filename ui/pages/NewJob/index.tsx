@@ -37,7 +37,7 @@ export default function NewJob() {
     return (
         <div className="flex flex-col w-3/4 h-3/4 items-center">
             <div className="w-full h-full flex flex-col items-center  pb-10 pt-10  mt-10 mb-5 rounded-lg bg-white shadow-md">
-                <div className="flex flex-col w-96 mb-5 ">
+                <div className="flex flex-col w-3/4 mb-5 ">
                     <span className="font-semibold">Keyword : </span>
                     <input
                         type="text"
@@ -46,10 +46,10 @@ export default function NewJob() {
                         placeholder={"Keyword"}
                         onChange={handleKeywordChange}
                         required
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-3/4 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-3/4 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     ></input>
                 </div>
-                <div className="flex flex-col w-96 mb-5">
+                <div className="flex flex-col w-3/4 mb-5">
                     <span className="font-semibold">Author : </span>
                     <input
                         type="text"
@@ -57,11 +57,11 @@ export default function NewJob() {
                         value={author}
                         placeholder={"Author"}
                         required
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-3/4 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-3/4 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         onChange={handleAuthorChange}
                     ></input>
                 </div>
-                <div className="flex flex-col w-96">
+                <div className="flex flex-col w-3/4">
                     <span className="font-semibold">AccessCode : </span>
                     <input
                         type="text"
@@ -69,14 +69,14 @@ export default function NewJob() {
                         value={accessCode}
                         placeholder={"AccessCode"}
                         required
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-3/4 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-3/4 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         onChange={handleAccessCodeChange}
                     ></input>
                 </div>
-                <div className="flex flex-row mt-20">
-                    <div className="mr-10">
+                <div className="flex flex-row w-full mt-20">
+                    <div className="mr-10 w-3/4 ml-10 h-10">
                         <Button
-                            size="large"
+                            size="full"
                             color="white"
                             isDisabled={!isOk}
                             onClick={(e) => {
@@ -107,9 +107,9 @@ export default function NewJob() {
                             Submit
                         </Button>
                     </div>
-                    <div>
+                    <div className="w-3/4 mr-10">
                         <Button
-                            size="large"
+                            size="full"
                             color="gray"
                             onClick={(e) => {
                                 e.preventDefault();

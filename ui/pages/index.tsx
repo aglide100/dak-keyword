@@ -7,7 +7,7 @@ const JobList = dynamic(
             return () => <>Can't load job list... {err}</>;
         }),
     {
-        loading: () => <>Loading...</>,
+        loading: () => <></>,
         ssr: false,
     },
 );

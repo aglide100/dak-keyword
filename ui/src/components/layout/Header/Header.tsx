@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import classNames from "classnames";
-import { motion } from "framer-motion";
+import { AnimatePresence, Variants, motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { Button } from "../../atom/Button/Button";
 
@@ -10,7 +10,7 @@ export type HeaderProps = {
     scrollY: number;
 };
 
-const variants = {
+const variants: Variants = {
     open: (height = 1500) => ({
         clipPath: `circle(${height * 2 + 200}px at calc(100% - 0px) 10px)`,
         transition: {
@@ -20,13 +20,20 @@ const variants = {
         },
     }),
     closed: {
-        clipPath: "circle(30px at calc(100% - 0px) 10px)",
+        clipPath: "circle(0px at calc(100% - 0px) 0px)",
         transition: {
-            delay: 0.3,
+            delay: 0.1,
             type: "spring",
             stiffness: 400,
             damping: 40,
+            duration: 0.7,
         },
+    },
+    invisible: {
+        visibility: "hidden",
+        // transition: {
+        //     duration: 3,
+        // },
     },
 };
 
@@ -42,24 +49,24 @@ const Header: React.FC<HeaderProps> = ({
         <div>
             <nav
                 className={classNames(
-                    "group w-full fixed left-0 top-0 transition duration-500 z-40 transform shadow h-20 ",
+                    "group w-full  h-20 flex flex-row items-center fixed left-0 top-0 transition duration-500 z-40 transform shadow",
                     {
-                        "translate-y-0": isIconClick,
+                        // "translate-y-0": isIconClick,
                         "bg-white": scrollY < 100 && !isIconClick,
                         "bg-gray-300 bg-opacity-50 -translate-y-4 hover:translate-y-0 hover:bg-white hover:bg-opacity-100":
                             scrollY > 100 &&
                             scrollDirection == "up" &&
                             !isIconClick,
-                        "bg-white translate-y-0 box-border":
-                            scrollY > 100 &&
-                            scrollDirection == "down" &&
-                            !isIconClick,
+                        // "bg-white translate-y-0 box-border":
+                        //     scrollY > 100 &&
+                        //     scrollDirection == "down" &&
+                        //     !isIconClick,
                     },
                 )}
             >
                 <div
                     className={classNames(
-                        "w-full flex justify-between items-center mt-1 mb-3 transition duration-500 transform items-center",
+                        "w-full flex justify-between items-center mt-1 mb-3 transition duration-500 transform",
                         {
                             "text-black translate-y-0 box-border":
                                 isIconClick ||
@@ -71,8 +78,8 @@ const Header: React.FC<HeaderProps> = ({
                         },
                     )}
                 >
-                    <div className=" h-full flex flex-row justify-center">
-                        <div className="w-full flex ml-2 mr-2">
+                    <div className="h-full flex flex-row justify-center">
+                        <div className="w-full flex ml-2 mr-2 ">
                             <Button
                                 size="medium"
                                 isDisabled={!isShow}
@@ -98,84 +105,67 @@ const Header: React.FC<HeaderProps> = ({
                             Home
                         </div>
                     </div>
-                    <div
-                        className={classNames("cursor-pointer w-52", {
-                            "bg-opacity-50":
-                                scrollY > 100 &&
-                                scrollDirection == "up" &&
-                                !isIconClick,
-                        })}
-                    ></div>
-                    <a
-                        className={classNames(
-                            "cursor-pointer menu-trigger type12 transform translate-y-4 mr-2 sm:mr-6 z-50",
-                            {
-                                "active-12": isIconClick,
-                                "": !isIconClick,
-                            },
-                        )}
-                        // href="#"
-                        onClick={() => {
-                            setIconClick(!isIconClick);
-                        }}
-                    >
-                        <span
-                            className={classNames("bg-black select-none", {
-                                "bg-white": isIconClick,
-                            })}
-                        ></span>
-                        <span
-                            className={classNames("bg-black select-none", {
-                                "bg-white": isIconClick,
-                            })}
-                        ></span>
-                        <span
-                            className={classNames("bg-black select-none", {
-                                "bg-white": isIconClick,
-                            })}
-                        ></span>
-                    </a>
                 </div>
             </nav>
-            <motion.nav
-                initial={false}
-                animate={isIconClick ? "open" : "closed"}
-            >
+
+            <>
                 <motion.div
+                    initial={"false"}
+                    animate={isIconClick ? "open" : "closed"}
+                    exit={"invisible"}
                     className={classNames(
-                        "fixed bg-black w-full h-screen -translate-y-10 transition z-30 transform h-110vh",
-                        {
-                            "right-0 h-110vh": isIconClick,
-                            "bg-opacity-50 -translate-y-10 hover:translate-y-0 hover:bg-opacity-100 h-110vh":
-                                scrollY > 100 &&
-                                scrollDirection == "up" &&
-                                !isIconClick,
-                            "-translate-y-10 box-border h-110vh":
-                                scrollY > 100 &&
-                                scrollDirection == "down" &&
-                                !isIconClick,
-                        },
+                        "fixed bg-black w-full transform h-110vh z-40",
                     )}
                     variants={variants}
                 >
-                    {isIconClick && (
-                        <div className="mt-20 text-white">
-                            <div className="ml-32 flex flex-col">
-                                <div>
-                                    <span className="text-7xl mt-36 mb-28 transition delay-150 hover:underline">
-                                        Hello
-                                    </span>
-                                </div>
-                                <div>
-                                    <span className="text-7xl transition delay-150 hover:underline">
-                                        World
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
+                    {isIconClick ? (
+                        <motion.div className="w-screen h-screen flex justify-center itmes-center text-white">
+                            <motion.div className=" flex flex-col mt-20">
+                                <motion.div className="text-7xl mt-10 mb-20 transition delay-150 hover:underline">
+                                    Hello
+                                </motion.div>
+                                <motion.div className="text-7xl transition delay-150 hover:underline">
+                                    World
+                                </motion.div>
+                            </motion.div>
+                        </motion.div>
+                    ) : (
+                        ""
                     )}
                 </motion.div>
-            </motion.nav>
+            </>
+
+            <div className="fixed top-5  right-0 z-50">
+                <a
+                    className={classNames(
+                        "cursor-pointer menu-trigger type12 sm:mr-6",
+                        {
+                            "active-12": isIconClick,
+                            "": !isIconClick,
+                        },
+                    )}
+                    // href="#"
+                    onClick={() => {
+                        setIconClick(!isIconClick);
+                    }}
+                >
+                    <span
+                        className={classNames("bg-black select-none", {
+                            "bg-white": isIconClick,
+                        })}
+                    ></span>
+                    <span
+                        className={classNames("bg-black select-none", {
+                            "bg-white": isIconClick,
+                        })}
+                    ></span>
+                    <span
+                        className={classNames("bg-black select-none", {
+                            "bg-white": isIconClick,
+                        })}
+                    ></span>
+                </a>
+            </div>
         </div>
     );
 };
