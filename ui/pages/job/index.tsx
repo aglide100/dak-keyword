@@ -11,7 +11,7 @@ const WorkerList = dynamic(
             },
         ),
     {
-        loading: () => <>Loading...</>,
+        loading: () => <></>,
         ssr: false,
     },
 );
@@ -22,10 +22,10 @@ export default function Job() {
     return (
         <div className="w-full min-h-screen bg-gray-100 flex flex-col content-around">
             <div className="flex flex-row w-full mt-12 mb-5 justify-center">
-                <div className="flex flex-row w-2/5 mr-5 justify-around">
-                    <div className="mr-5">
+                <div className="flex flex-row w-full h-10 mr-5 justify-around">
+                    <div className="mr-5 w-3/4 ml-10">
                         <Button
-                            size={"large"}
+                            size="full"
                             color={"gray"}
                             onClick={(e) => {
                                 e.preventDefault();
@@ -38,9 +38,9 @@ export default function Job() {
                             Articles
                         </Button>
                     </div>
-                    <div>
+                    <div className="w-3/4 mr-10">
                         <Button
-                            size={"large"}
+                            size="full"
                             color={"gray"}
                             onClick={(e) => {
                                 e.preventDefault();

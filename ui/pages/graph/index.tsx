@@ -1,5 +1,6 @@
 import React from "react";
 import dynamic from "next/dynamic";
+import { ComponentLoading } from "../../src/components/atom/ComponentLoading/ComponentLoading";
 // import { GetServerSideProps } from "next";
 
 const ArticleGraph = dynamic(
@@ -10,7 +11,7 @@ const ArticleGraph = dynamic(
             },
         ),
     {
-        loading: () => <>Loading...</>,
+        loading: () => <></>,
         ssr: false,
     },
 );

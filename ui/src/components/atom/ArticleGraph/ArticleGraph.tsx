@@ -55,7 +55,7 @@ const ColorIndex = {
 export const ArticleGraph = () => {
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
     const router = useRouter();
-    const [isClick, setClick] = useState<boolean>(false);
+    const [isClick, setIsClick] = useState<boolean>(false);
 
     const [data, setData] = useState<ArticleProps[]>([]);
     const [dataCount, setDataCount] = useState<ArticleCount[]>([]);
@@ -65,9 +65,10 @@ export const ArticleGraph = () => {
 
     useEffect(() => {
         if (!isLoaded) {
+            console.log("Fetch data");
             fetchArticleList(router.query.jobId);
         }
-    });
+    }, [data]);
 
     function countArticle() {
         let create_at = "";
@@ -163,11 +164,12 @@ export const ArticleGraph = () => {
                 }
             }
         });
+
         setDataCount(countArray);
     }
 
     async function fetchArticleList(jobId) {
-        CallGetArticleList(jobId, (message) => {
+        await CallGetArticleList(jobId, (message) => {
             const newArticleList: ArticleProps[] = [];
 
             message.articleList.map((value, _) => {
@@ -196,9 +198,12 @@ export const ArticleGraph = () => {
             if (data != newArticleList) {
                 setData(newArticleList);
             }
-            // console.log(data);
+
             countArticle();
+            setIsClick(true);
             setIsLoaded(true);
+        }).then(() => {
+            console.log("!!!");
         });
     }
 
@@ -215,10 +220,9 @@ export const ArticleGraph = () => {
         }
     };
 
-    // let renderLineChart;
     let renderBarChart;
 
-    const elements = [<></>];
+    const checkElementsBar = [<div key={"checkElementsBar_root"}></div>];
     checkedItems.forEach((value: any) => {
         if (value) {
             const tmp = (
@@ -229,15 +233,15 @@ export const ArticleGraph = () => {
                     minPointSize={2}
                 />
             );
-            elements.push(tmp);
+            checkElementsBar.push(tmp);
         }
     });
 
     const checkBoxList = (
-        <div className="flex flex-row">
+        <>
             {Object.keys(CountIndexToName).map((value) => {
                 return (
-                    <div
+                    <li
                         className="flex flex-row ml-2 pl-2 pr-2 border-2 "
                         key={value}
                     >
@@ -251,129 +255,13 @@ export const ArticleGraph = () => {
                                 }}
                             ></input>
                         </div>
-                    </div>
+                    </li>
                 );
             })}
-        </div>
+        </>
     );
 
     if (isLoaded) {
-        // renderLineChart = (
-        //     <div className="w-full mt-10 flex flex-col justify-content">
-        //         {isClick ? (
-        //             <>
-        //                 <ResponsiveContainer width="100%" height={350}>
-        //                     <LineChart
-        //                         width={1000}
-        //                         height={350}
-        //                         data={data}
-        //                         syncId="anyId"
-        //                         margin={{
-        //                             top: 10,
-        //                             right: 30,
-        //                             left: 0,
-        //                             bottom: 0,
-        //                         }}
-        //                     >
-        //                         <CartesianGrid strokeDasharray="5 5" />
-        //                         <XAxis dataKey="Create_at" />
-        //                         <YAxis />
-        //                         <Tooltip />
-        //                         <Line
-        //                             type="monotone"
-        //                             dataKey="Score_neg"
-        //                             stroke="#82ca9d"
-        //                         />
-
-        //                         <Brush />
-        //                     </LineChart>
-        //                 </ResponsiveContainer>
-        //                 <ResponsiveContainer width="100%" height={350}>
-        //                     <LineChart
-        //                         width={1000}
-        //                         height={350}
-        //                         data={data}
-        //                         syncId="anyId"
-        //                         margin={{
-        //                             top: 10,
-        //                             right: 30,
-        //                             left: 0,
-        //                             bottom: 0,
-        //                         }}
-        //                     >
-        //                         <CartesianGrid strokeDasharray="3 3" />
-        //                         <XAxis dataKey="Create_at" />
-        //                         <YAxis />
-        //                         <Tooltip />
-        //                         <Line
-        //                             type="monotone"
-        //                             dataKey="Score_happy"
-        //                             stroke="#8884d8"
-        //                         />
-        //                     </LineChart>
-        //                 </ResponsiveContainer>
-        //             </>
-        //         ) : (
-        //             <>
-        //                 <ResponsiveContainer width="100%" height={350}>
-        //                     <AreaChart
-        //                         width={1000}
-        //                         height={350}
-        //                         data={data}
-        //                         syncId="anyId"
-        //                         margin={{
-        //                             top: 10,
-        //                             right: 30,
-        //                             left: 0,
-        //                             bottom: 0,
-        //                         }}
-        //                     >
-        //                         <CartesianGrid strokeDasharray="3 3" />
-        //                         <XAxis dataKey="Create_at" />
-        //                         <YAxis />
-        //                         <Tooltip />
-        //                         <Area
-        //                             type="monotone"
-        //                             dataKey="Score_neg"
-        //                             stroke="#82ca9d"
-        //                             fill="#82ca9d"
-        //                         />
-
-        //                         <Brush />
-        //                     </AreaChart>
-        //                 </ResponsiveContainer>
-        //                 <ResponsiveContainer width="100%" height={350}>
-        //                     <AreaChart
-        //                         width={1000}
-        //                         height={350}
-        //                         data={data}
-        //                         syncId="anyId"
-        //                         margin={{
-        //                             top: 10,
-        //                             right: 30,
-        //                             left: 0,
-        //                             bottom: 0,
-        //                         }}
-        //                     >
-        //                         <CartesianGrid strokeDasharray="3 3" />
-        //                         <XAxis dataKey="Create_at" />
-        //                         <YAxis />
-        //                         <Tooltip />
-        //                         <Area
-        //                             type="monotone"
-        //                             dataKey="Score_happy"
-        //                             stroke="#8884d8"
-        //                             fill="#8884d8"
-        //                         />
-        //                     </AreaChart>
-        //                 </ResponsiveContainer>
-        //             </>
-        //         )}
-
-        //         <div></div>
-        //     </div>
-        // );
-
         renderBarChart = (
             <div className="w-full h-96">
                 <ResponsiveContainer width="100%" height="100%">
@@ -393,37 +281,32 @@ export const ArticleGraph = () => {
                         <YAxis orientation="left" stroke="#8884d8" />
                         <Tooltip />
                         <Legend />
-                        {elements}
-
+                        {checkElementsBar}
                         <Brush />
                     </BarChart>
                 </ResponsiveContainer>
             </div>
         );
     } else {
-        // renderLineChart = <>is loading...</>;
-        renderBarChart = <>is loading...</>;
-    }
-    function handleChange() {
-        setClick(!isClick);
-        countArticle();
+        renderBarChart = <>fetching data...</>;
     }
 
     return (
         <motion.li className="flex flex-col items-center">
-            <div className="w-full mt-15">
-                <div className="ml-10 flex">
+            <div className="w-full mt-8">
+                <div className="ml-10 mb-8 flex">
                     <span className="mr-3">Time</span>
                     <Switch
                         onChange={() => {
-                            handleChange();
+                            setIsClick(!isClick);
+                            countArticle();
                         }}
                         checked={isClick}
                         onColor="#86d3ff"
                         onHandleColor="#2693e6"
                         handleDiameter={30}
-                        uncheckedIcon={false}
-                        checkedIcon={false}
+                        uncheckedIcon={isClick}
+                        checkedIcon={isClick}
                         boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
                         activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
                         height={20}
@@ -433,10 +316,8 @@ export const ArticleGraph = () => {
                     />
                     <span className="ml-1">Day</span>
                 </div>
-                <div>{checkBoxList}</div>
-                {elements}
-                {/* <div className="flex flex-row">{renderLineChart}</div> */}
 
+                <div className="flex flex-row flex-wrap">{checkBoxList}</div>
                 <div className="mt-20">{renderBarChart}</div>
             </div>
         </motion.li>
