@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     const result = useGetScroll(useScrollHooksProps);
 
     return (
-        <>
+        <div className="flex flex-col min-h-screen bg-gray-100">
             <Head>
                 <meta
                     httpEquiv="Content-Type"
@@ -41,35 +41,33 @@ function MyApp({ Component, pageProps }: AppProps) {
                     type="text/css"
                     href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css"
                 />
-                <title>Hello!</title>
+                <title></title>
             </Head>
 
-            <div className="flex flex-col min-h-screen bg-gray-100">
-                <div ref={headerNode}>
-                    <Header {...result}></Header>
-                </div>
-                <AnimatePresence
-                    exitBeforeEnter
-                    initial={false}
-                    onExitComplete={() => window.scrollTo(0, 0)}
-                >
-                    <motion.div
-                        key={router.pathname}
-                        className="w-full flex justify-center mt-20 "
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                    >
-                        <Component {...pageProps} key={router.pathname} />
-                        <Analytics />
-                    </motion.div>
-                </AnimatePresence>
-                <div>
-                    <Footer></Footer>
-                </div>
+            <div ref={headerNode}>
+                <Header {...result}></Header>
             </div>
-        </>
+            <AnimatePresence
+                exitBeforeEnter
+                initial={false}
+                onExitComplete={() => window.scrollTo(0, 0)}
+            >
+                <motion.div
+                    key={router.pathname}
+                    className="w-full flex justify-center mt-20 "
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                >
+                    <Component {...pageProps} key={router.pathname} />
+                    <Analytics />
+                </motion.div>
+            </AnimatePresence>
+            <div>
+                <Footer></Footer>
+            </div>
+        </div>
     );
 }
 

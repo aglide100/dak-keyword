@@ -23,7 +23,7 @@ export const Button = ({
     return (
         <button
             type={type}
-            className={classNames("border rounded border-solid", {
+            className={classNames("border rounded relative border-solid", {
                 "w-11.5 h-7.5 text-xs": size === "small",
                 "w-16.75 h-9.5 text-sm": size === "medium",
                 "w-50 h-12.5 text-lg": size === "large",
@@ -48,8 +48,6 @@ export const Button = ({
                     color === "gray" && !isDisabled,
                 "hover:bg-keyword_gray-1 hover:text-keyword_gray-7 hover:border-keyword_gray-2":
                     color === "white" && !isDisabled,
-
-                "text-opacity-30": isDisabled,
             })}
             style={{ transition: transition, WebkitTransition: transition }}
             disabled={isDisabled}

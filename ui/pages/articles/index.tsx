@@ -10,7 +10,7 @@ const ArticleList = dynamic(
             },
         ),
     {
-        loading: () => <>Loading...</>,
+        loading: () => <></>,
         ssr: false,
     },
 );
