@@ -11,12 +11,14 @@ import (
 	"github.com/aglide100/dak-keyword/pkg/models"
 	"github.com/google/uuid"
 	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/peer"
 	"google.golang.org/grpc/status"
 )
 
 func (s *ManagerSrv) CreateNewJob(ctx context.Context, in *pb_svc_manager.CreateNewJobReq) (*pb_svc_manager.CreateNewJobRes, error) {
 	if in != nil {
-		log.Printf("Received CreateNewJob call: %v", in.String())
+		p, _ := peer.FromContext(ctx)
+		log.Printf("Received CreateNewJob call: %v , by : %v", in.String(), p.Addr.String())
 	}
 
 	if (s.accessCode != in.AccessCode) {
@@ -103,7 +105,8 @@ func (s *ManagerSrv) UpdateJobStatus(ctx context.Context, in *pb_svc_manager.Upd
 
 func (s *ManagerSrv) GetJobList(ctx context.Context, in *pb_svc_manager.GetJobListReq) (*pb_svc_manager.GetJobListRes, error) {
 	if in != nil {
-		log.Printf("Received GetJobStatus call: %v", in.String())
+		p, _ := peer.FromContext(ctx)
+		log.Printf("Received GetJobList call: %v , by : %v", in.String(), p.Addr.String())
 	}
 
 	jobs, err := s.db.GetAllJob()

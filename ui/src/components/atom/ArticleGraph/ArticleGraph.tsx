@@ -63,12 +63,21 @@ export const ArticleGraph = () => {
     const [checkedItems, setCheckedItems] = useState(new Set());
     const [isChecked, setIsChecked] = useState(false);
 
+    const [count, setCount] = useState(0);
+
+    let renderBarChart;
+
     useEffect(() => {
-        if (!isLoaded) {
-            console.log("Fetch data");
+        if (!isLoaded && count < 1) {
+            setCount(count + 1);
             fetchArticleList(router.query.jobId);
         }
-    }, [data]);
+
+        if (!isLoaded && data.length != 0) {
+            setIsClick(true);
+            countArticle();
+        }
+    });
 
     function countArticle() {
         let create_at = "";
@@ -199,11 +208,8 @@ export const ArticleGraph = () => {
                 setData(newArticleList);
             }
 
-            countArticle();
-            setIsClick(true);
+            // countArticle();
             setIsLoaded(true);
-        }).then(() => {
-            console.log("!!!");
         });
     }
 
@@ -219,8 +225,6 @@ export const ArticleGraph = () => {
             checkedItems.delete(id);
         }
     };
-
-    let renderBarChart;
 
     const checkElementsBar = [<div key={"checkElementsBar_root"}></div>];
     checkedItems.forEach((value: any) => {
@@ -261,9 +265,9 @@ export const ArticleGraph = () => {
         </>
     );
 
-    if (isLoaded) {
+    if (isLoaded && data.length > 1) {
         renderBarChart = (
-            <div className="w-full h-96">
+            <div className="w-full h-full">
                 <ResponsiveContainer width="100%" height="100%">
                     <BarChart
                         width={500}
@@ -317,8 +321,10 @@ export const ArticleGraph = () => {
                     <span className="ml-1">Day</span>
                 </div>
 
-                <div className="flex flex-row flex-wrap">{checkBoxList}</div>
-                <div className="mt-20">{renderBarChart}</div>
+                <div className="flex flex-row flex-wrap w-full content-around">
+                    {checkBoxList}
+                </div>
+                <div className="w-full h-96 mt-20 pr-10">{renderBarChart}</div>
             </div>
         </motion.li>
     );
