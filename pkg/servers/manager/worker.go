@@ -42,9 +42,9 @@ func (s *ManagerSrv) GetWorkerList(ctx context.Context, in *pb_svc_manager.GetWo
 
 
 func (s *ManagerSrv) UpdateWorkerStatus(ctx context.Context, in *pb_svc_manager.UpdateWorkerStatusReq) (*pb_svc_manager.UpdateWorkerStatusRes, error) {
-	// if in != nil {
-	// 	log.Printf("Received GetWorkerList call: %v", in.String())
-	// }
+	if in != nil {
+		log.Printf("Received GetWorkerList call: %v", in.String())
+	}
 
 	err := s.db.UpdateWorker(in.Id, in.Msg)
 	if err != nil {
