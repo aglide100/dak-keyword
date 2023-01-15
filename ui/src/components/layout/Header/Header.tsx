@@ -135,7 +135,20 @@ const Header: React.FC<HeaderProps> = ({
                 </motion.div>
             </>
 
-            <div className="fixed top-5  right-0 z-50">
+            <div
+                className={classNames(
+                    "fixed top-5 transform transition duration-500  right-0 z-50",
+                    {
+                        "translate-y-0":
+                            isIconClick ||
+                            (scrollY < 100 && scrollDirection == "down"),
+                        "-translate-y-3":
+                            scrollY > 100 &&
+                            scrollDirection == "up" &&
+                            !isIconClick,
+                    },
+                )}
+            >
                 <a
                     className={classNames(
                         "cursor-pointer menu-trigger type12 sm:mr-6",

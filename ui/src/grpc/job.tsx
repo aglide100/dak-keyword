@@ -38,7 +38,8 @@ export async function CallNewJob(keyword, owner, accessCode, callback) {
         request: createNewJobReq,
         // transport: NodeHttpTransport(),
         onEnd: (res) => {
-            const { status, message } = res;
+            const { status, message, statusMessage } = res;
+            console.log(res);
             // console.log("createNewJobReq.onEnd.status", status, statusMessage);
             // console.log("createNewJobReq.onEnd.headers", headers);
             if (status === grpc.Code.OK && message) {
@@ -47,7 +48,12 @@ export async function CallNewJob(keyword, owner, accessCode, callback) {
                 //     message.toObject(),
                 // );
 
-                callback(message.toObject());
+                callback(message.toObject(), statusMessage);
+            } else if (
+                status === grpc.Code.Canceled &&
+                statusMessage.length > 1
+            ) {
+                callback("", statusMessage);
             }
 
             // console.log("createNewJobReq.onEnd.trailers", trailers);
