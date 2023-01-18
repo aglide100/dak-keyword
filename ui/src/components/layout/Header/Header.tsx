@@ -120,13 +120,19 @@ const Header: React.FC<HeaderProps> = ({
                 >
                     {isIconClick ? (
                         <motion.div className="w-screen h-screen flex justify-center itmes-center text-white">
-                            <motion.div className=" flex flex-col mt-20">
-                                <motion.div className="text-7xl mt-10 mb-20 transition delay-150 hover:underline">
-                                    Hello
+                            <motion.div className=" flex flex-col mt-20 pl-8 pr-5">
+                                <motion.div className="text-6xl mt-10 mb-20 transition delay-150 hover:underline">
+                                    Simple korean semantic analyzer from SNS
                                 </motion.div>
-                                <motion.div className="text-7xl transition delay-150 hover:underline">
-                                    World
-                                </motion.div>
+                                <motion.span className="text-5xl transition delay-150 hover:underline">
+                                    More details :{" "}
+                                    <motion.a
+                                        className="text-3xl"
+                                        href="https://github.com/aglide100/dak-keyword"
+                                    >
+                                        https://github.com/aglide100/dak-keyword
+                                    </motion.a>
+                                </motion.span>
                             </motion.div>
                         </motion.div>
                     ) : (
@@ -137,7 +143,7 @@ const Header: React.FC<HeaderProps> = ({
 
             <div
                 className={classNames(
-                    "fixed top-5 transform transition duration-500  right-0 z-50",
+                    "fixed top-5 transform transition duration-500 -right-6 sm:right-0 z-50",
                     {
                         "translate-y-0":
                             isIconClick ||
