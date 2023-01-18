@@ -23,6 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ManagerClient interface {
 	CreateNewJob(ctx context.Context, in *CreateNewJobReq, opts ...grpc.CallOption) (*CreateNewJobRes, error)
+	ReRunJob(ctx context.Context, in *ReRunJobReq, opts ...grpc.CallOption) (*ReRunJobRes, error)
 	GetJobStatus(ctx context.Context, in *GetJobStatusReq, opts ...grpc.CallOption) (*GetJobStatusRes, error)
 	GetJobList(ctx context.Context, in *GetJobListReq, opts ...grpc.CallOption) (*GetJobListRes, error)
 	GetWorkerList(ctx context.Context, in *GetWorkerListReq, opts ...grpc.CallOption) (*GetWorkerListRes, error)
@@ -50,6 +51,15 @@ func NewManagerClient(cc grpc.ClientConnInterface) ManagerClient {
 func (c *managerClient) CreateNewJob(ctx context.Context, in *CreateNewJobReq, opts ...grpc.CallOption) (*CreateNewJobRes, error) {
 	out := new(CreateNewJobRes)
 	err := c.cc.Invoke(ctx, "/pb.svc.manager.Manager/CreateNewJob", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *managerClient) ReRunJob(ctx context.Context, in *ReRunJobReq, opts ...grpc.CallOption) (*ReRunJobRes, error) {
+	out := new(ReRunJobRes)
+	err := c.cc.Invoke(ctx, "/pb.svc.manager.Manager/ReRunJob", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -187,6 +197,7 @@ func (c *managerClient) StopJob(ctx context.Context, in *StopJobReq, opts ...grp
 // for forward compatibility
 type ManagerServer interface {
 	CreateNewJob(context.Context, *CreateNewJobReq) (*CreateNewJobRes, error)
+	ReRunJob(context.Context, *ReRunJobReq) (*ReRunJobRes, error)
 	GetJobStatus(context.Context, *GetJobStatusReq) (*GetJobStatusRes, error)
 	GetJobList(context.Context, *GetJobListReq) (*GetJobListRes, error)
 	GetWorkerList(context.Context, *GetWorkerListReq) (*GetWorkerListRes, error)
@@ -210,6 +221,9 @@ type UnimplementedManagerServer struct {
 
 func (UnimplementedManagerServer) CreateNewJob(context.Context, *CreateNewJobReq) (*CreateNewJobRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateNewJob not implemented")
+}
+func (UnimplementedManagerServer) ReRunJob(context.Context, *ReRunJobReq) (*ReRunJobRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReRunJob not implemented")
 }
 func (UnimplementedManagerServer) GetJobStatus(context.Context, *GetJobStatusReq) (*GetJobStatusRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetJobStatus not implemented")
@@ -280,6 +294,24 @@ func _Manager_CreateNewJob_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ManagerServer).CreateNewJob(ctx, req.(*CreateNewJobReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Manager_ReRunJob_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReRunJobReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManagerServer).ReRunJob(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.svc.manager.Manager/ReRunJob",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManagerServer).ReRunJob(ctx, req.(*ReRunJobReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -546,6 +578,10 @@ var Manager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateNewJob",
 			Handler:    _Manager_CreateNewJob_Handler,
+		},
+		{
+			MethodName: "ReRunJob",
+			Handler:    _Manager_ReRunJob_Handler,
 		},
 		{
 			MethodName: "GetJobStatus",

@@ -54,6 +54,50 @@ export namespace CreateNewJobRes {
   }
 }
 
+export class ReRunJobReq extends jspb.Message {
+  getId(): string;
+  setId(value: string): void;
+
+  getAccesscode(): string;
+  setAccesscode(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ReRunJobReq.AsObject;
+  static toObject(includeInstance: boolean, msg: ReRunJobReq): ReRunJobReq.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: ReRunJobReq, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ReRunJobReq;
+  static deserializeBinaryFromReader(message: ReRunJobReq, reader: jspb.BinaryReader): ReRunJobReq;
+}
+
+export namespace ReRunJobReq {
+  export type AsObject = {
+    id: string,
+    accesscode: string,
+  }
+}
+
+export class ReRunJobRes extends jspb.Message {
+  getMsg(): string;
+  setMsg(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ReRunJobRes.AsObject;
+  static toObject(includeInstance: boolean, msg: ReRunJobRes): ReRunJobRes.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: ReRunJobRes, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ReRunJobRes;
+  static deserializeBinaryFromReader(message: ReRunJobRes, reader: jspb.BinaryReader): ReRunJobRes;
+}
+
+export namespace ReRunJobRes {
+  export type AsObject = {
+    msg: string,
+  }
+}
+
 export class GetJobStatusReq extends jspb.Message {
   getId(): string;
   setId(value: string): void;

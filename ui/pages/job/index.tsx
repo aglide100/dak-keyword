@@ -2,6 +2,10 @@ import React from "react";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import { Button } from "../../src/components/atom/Button/Button";
+import { CallReRunJob } from "../../src/grpc/job";
+// import { confirmAlert } from "react-confirm-alert"; // Import
+// import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
+// import { CallReRunJob } from "../../src/grpc/job";
 
 const WorkerList = dynamic(
     () =>
@@ -51,6 +55,27 @@ export default function Job() {
                             }}
                         >
                             Graph
+                        </Button>
+                    </div>
+                    <div className="w-1/4 mr-10">
+                        <Button
+                            size="full"
+                            color={"purple"}
+                            onClick={() => {
+                                const result = window.prompt(
+                                    "Are you sure rerunning job?",
+                                    "accessCode",
+                                );
+                                CallReRunJob(
+                                    router.query.jobId,
+                                    result,
+                                    (res) => {
+                                        alert(res);
+                                    },
+                                );
+                            }}
+                        >
+                            ReRunJob
                         </Button>
                     </div>
                 </div>

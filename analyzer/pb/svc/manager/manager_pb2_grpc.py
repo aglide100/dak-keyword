@@ -19,6 +19,11 @@ class ManagerStub(object):
                 request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.CreateNewJobReq.SerializeToString,
                 response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.CreateNewJobRes.FromString,
                 )
+        self.ReRunJob = channel.unary_unary(
+                '/pb.svc.manager.Manager/ReRunJob',
+                request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.ReRunJobReq.SerializeToString,
+                response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.ReRunJobRes.FromString,
+                )
         self.GetJobStatus = channel.unary_unary(
                 '/pb.svc.manager.Manager/GetJobStatus',
                 request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetJobStatusReq.SerializeToString,
@@ -95,6 +100,12 @@ class ManagerServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def CreateNewJob(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ReRunJob(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -192,6 +203,11 @@ def add_ManagerServicer_to_server(servicer, server):
                     request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.CreateNewJobReq.FromString,
                     response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.CreateNewJobRes.SerializeToString,
             ),
+            'ReRunJob': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReRunJob,
+                    request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.ReRunJobReq.FromString,
+                    response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.ReRunJobRes.SerializeToString,
+            ),
             'GetJobStatus': grpc.unary_unary_rpc_method_handler(
                     servicer.GetJobStatus,
                     request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetJobStatusReq.FromString,
@@ -286,6 +302,23 @@ class Manager(object):
         return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/CreateNewJob',
             pb_dot_svc_dot_manager_dot_manager__pb2.CreateNewJobReq.SerializeToString,
             pb_dot_svc_dot_manager_dot_manager__pb2.CreateNewJobRes.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ReRunJob(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/ReRunJob',
+            pb_dot_svc_dot_manager_dot_manager__pb2.ReRunJobReq.SerializeToString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.ReRunJobRes.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

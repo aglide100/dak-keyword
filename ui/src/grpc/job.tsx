@@ -26,6 +26,33 @@ export async function CallGetJobList(callback) {
     });
 }
 
+export async function CallReRunJob(id, accessCode, callback) {
+    const reRunJobReq = new pb_svc_manager.ReRunJobReq();
+    console.log("Call Re Run jobs");
+    reRunJobReq.setId(id);
+    reRunJobReq.setAccesscode(accessCode);
+
+    grpc.unary(Manager.ReRunJob, {
+        host: (await GrpcManager.getInstance()).GetHost(),
+        request: reRunJobReq,
+        onEnd: (res) => {
+            const { status, message, statusMessage, headers } = res;
+
+            console.log("CallReRunJob.onEnd.status", status, statusMessage);
+            console.log("CallReRunJob.onEnd.headers", headers);
+
+            if (status === grpc.Code.OK && message) {
+                callback(message.toObject(), statusMessage);
+            } else if (
+                status === grpc.Code.Canceled &&
+                statusMessage.length > 1
+            ) {
+                callback("", statusMessage);
+            }
+        },
+    });
+}
+
 export async function CallNewJob(keyword, owner, accessCode, callback) {
     const createNewJobReq = new pb_svc_manager.CreateNewJobReq();
 
@@ -39,7 +66,7 @@ export async function CallNewJob(keyword, owner, accessCode, callback) {
         // transport: NodeHttpTransport(),
         onEnd: (res) => {
             const { status, message, statusMessage } = res;
-            console.log(res);
+
             // console.log("createNewJobReq.onEnd.status", status, statusMessage);
             // console.log("createNewJobReq.onEnd.headers", headers);
             if (status === grpc.Code.OK && message) {
