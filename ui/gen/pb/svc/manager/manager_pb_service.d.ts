@@ -13,6 +13,15 @@ type ManagerCreateNewJob = {
   readonly responseType: typeof pb_svc_manager_manager_pb.CreateNewJobRes;
 };
 
+type ManagerReRunJob = {
+  readonly methodName: string;
+  readonly service: typeof Manager;
+  readonly requestStream: false;
+  readonly responseStream: false;
+  readonly requestType: typeof pb_svc_manager_manager_pb.ReRunJobReq;
+  readonly responseType: typeof pb_svc_manager_manager_pb.ReRunJobRes;
+};
+
 type ManagerGetJobStatus = {
   readonly methodName: string;
   readonly service: typeof Manager;
@@ -142,6 +151,7 @@ type ManagerStopJob = {
 export class Manager {
   static readonly serviceName: string;
   static readonly CreateNewJob: ManagerCreateNewJob;
+  static readonly ReRunJob: ManagerReRunJob;
   static readonly GetJobStatus: ManagerGetJobStatus;
   static readonly GetJobList: ManagerGetJobList;
   static readonly GetWorkerList: ManagerGetWorkerList;
@@ -198,6 +208,15 @@ export class ManagerClient {
   createNewJob(
     requestMessage: pb_svc_manager_manager_pb.CreateNewJobReq,
     callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.CreateNewJobRes|null) => void
+  ): UnaryResponse;
+  reRunJob(
+    requestMessage: pb_svc_manager_manager_pb.ReRunJobReq,
+    metadata: grpc.Metadata,
+    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.ReRunJobRes|null) => void
+  ): UnaryResponse;
+  reRunJob(
+    requestMessage: pb_svc_manager_manager_pb.ReRunJobReq,
+    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.ReRunJobRes|null) => void
   ): UnaryResponse;
   getJobStatus(
     requestMessage: pb_svc_manager_manager_pb.GetJobStatusReq,

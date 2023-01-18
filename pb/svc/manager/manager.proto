@@ -9,6 +9,7 @@ import "pb/unit/article/article.proto";
 
 service Manager {
     rpc CreateNewJob(CreateNewJobReq) returns (CreateNewJobRes);
+    rpc ReRunJob(ReRunJobReq) returns (ReRunJobRes);
     rpc GetJobStatus(GetJobStatusReq) returns (GetJobStatusRes);
     rpc GetJobList(GetJobListReq) returns (GetJobListRes);
     rpc GetWorkerList(GetWorkerListReq) returns (GetWorkerListRes);
@@ -36,6 +37,15 @@ message CreateNewJobRes {
     // repeated string keyword = 1;
     // repeated string workerId = 2;
     // string jobId = 3;
+}
+
+message ReRunJobReq {
+    string id = 1;
+    string accessCode = 2;
+}
+
+message ReRunJobRes {
+    string msg = 1;
 }
 
 message GetJobStatusReq {
