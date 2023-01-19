@@ -63,6 +63,7 @@ func (db *Database) GetAllWorker(jobId string) ([]*models.Worker, error) {
 		Status string
 		Job_id string
 		Keyword string
+		Update_at string
 	)
 
 	var workers []*models.Worker
@@ -75,7 +76,7 @@ func (db *Database) GetAllWorker(jobId string) ([]*models.Worker, error) {
 	}
 
 	for rows.Next() {
-		err := rows.Scan(&Worker_id, &Keyword, &Status, &Job_id)
+		err := rows.Scan(&Worker_id, &Keyword, &Status, &Job_id, &Update_at)
 		if err != nil {
 			return nil, err
 		}
@@ -85,6 +86,7 @@ func (db *Database) GetAllWorker(jobId string) ([]*models.Worker, error) {
 			JobId: Job_id,
 			Keyword: Keyword,
 			Status: Status,
+			UpdateAt: Update_at,
 		}
 		
 		workers = append(workers, worker)
