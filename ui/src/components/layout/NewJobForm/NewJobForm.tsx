@@ -64,7 +64,7 @@ const NewJobForm: React.FC = () => {
                 <div className="flex flex-col w-3/4">
                     <span className="font-semibold">AccessCode : </span>
                     <input
-                        type="text"
+                        type="password"
                         name="AccessCode"
                         value={accessCode}
                         placeholder={"AccessCode"}
