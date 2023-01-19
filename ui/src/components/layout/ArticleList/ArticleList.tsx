@@ -3,11 +3,14 @@ import { ArticleItem, ArticleProps } from "../../atom/ArticleItem/ArticleItem";
 import { CallGetArticleList } from "../../../grpc/article";
 import { useRouter } from "next/router";
 import { TailSpin } from "react-loader-spinner";
+import { AutoSizer, List } from "react-virtualized";
+import useWindowDimensions from "../../../Hooks/getWindowDimension";
 
 export const ArticleList: React.FC = () => {
     const router = useRouter();
     const [data, setData] = useState<ArticleProps[]>([]);
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
+    const { height } = useWindowDimensions();
 
     useEffect(() => {
         if (!isLoaded) {
@@ -52,35 +55,52 @@ export const ArticleList: React.FC = () => {
 
     let ArticleList;
 
+    const rowRanderer = ({ index, style }) => {
+        const article = data[index];
+        console.log(index);
+        return (
+            <div
+                style={style}
+                key={"article" + index}
+                className="w-full flex justify-center"
+            >
+                <ArticleItem
+                    Id={article.Id}
+                    Author={article.Author}
+                    Keyword={article.Keyword}
+                    Content={article.Content}
+                    Platform={article.Platform}
+                    Score_happy={article.Score_happy}
+                    Score_fear={article.Score_fear}
+                    Score_embarrassed={article.Score_embarrassed}
+                    Score_sad={article.Score_sad}
+                    Score_rage={article.Score_rage}
+                    Score_hurt={article.Score_hurt}
+                    Score_max_value={article.Score_max_value}
+                    Score_max_name={article.Score_max_name}
+                    Create_at={article.Create_at}
+                    Job_id={article.Job_id}
+                    Worker_id={article.Worker_id}
+                ></ArticleItem>
+            </div>
+        );
+    };
+
     if (isLoaded && data != undefined) {
-        // console.log(data);
-        ArticleList = data.map((article, index) => {
-            return (
-                <div
-                    key={"article" + index}
-                    className="w-full flex justify-center"
-                >
-                    <ArticleItem
-                        Id={article.Id}
-                        Author={article.Author}
-                        Keyword={article.Keyword}
-                        Content={article.Content}
-                        Platform={article.Platform}
-                        Score_happy={article.Score_happy}
-                        Score_fear={article.Score_fear}
-                        Score_embarrassed={article.Score_embarrassed}
-                        Score_sad={article.Score_sad}
-                        Score_rage={article.Score_rage}
-                        Score_hurt={article.Score_hurt}
-                        Score_max_value={article.Score_max_value}
-                        Score_max_name={article.Score_max_name}
-                        Create_at={article.Create_at}
-                        Job_id={article.Job_id}
-                        Worker_id={article.Worker_id}
-                    ></ArticleItem>
-                </div>
-            );
-        });
+        ArticleList = (
+            <AutoSizer AutoSizer>
+                {({ width }) => (
+                    <List
+                        rowCount={data.length}
+                        height={height}
+                        rowHeight={470}
+                        width={width}
+                        rowRenderer={rowRanderer}
+                        overscanRowCount={10}
+                    />
+                )}
+            </AutoSizer>
+        );
 
         if (data == undefined || data.length == 0) {
             ArticleList = <>There's no articles...</>;

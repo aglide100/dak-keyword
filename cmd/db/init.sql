@@ -25,7 +25,8 @@ create table if not exists worker
     "Job_id"    varchar
         constraint "Job_id"
             references job
-            on update cascade on delete cascade
+            on update cascade on delete cascade,
+    "Update_at" timestamp
 );
 
 alter table worker
@@ -36,28 +37,27 @@ create unique index if not exists worker_id_uindex
 
 create table if not exists article
 (
-    "Id"              serial
+    "Id"                serial
         constraint article_pk
             primary key,
-    "Author"              varchar,
-    "Keyword"             varchar,
-    "Content"             varchar
-        unique,
-    "Platform"            varchar,
-    "Score_happy"         varchar,
-    "Score_fear"          varchar,
-    "Score_embarrassed"   varchar,
-    "Score_sad"           varchar,
-    "Score_rage"          varchar,
-    "Score_hurt"          varchar,
-    "Score_max_value"     varchar,
-    "Score_max_name"      varchar,
-    "Create_at"           varchar,
-    "Job_id"              varchar
+    "Author"            varchar,
+    "Keyword"           varchar,
+    "Content"           varchar,
+    "Platform"          varchar,
+    "Score_happy"       varchar,
+    "Score_fear"        varchar,
+    "Score_embarrassed" varchar,
+    "Score_sad"         varchar,
+    "Score_rage"        varchar,
+    "Score_hurt"        varchar,
+    "Score_max_value"   varchar,
+    "Score_max_name"    varchar,
+    "Create_at"         varchar,
+    "Job_id"            varchar
         constraint "Job_id"
             references job
             on update cascade on delete cascade,
-    "Worker_id"       varchar
+    "Worker_id"         varchar
         constraint "Worker_id"
             references worker
             on update cascade on delete cascade

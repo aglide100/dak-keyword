@@ -30,6 +30,7 @@ func (s *ManagerSrv) GetWorkerList(ctx context.Context, in *pb_svc_manager.GetWo
 			Keyword: value.Keyword,
 			Status: value.Status,
 			JobId: value.JobId,
+			UpdateAt: value.UpdateAt,
 		}
 		// pbWorker := models.WorkerToPbUnit(value)
 		pbWorkers = append(pbWorkers, pbWorker)

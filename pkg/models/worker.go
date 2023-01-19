@@ -10,6 +10,7 @@ type Worker struct {
 	Keyword string `validate:"required"`
 	Status string `validate:"required"`
 	JobId string `validate:"required"`
+	UpdateAt string
 }
 
 func ValidateWorker(worker Worker) error {
@@ -30,5 +31,7 @@ func WorkerToPbUnit(worker *Worker) (*pb_unit_worker.Worker) {
 		Keyword: worker.Keyword,
 		Status: worker.Status,
 		JobId: worker.JobId,
+		UpdateAt: worker.UpdateAt,
+
 	}
 }

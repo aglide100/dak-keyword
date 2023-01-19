@@ -16,7 +16,7 @@ const WorkerList = dynamic(
         ),
     {
         loading: () => <></>,
-        ssr: false,
+        ssr: true,
     },
 );
 
