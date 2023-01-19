@@ -12,7 +12,7 @@ const ArticleGraph = dynamic(
         ),
     {
         loading: () => <></>,
-        ssr: false,
+        ssr: true,
     },
 );
 

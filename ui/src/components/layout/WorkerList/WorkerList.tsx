@@ -8,6 +8,7 @@ type worker = {
     Status: string;
     JobId: string;
     Keyword: string;
+    UpdateAt: string;
 };
 
 const List: React.FC<{ JobId }> = ({ JobId }) => {
@@ -47,6 +48,7 @@ const List: React.FC<{ JobId }> = ({ JobId }) => {
                     Status: value.status,
                     Keyword: value.keyword,
                     JobId: value.jobId,
+                    UpdateAt: value.updateAt,
                 };
                 newWorkerList.push(newWorker);
             });

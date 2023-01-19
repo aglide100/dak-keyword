@@ -7,6 +7,24 @@ import (
 	"github.com/aglide100/dak-keyword/pkg/models"
 )
 
+func (db *Database) RemoveDuplicateArticle(jobID string) error {
+	const q =`
+	DELETE FROM article
+	WHERE "Id" IN (
+    SELECT "Id"
+    FROM (
+        SELECT "Id", row_number() over (PARTITION BY regexp_replace("Content", 'http\\S+'
+    , '', 'g')) AS A FROM article WHERE "Job_id" = $1 ) B WHERE A > 1)
+	`
+
+	_, err := db.Conn.Exec(q, jobID)
+	if err != nil {
+		return fmt.Errorf("inserting: %v", err)
+	}
+	
+	return nil
+}
+
 func (db *Database) WriteTweetToArticle(tweet models.TweetArticle) error {
 	const q =`
 	INSERT INTO article (

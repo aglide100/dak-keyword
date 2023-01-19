@@ -148,7 +148,7 @@ const Header: React.FC<HeaderProps> = ({
                         "translate-y-0":
                             isIconClick ||
                             (scrollY < 100 && scrollDirection == "down"),
-                        "-translate-y-3":
+                        "-translate-y-3 group-hover:translate-y-0":
                             scrollY > 100 &&
                             scrollDirection == "up" &&
                             !isIconClick,

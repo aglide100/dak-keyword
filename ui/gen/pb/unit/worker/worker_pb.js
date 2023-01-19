@@ -72,7 +72,8 @@ proto.pb.unit.worker.Worker.toObject = function(includeInstance, msg) {
     workerId: jspb.Message.getFieldWithDefault(msg, 1, ""),
     keyword: jspb.Message.getFieldWithDefault(msg, 2, ""),
     status: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    jobId: jspb.Message.getFieldWithDefault(msg, 4, "")
+    jobId: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    updateAt: jspb.Message.getFieldWithDefault(msg, 5, "")
   };
 
   if (includeInstance) {
@@ -124,6 +125,10 @@ proto.pb.unit.worker.Worker.deserializeBinaryFromReader = function(msg, reader) 
     case 4:
       var value = /** @type {string} */ (reader.readString());
       msg.setJobId(value);
+      break;
+    case 5:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setUpdateAt(value);
       break;
     default:
       reader.skipField();
@@ -179,6 +184,13 @@ proto.pb.unit.worker.Worker.serializeBinaryToWriter = function(message, writer) 
   if (f.length > 0) {
     writer.writeString(
       4,
+      f
+    );
+  }
+  f = message.getUpdateAt();
+  if (f.length > 0) {
+    writer.writeString(
+      5,
       f
     );
   }
@@ -254,6 +266,24 @@ proto.pb.unit.worker.Worker.prototype.getJobId = function() {
  */
 proto.pb.unit.worker.Worker.prototype.setJobId = function(value) {
   return jspb.Message.setProto3StringField(this, 4, value);
+};
+
+
+/**
+ * optional string update_at = 5;
+ * @return {string}
+ */
+proto.pb.unit.worker.Worker.prototype.getUpdateAt = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.pb.unit.worker.Worker} returns this
+ */
+proto.pb.unit.worker.Worker.prototype.setUpdateAt = function(value) {
+  return jspb.Message.setProto3StringField(this, 5, value);
 };
 
 
