@@ -7,6 +7,7 @@ export type WorkerProps = {
     status: string;
     jobId: string;
     workerKeyword: string;
+    updateAt: string;
 };
 
 export const WorkerItem = (props: WorkerProps) => {
@@ -36,6 +37,10 @@ export const WorkerItem = (props: WorkerProps) => {
                     <div className="mb-1">
                         <span className="font-semibold">Status : </span>
                         {props.status}
+                    </div>
+                    <div className="mb-1">
+                        <span className="font-semibold">Update at : </span>
+                        {props.updateAt}
                     </div>
                 </div>
             </motion.li>

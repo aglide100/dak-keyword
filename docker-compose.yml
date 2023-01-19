@@ -4,8 +4,9 @@ x-services-volume: &services-volume
 
 services:
     db:
-        image: ghcr.io/aglide100/dak-keyword-db:latest
+        image: ghcr.io/aglide100/dak-keyword--db:latest
         # image: db
+        command: postgres -c 'max_connections=200'
         volumes:
             - <<: *services-volume
               source: /media/pi/OS3/db/dak-keyword
@@ -18,7 +19,7 @@ services:
             placement:
                 constraints: [node.role==manager]
     apid:
-        image: ghcr.io/aglide100/dak-keyword-apid:latest
+        image: ghcr.io/aglide100/dak-keyword--apid:latest
         # image: apid
         env_file:
             - ./env/dbConfig.env
@@ -53,7 +54,7 @@ services:
                 - traefik.http.routers.keyword-apid--https.entrypoints=websecure
 
     provisioned:
-        image: ghcr.io/aglide100/dak-keyword-provisioned:latest
+        image: ghcr.io/aglide100/dak-keyword--provisioned:latest
         # image: provisioned
         env_file:
             - ./env/dbConfig.env
@@ -70,7 +71,7 @@ services:
                 constraints: [node.role==manager]
 
     ui:
-        image: ghcr.io/aglide100/dak-keyword-ui:latest
+        image: ghcr.io/aglide100/dak-keyword--ui:latest
         # image: node
         networks:
             - keyword-network

@@ -57,7 +57,7 @@ export const ArticleList: React.FC = () => {
 
     const rowRanderer = ({ index, style }) => {
         const article = data[index];
-        console.log(index);
+        // console.log(index);
         return (
             <div
                 style={style}
