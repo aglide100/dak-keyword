@@ -39,7 +39,8 @@ create table if not exists article
 (
     "Id"                serial
         constraint article_pk
-            primary key,
+            primary key
+        unique,
     "Author"            varchar,
     "Keyword"           varchar,
     "Content"           varchar,
