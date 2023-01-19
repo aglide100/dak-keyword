@@ -121,13 +121,15 @@ const Header: React.FC<HeaderProps> = ({
                     {isIconClick ? (
                         <motion.div className="w-screen h-screen flex justify-center itmes-center text-white">
                             <motion.div className=" flex flex-col mt-20 pl-8 pr-5">
-                                <motion.div className="text-6xl mt-10 mb-20 transition delay-150 hover:underline">
+                                <motion.div className="sm:text-6xl text-3xl font-semibold mt-10 mb-20 transition delay-150 hover:underline">
                                     Simple korean semantic analyzer from SNS
                                 </motion.div>
-                                <motion.span className="text-5xl transition delay-150 hover:underline">
-                                    More details :{" "}
+                                <motion.span className="transition delay-150 hover:underline">
+                                    <motion.span className="sm:text-5xl text-xl font-semibold">
+                                        More details :{" "}
+                                    </motion.span>
                                     <motion.a
-                                        className="text-3xl"
+                                        className="sm:text-3xl text-xl"
                                         href="https://github.com/aglide100/dak-keyword"
                                     >
                                         https://github.com/aglide100/dak-keyword

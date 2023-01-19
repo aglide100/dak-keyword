@@ -12,3 +12,12 @@ func (s Scraper) WriteTweetOnDB(tweet models.TweetArticle) error {
 
 	return nil
 }
+
+func (s Scraper) MakeUniqueArticle(jobId string) error {
+	err := s.db.RemoveDuplicateArticle(jobId)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
