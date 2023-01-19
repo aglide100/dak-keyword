@@ -80,6 +80,7 @@ const List: React.FC<{ JobId }> = ({ JobId }) => {
                         status={job.Status}
                         jobId={job.JobId}
                         workerKeyword={job.Keyword}
+                        updateAt={job.UpdateAt}
                     ></WorkerItem>
                 </div>
             );

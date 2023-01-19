@@ -33,6 +33,7 @@ func realMain() error {
 	dbPasswd := os.Getenv("DB_PASSWORD")
 	dbName := os.Getenv("DB_NAME")
 	workerId := os.Getenv("WORKER_ID")
+	jobId := os.Getenv("JOB_ID")
 
 	dbport, err := strconv.Atoi(dbPort)
 	if err != nil {
@@ -77,6 +78,11 @@ func realMain() error {
 		// log.Printf("date : %v", value.Created_at)
 		// log.Printf("text : %v", value.Text)
 		myScraper.WriteTweetOnDB(value)
+	}
+
+	err = myScraper.MakeUniqueArticle(jobId)
+	if err != nil {
+		return err
 	}
 
 	// time.Sleep(20 * time.Second)   
