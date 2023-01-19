@@ -10,7 +10,7 @@ const NewJobForm = dynamic(
         ),
     {
         loading: () => <></>,
-        ssr: false,
+        ssr: true,
     },
 );
 

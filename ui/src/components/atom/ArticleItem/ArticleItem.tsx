@@ -65,27 +65,37 @@ export const ArticleItem = (props: ArticleProps) => {
                     </div>
                     <div className="flex flex-col">
                         <div className="flex flex-row">
-                            <span className="font-semibold">기쁨 : </span>
+                            <span className="font-semibold">
+                                Happy (기쁨) :{" "}
+                            </span>
                             {props.Score_happy}
                         </div>
                         <div className="flex flex-row">
-                            <span className="font-semibold">분노 : </span>
+                            <span className="font-semibold">
+                                Fear (두려움) :{" "}
+                            </span>
                             {props.Score_fear}
                         </div>
                         <div className="flex flex-row">
-                            <span className="font-semibold">당황 : </span>
+                            <span className="font-semibold">
+                                Embarrassed (당황) :{" "}
+                            </span>
                             {props.Score_embarrassed}
                         </div>
                         <div className="flex flex-row">
-                            <span className="font-semibold">슬픔 : </span>
+                            <span className="font-semibold">Sad (슬픔) : </span>
                             {props.Score_sad}
                         </div>
                         <div className="flex flex-row">
-                            <span className="font-semibold">분노 : </span>
+                            <span className="font-semibold">
+                                Rage (분노) :{" "}
+                            </span>
                             {props.Score_rage}
                         </div>
                         <div className="flex flex-row">
-                            <span className="font-semibold">상처 : </span>
+                            <span className="font-semibold">
+                                Hurt (상처) :{" "}
+                            </span>
                             {props.Score_hurt}
                         </div>
                     </div>

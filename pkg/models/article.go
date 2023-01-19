@@ -2,6 +2,7 @@ package models
 
 import (
 	"fmt"
+	"time"
 
 	pb_unit_article "github.com/aglide100/dak-keyword/pb/unit/article"
 	"github.com/go-playground/validator/v10"
@@ -15,21 +16,29 @@ type Article struct {
 	Keyword string				`validate:"required"`
 	Content string				`validate:"required"`
 	Platform string				`validate:"required"`
-	Score_happy string
-	Score_fear string
-	Score_embarrassed string
-	Score_sad string
-	Score_rage string
-	Score_hurt string
-	Score_max_value string
+	Score_happy string			`validate:"gte=-50,lte=50"`
+	Score_fear string			`validate:"gte=-50,lte=50"`
+	Score_embarrassed string	`validate:"gte=-50,lte=50"`
+	Score_sad string			`validate:"gte=-50,lte=50"`
+	Score_rage string			`validate:"gte=-50,lte=50"`
+	Score_hurt string			`validate:"gte=-50,lte=50"`
+	Score_max_value string		`validate:"gte=-50,lte=50"`
 	Score_max_name string
 	Create_at string			`validate:"required"`
-	Job_id string				`validate:"required"`
-	Worker_id string			`validate:"required"`
+	Job_id string				`validate:"required,uuid"`
+	Worker_id string			`validate:"required,uuid"`
 }
 
 func ValidateArticle(article *Article) (err error) {
 	validate = validator.New()
+
+	const layout = "2006-01-02T03:04:05.999Z"
+
+	_, err = time.Parse(layout, article.Create_at)
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
 
 	err = validate.Struct(article)
 	if err != nil {

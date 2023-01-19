@@ -13,8 +13,9 @@ func (db *Database) AddNewWorker(workerId string, jobId string, keyword string) 
 		"Worker_id",
 		"Job_id",
 		"Keyword",
-		"Status"
-	) VALUES ($1, $2, $3, $4)`
+		"Status",
+		"Update_at"
+	) VALUES ($1, $2, $3, $4, now())`
 
 	_, err := db.Conn.Exec(q,
 		workerId,
@@ -34,7 +35,8 @@ func (db *Database) UpdateWorker(workerId string, status string) error {
 	const q =`
 	UPDATE worker 
 	SET 
-		"Status" = $1
+		"Status" = $1,
+		"Update_at" = now()
 	WHERE "Worker_id" = $2
 	`
 	

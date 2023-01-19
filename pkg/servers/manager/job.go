@@ -39,15 +39,13 @@ func (s *ManagerSrv) CreateNewJob(ctx context.Context, in *pb_svc_manager.Create
 	workerIdList := []string{}
 	jobId := uuid.New().String()
 
-	err = models.ValidateArticle(&models.Article{
-		Id: jobId,
-		Author: in.Owner,
+	err = models.ValidateJob(models.Job{
 		Keyword: in.Keyword,
+		Owner: in.Owner,
 	})
 	if err != nil {
 		return nil, status.Error(codes.Canceled, "Can't validate data")
 	}
-
 
 	err = s.db.AddNewJob(jobId, in.Keyword, in.Owner)
 	if err != nil {
