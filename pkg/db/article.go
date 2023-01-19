@@ -13,7 +13,7 @@ func (db *Database) RemoveDuplicateArticle(jobID string) error {
 	WHERE "Id" IN (
     SELECT "Id"
     FROM (
-        SELECT "Id", row_number() over (PARTITION BY regexp_replace("Content", 'http\\S+'
+        SELECT "Id", row_number() over (PARTITION BY regexp_replace("Content", 'http\S+'
     , '', 'g')) AS A FROM article WHERE "Job_id" = $1 ) B WHERE A > 1)
 	`
 
@@ -35,8 +35,7 @@ func (db *Database) WriteTweetToArticle(tweet models.TweetArticle) error {
 		"Worker_id",
 		"Author",
 		"Create_at"
-	) VALUES ($1, $2, $3, $4, $5, $6, $7)
-	ON CONFLICT ("Content") DO NOTHING`
+	) VALUES ($1, $2, $3, $4, $5, $6, $7)`
 
 	_, err := db.Conn.Exec(q,
 		os.Getenv("Keyword"),
