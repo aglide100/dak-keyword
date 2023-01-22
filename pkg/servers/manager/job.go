@@ -168,7 +168,7 @@ func (s *ManagerSrv) UpdateJobStatus(ctx context.Context, in *pb_svc_manager.Upd
 func (s *ManagerSrv) GetJobList(ctx context.Context, in *pb_svc_manager.GetJobListReq) (*pb_svc_manager.GetJobListRes, error) {
 	if in != nil {
 		p, _ := peer.FromContext(ctx)
-		log.Printf("Received GetJobList call: %v , by : %s", in.String(), p.Addr.String())
+		log.Printf("Received GetJobList call by : %s", p.Addr.String())
 	}
 
 	jobs, err := s.db.GetAllJob()
