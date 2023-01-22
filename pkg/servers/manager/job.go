@@ -127,14 +127,14 @@ func (s *ManagerSrv) ReRunJob(ctx context.Context, in *pb_svc_manager.ReRunJobRe
 		
 		err := s.db.AddNewWorker(workerId, in.Id, value)
 		if err != nil {
-			log.Printf("err: %v", err)
+			log.Printf("Can't add worker, err: %v", err)
 		}
 
 		err = callMakeScraper(workerId, in.Id, value, os.Getenv("BearerToken"))
 		if err != nil {
-			log.Printf("err: %v", err)
+			log.Printf("Can't make Scraper, err: %v", err)
 		}
-		log.Printf("%v %v",workerId ,value)
+		// log.Printf("%v %v",workerId ,value)
 	}
 
 	if (err != nil ) {
