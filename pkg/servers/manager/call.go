@@ -37,7 +37,7 @@ func callMakeScraper(workerId string, jobId string, keyword string, token string
 		log.Fatalf("Can't receive anything! %v", err)
 		return err
 	}
-	log.Printf("res %v", res)
+	log.Printf("Received msg from Make Scraper %v", res)
 
 	return nil
 }
@@ -64,7 +64,7 @@ func callRemoveScraper(id string) (error) {
 		log.Fatalf("Can't receive anything! %v", err)
 		return err
 	}
-	log.Printf("res %v", res)
+	log.Printf("Received msg from Remove Scraper %v", res)
 
 	return nil
 }
@@ -91,7 +91,7 @@ func callRemoveAnalyzer(id string) (error) {
 		log.Fatalf("Can't receive anything! %v", err)
 		return err
 	}
-	log.Printf("res %v", res)
+	log.Printf("Received msg from Remove Analyzer %v", res)
 
 	return nil
 }
@@ -119,7 +119,7 @@ func callMakeAnalysis(id string) (error) {
 		log.Fatalf("Can't receive anything! %v", err)
 		return err
 	}
-	log.Printf("res %v", res)
+	log.Printf("Received msg from Make Analyzer %v", res)
 
 	return nil
 }
