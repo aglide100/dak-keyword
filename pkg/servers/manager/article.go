@@ -7,7 +7,9 @@ import (
 	pb_svc_manager "github.com/aglide100/dak-keyword/pb/svc/manager"
 	pb_unit_article "github.com/aglide100/dak-keyword/pb/unit/article"
 	"github.com/aglide100/dak-keyword/pkg/models"
+	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/peer"
 	"google.golang.org/grpc/status"
 )
@@ -34,7 +36,9 @@ func (s *ManagerSrv) GetArticleList(ctx context.Context, in *pb_svc_manager.GetA
 		pbArticles = append(pbArticles, pbArticle)
 	}
 
+	grpc.SendHeader(ctx, metadata.Pairs("Cache-Control", "private, max-age=5"))
 	return &pb_svc_manager.GetArticleListRes{
 		Article: pbArticles,
+
 	}, nil
 }

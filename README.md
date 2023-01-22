@@ -1,6 +1,6 @@
 # dak-keyword
 
-키워드를 입력받고 이를 수집하여 감성분석을 하는 시스템 설계입니다!
+키워드를 입력받고 이를 수집하여 감성분석을 하는 시스템입니다!
 
 # 프로세스
 
@@ -12,16 +12,22 @@
 
 # 시스템 설계
 
-전체적인 시스템은 아래 그림과 같습니다.
+전체적인 시스템 구성은 아래 그림과 같습니다.
 
 <br>
 
 <img src="https://user-images.githubusercontent.com/35767154/198195330-97c0baa0-1eef-4e00-bafd-49e520f3522a.png">
 
 <br>
+Docker기반의 Swarm Cluster에서 서비스가 배포되며, 굵직한 서비스를 기준으로 Dockerize된 코드를 생성하고 종료되면 terminated되는 것이 주로 이루어집니다.
+
 <br>
 
-작업 관점의 흐름도는 아래 그림을 참고 하시면 됩니다.
+다만 MSA와 같이 너무 작게 서비스를 나누기에 적합하지 않다고 생각되어 특성별로 묶어 apid, scraper, provisioned, db, ui, analyzer로 나누었습니다.
+<br>
+<br>
+
+작업 중심의 흐름도는 아래 그림을 참고 하시면 됩니다.
 
 <br>
 
@@ -29,15 +35,11 @@
 
 <br>
 
-# 사용된 이미지
+# Docker image
 
-본 프로젝트는 dockerize된 코드를 기반으로 swarm환경에서 동작을 전제 조건으로 하여 작성되었습니다.
-
-이미지는 기능별로 작게 나누는 것보다는 특성별로 나누어 github action을 통해 ghcr 레포에 배포하였습니다.
+이미지는 기능별로 작게 나누는 것보다는 특성별로 나누어 작성하였기에 github action을 통해 ghcr 레포에 배포하였습니다.
 
 <br>
-
-## docker image
 
 ---
 
