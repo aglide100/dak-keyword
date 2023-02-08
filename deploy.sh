@@ -12,4 +12,8 @@
 #cd ..
 
 
+CliApiVersion=$(docker version -f '{{.Client.APIVersion}}')
+
+find .env -type f -exec sed -i '' -e /^CLI_API_VERSION=/s/=.*/=$CliApiVersion/ {} \;
+
 docker stack deploy -c <(docker-compose -f docker-compose.yml config) keyword

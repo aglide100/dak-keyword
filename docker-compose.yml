@@ -64,6 +64,8 @@ services:
             - /var/run/docker.sock:/var/run/docker.sock
         # ports:
         #     - 50012:50012
+        environment:
+            - DOCKER_API_VERSION=${CLI_API_VERSION}
         depends_on:
             - db
         deploy:
