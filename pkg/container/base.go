@@ -6,10 +6,9 @@ import (
 	"github.com/docker/docker/client"
 )
 
-
 type VolumeMount struct {
 	HostPath string
-	Volume *types.Volume
+	Volume   *types.Volume
 }
 
 type Container interface {
@@ -20,7 +19,7 @@ type Container interface {
 	CreateNewAnalyzer(workerId string, keyword string, dbConfig *db.DBConfig) error
 	EnsureImage(image string) error
 	RemoveScraper(id string) error
-	RemoveAnalyzer(id string) (error)
+	RemoveAnalyzer(id string) error
 }
 
 type Controller struct {
