@@ -3,7 +3,6 @@ package keyword
 import (
 	"log"
 	"net/url"
-	// "net/url"
 
 	"github.com/tidwall/gjson"
 )
@@ -16,7 +15,6 @@ func GetKeyWordSetFromNaver(keyword string) ([]string, error) {
 
 	resp, err := CreateHttpReq(naverPrefixFront + url.QueryEscape(keyword) + naverPrefixRear)
 	
-	// resp, err := CreateHttpReq(naverPrefixFront + keyword + naverPrefixRear)
 	if err != nil {
 		return nil, err
 	}
@@ -29,12 +27,10 @@ func GetKeyWordSetFromNaver(keyword string) ([]string, error) {
 	
 	if len(data.Array()) > 5 {
 		for _, val := range data.Array()[0:4] {
-			// log.Printf("naver : %v", gjson.Get(val.String(), "0"))
 			result = append(result, gjson.Get(val.String(), "0").String())
 		}
 	} else {
 		for _, val := range data.Array() {
-			// log.Printf("naver : %v", gjson.Get(val.String(), "0"))
 			result = append(result, gjson.Get(val.String(), "0").String())
 		}
 	}

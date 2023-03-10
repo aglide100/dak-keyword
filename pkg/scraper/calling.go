@@ -16,14 +16,7 @@ var (
 )
 
 func CallGrpcCallWhenScraperHaving(workerId string, errMSG string) error {
-	log.Printf("call apid at %s", *addr)
-
-	// creds, err := credentials.NewClientTLSFromFile("../keys/server.key","")
-	
-	// creds, err := credentials.NewClientTLSFromFile("../keys/server.crt", "localhost")
-	// if err != nil {
-	// 	return err
-	// }
+	// log.Printf("call apid at %s", *addr)
 
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
@@ -56,14 +49,7 @@ func CallGrpcCallWhenScraperHaving(workerId string, errMSG string) error {
 
 
 func CallGrpcCallWhenStaring(workerId string) error {
-	log.Printf("call apid at %s", *addr)
-
-	// creds, err := credentials.NewClientTLSFromFile("../keys/server.key","")
-	
-	// creds, err := credentials.NewClientTLSFromFile("../keys/server.crt", "localhost")
-	// if err != nil {
-	// 	return err
-	// }
+	// log.Printf("call apid at %s", *addr)
 
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
@@ -93,14 +79,7 @@ func CallGrpcCallWhenStaring(workerId string) error {
 }
 
 func CallGrpcCallWhenDone(workerId string) error {
-	log.Printf("call apid at %s", *addr)
-
-	// creds, err := credentials.NewClientTLSFromFile("../keys/server.key","")
-	
-	// creds, err := credentials.NewClientTLSFromFile("../keys/server.crt", "localhost")
-	// if err != nil {
-	// 	return err
-	// }
+	// log.Printf("call apid at %s", *addr)
 
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
