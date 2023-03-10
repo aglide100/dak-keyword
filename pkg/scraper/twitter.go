@@ -65,30 +65,23 @@ func (s Scraper) GetRecentSearch(keyword string, nextToken string, injectNum ...
 	meta := gjson.Get(resp, "meta")
 	data := gjson.Get(resp, "data")
 
-	// log.Printf("------------------------------------------------")
-	// log.Printf("data: %v, %d", data.Num, data.Index)
+
 	var articles []models.TweetArticle
-	// var prev models.TweetArticle
-	// var count=0;
+
 	data.ForEach(func(key, value gjson.Result) bool {
-		// count++;
 		newArticle := models.TweetArticle{
 			Id: gjson.Get(value.String(), "id").String(),
 			Text: gjson.Get(value.String(), "text").String(),
 			Created_at: gjson.Get(value.String(), "created_at").String(),
 		}
 
-		// if (!strings.Contains(newArticle.Text, "http")) {
 		articles = append(articles, newArticle)
-		// }
-		
+
 		return true
 	})
 
 
 	if len(gjson.Get(meta.String(), "next_token").String()) > 1 {
-		// log.Printf("---------------------------------------------")
-		// log.Printf("next_token: %v", gjson.Get(meta.String(), "next_token").String())
 		result, err := s.GetRecentSearch(keyword, gjson.Get(meta.String(), "next_token").String(), num+1)
 		if err != nil {
 			log.Printf("error: %v", err)
@@ -103,7 +96,7 @@ func (s Scraper) GetRecentSearch(keyword string, nextToken string, injectNum ...
 }
 
 
-// needs academic reasecher api.....
+// needs academic api.....
 func (s Scraper) GetFullArchiveRecentSearch(keyword string) (error) {
 	log.Printf("Starting get recent tweets....")
 	

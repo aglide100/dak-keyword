@@ -24,13 +24,6 @@ func GetKeyWordSetFromBing(keyword string) ([]string, error) {
 		return nil, err
   	  	// log.Fatal(err)
   	}
-
-
-
-	// doc, err := goquery.NewDocument(bingPrefixFront + url.QueryEscape(keyword) + bingPrefixRear)
-	// if err != nil {
-		// return nil, err
-	// }
 	
 	result := []string{}
 
