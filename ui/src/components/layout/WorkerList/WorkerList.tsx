@@ -54,11 +54,13 @@ const List: React.FC<{ JobId }> = ({ JobId }) => {
             });
 
             newWorkerList.sort(function (a, b) {
-                return a.Keyword.length - b.Keyword.length;
+                return (
+                    new Date(b.UpdateAt).getTime() -
+                    new Date(a.UpdateAt).getTime()
+                );
             });
-            if (data != newWorkerList) {
-                setData(newWorkerList);
-            }
+
+            setData(newWorkerList);
 
             setIsLoaded(true);
         });

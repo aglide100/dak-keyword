@@ -45,6 +45,13 @@ export const ArticleList: React.FC = () => {
                 newArticleList.push(newArticle);
             });
 
+            newArticleList.sort(function (a, b) {
+                return (
+                    new Date(b.Create_at).getTime() -
+                    new Date(a.Create_at).getTime()
+                );
+            });
+
             if (data != newArticleList) {
                 setData(newArticleList);
             }
@@ -93,7 +100,7 @@ export const ArticleList: React.FC = () => {
                     <List
                         rowCount={data.length}
                         height={height}
-                        rowHeight={470}
+                        rowHeight={490}
                         width={width}
                         rowRenderer={rowRanderer}
                         overscanRowCount={10}
@@ -107,7 +114,7 @@ export const ArticleList: React.FC = () => {
         }
     } else {
         ArticleList = (
-            <div className="w-full flex justify-center mt-10">
+            <div className="w-full h-full flex justify-center mt-10">
                 <TailSpin
                     height="80"
                     width="80"

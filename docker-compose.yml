@@ -50,7 +50,7 @@ services:
                 - traefik.http.services.keyword-apid.loadbalancer.server.port=50011
                 - traefik.http.routers.keyword-apid--https.rule=Host(`keyword-grpc.${DOMAIN}`)
                 - traefik.http.routers.keyword-apid--https.tls=true
-                # - traefik.http.routers.keyword-apid--https.tls.certresolver=myresolver
+                - traefik.http.routers.keyword-apid--https.tls.certresolver=myresolver
                 - traefik.http.routers.keyword-apid--https.entrypoints=websecure
 
     provisioned:
