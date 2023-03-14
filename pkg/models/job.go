@@ -13,6 +13,7 @@ type Job struct {
 	Date string 
 }
 
+
 func ValidateJob(job Job) error {
 	v := validator.New()
 
