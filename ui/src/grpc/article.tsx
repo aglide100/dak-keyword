@@ -17,23 +17,47 @@ export async function CallGetArticleList(id, callback) {
         transport: NodeHttpTransport(),
         onEnd: (res) => {
             const { status, message } = res;
-            // const { status, statusMessage, headers, message, trailers } = res;
-            // console.log(
-            //     "getArticleListReq.onEnd.status",
-            //     status,
-            //     statusMessage,
-            // );
-            // console.log("getArticleListReq.onEnd.headers", headers);
             if (status === grpc.Code.OK && message) {
-                // console.log(
-                //     "getArticleListReq.onEnd.message",
-                //     message.toObject(),
-                // );
-
                 callback(message.toObject());
             }
+        },
+    });
+}
 
-            // console.log("getArticleListReq.onEnd.trailers", trailers);
+export async function CallGetArticleCountByDay(id, callback) {
+    const getArticleCountByDayReq =
+        new pb_svc_manager.GetArticleCountByDayReq();
+
+    getArticleCountByDayReq.setId(id);
+
+    grpc.unary(Manager.GetArticleCountByDay, {
+        host: (await GrpcManager.getInstance()).GetHost(),
+        request: getArticleCountByDayReq,
+        transport: NodeHttpTransport(),
+        onEnd: (res) => {
+            const { status, message } = res;
+            if (status === grpc.Code.OK && message) {
+                callback(message.toObject());
+            }
+        },
+    });
+}
+
+export async function CallGetArticleCountByHour(id, callback) {
+    const getArticleCountByHourReq =
+        new pb_svc_manager.GetArticleCountByHourReq();
+
+    getArticleCountByHourReq.setId(id);
+
+    grpc.unary(Manager.GetArticleCountByHour, {
+        host: (await GrpcManager.getInstance()).GetHost(),
+        request: getArticleCountByHourReq,
+        transport: NodeHttpTransport(),
+        onEnd: (res) => {
+            const { status, message } = res;
+            if (status === grpc.Code.OK && message) {
+                callback(message.toObject());
+            }
         },
     });
 }

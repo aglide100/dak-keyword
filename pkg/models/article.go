@@ -29,6 +29,12 @@ type Article struct {
 	Worker_id string			`validate:"required,uuid"`
 }
 
+type ArticleCount struct {
+	Create_at_time string
+	Count string
+	Score_max_name string
+}
+
 func ValidateArticle(article *Article) (err error) {
 	validate = validator.New()
 
@@ -64,7 +70,14 @@ func ValidateArticle(article *Article) (err error) {
 	}
 
 	return err
+}
 
+func ArticleCountToPbUnit(article *ArticleCount) (*pb_unit_article.ArticleCount) {
+	return &pb_unit_article.ArticleCount{
+		CreateAtTime: article.Create_at_time,
+		Count: article.Count,
+		ScoreMaxName: article.Score_max_name,
+	}
 }
 
 func ArticleToPbUnit(article *Article) (*pb_unit_article.Article) {

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 // import { Icon, IconType } from "../Icon/Icon";
-import { CallGetArticleList } from "../../../grpc/article";
+import {
+    CallGetArticleCountByDay,
+    CallGetArticleList,
+} from "../../../grpc/article";
 import {
     // LineChart,
     // Line,
@@ -23,6 +26,12 @@ import {
 import Switch from "react-switch";
 import { ArticleProps } from "../ArticleItem/ArticleItem";
 import { useRouter } from "next/router";
+
+type ArticleCountProto = {
+    Create_at: string;
+    Count: number;
+    Score_max_name: string;
+};
 
 type ArticleCount = {
     Create_at: string;
@@ -52,34 +61,49 @@ const ColorIndex = {
     5: "#999999",
 };
 
-export const ArticleGraph = () => {
-    const [isLoaded, setIsLoaded] = useState<boolean>(false);
+export const ArticleGraph: React.FC = () => {
     const router = useRouter();
+    const [isLoaded, setIsLoaded] = useState<boolean>(false);
     const [isClick, setIsClick] = useState<boolean>(false);
 
-    const [data, setData] = useState<ArticleProps[]>([]);
+    const [data, setData] = useState<ArticleCountProto[]>([]);
     const [dataCount, setDataCount] = useState<ArticleCount[]>([]);
 
     const [checkedItems, setCheckedItems] = useState(new Set());
     const [isChecked, setIsChecked] = useState(false);
 
-    const [count, setCount] = useState(0);
-
     let renderBarChart;
 
     useEffect(() => {
-        if (!isLoaded && count < 1) {
-            setCount(count + 1);
-            fetchArticleList(router.query.jobId);
-        }
-
-        if (!isLoaded && data.length != 0) {
-            setIsClick(true);
-            countArticle();
+        if (!isLoaded) {
+            fetchArticleCountByDay();
         }
     });
 
+    async function fetchArticleCountByDay() {
+        CallGetArticleCountByDay(router.query.jobId, (message) => {
+            const newArticleCounts: ArticleCountProto[] = [];
+            message.articlecountList.map((value, _) => {
+                const newArticleCount: ArticleCountProto = {
+                    Count: value.count,
+                    Create_at: value.createattime,
+                    Score_max_name: value.scoremaxname,
+                };
+
+                newArticleCounts.push(newArticleCount);
+            });
+
+            if (data != newArticleCounts) {
+                setData(newArticleCounts);
+                countArticle();
+            }
+
+            setIsLoaded(true);
+        });
+    }
+
     function countArticle() {
+        console.log("!!!!", data);
         let create_at = "";
         let count_happy = 0;
         let count_fear = 0;
@@ -96,121 +120,70 @@ export const ArticleGraph = () => {
         });
 
         const countArray = new Array<ArticleCount>();
+
         tmpArray.map((value, index) => {
-            if (index == 0) {
-                if (isClick) {
-                    create_at = value.Create_at;
-                } else {
-                    create_at = value.Create_at.slice(0, 11);
-                }
+            if (index == data.length - 1) {
+                countArray.push({
+                    Create_at: create_at,
+                    Count_happy: count_happy,
+                    Count_fear: count_fear,
+                    Count_embarrassed: count_embarrassed,
+                    Count_sad: count_sad,
+                    Count_rage: count_rage,
+                    Count_hurt: count_hurt,
+                });
+            }
+
+            const check = value.Create_at;
+
+            if (check != create_at) {
+                countArray.push({
+                    Create_at: create_at,
+                    Count_happy: count_happy,
+                    Count_fear: count_fear,
+                    Count_embarrassed: count_embarrassed,
+                    Count_sad: count_sad,
+                    Count_rage: count_rage,
+                    Count_hurt: count_hurt,
+                });
+                create_at = value.Create_at;
+
+                count_happy = 0;
+                count_fear = 0;
+                count_embarrassed = 0;
+                count_sad = 0;
+                count_rage = 0;
+                count_hurt = 0;
             } else {
-                if (index == data.length - 1) {
-                    countArray.push({
-                        Create_at: create_at,
-                        Count_happy: count_happy,
-                        Count_fear: count_fear,
-                        Count_embarrassed: count_embarrassed,
-                        Count_sad: count_sad,
-                        Count_rage: count_rage,
-                        Count_hurt: count_hurt,
-                    });
+                if (value.Score_max_name == "Happy") {
+                    count_happy++;
                 }
 
-                let check;
-                if (isClick) {
-                    check = value.Create_at;
-                } else {
-                    check = value.Create_at.slice(0, 11);
+                if (value.Score_max_name == "Fear") {
+                    count_fear++;
                 }
 
-                if (check != create_at) {
-                    countArray.push({
-                        Create_at: create_at,
-                        Count_happy: count_happy,
-                        Count_fear: count_fear,
-                        Count_embarrassed: count_embarrassed,
-                        Count_sad: count_sad,
-                        Count_rage: count_rage,
-                        Count_hurt: count_hurt,
-                    });
+                if (value.Score_max_name == "Embarrassed") {
+                    count_embarrassed++;
+                }
 
-                    // create_at = value.Create_at;
-                    if (isClick) {
-                        create_at = value.Create_at;
-                    } else {
-                        create_at = value.Create_at.slice(0, 11);
-                    }
-                    count_happy = 0;
-                    count_fear = 0;
-                    count_embarrassed = 0;
-                    count_sad = 0;
-                    count_rage = 0;
-                    count_hurt = 0;
-                } else {
-                    if (value.Score_max_name == "Happy") {
-                        count_happy++;
-                    }
+                if (value.Score_max_name == "Sad") {
+                    count_sad++;
+                }
 
-                    if (value.Score_max_name == "Fear") {
-                        count_fear++;
-                    }
+                if (value.Score_max_name == "Hurt") {
+                    count_rage++;
+                }
 
-                    if (value.Score_max_name == "Embarrassed") {
-                        count_embarrassed++;
-                    }
-
-                    if (value.Score_max_name == "Sad") {
-                        count_sad++;
-                    }
-
-                    if (value.Score_max_name == "Hurt") {
-                        count_rage++;
-                    }
-
-                    if (value.Score_max_name == "Rage") {
-                        count_hurt++;
-                    }
+                if (value.Score_max_name == "Rage") {
+                    count_hurt++;
                 }
             }
+
+            setDataCount(countArray);
         });
 
-        setDataCount(countArray);
-    }
-
-    async function fetchArticleList(jobId) {
-        await CallGetArticleList(jobId, (message) => {
-            const newArticleList: ArticleProps[] = [];
-
-            message.articleList.map((value, _) => {
-                const newArticle: ArticleProps = {
-                    Id: value.id,
-                    Author: "",
-                    Keyword: "",
-                    Content: "",
-                    Platform: value.platform,
-                    Score_happy: value.scoreHappy,
-                    Score_fear: value.scoreFear,
-                    Score_embarrassed: value.scoreEmbarrassed,
-                    Score_sad: value.scoreSad,
-                    Score_rage: value.scoreRage,
-                    Score_hurt: value.scoreHurt,
-                    Score_max_value: value.scoreMaxValue,
-                    Score_max_name: value.scoreMaxName,
-                    Create_at: value.createAt.slice(0, 13),
-                    Job_id: value.job_id,
-                    Worker_id: value.worker_id,
-                };
-
-                newArticleList.push(newArticle);
-            });
-
-            if (data != newArticleList) {
-                setData(newArticleList);
-            }
-
-            // countArticle();
-            setIsLoaded(true);
-        });
+        console.log(countArray);
     }
 
     const checkHandler = ({ target }) => {
@@ -321,10 +294,10 @@ export const ArticleGraph = () => {
                     <span className="ml-1">Day</span>
                 </div>
 
-                <div className="flex flex-row flex-wrap w-full content-around">
+                {/* <div className="flex flex-row flex-wrap w-full content-around">
                     {checkBoxList}
                 </div>
-                <div className="w-full h-96 mt-20 pr-10">{renderBarChart}</div>
+                <div className="w-full h-96 mt-20 pr-10">{renderBarChart}</div> */}
             </div>
         </motion.li>
     );
