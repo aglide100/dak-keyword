@@ -42,3 +42,61 @@ func (s *ManagerSrv) GetArticleList(ctx context.Context, in *pb_svc_manager.GetA
 
 	}, nil
 }
+
+func (s *ManagerSrv) GetArticleCountByHour(ctx context.Context, in *pb_svc_manager.GetArticleCountByHourReq) (*pb_svc_manager.GetArticleCountByHourRes, error) {
+	if in != nil {
+		p, _ := peer.FromContext(ctx)
+		log.Printf("Received GetArticleList call: %v , by : %v", in.String(), p.Addr.String())
+	} else {
+		return nil, status.Error(codes.InvalidArgument, "Can't find argument!")
+	}
+	
+
+	articles, err := s.db.GetCountByHour(in.Id)
+	if err != nil {
+		log.Printf("err %v", err)
+		return nil, status.Error(codes.Internal, "Can't querying :" + err.Error())
+	}
+
+	var pbArticles []*pb_unit_article.ArticleCount
+
+	for _, value := range articles {
+		pbArticle := models.ArticleCountToPbUnit(value)
+		pbArticles = append(pbArticles, pbArticle)
+	}
+
+	grpc.SendHeader(ctx, metadata.Pairs("Cache-Control", "private, max-age=5"))
+	return &pb_svc_manager.GetArticleCountByHourRes{
+		ArticleCount: pbArticles,
+
+	}, nil
+}
+
+func (s *ManagerSrv) GetArticleCountByDay(ctx context.Context, in *pb_svc_manager.GetArticleCountByDayReq) (*pb_svc_manager.GetArticleCountByDayRes, error) {
+	if in != nil {
+		p, _ := peer.FromContext(ctx)
+		log.Printf("Received GetArticleList call: %v , by : %v", in.String(), p.Addr.String())
+	} else {
+		return nil, status.Error(codes.InvalidArgument, "Can't find argument!")
+	}
+	
+
+	articles, err := s.db.GetCountByDay(in.Id)
+	if err != nil {
+		log.Printf("err %v", err)
+		return nil, status.Error(codes.Internal, "Can't querying :" + err.Error())
+	}
+
+	var pbArticles []*pb_unit_article.ArticleCount
+
+	for _, value := range articles {
+		pbArticle := models.ArticleCountToPbUnit(value)
+		pbArticles = append(pbArticles, pbArticle)
+	}
+
+	grpc.SendHeader(ctx, metadata.Pairs("Cache-Control", "private, max-age=5"))
+	return &pb_svc_manager.GetArticleCountByDayRes{
+		ArticleCount: pbArticles,
+
+	}, nil
+}

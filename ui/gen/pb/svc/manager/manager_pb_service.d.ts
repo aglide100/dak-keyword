@@ -67,6 +67,24 @@ type ManagerGetArticleList = {
   readonly responseType: typeof pb_svc_manager_manager_pb.GetArticleListRes;
 };
 
+type ManagerGetArticleCountByHour = {
+  readonly methodName: string;
+  readonly service: typeof Manager;
+  readonly requestStream: false;
+  readonly responseStream: false;
+  readonly requestType: typeof pb_svc_manager_manager_pb.GetArticleCountByHourReq;
+  readonly responseType: typeof pb_svc_manager_manager_pb.GetArticleCountByHourRes;
+};
+
+type ManagerGetArticleCountByDay = {
+  readonly methodName: string;
+  readonly service: typeof Manager;
+  readonly requestStream: false;
+  readonly responseStream: false;
+  readonly requestType: typeof pb_svc_manager_manager_pb.GetArticleCountByDayReq;
+  readonly responseType: typeof pb_svc_manager_manager_pb.GetArticleCountByDayRes;
+};
+
 type ManagerUpdateWorkerStatus = {
   readonly methodName: string;
   readonly service: typeof Manager;
@@ -157,6 +175,8 @@ export class Manager {
   static readonly GetWorkerList: ManagerGetWorkerList;
   static readonly GetArticleInfo: ManagerGetArticleInfo;
   static readonly GetArticleList: ManagerGetArticleList;
+  static readonly GetArticleCountByHour: ManagerGetArticleCountByHour;
+  static readonly GetArticleCountByDay: ManagerGetArticleCountByDay;
   static readonly UpdateWorkerStatus: ManagerUpdateWorkerStatus;
   static readonly UpdateJobStatus: ManagerUpdateJobStatus;
   static readonly WhenStartScraper: ManagerWhenStartScraper;
@@ -262,6 +282,24 @@ export class ManagerClient {
   getArticleList(
     requestMessage: pb_svc_manager_manager_pb.GetArticleListReq,
     callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.GetArticleListRes|null) => void
+  ): UnaryResponse;
+  getArticleCountByHour(
+    requestMessage: pb_svc_manager_manager_pb.GetArticleCountByHourReq,
+    metadata: grpc.Metadata,
+    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.GetArticleCountByHourRes|null) => void
+  ): UnaryResponse;
+  getArticleCountByHour(
+    requestMessage: pb_svc_manager_manager_pb.GetArticleCountByHourReq,
+    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.GetArticleCountByHourRes|null) => void
+  ): UnaryResponse;
+  getArticleCountByDay(
+    requestMessage: pb_svc_manager_manager_pb.GetArticleCountByDayReq,
+    metadata: grpc.Metadata,
+    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.GetArticleCountByDayRes|null) => void
+  ): UnaryResponse;
+  getArticleCountByDay(
+    requestMessage: pb_svc_manager_manager_pb.GetArticleCountByDayReq,
+    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.GetArticleCountByDayRes|null) => void
   ): UnaryResponse;
   updateWorkerStatus(
     requestMessage: pb_svc_manager_manager_pb.UpdateWorkerStatusReq,

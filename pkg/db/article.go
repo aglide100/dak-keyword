@@ -65,7 +65,7 @@ func (db *Database) GetArticles(id string) ([]*models.Article, error) {
 	
 	rows, err := db.Conn.Query(q, id)
 	if err != nil {
-		return nil, fmt.Errorf("Querying: %v", err)
+		return nil, err
 	}
 
 	var (
@@ -136,4 +136,96 @@ func (db *Database) GetArticles(id string) ([]*models.Article, error) {
 	}
 
 	return articles, nil
+}
+
+
+
+func (db *Database) GetCountByHour(jobId string) ([]*models.ArticleCount, error) {
+	const q = `
+	SELECT to_char("Create_at"::timestamp, 'YYYY-MM-DD HH24') AS "Create_at_time",
+       "Score_max_name",
+       COUNT(*) AS "Count"
+	FROM article
+	WHERE "Job_id" = $1
+	GROUP BY "Create_at_time", "Score_max_name";
+	`
+	
+	rows, err := db.Conn.Query(q, jobId)
+	if err != nil {
+		return nil, err
+	}
+
+	var (
+		Create_at_time string
+		Count string
+		Score_max_name string
+	)
+
+	var articleCounts []*models.ArticleCount
+
+	for rows.Next() {
+		err := rows.Scan(
+			&Create_at_time,
+			&Count,
+			&Score_max_name,
+		)
+		if err != nil {
+			return nil, err
+		}
+
+		articleCount := &models.ArticleCount{
+			Create_at_time:Create_at_time,
+			Count:Count,
+			Score_max_name:Score_max_name,
+		}
+
+		articleCounts = append(articleCounts, articleCount)
+	}
+
+	return articleCounts, nil
+}
+
+func (db *Database) GetCountByDay(jobId string) ([]*models.ArticleCount, error) {
+	const q = `
+	SELECT to_char("Create_at"::timestamp, 'YYYY-MM-DD') AS "Create_at_time",
+       "Score_max_name",
+       COUNT(*) AS "Count"
+	FROM article
+	WHERE "Job_id" = $1
+	GROUP BY "Create_at_time", "Score_max_name";
+	`
+	
+	rows, err := db.Conn.Query(q, jobId)
+	if err != nil {
+		return nil, err
+	}
+
+	var (
+		Create_at_time string
+		Count string
+		Score_max_name string
+	)
+
+	var articleCounts []*models.ArticleCount
+
+	for rows.Next() {
+		err := rows.Scan(
+			&Create_at_time,
+			&Score_max_name,
+			&Count,
+		)
+		if err != nil {
+			return nil, err
+		}
+
+		articleCount := &models.ArticleCount{
+			Create_at_time:Create_at_time,
+			Count:Count,
+			Score_max_name:Score_max_name,
+		}
+
+		articleCounts = append(articleCounts, articleCount)
+	}
+
+	return articleCounts, nil
 }

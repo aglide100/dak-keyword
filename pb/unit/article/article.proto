@@ -21,3 +21,9 @@ message Article {
     string job_id = 15;
     string worker_id = 16;
 }
+
+message ArticleCount {
+    string createAtTime = 1;
+    string count = 2;
+    string scoreMaxName = 3;
+}

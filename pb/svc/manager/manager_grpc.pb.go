@@ -29,6 +29,8 @@ type ManagerClient interface {
 	GetWorkerList(ctx context.Context, in *GetWorkerListReq, opts ...grpc.CallOption) (*GetWorkerListRes, error)
 	GetArticleInfo(ctx context.Context, in *GetArticleInfoReq, opts ...grpc.CallOption) (*GetArticleInfoRes, error)
 	GetArticleList(ctx context.Context, in *GetArticleListReq, opts ...grpc.CallOption) (*GetArticleListRes, error)
+	GetArticleCountByHour(ctx context.Context, in *GetArticleCountByHourReq, opts ...grpc.CallOption) (*GetArticleCountByHourRes, error)
+	GetArticleCountByDay(ctx context.Context, in *GetArticleCountByDayReq, opts ...grpc.CallOption) (*GetArticleCountByDayRes, error)
 	UpdateWorkerStatus(ctx context.Context, in *UpdateWorkerStatusReq, opts ...grpc.CallOption) (*UpdateWorkerStatusRes, error)
 	UpdateJobStatus(ctx context.Context, in *UpdateJobStatusReq, opts ...grpc.CallOption) (*UpdateJobStatusRes, error)
 	WhenStartScraper(ctx context.Context, in *WhenStartScraperReq, opts ...grpc.CallOption) (*WhenStartScraperRes, error)
@@ -105,6 +107,24 @@ func (c *managerClient) GetArticleInfo(ctx context.Context, in *GetArticleInfoRe
 func (c *managerClient) GetArticleList(ctx context.Context, in *GetArticleListReq, opts ...grpc.CallOption) (*GetArticleListRes, error) {
 	out := new(GetArticleListRes)
 	err := c.cc.Invoke(ctx, "/pb.svc.manager.Manager/GetArticleList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *managerClient) GetArticleCountByHour(ctx context.Context, in *GetArticleCountByHourReq, opts ...grpc.CallOption) (*GetArticleCountByHourRes, error) {
+	out := new(GetArticleCountByHourRes)
+	err := c.cc.Invoke(ctx, "/pb.svc.manager.Manager/GetArticleCountByHour", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *managerClient) GetArticleCountByDay(ctx context.Context, in *GetArticleCountByDayReq, opts ...grpc.CallOption) (*GetArticleCountByDayRes, error) {
+	out := new(GetArticleCountByDayRes)
+	err := c.cc.Invoke(ctx, "/pb.svc.manager.Manager/GetArticleCountByDay", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -203,6 +223,8 @@ type ManagerServer interface {
 	GetWorkerList(context.Context, *GetWorkerListReq) (*GetWorkerListRes, error)
 	GetArticleInfo(context.Context, *GetArticleInfoReq) (*GetArticleInfoRes, error)
 	GetArticleList(context.Context, *GetArticleListReq) (*GetArticleListRes, error)
+	GetArticleCountByHour(context.Context, *GetArticleCountByHourReq) (*GetArticleCountByHourRes, error)
+	GetArticleCountByDay(context.Context, *GetArticleCountByDayReq) (*GetArticleCountByDayRes, error)
 	UpdateWorkerStatus(context.Context, *UpdateWorkerStatusReq) (*UpdateWorkerStatusRes, error)
 	UpdateJobStatus(context.Context, *UpdateJobStatusReq) (*UpdateJobStatusRes, error)
 	WhenStartScraper(context.Context, *WhenStartScraperReq) (*WhenStartScraperRes, error)
@@ -239,6 +261,12 @@ func (UnimplementedManagerServer) GetArticleInfo(context.Context, *GetArticleInf
 }
 func (UnimplementedManagerServer) GetArticleList(context.Context, *GetArticleListReq) (*GetArticleListRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetArticleList not implemented")
+}
+func (UnimplementedManagerServer) GetArticleCountByHour(context.Context, *GetArticleCountByHourReq) (*GetArticleCountByHourRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetArticleCountByHour not implemented")
+}
+func (UnimplementedManagerServer) GetArticleCountByDay(context.Context, *GetArticleCountByDayReq) (*GetArticleCountByDayRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetArticleCountByDay not implemented")
 }
 func (UnimplementedManagerServer) UpdateWorkerStatus(context.Context, *UpdateWorkerStatusReq) (*UpdateWorkerStatusRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateWorkerStatus not implemented")
@@ -402,6 +430,42 @@ func _Manager_GetArticleList_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ManagerServer).GetArticleList(ctx, req.(*GetArticleListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Manager_GetArticleCountByHour_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetArticleCountByHourReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManagerServer).GetArticleCountByHour(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.svc.manager.Manager/GetArticleCountByHour",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManagerServer).GetArticleCountByHour(ctx, req.(*GetArticleCountByHourReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Manager_GetArticleCountByDay_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetArticleCountByDayReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManagerServer).GetArticleCountByDay(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.svc.manager.Manager/GetArticleCountByDay",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManagerServer).GetArticleCountByDay(ctx, req.(*GetArticleCountByDayReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -602,6 +666,14 @@ var Manager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetArticleList",
 			Handler:    _Manager_GetArticleList_Handler,
+		},
+		{
+			MethodName: "GetArticleCountByHour",
+			Handler:    _Manager_GetArticleCountByHour_Handler,
+		},
+		{
+			MethodName: "GetArticleCountByDay",
+			Handler:    _Manager_GetArticleCountByDay_Handler,
 		},
 		{
 			MethodName: "UpdateWorkerStatus",

@@ -83,3 +83,31 @@ export namespace Article {
   }
 }
 
+export class ArticleCount extends jspb.Message {
+  getCreateattime(): string;
+  setCreateattime(value: string): void;
+
+  getCount(): string;
+  setCount(value: string): void;
+
+  getScoremaxname(): string;
+  setScoremaxname(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ArticleCount.AsObject;
+  static toObject(includeInstance: boolean, msg: ArticleCount): ArticleCount.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: ArticleCount, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ArticleCount;
+  static deserializeBinaryFromReader(message: ArticleCount, reader: jspb.BinaryReader): ArticleCount;
+}
+
+export namespace ArticleCount {
+  export type AsObject = {
+    createattime: string,
+    count: string,
+    scoremaxname: string,
+  }
+}
+

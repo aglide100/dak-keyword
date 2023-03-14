@@ -6,6 +6,90 @@ import * as pb_unit_job_job_pb from "../../../pb/unit/job/job_pb";
 import * as pb_unit_worker_worker_pb from "../../../pb/unit/worker/worker_pb";
 import * as pb_unit_article_article_pb from "../../../pb/unit/article/article_pb";
 
+export class GetArticleCountByDayReq extends jspb.Message {
+  getId(): string;
+  setId(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetArticleCountByDayReq.AsObject;
+  static toObject(includeInstance: boolean, msg: GetArticleCountByDayReq): GetArticleCountByDayReq.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: GetArticleCountByDayReq, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetArticleCountByDayReq;
+  static deserializeBinaryFromReader(message: GetArticleCountByDayReq, reader: jspb.BinaryReader): GetArticleCountByDayReq;
+}
+
+export namespace GetArticleCountByDayReq {
+  export type AsObject = {
+    id: string,
+  }
+}
+
+export class GetArticleCountByDayRes extends jspb.Message {
+  clearArticlecountList(): void;
+  getArticlecountList(): Array<pb_unit_article_article_pb.ArticleCount>;
+  setArticlecountList(value: Array<pb_unit_article_article_pb.ArticleCount>): void;
+  addArticlecount(value?: pb_unit_article_article_pb.ArticleCount, index?: number): pb_unit_article_article_pb.ArticleCount;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetArticleCountByDayRes.AsObject;
+  static toObject(includeInstance: boolean, msg: GetArticleCountByDayRes): GetArticleCountByDayRes.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: GetArticleCountByDayRes, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetArticleCountByDayRes;
+  static deserializeBinaryFromReader(message: GetArticleCountByDayRes, reader: jspb.BinaryReader): GetArticleCountByDayRes;
+}
+
+export namespace GetArticleCountByDayRes {
+  export type AsObject = {
+    articlecountList: Array<pb_unit_article_article_pb.ArticleCount.AsObject>,
+  }
+}
+
+export class GetArticleCountByHourReq extends jspb.Message {
+  getId(): string;
+  setId(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetArticleCountByHourReq.AsObject;
+  static toObject(includeInstance: boolean, msg: GetArticleCountByHourReq): GetArticleCountByHourReq.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: GetArticleCountByHourReq, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetArticleCountByHourReq;
+  static deserializeBinaryFromReader(message: GetArticleCountByHourReq, reader: jspb.BinaryReader): GetArticleCountByHourReq;
+}
+
+export namespace GetArticleCountByHourReq {
+  export type AsObject = {
+    id: string,
+  }
+}
+
+export class GetArticleCountByHourRes extends jspb.Message {
+  clearArticlecountList(): void;
+  getArticlecountList(): Array<pb_unit_article_article_pb.ArticleCount>;
+  setArticlecountList(value: Array<pb_unit_article_article_pb.ArticleCount>): void;
+  addArticlecount(value?: pb_unit_article_article_pb.ArticleCount, index?: number): pb_unit_article_article_pb.ArticleCount;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetArticleCountByHourRes.AsObject;
+  static toObject(includeInstance: boolean, msg: GetArticleCountByHourRes): GetArticleCountByHourRes.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: GetArticleCountByHourRes, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetArticleCountByHourRes;
+  static deserializeBinaryFromReader(message: GetArticleCountByHourRes, reader: jspb.BinaryReader): GetArticleCountByHourRes;
+}
+
+export namespace GetArticleCountByHourRes {
+  export type AsObject = {
+    articlecountList: Array<pb_unit_article_article_pb.ArticleCount.AsObject>,
+  }
+}
+
 export class CreateNewJobReq extends jspb.Message {
   getKeyword(): string;
   setKeyword(value: string): void;
