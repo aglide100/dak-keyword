@@ -16,13 +16,11 @@ func GetKeyWordSetFromBing(keyword string) ([]string, error) {
 	res, err := CreateHttpRes(bingPrefixFront + url.QueryEscape(keyword) + bingPrefixRear)
   	if err != nil {
 		return nil, err
-  		// log.Fatal(err)
   	}
 
   	doc, err := goquery.NewDocumentFromReader(res.Body)
   	if err != nil {
 		return nil, err
-  	  	// log.Fatal(err)
   	}
 	
 	result := []string{}
