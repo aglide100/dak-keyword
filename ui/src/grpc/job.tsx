@@ -1,3 +1,4 @@
+/* eslint-disable no-async-promise-executor */
 import * as pb_svc_manager from "../../gen/pb/svc/manager/manager_pb";
 import { Manager } from "../../gen/pb/svc/manager/manager_pb_service";
 import { grpc } from "@improbable-eng/grpc-web";
@@ -32,24 +33,27 @@ export async function CallReRunJob(id, accessCode, callback) {
     reRunJobReq.setId(id);
     reRunJobReq.setAccesscode(accessCode);
 
-    grpc.unary(Manager.ReRunJob, {
-        host: (await GrpcManager.getInstance()).GetHost(),
-        request: reRunJobReq,
-        onEnd: (res) => {
-            const { status, message, statusMessage, headers } = res;
+    await new Promise<void>(async (resolve) => {
+        grpc.unary(Manager.ReRunJob, {
+            host: (await GrpcManager.getInstance()).GetHost(),
+            request: reRunJobReq,
+            onEnd: async (res) => {
+                const { status, message, statusMessage, headers } = res;
 
-            console.log("CallReRunJob.onEnd.status", status, statusMessage);
-            console.log("CallReRunJob.onEnd.headers", headers);
+                console.log("CallReRunJob.onEnd.status", status, statusMessage);
+                console.log("CallReRunJob.onEnd.headers", headers);
 
-            if (status === grpc.Code.OK && message) {
-                callback(message.toObject(), statusMessage);
-            } else if (
-                status === grpc.Code.Canceled &&
-                statusMessage.length > 1
-            ) {
-                callback("", statusMessage);
-            }
-        },
+                if (status === grpc.Code.OK && message) {
+                    callback(message.toObject(), statusMessage);
+                } else if (
+                    status === grpc.Code.Canceled &&
+                    statusMessage.length > 1
+                ) {
+                    callback("", statusMessage);
+                }
+                resolve();
+            },
+        });
     });
 }
 

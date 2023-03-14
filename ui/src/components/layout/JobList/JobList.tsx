@@ -18,25 +18,29 @@ const List: React.FC = () => {
         if (!isLoaded) {
             fetchJobList();
         }
-    });
+    }, [isLoaded]);
 
     async function fetchJobList() {
         try {
             CallGetJobList((message) => {
+                const newJobList = [...data];
                 message.jobList.map((value, _) => {
-                    const newJobList = data;
                     const newJob: job = {
                         id: value.id,
                         status: value.status,
                         keyword: value.keyword,
                         owner: value.owner,
-                        date: value.date,
+                        date: value.date.slice(0, 10),
                     };
                     newJobList.push(newJob);
-
-                    setData(newJobList);
+                });
+                newJobList.sort((a, b) => {
+                    return (
+                        new Date(b.date).getTime() - new Date(a.date).getTime()
+                    );
                 });
 
+                setData(newJobList);
                 setIsLoaded(true);
             });
         } catch (err) {

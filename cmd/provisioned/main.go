@@ -62,7 +62,7 @@ func realMain() error {
 		return err
 	}
 
-	config := &db.DBConfig{
+	dbConfig := &db.DBConfig{
 		Host : dbAddr, 
 		Port : dbport, 
 		User : dbUser, 
@@ -75,7 +75,7 @@ func realMain() error {
 		// Sslsert : "keys/client.crt", 
 	}
 
-	provisionSrv := provision.NewProvisionServiceServer(c, *config)
+	provisionSrv := provision.NewProvisionServiceServer(c, *dbConfig)
 
 	pb_svc_provision.RegisterProvisionServer(grpcServer, provisionSrv)
 
