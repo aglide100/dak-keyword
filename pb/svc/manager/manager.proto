@@ -52,9 +52,6 @@ message CreateNewJobReq {
 
 message CreateNewJobRes {
     string msg = 1;
-    // repeated string keyword = 1;
-    // repeated string workerId = 2;
-    // string jobId = 3;
 }
 
 message ReRunJobReq {

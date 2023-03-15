@@ -34,8 +34,6 @@ func (s *ManagerSrv) CreateNewJob(ctx context.Context, in *pb_svc_manager.Create
 		return nil, status.Error(codes.Canceled, "Can't get Keyword")
 	}
 
-	log.Printf("%v",result)
-
 	workerIdList := []string{}
 	jobId := uuid.New().String()
 
@@ -65,7 +63,6 @@ func (s *ManagerSrv) CreateNewJob(ctx context.Context, in *pb_svc_manager.Create
 		if err != nil {
 			log.Printf("err: %v", err)
 		}
-		log.Printf("%v %v",workerId ,value)
 	}
 
 	if (err != nil ) {
@@ -117,8 +114,6 @@ func (s *ManagerSrv) ReRunJob(ctx context.Context, in *pb_svc_manager.ReRunJobRe
 		return nil, status.Error(codes.Canceled, "Can't get Keyword")
 	}
 
-	log.Printf("%v",result)
-
 	workerIdList := []string{}
 
 	for _, value := range result {
@@ -156,7 +151,7 @@ func (s *ManagerSrv) UpdateJobStatus(ctx context.Context, in *pb_svc_manager.Upd
 
 	err := s.db.UpdateJob(in.Id, in.Status)
 	if err != nil {
-		return nil,  status.Error(codes.NotFound, "Can't find job in dbms")
+		return nil, status.Error(codes.NotFound, "Can't find job in dbms")
 	}
 
 	return &pb_svc_manager.UpdateJobStatusRes{
@@ -173,7 +168,7 @@ func (s *ManagerSrv) GetJobList(ctx context.Context, in *pb_svc_manager.GetJobLi
 
 	jobs, err := s.db.GetAllJob()
 	if err != nil {
-		return nil,  status.Error(codes.NotFound, "Can't find job in dbms")
+		return nil, status.Error(codes.NotFound, "Can't find job in dbms")
 	}
 
 	var pbJobs []*pb_unit_job.Job
@@ -183,7 +178,6 @@ func (s *ManagerSrv) GetJobList(ctx context.Context, in *pb_svc_manager.GetJobLi
 		pbJobs = append(pbJobs, pbJob)
 	}
 	
-	log.Printf("%v", jobs)
 
 	return &pb_svc_manager.GetJobListRes{
 		Job: pbJobs,

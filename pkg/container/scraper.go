@@ -22,9 +22,7 @@ func (c *Controller) CreateNewScraper(workerId string, jobId string, keyword str
 		},
 		TaskTemplate: swarm.TaskSpec{
 			ContainerSpec: &swarm.ContainerSpec{
-					// Image: "scraped",
 					Image: "ghcr.io/aglide100/dak-keyword--scraped:latest",
-					// Command: '',
 					Env: []string{
 					"Keyword=" + keyword, 
 					"DB_ADDR=" + dbConfig.Host,

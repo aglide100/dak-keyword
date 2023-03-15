@@ -62,10 +62,7 @@ func realMain() error {
 	if err != nil {
 		return err
 	}
-	
-	// myScraper := scraper.NewScraper("Mock", myDB)
-	// result := myScraper.GetMockTweets(os.Getenv("Keyword"))
-	log.Printf("%v", os.Getenv("BearerToken"))
+
 	myScraper := scraper.NewScraper(os.Getenv("BearerToken"), myDB, workerId)
 	result, err := myScraper.GetRecentSearch(os.Getenv("Keyword"), "")
 	if err != nil {
@@ -73,10 +70,6 @@ func realMain() error {
 	}
 
 	for _, value := range result {
-		// log.Printf("--------------------   %d", idx)
-		// log.Printf("id : %v", value.Id)
-		// log.Printf("date : %v", value.Created_at)
-		// log.Printf("text : %v", value.Text)
 		myScraper.WriteTweetOnDB(value)
 	}
 

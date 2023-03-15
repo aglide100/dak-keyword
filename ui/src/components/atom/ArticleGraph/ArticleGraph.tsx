@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-// import { Icon, IconType } from "../Icon/Icon";
 import {
     CallGetArticleCountByDay,
-    CallGetArticleList,
+    CallGetArticleCountByHour,
 } from "../../../grpc/article";
 import {
     // LineChart,
@@ -24,12 +23,11 @@ import {
     ResponsiveContainer,
 } from "recharts";
 import Switch from "react-switch";
-import { ArticleProps } from "../ArticleItem/ArticleItem";
 import { useRouter } from "next/router";
 
 type ArticleCountProto = {
     Create_at: string;
-    Count: number;
+    Count: string;
     Score_max_name: string;
 };
 
@@ -66,7 +64,9 @@ export const ArticleGraph: React.FC = () => {
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
     const [isClick, setIsClick] = useState<boolean>(false);
 
-    const [data, setData] = useState<ArticleCountProto[]>([]);
+    const [dataByDay, setDataByDay] = useState<ArticleCountProto[]>([]);
+    const [dataByHour, setDataByHour] = useState<ArticleCountProto[]>([]);
+
     const [dataCount, setDataCount] = useState<ArticleCount[]>([]);
 
     const [checkedItems, setCheckedItems] = useState(new Set());
@@ -75,10 +75,14 @@ export const ArticleGraph: React.FC = () => {
     let renderBarChart;
 
     useEffect(() => {
-        if (!isLoaded) {
-            fetchArticleCountByDay();
+        if (!isLoaded && router.isReady) {
+            if (isClick) {
+                fetchArticleCountByHour();
+            } else {
+                fetchArticleCountByDay();
+            }
         }
-    });
+    }, [router.isReady]);
 
     async function fetchArticleCountByDay() {
         CallGetArticleCountByDay(router.query.jobId, (message) => {
@@ -93,17 +97,32 @@ export const ArticleGraph: React.FC = () => {
                 newArticleCounts.push(newArticleCount);
             });
 
-            if (data != newArticleCounts) {
-                setData(newArticleCounts);
-                countArticle();
-            }
-
+            countArticle(newArticleCounts);
+            setDataByDay(newArticleCounts);
             setIsLoaded(true);
         });
     }
 
-    function countArticle() {
-        console.log("!!!!", data);
+    async function fetchArticleCountByHour() {
+        CallGetArticleCountByHour(router.query.jobId, (message) => {
+            const newArticleCounts: ArticleCountProto[] = [];
+            message.articlecountList.map((value, _) => {
+                const newArticleCount: ArticleCountProto = {
+                    Count: value.count,
+                    Create_at: value.createattime,
+                    Score_max_name: value.scoremaxname,
+                };
+
+                newArticleCounts.push(newArticleCount);
+            });
+
+            countArticle(newArticleCounts);
+            setDataByHour(newArticleCounts);
+            setIsLoaded(true);
+        });
+    }
+
+    function countArticle(data: ArticleCountProto[]) {
         let create_at = "";
         let count_happy = 0;
         let count_fear = 0;
@@ -113,16 +132,22 @@ export const ArticleGraph: React.FC = () => {
         let count_hurt = 0;
 
         const tmpArray = data.sort(function (a, b) {
-            return (
-                new Date(a.Create_at).valueOf() -
-                new Date(b.Create_at).valueOf()
-            );
+            if (!isChecked) {
+                return (
+                    new Date(a.Create_at + ":00:00").valueOf() -
+                    new Date(b.Create_at + ":00:00").valueOf()
+                );
+            } else {
+                return (
+                    new Date(a.Create_at).valueOf() -
+                    new Date(b.Create_at).valueOf()
+                );
+            }
         });
 
         const countArray = new Array<ArticleCount>();
-
         tmpArray.map((value, index) => {
-            if (index == data.length - 1) {
+            if (value.Create_at != create_at && index != 0) {
                 countArray.push({
                     Create_at: create_at,
                     Count_happy: count_happy,
@@ -132,22 +157,8 @@ export const ArticleGraph: React.FC = () => {
                     Count_rage: count_rage,
                     Count_hurt: count_hurt,
                 });
-            }
 
-            const check = value.Create_at;
-
-            if (check != create_at) {
-                countArray.push({
-                    Create_at: create_at,
-                    Count_happy: count_happy,
-                    Count_fear: count_fear,
-                    Count_embarrassed: count_embarrassed,
-                    Count_sad: count_sad,
-                    Count_rage: count_rage,
-                    Count_hurt: count_hurt,
-                });
                 create_at = value.Create_at;
-
                 count_happy = 0;
                 count_fear = 0;
                 count_embarrassed = 0;
@@ -155,35 +166,34 @@ export const ArticleGraph: React.FC = () => {
                 count_rage = 0;
                 count_hurt = 0;
             } else {
+                create_at = value.Create_at;
                 if (value.Score_max_name == "Happy") {
-                    count_happy++;
+                    count_happy = parseInt(value.Count);
                 }
 
                 if (value.Score_max_name == "Fear") {
-                    count_fear++;
+                    count_fear = parseInt(value.Count);
                 }
 
                 if (value.Score_max_name == "Embarrassed") {
-                    count_embarrassed++;
+                    count_embarrassed = parseInt(value.Count);
                 }
 
                 if (value.Score_max_name == "Sad") {
-                    count_sad++;
+                    count_sad = parseInt(value.Count);
                 }
 
                 if (value.Score_max_name == "Hurt") {
-                    count_rage++;
+                    count_hurt = parseInt(value.Count);
                 }
 
                 if (value.Score_max_name == "Rage") {
-                    count_hurt++;
+                    count_rage = parseInt(value.Count);
                 }
             }
-
-            setDataCount(countArray);
         });
 
-        console.log(countArray);
+        setDataCount(countArray);
     }
 
     const checkHandler = ({ target }) => {
@@ -215,12 +225,12 @@ export const ArticleGraph: React.FC = () => {
     });
 
     const checkBoxList = (
-        <>
-            {Object.keys(CountIndexToName).map((value) => {
+        <ul className="flex space-x-4">
+            {Object.keys(CountIndexToName).map((value, index) => {
                 return (
                     <li
                         className="flex flex-row ml-2 pl-2 pr-2 border-2 "
-                        key={value}
+                        key={index + "check"}
                     >
                         <span>{CountIndexToName[value]}</span>
                         <div className="flex ml-3">
@@ -235,10 +245,10 @@ export const ArticleGraph: React.FC = () => {
                     </li>
                 );
             })}
-        </>
+        </ul>
     );
 
-    if (isLoaded && data.length > 1) {
+    if (isLoaded) {
         renderBarChart = (
             <div className="w-full h-full">
                 <ResponsiveContainer width="100%" height="100%">
@@ -272,11 +282,32 @@ export const ArticleGraph: React.FC = () => {
         <motion.li className="flex flex-col items-center">
             <div className="w-full mt-8">
                 <div className="ml-10 mb-8 flex">
-                    <span className="mr-3">Time</span>
+                    <span className="mr-3">Day</span>
                     <Switch
                         onChange={() => {
                             setIsClick(!isClick);
-                            countArticle();
+
+                            if (isLoaded) {
+                                if (!isClick) {
+                                    if (dataByHour.length > 0) {
+                                        countArticle(dataByHour);
+                                    } else {
+                                        fetchArticleCountByHour();
+                                    }
+                                } else {
+                                    if (dataByDay.length > 0) {
+                                        countArticle(dataByDay);
+                                    } else {
+                                        fetchArticleCountByDay();
+                                    }
+                                }
+                            } else {
+                                if (isClick && router.isReady) {
+                                    fetchArticleCountByHour();
+                                } else {
+                                    fetchArticleCountByDay();
+                                }
+                            }
                         }}
                         checked={isClick}
                         onColor="#86d3ff"
@@ -291,13 +322,13 @@ export const ArticleGraph: React.FC = () => {
                         className="react-switch"
                         id="material-switch"
                     />
-                    <span className="ml-1">Day</span>
+                    <span className="ml-1">Hour</span>
                 </div>
 
-                {/* <div className="flex flex-row flex-wrap w-full content-around">
+                <div className="flex flex-row flex-wrap w-full content-around">
                     {checkBoxList}
                 </div>
-                <div className="w-full h-96 mt-20 pr-10">{renderBarChart}</div> */}
+                <div className="w-full h-96 mt-20 pr-10">{renderBarChart}</div>
             </div>
         </motion.li>
     );
