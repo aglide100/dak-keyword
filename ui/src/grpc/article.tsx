@@ -28,6 +28,10 @@ export async function CallGetArticleCountByDay(id, callback) {
     const getArticleCountByDayReq =
         new pb_svc_manager.GetArticleCountByDayReq();
 
+    if (id == undefined) {
+        return;
+    }
+
     getArticleCountByDayReq.setId(id);
 
     grpc.unary(Manager.GetArticleCountByDay, {
@@ -46,6 +50,9 @@ export async function CallGetArticleCountByDay(id, callback) {
 export async function CallGetArticleCountByHour(id, callback) {
     const getArticleCountByHourReq =
         new pb_svc_manager.GetArticleCountByHourReq();
+    if (id == undefined) {
+        return;
+    }
 
     getArticleCountByHourReq.setId(id);
 

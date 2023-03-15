@@ -87,6 +87,7 @@ export default function Job() {
 
                         <Modal
                             isOpen={modalIsOpen}
+                            ariaHideApp={false}
                             onRequestClose={closeModal}
                             contentLabel="ReRunJob Modal"
                             className="fixed inset-0 z-50 overflow-auto bg-gray-700 bg-opacity-75"

@@ -16,8 +16,6 @@ var (
 )
 
 func CallGrpcCallWhenScraperHaving(workerId string, errMSG string) error {
-	// log.Printf("call apid at %s", *addr)
-
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
 		log.Fatalf("can't connect grpc server : %v", err)
@@ -49,8 +47,6 @@ func CallGrpcCallWhenScraperHaving(workerId string, errMSG string) error {
 
 
 func CallGrpcCallWhenStaring(workerId string) error {
-	// log.Printf("call apid at %s", *addr)
-
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
 		log.Fatalf("can't connect grpc server : %v", err)
@@ -67,20 +63,17 @@ func CallGrpcCallWhenStaring(workerId string) error {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
 
-	res, err := client.WhenStartScraper(ctx, in)
+	_, err = client.WhenStartScraper(ctx, in)
 
 	if err != nil {
 		log.Fatalf("Can't receive anything! %v", err)
 		return err
 	}
-	log.Printf("res %v", res)
 	
 	return nil
 }
 
 func CallGrpcCallWhenDone(workerId string) error {
-	// log.Printf("call apid at %s", *addr)
-
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
 		log.Fatalf("can't connect grpc server : %v", err)
@@ -97,13 +90,12 @@ func CallGrpcCallWhenDone(workerId string) error {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
 
-	res, err := client.WhenDoneScraper(ctx, in)
+	_, err = client.WhenDoneScraper(ctx, in)
 
 	if err != nil {
 		log.Fatalf("Can't receive anything! %v", err)
 		return err
 	}
-	log.Printf("res %v", res)
 	
 	return nil
 }
@@ -127,13 +119,12 @@ func CallGrpcCallUpdateJob(workerId string, status string) error {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
 
-	res, err := client.UpdateJobStatus(ctx, in)
+	_, err = client.UpdateJobStatus(ctx, in)
 
 	if err != nil {
 		log.Fatalf("Can't receive anything! %v", err)
 		return err
 	}
-	log.Printf("res %v", res)
 
 	return nil
 }

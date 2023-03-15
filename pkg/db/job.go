@@ -56,7 +56,7 @@ func (db *Database) GetJob(jobId string) (*models.Job, error) {
 func (db *Database) GetAllJob() ([]*models.Job, error) {
 	const q = `
 	SELECT 
-	* FROM job`
+	("Id", "Status", "Keyword", "Owner", "Date") FROM job`
 
 	var (
 		Id string
