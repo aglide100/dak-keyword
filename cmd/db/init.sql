@@ -1,21 +1,22 @@
-create table if not exists job
+create table public.job
 (
-    "Id"      varchar not null
+    "Id"        varchar not null
         constraint job_pk
             primary key,
-    "Status"  varchar,
-    "Keyword" varchar,
-    "Owner"   varchar,
-    "Date"    date
+    "Status"    varchar,
+    "Keyword"   varchar,
+    "Owner"     varchar,
+    "Date"      date,
+    "AutoReRun" boolean default false
 );
 
-alter table job
+alter table public.job
     owner to table_admin;
 
-create unique index if not exists job_id_uindex
-    on job ("Id");
+create unique index job_id_uindex
+    on public.job ("Id");
 
-create table if not exists worker
+create table public.worker
 (
     "Worker_id" varchar not null
         constraint worker_pk
@@ -24,18 +25,18 @@ create table if not exists worker
     "Status"    varchar,
     "Job_id"    varchar
         constraint "Job_id"
-            references job
+            references public.job
             on update cascade on delete cascade,
     "Update_at" timestamp
 );
 
-alter table worker
+alter table public.worker
     owner to table_admin;
 
-create unique index if not exists worker_id_uindex
-    on worker ("Worker_id");
+create unique index worker_id_uindex
+    on public.worker ("Worker_id");
 
-create table if not exists article
+create table public.article
 (
     "Id"                serial
         constraint article_pk
@@ -56,33 +57,17 @@ create table if not exists article
     "Create_at"         varchar,
     "Job_id"            varchar
         constraint "Job_id"
-            references job
+            references public.job
             on update cascade on delete cascade,
     "Worker_id"         varchar
         constraint "Worker_id"
-            references worker
+            references public.worker
             on update cascade on delete cascade
 );
 
-alter table article
+alter table public.article
     owner to table_admin;
 
-create unique index if not exists article_id_uindex
-    on article ("Id");
-
-create table if not exists job_article_count
-(
-    "Job_Id"      varchar not null
-        primary key
-        constraint "Job_Id"
-            references job
-            on update cascade on delete cascade,
-    "Total_count" integer,
-    "Total_neg"   integer,
-    "Total_neut"  integer,
-    "Total_pos"   integer
-);
-
-alter table job_article_count
-    owner to table_admin;
+create unique index article_id_uindex
+    on public.article ("Id");
 

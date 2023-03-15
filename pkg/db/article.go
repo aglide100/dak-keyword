@@ -166,8 +166,8 @@ func (db *Database) GetCountByHour(jobId string) ([]*models.ArticleCount, error)
 	for rows.Next() {
 		err := rows.Scan(
 			&Create_at_time,
-			&Count,
 			&Score_max_name,
+			&Count,
 		)
 		if err != nil {
 			return nil, err

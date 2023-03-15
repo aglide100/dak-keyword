@@ -17,14 +17,6 @@ type Job struct {
 func ValidateJob(job Job) error {
 	v := validator.New()
 
-	// const layout = "2006-01-02T03:04:05.999Z"
-
-	// _, err := time.Parse(layout, job.Date)
-	// if err != nil {
-	// 	fmt.Println(err)
-	// 	return err
-	// }
-
 	err := v.Struct(job)
 	if err != nil {
 		return err
