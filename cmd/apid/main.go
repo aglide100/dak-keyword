@@ -19,6 +19,10 @@ import (
 	"google.golang.org/grpc/credentials"
 )
 
+const (
+    CronSpec = "0 0 3 * * *"
+)
+
 var (
 	apidGrpcWebAddr = flag.String("apid grpc-web addr", "0.0.0.0:50011", "grpc-web address")
 	apidGrpcAddr = flag.String("apid grpc addr", "0.0.0.0:50010", "grpc address")
@@ -159,6 +163,11 @@ func realMain() error {
 		
 		return nil
 	})
+
+	// c := cron.New()
+	// c.AddFunc(CronSpec, func() {})
+
+	// c.Start()
 
 	return wg.Wait()
 }

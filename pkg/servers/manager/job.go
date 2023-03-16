@@ -145,9 +145,9 @@ func (s *ManagerSrv) ReRunJob(ctx context.Context, in *pb_svc_manager.ReRunJobRe
 
 
 func (s *ManagerSrv) UpdateJobStatus(ctx context.Context, in *pb_svc_manager.UpdateJobStatusReq) (*pb_svc_manager.UpdateJobStatusRes, error) {
-	if in != nil {
-		log.Printf("Received UpdateJobStatus call: %v", in.String())
-	}
+	// if in != nil {
+	// 	log.Printf("Received UpdateJobStatus call: %v", in.String())
+	// }
 
 	err := s.db.UpdateJob(in.Id, in.Status)
 	if err != nil {
@@ -161,10 +161,10 @@ func (s *ManagerSrv) UpdateJobStatus(ctx context.Context, in *pb_svc_manager.Upd
 
 
 func (s *ManagerSrv) GetJobList(ctx context.Context, in *pb_svc_manager.GetJobListReq) (*pb_svc_manager.GetJobListRes, error) {
-	if in != nil {
-		p, _ := peer.FromContext(ctx)
-		log.Printf("Received GetJobList call by : %s", p.Addr.String())
-	}
+	// if in != nil {
+	// 	p, _ := peer.FromContext(ctx)
+	// 	log.Printf("Received GetJobList call by : %s", p.Addr.String())
+	// }
 
 	jobs, err := s.db.GetAllJob()
 	if err != nil {
@@ -177,7 +177,6 @@ func (s *ManagerSrv) GetJobList(ctx context.Context, in *pb_svc_manager.GetJobLi
 		pbJob := models.JobToPbUnit(value)
 		pbJobs = append(pbJobs, pbJob)
 	}
-	
 
 	return &pb_svc_manager.GetJobListRes{
 		Job: pbJobs,

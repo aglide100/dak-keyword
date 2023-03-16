@@ -3,6 +3,7 @@ package db
 import (
 	"database/sql"
 	"fmt"
+	"log"
 
 	"github.com/aglide100/dak-keyword/pkg/models"
 )
@@ -87,6 +88,8 @@ func (db *Database) GetAllJob() ([]*models.Job, error) {
 			Date: Date,
 		}
 
+		log.Println(job)
+
 		jobs = append(jobs, job)
 	}
 	
@@ -127,4 +130,31 @@ func (db *Database) DeleteJob(id string) error {
 	}
 
 	return nil
+}
+func (db *Database) GetAllReRunJob() ([]string, error) {
+	const q = `
+	SELECT ("Id") FROM job
+	WHERE "AutoReRun" = false;`
+
+	var (
+		Id string
+	)
+
+	var jobs []string
+
+	rows, err := db.Conn.Query(q)
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		err := rows.Scan(&Id)
+		if err != nil {
+			return nil, err
+		}
+
+		jobs = append(jobs, Id)
+	}
+	
+	return jobs, nil
 }
