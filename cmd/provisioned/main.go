@@ -57,7 +57,7 @@ func realMain() error {
 	}
 
 	grpcServer := grpc.NewServer(opts...)
-	c, err := container.NewController()
+	c, err := container.NewController(10)
 	if err != nil {
 		return err
 	}

@@ -53,7 +53,7 @@ func (s *ManagerSrv) WhenDoneScraper(ctx context.Context, in *pb_svc_manager.Whe
 		return nil, status.Error(codes.Canceled, "Can't update worker status at dbms")
 	}
 
-	err = callRemoveScraper(in.Id)
+	err = CallRemoveScraper(in.Id)
 	if err != nil {
 		s.db.UpdateJob(in.Id, "Can't remove scraper")
 		return nil, status.Error(codes.Canceled, "Can't update remove scraper")

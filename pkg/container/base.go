@@ -24,13 +24,18 @@ type Container interface {
 
 type Controller struct {
 	cli *client.Client
+	analyzerCount int
+	analyzerMaxCount int
 	Container
 }
 
-func NewController() (C *Controller, err error) {
+func NewController(maxAnalyzer int) (C *Controller, err error) {
 	c := new(Controller)
 	c.cli, err = client.NewClientWithOpts(client.FromEnv)
 
+	c.analyzerMaxCount = maxAnalyzer
+	c.analyzerCount = 0
+	
 	if err != nil {
 		return nil, err
 	}

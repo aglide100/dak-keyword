@@ -11,7 +11,7 @@ import (
 )
 
 
-func callMakeScraper(workerId string, jobId string, keyword string, token string) (error) {
+func CallMakeScraper(workerId string, jobId string, keyword string, token string) (error) {
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	
 	if err != nil {
@@ -42,7 +42,7 @@ func callMakeScraper(workerId string, jobId string, keyword string, token string
 	return nil
 }
 
-func callRemoveScraper(id string) (error) {
+func CallRemoveScraper(id string) (error) {
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
 		log.Fatalf("Can't connect grpc server : %v", err)
@@ -69,7 +69,7 @@ func callRemoveScraper(id string) (error) {
 	return nil
 }
 
-func callRemoveAnalyzer(id string) (error) {
+func CallRemoveAnalyzer(id string) (error) {
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
 		log.Fatalf("Can't connect grpc servier : %v", err)

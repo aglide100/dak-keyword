@@ -56,7 +56,8 @@ message CreateNewJobRes {
 
 message ReRunJobReq {
     string id = 1;
-    string accessCode = 2;
+    bool schedule = 2;
+    string accessCode = 3;
 }
 
 message ReRunJobRes {

@@ -142,6 +142,9 @@ export class ReRunJobReq extends jspb.Message {
   getId(): string;
   setId(value: string): void;
 
+  getSchedule(): boolean;
+  setSchedule(value: boolean): void;
+
   getAccesscode(): string;
   setAccesscode(value: string): void;
 
@@ -158,6 +161,7 @@ export class ReRunJobReq extends jspb.Message {
 export namespace ReRunJobReq {
   export type AsObject = {
     id: string,
+    schedule: boolean,
     accesscode: string,
   }
 }

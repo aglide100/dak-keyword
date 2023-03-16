@@ -1746,7 +1746,8 @@ proto.pb.svc.manager.ReRunJobReq.prototype.toObject = function(opt_includeInstan
 proto.pb.svc.manager.ReRunJobReq.toObject = function(includeInstance, msg) {
   var f, obj = {
     id: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    accesscode: jspb.Message.getFieldWithDefault(msg, 2, "")
+    schedule: jspb.Message.getBooleanFieldWithDefault(msg, 2, false),
+    accesscode: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
   if (includeInstance) {
@@ -1788,6 +1789,10 @@ proto.pb.svc.manager.ReRunJobReq.deserializeBinaryFromReader = function(msg, rea
       msg.setId(value);
       break;
     case 2:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setSchedule(value);
+      break;
+    case 3:
       var value = /** @type {string} */ (reader.readString());
       msg.setAccesscode(value);
       break;
@@ -1827,10 +1832,17 @@ proto.pb.svc.manager.ReRunJobReq.serializeBinaryToWriter = function(message, wri
       f
     );
   }
+  f = message.getSchedule();
+  if (f) {
+    writer.writeBool(
+      2,
+      f
+    );
+  }
   f = message.getAccesscode();
   if (f.length > 0) {
     writer.writeString(
-      2,
+      3,
       f
     );
   }
@@ -1856,11 +1868,29 @@ proto.pb.svc.manager.ReRunJobReq.prototype.setId = function(value) {
 
 
 /**
- * optional string accessCode = 2;
+ * optional bool schedule = 2;
+ * @return {boolean}
+ */
+proto.pb.svc.manager.ReRunJobReq.prototype.getSchedule = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 2, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.pb.svc.manager.ReRunJobReq} returns this
+ */
+proto.pb.svc.manager.ReRunJobReq.prototype.setSchedule = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 2, value);
+};
+
+
+/**
+ * optional string accessCode = 3;
  * @return {string}
  */
 proto.pb.svc.manager.ReRunJobReq.prototype.getAccesscode = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
@@ -1869,7 +1899,7 @@ proto.pb.svc.manager.ReRunJobReq.prototype.getAccesscode = function() {
  * @return {!proto.pb.svc.manager.ReRunJobReq} returns this
  */
 proto.pb.svc.manager.ReRunJobReq.prototype.setAccesscode = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
+  return jspb.Message.setProto3StringField(this, 3, value);
 };
 
 
