@@ -36,7 +36,7 @@ func (s *ManagerSrv) WhenAnalyzerHavingErr(ctx context.Context, in *pb_svc_manag
 		return nil, status.Error(codes.Canceled, "Can't update worker status at dbms")
 	}
 
-	err = callRemoveAnalyzer(in.Id)
+	err = CallRemoveAnalyzer(in.Id)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +57,7 @@ func (s *ManagerSrv) WhenDoneAnalyzer(ctx context.Context, in *pb_svc_manager.Wh
 		return nil, status.Error(codes.Canceled, "Can't update worker status at dbms")
 	}
 
-	err = callRemoveAnalyzer(in.Id)
+	err = CallRemoveAnalyzer(in.Id)
 	if err != nil {
 		return nil, err
 	}

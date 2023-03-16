@@ -5,6 +5,7 @@ import { Button } from "../../src/components/atom/Button/Button";
 import { CallReRunJob } from "../../src/grpc/job";
 import Modal from "react-modal";
 import { motion } from "framer-motion";
+import Switch from "react-switch";
 
 const WorkerList = dynamic(
     () =>
@@ -25,6 +26,8 @@ export default function Job() {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [accessCode, setAccessCode] = useState("");
 
+    const [isClick, setIsClick] = useState<boolean>(false);
+
     const closeModal = () => {
         setModalIsOpen(false);
         setAccessCode("");
@@ -32,9 +35,14 @@ export default function Job() {
 
     const handleReRunJob = async () => {
         try {
-            await CallReRunJob(router.query.jobId, accessCode, (res) => {
-                console.log(res);
-            }).then(() => {
+            await CallReRunJob(
+                router.query.jobId,
+                accessCode,
+                isClick,
+                (res) => {
+                    console.log(res);
+                },
+            ).then(() => {
                 closeModal();
             });
         } catch (error) {
@@ -103,6 +111,26 @@ export default function Job() {
                                             Are you sure you want to rerun the
                                             job?
                                         </h2>
+                                        <span className="mr-3">
+                                            Running on schedule every day
+                                        </span>
+                                        <Switch
+                                            onChange={() => {
+                                                setIsClick(!isClick);
+                                            }}
+                                            checked={isClick}
+                                            onColor="#86d3ff"
+                                            onHandleColor="#2693e6"
+                                            handleDiameter={30}
+                                            uncheckedIcon={isClick}
+                                            checkedIcon={isClick}
+                                            boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                                            activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                                            height={20}
+                                            width={48}
+                                            className="react-switch"
+                                            id="material-switch"
+                                        />
                                         <div className="mb-4">
                                             <label
                                                 htmlFor="accessCode"

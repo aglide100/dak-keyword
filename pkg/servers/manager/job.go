@@ -59,7 +59,7 @@ func (s *ManagerSrv) CreateNewJob(ctx context.Context, in *pb_svc_manager.Create
 			log.Printf("err: %v", err)
 		}
 
-		err = callMakeScraper(workerId, jobId, value, os.Getenv("BearerToken"))
+		err = CallMakeScraper(workerId, jobId, value, os.Getenv("BearerToken"))
 		if err != nil {
 			log.Printf("err: %v", err)
 		}
@@ -103,6 +103,12 @@ func (s *ManagerSrv) ReRunJob(ctx context.Context, in *pb_svc_manager.ReRunJobRe
 		}, status.Error(codes.PermissionDenied, "Wrong AccessCode")
 	}
 
+
+	err := s.db.UpdateScheduleJob(in.Id, in.Schedule)
+	if err != nil {
+		log.Println("Can't update job's AutoReRun :%v", err)
+	}
+
 	res, err := s.db.GetJob(in.Id)
 	if err != nil {
 		return nil,  status.Error(codes.NotFound, "Can't find job in dbms")
@@ -125,7 +131,7 @@ func (s *ManagerSrv) ReRunJob(ctx context.Context, in *pb_svc_manager.ReRunJobRe
 			log.Printf("Can't add worker, err: %v", err)
 		}
 
-		err = callMakeScraper(workerId, in.Id, value, os.Getenv("BearerToken"))
+		err = CallMakeScraper(workerId, in.Id, value, os.Getenv("BearerToken"))
 		if err != nil {
 			log.Printf("Can't make Scraper, err: %v", err)
 		}
@@ -145,12 +151,13 @@ func (s *ManagerSrv) ReRunJob(ctx context.Context, in *pb_svc_manager.ReRunJobRe
 
 
 func (s *ManagerSrv) UpdateJobStatus(ctx context.Context, in *pb_svc_manager.UpdateJobStatusReq) (*pb_svc_manager.UpdateJobStatusRes, error) {
-	if in != nil {
-		log.Printf("Received UpdateJobStatus call: %v", in.String())
-	}
+	// if in != nil {
+	// 	log.Printf("Received UpdateJobStatus call: %v", in.String())
+	// }
 
 	err := s.db.UpdateJob(in.Id, in.Status)
 	if err != nil {
+		log.Printf("err : %v", err)
 		return nil, status.Error(codes.NotFound, "Can't find job in dbms")
 	}
 
@@ -161,13 +168,14 @@ func (s *ManagerSrv) UpdateJobStatus(ctx context.Context, in *pb_svc_manager.Upd
 
 
 func (s *ManagerSrv) GetJobList(ctx context.Context, in *pb_svc_manager.GetJobListReq) (*pb_svc_manager.GetJobListRes, error) {
-	if in != nil {
-		p, _ := peer.FromContext(ctx)
-		log.Printf("Received GetJobList call by : %s", p.Addr.String())
-	}
+	// if in != nil {
+	// 	p, _ := peer.FromContext(ctx)
+	// 	log.Printf("Received GetJobList call by : %s", p.Addr.String())
+	// }
 
 	jobs, err := s.db.GetAllJob()
 	if err != nil {
+		log.Printf("err : %v", err)
 		return nil, status.Error(codes.NotFound, "Can't find job in dbms")
 	}
 
@@ -177,7 +185,6 @@ func (s *ManagerSrv) GetJobList(ctx context.Context, in *pb_svc_manager.GetJobLi
 		pbJob := models.JobToPbUnit(value)
 		pbJobs = append(pbJobs, pbJob)
 	}
-	
 
 	return &pb_svc_manager.GetJobListRes{
 		Job: pbJobs,

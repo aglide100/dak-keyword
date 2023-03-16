@@ -3,7 +3,9 @@ package container
 import (
 	"context"
 	"fmt"
+	"log"
 	"strconv"
+	"time"
 
 	"github.com/aglide100/dak-keyword/pkg/db"
 	"github.com/docker/docker/api/types"
@@ -19,6 +21,17 @@ func (c *Controller) CreateNewAnalyzer(workerId string, keyword string, dbConfig
 	c.cli.ImagePull(ctx, "ghcr.io/aglide100/dak-keyword--analyzer:latest", types.ImagePullOptions{})
 	
 	max := uint64(1)
+
+	if c.analyzerCount >= c.analyzerMaxCount {
+        for {
+            time.Sleep(10 * time.Second)
+			log.Printf("waiting closing Analyzer container...")
+
+            if c.analyzerCount < c.analyzerMaxCount {
+                break
+            }
+        }
+    }
 
 	reader, err := c.cli.ServiceCreate(ctx, swarm.ServiceSpec{
 		Annotations: swarm.Annotations{
@@ -75,6 +88,7 @@ func (c *Controller) CreateNewAnalyzer(workerId string, keyword string, dbConfig
 	}
 
 	fmt.Println(reader.ID)
+	c.analyzerCount++
 	return nil
 }
 
@@ -85,6 +99,8 @@ func (c *Controller) RemoveAnalyzer(id string) (error) {
 	if err != nil {
 		return err
 	}
+
+	c.analyzerCount--
 
 	return nil
 
