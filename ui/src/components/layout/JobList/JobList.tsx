@@ -51,11 +51,7 @@ const List: React.FC = () => {
 
     let jobList;
     if (data == null || data == undefined || data.length == 0) {
-        jobList = (
-            <div className="w-full flex justify-center mt-10">
-                Can't find jobs!
-            </div>
-        );
+        jobList = <div className="w-full flex justify-center mt-10"></div>;
     } else {
         jobList = data.map((job, index) => {
             return (

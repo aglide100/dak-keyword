@@ -11,12 +11,18 @@ import (
 	"strconv"
 
 	pb_svc_manager "github.com/aglide100/dak-keyword/pb/svc/manager"
+	cron_svc "github.com/aglide100/dak-keyword/pkg/cron"
 	"github.com/aglide100/dak-keyword/pkg/db"
 	"github.com/aglide100/dak-keyword/pkg/servers/manager"
 	"github.com/improbable-eng/grpc-web/go/grpcweb"
+	"github.com/robfig/cron"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
+)
+
+const (
+    CronSpec = "0 0 17 * * *"
 )
 
 var (
@@ -159,6 +165,13 @@ func realMain() error {
 		
 		return nil
 	})
+
+	c := cron.New()
+	c.AddFunc(CronSpec, func() {
+		cron_svc.GetAllReRunJob(myDB)
+	})
+
+	c.Start()
 
 	return wg.Wait()
 }

@@ -36,6 +36,11 @@ services:
         environment:
             - TLS=false
             - ACCESS_CODE=${ACCESS_CODE}
+            - TZ=Asia/Seoul
+            # - POSTGRES_DB=${POSTGRES_DB}
+            # - POSTGRES_USER=${POSTGRES_USER}
+            # - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+            # - POSTGRES_INITDB_ARGS=${POSTGRES_INITDB_ARGS}
         depends_on:
             - db
         deploy:
@@ -72,30 +77,6 @@ services:
             placement:
                 constraints: [node.role==manager]
 
-    ui:
-        image: ghcr.io/aglide100/dak-keyword--ui:latest
-        # image: node
-        networks:
-            - keyword-network
-            - traefik-network
-        environment:
-            - GRPCWEBADDR=${GRPCWEBADDR}
-        secrets:
-            - crt-file
-            - key-file
-        deploy:
-            labels:
-                - traefik.enable=true
-                - traefik.docker.network=traefik-network
-                - traefik.http.routers.keyword-node.rule=Host(`keyword.${DOMAIN}`)
-                - traefik.http.routers.keyword-node.middlewares=redirect-to-https
-                - traefik.http.routers.keyword-node.entrypoints=web
-                - traefik.http.services.keyword-node.loadbalancer.server.port=80
-                - traefik.http.routers.keyword-node--https.rule=Host(`keyword.${DOMAIN}`)
-                - traefik.http.routers.keyword-node--https.tls=true
-                - traefik.http.routers.keyword-node--https.tls.certresolver=myresolver
-                - traefik.http.routers.keyword-node--https.entrypoints=websecure
-
 secrets:
     crt-file:
         file: ./keys/localhost.crt
@@ -112,3 +93,26 @@ volumes:
     keys:
         external:
             name: keys
+# ui:
+#     image: ghcr.io/aglide100/dak-keyword--ui:latest
+#     # image: node
+#     networks:
+#         - keyword-network
+#         - traefik-network
+#     environment:
+#         - GRPCWEBADDR=${GRPCWEBADDR}
+#     secrets:
+#         - crt-file
+#         - key-file
+#     deploy:
+#         labels:
+#             - traefik.enable=true
+#             - traefik.docker.network=traefik-network
+#             - traefik.http.routers.keyword-node.rule=Host(`keyword.${DOMAIN}`)
+#             - traefik.http.routers.keyword-node.middlewares=redirect-to-https
+#             - traefik.http.routers.keyword-node.entrypoints=web
+#             - traefik.http.services.keyword-node.loadbalancer.server.port=80
+#             - traefik.http.routers.keyword-node--https.rule=Host(`keyword.${DOMAIN}`)
+#             - traefik.http.routers.keyword-node--https.tls=true
+#             - traefik.http.routers.keyword-node--https.tls.certresolver=myresolver
+#             - traefik.http.routers.keyword-node--https.entrypoints=websecure
