@@ -111,6 +111,7 @@ func (s *ManagerSrv) ReRunJob(ctx context.Context, in *pb_svc_manager.ReRunJobRe
 
 	res, err := s.db.GetJob(in.Id)
 	if err != nil {
+		log.Println("err :%v", err)
 		return nil,  status.Error(codes.NotFound, "Can't find job in dbms")
 	}
 
