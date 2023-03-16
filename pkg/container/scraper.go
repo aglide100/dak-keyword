@@ -3,6 +3,7 @@ package container
 import (
 	"context"
 	"fmt"
+	"log"
 	"strconv"
 
 	"github.com/aglide100/dak-keyword/pkg/db"
@@ -12,8 +13,21 @@ import (
 
 // const nodeRole = "node.role == worker"
 
-func (c *Controller) CreateNewScraper(workerId string, jobId string, keyword string, token string, dbConfig *db.DBConfig) (err error) {
+func (c *Controller) CreateNewScraper(workerId string, jobId string, keyword string, token string, dbConfig *db.DBConfig) (error, bool) {
 	ctx := context.Background()
+
+	if c.analyzerCount >= c.analyzerMaxCount {
+		log.Println("Too many container to create scraper container")
+		c.cQueue.Enqueue(&ContainerSpec{
+			WorkerId: workerId,
+			Keyword: keyword,
+			JobId: jobId,
+			Token: token,
+			Type: "Scraper",
+		})
+		return nil, true
+    }
+
 	c.cli.ImagePull(ctx, "ghcr.io/aglide100/dak-keyword--scraped:latest", types.ImagePullOptions{})
 
 	reader, err := c.cli.ServiceCreate(ctx, swarm.ServiceSpec{
@@ -50,11 +64,13 @@ func (c *Controller) CreateNewScraper(workerId string, jobId string, keyword str
 		
 	})
 	if err != nil {
-		return err
+		return err, false
 	}
 
-	fmt.Println(reader.ID)
-	return nil
+	c.analyzerCount++
+
+	fmt.Println("crate scraper ", reader.ID, c.analyzerCount)
+	return nil, false
 }
 
 func (c *Controller) RemoveScraper(id string) (error) {
@@ -64,6 +80,8 @@ func (c *Controller) RemoveScraper(id string) (error) {
 	if err != nil {
 		return err
 	}
+
+	c.analyzerCount--
 
 	return nil
 }

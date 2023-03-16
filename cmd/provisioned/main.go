@@ -8,6 +8,7 @@ import (
 	"os"
 	"strconv"
 	"sync"
+	"time"
 
 	"context"
 
@@ -42,7 +43,7 @@ func realMain() error {
 
 	var wait sync.WaitGroup
     wait.Add(1)
- 
+
 	var opts []grpc.ServerOption
 	
 	dbAddr := os.Getenv("DB_ADDR")
@@ -57,7 +58,10 @@ func realMain() error {
 	}
 
 	grpcServer := grpc.NewServer(opts...)
-	c, err := container.NewController(10)
+
+	q := container.NewContainerQueue()
+
+	c, err := container.NewController(10, q)
 	if err != nil {
 		return err
 	}
@@ -75,12 +79,58 @@ func realMain() error {
 		// Sslsert : "keys/client.crt", 
 	}
 
+
 	provisionSrv := provision.NewProvisionServiceServer(c, *dbConfig)
 
 	pb_svc_provision.RegisterProvisionServer(grpcServer, provisionSrv)
 
 	wg, ctx := errgroup.WithContext(context.Background())
 	_ = ctx
+
+	wg.Go(func() error {
+		for {
+			select {
+            case <-time.Tick(1 * time.Second):
+                for q.Len() > 0 {
+					if (c.GetCurrentAnalyzerCount() < c.GetMaxAnalyzerCount()) {
+						cSpec, ok := q.Dequeue()
+						if ok {
+							log.Printf("Dequeue %v", cSpec)
+						} else {
+							log.Println("Can't dequeue from queue")
+							continue
+						}
+
+						if (cSpec.Type == "Scraper") {
+							err, countErr := c.CreateNewScraper(cSpec.WorkerId, cSpec.JobId, cSpec.Keyword, cSpec.Token, dbConfig)
+							if err != nil {
+								log.Println("Can't make scraper in queue %v", err)
+								q.Enqueue(cSpec)
+							}
+
+							if (countErr) {
+								log.Println("Queue is full..? %v", err)
+								q.Enqueue(cSpec)
+							}
+						} 
+
+						if (cSpec.Type == "Analyzer") {
+							err, countErr := c.CreateNewAnalyzer(cSpec.WorkerId, cSpec.Keyword, dbConfig)
+							if err != nil {
+								log.Println("Can't make analyzer in queue %v", err)
+								q.Enqueue(cSpec)
+							}
+	
+							if (countErr) {
+								log.Println("Queue is full..? %v", err)
+								q.Enqueue(cSpec)
+							}
+						}
+					}
+				}
+            }
+		}
+	})
 
 	wg.Go(func() error {
 		log.Printf("Starting normal grpcServer at: %s" ,*provisionedAddr)
@@ -92,6 +142,7 @@ func realMain() error {
 
 		return nil
 	})
+	
 
 	return wg.Wait()
 }

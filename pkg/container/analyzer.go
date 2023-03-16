@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"strconv"
-	"time"
 
 	"github.com/aglide100/dak-keyword/pkg/db"
 	"github.com/docker/docker/api/types"
@@ -15,7 +14,7 @@ import (
 
 // const nodeRole = "node.role == worker"
 
-func (c *Controller) CreateNewAnalyzer(workerId string, keyword string, dbConfig *db.DBConfig) (error) {
+func (c *Controller) CreateNewAnalyzer(workerId string, keyword string, dbConfig *db.DBConfig) (error, bool) {
 	ctx := context.Background()
 
 	c.cli.ImagePull(ctx, "ghcr.io/aglide100/dak-keyword--analyzer:latest", types.ImagePullOptions{})
@@ -23,14 +22,14 @@ func (c *Controller) CreateNewAnalyzer(workerId string, keyword string, dbConfig
 	max := uint64(1)
 
 	if c.analyzerCount >= c.analyzerMaxCount {
-        for {
-            time.Sleep(10 * time.Second)
-			log.Printf("waiting closing Analyzer container...")
-
-            if c.analyzerCount < c.analyzerMaxCount {
-                break
-            }
-        }
+		log.Println("Too many container to create analyzer container")
+		c.cQueue.Enqueue(&ContainerSpec{
+			WorkerId: workerId,
+			Keyword: keyword,
+			Token: "",
+			Type: "Analyzer",
+		})
+		return nil, true
     }
 
 	reader, err := c.cli.ServiceCreate(ctx, swarm.ServiceSpec{
@@ -84,12 +83,13 @@ func (c *Controller) CreateNewAnalyzer(workerId string, keyword string, dbConfig
 	}, types.ServiceCreateOptions{})
 	
 	if err != nil {
-		return err
+		return err, false
 	}
 
-	fmt.Println(reader.ID)
 	c.analyzerCount++
-	return nil
+	fmt.Println("crate analyzer",reader.ID, c.analyzerCount)
+	
+	return nil, false
 }
 
 func (c *Controller) RemoveAnalyzer(id string) (error) {
@@ -104,4 +104,12 @@ func (c *Controller) RemoveAnalyzer(id string) (error) {
 
 	return nil
 
+}
+
+func (c *Controller) GetCurrentAnalyzerCount() int {
+	return c.analyzerCount
+}
+
+func (c *Controller) GetMaxAnalyzerCount() int {
+	return c.analyzerMaxCount
 }

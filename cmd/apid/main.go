@@ -22,7 +22,7 @@ import (
 )
 
 const (
-    CronSpec = "0 0 17 * * *"
+    CronSpec = "0 0 3 * * *"
 )
 
 var (
@@ -168,6 +168,7 @@ func realMain() error {
 
 	c := cron.New()
 	c.AddFunc(CronSpec, func() {
+		log.Printf("Starting rerun jobs")
 		cron_svc.GetAllReRunJob(myDB)
 	})
 

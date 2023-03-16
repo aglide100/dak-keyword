@@ -30,7 +30,8 @@ func (db *Database) AddNewJob(jobId string, keyword string, owner string) error 
 
 func (db *Database) GetJob(jobId string) (*models.Job, error) {
 	const q =`
-	SELECT * FROM job 
+	SELECT 
+	"Id", "Status", "Keyword", "Owner", "Date" FROM job 
 	WHERE "Id" = $1`
 
 	job := new(models.Job)
@@ -151,7 +152,7 @@ func (db *Database) DeleteJob(id string) error {
 func (db *Database) GetAllReRunJob() ([]string, error) {
 	const q = `
 	SELECT ("Id") FROM job
-	WHERE "AutoReRun" = false;`
+	WHERE "AutoReRun" = true;`
 
 	var (
 		Id string

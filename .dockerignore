@@ -7,3 +7,5 @@ testing/
 .prettierrc
 conf/
 analyzer/
+
+pkg/testing
