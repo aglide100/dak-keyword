@@ -27,10 +27,17 @@ func (s *ProvisionSrv) CreateScraper(ctx context.Context, in *pb_svc_provision.C
 		log.Printf("Received CreateScraper call: %v", in.String())
 	}
 	
-	err := s.c.CreateNewScraper(in.WorkerId, in.JobId, in.Keyword, in.Token, &s.dbConfig)
+	err, countErr := s.c.CreateNewScraper(in.WorkerId, in.JobId, in.Keyword, in.Token, &s.dbConfig)
 	if err != nil {
 		log.Printf("Can't create new scraper : %v", err)
 		return nil, err
+	}
+
+	if countErr {
+		log.Println("Add queue")
+		return &pb_svc_provision.CreateScraperRes{
+			Status: "Add queue",
+		}, nil
 	}
 
 	return &pb_svc_provision.CreateScraperRes{
@@ -43,9 +50,15 @@ func (s *ProvisionSrv) CreateAnalyzer(ctx context.Context, in *pb_svc_provision.
 		log.Printf("Received CreateAnalyzer call: %v", in.String())
 	}
 
-	err := s.c.CreateNewAnalyzer(in.ScraperId, in.Keyword, &s.dbConfig)
+	err, countErr := s.c.CreateNewAnalyzer(in.ScraperId, in.Keyword, &s.dbConfig)
 	if err != nil {
 		return nil, err
+	}
+
+	if (!countErr) {
+		return &pb_svc_provision.CreateAnalyzerRes{
+			Status: "added container queue",
+		}, nil
 	}
 
 	return &pb_svc_provision.CreateAnalyzerRes{
@@ -54,12 +67,9 @@ func (s *ProvisionSrv) CreateAnalyzer(ctx context.Context, in *pb_svc_provision.
 }
 
 func (s *ProvisionSrv) RemoveScraper(ctx context.Context, in *pb_svc_provision.RemoveScraperReq) (*pb_svc_provision.RemoveScraperRes, error) {
-	if in != nil {
-		log.Printf("Received RemoveScraper call: %v", in.String())
-	}
-
 	err := s.c.RemoveScraper(in.Id)
 	if err != nil {
+		log.Printf("Received RemoveScraper but not removed call: %v", in.String())
 		return nil, err
 	}
 
@@ -67,12 +77,9 @@ func (s *ProvisionSrv) RemoveScraper(ctx context.Context, in *pb_svc_provision.R
 }
 
 func (s *ProvisionSrv) RemoveAnalyzer(ctx context.Context, in *pb_svc_provision.RemoveAnalyzerReq) (*pb_svc_provision.RemoveAnalyzerRes, error) {
-	if in != nil {
-		log.Printf("Received RemoveAnalyzer but not removed call: %v", in.String())
-	}
-
 	err := s.c.RemoveAnalyzer(in.Id)
 	if err != nil {
+		log.Printf("Received RemoveAnalyzer but not removed call: %v", in.String())
 		return nil, err
 	}
 
