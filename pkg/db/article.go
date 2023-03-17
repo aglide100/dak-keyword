@@ -147,7 +147,8 @@ func (db *Database) GetCountByHour(jobId string) ([]*models.ArticleCount, error)
        "Score_max_name",
        COUNT(*) AS "Count"
 	FROM article
-	WHERE "Job_id" = $1 IS NOT NULL AND "Score_max_value" IS NOT NULL
+	WHERE "Job_id" = $1
+	AND "Score_max_name" IS NOT NULL AND "Score_max_value" IS NOT NULL
 	GROUP BY "Create_at_time", "Score_max_name";
 	`
 	
@@ -192,7 +193,8 @@ func (db *Database) GetCountByDay(jobId string) ([]*models.ArticleCount, error) 
        "Score_max_name",
        COUNT(*) AS "Count"
 	FROM article
-	WHERE "Job_id" = $1 IS NOT NULL AND "Score_max_value" IS NOT NULL
+	WHERE "Job_id" = $1
+	AND "Score_max_name" IS NOT NULL AND "Score_max_value" IS NOT NULL
 	GROUP BY "Create_at_time", "Score_max_name";
 	`
 	

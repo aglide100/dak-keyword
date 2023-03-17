@@ -14,15 +14,16 @@ type CommonConfig interface {
 
 type Config struct {
 	CommonConfig
-	TwiiterGetter
+	TwitterGetter
 	FacebookSecret
 }
 
-type TwiiterGetter interface {
+type TwitterGetter interface {
 	GetTwitterConsumerKey() (string)
 	GetTwitterConsumerSecret() (string)
 	GetTwitterAccessToken() (string)
 	GetTwitterAccessSecret() (string)
+	GetTwitterBearerToken() (string)
 	SaveTwitterSecret() ()
 }
 
