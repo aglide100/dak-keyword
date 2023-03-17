@@ -28,7 +28,7 @@ func (db *Database) RemoveDuplicateArticle(jobID string) error {
 func (db *Database) WriteTweetToArticle(tweet models.TweetArticle) error {
 	const q =`
 	INSERT INTO article (
-		"Keyword",
+		"Keyword",z
 		"Content",
 		"Platform",
 		"Job_id",
@@ -60,6 +60,7 @@ func (db *Database) GetArticles(id string) ([]*models.Article, error) {
 	SELECT * FROM article
 	WHERE "Job_id" = $1
 	AND article."Score_max_value" is not null
+	AND article."Score_max_name" is not null
 	ORDER BY article."Create_at" ASC
 	`
 	
@@ -146,7 +147,7 @@ func (db *Database) GetCountByHour(jobId string) ([]*models.ArticleCount, error)
        "Score_max_name",
        COUNT(*) AS "Count"
 	FROM article
-	WHERE "Job_id" = $1
+	WHERE "Job_id" = $1 IS NOT NULL AND "Score_max_value" IS NOT NULL
 	GROUP BY "Create_at_time", "Score_max_name";
 	`
 	
@@ -191,7 +192,7 @@ func (db *Database) GetCountByDay(jobId string) ([]*models.ArticleCount, error) 
        "Score_max_name",
        COUNT(*) AS "Count"
 	FROM article
-	WHERE "Job_id" = $1
+	WHERE "Job_id" = $1 IS NOT NULL AND "Score_max_value" IS NOT NULL
 	GROUP BY "Create_at_time", "Score_max_name";
 	`
 	

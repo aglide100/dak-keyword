@@ -39,19 +39,10 @@ class CRUD(Databases):
         return result
 
     def readTextFromArticleInJob(self, colum, id):
-       
-        # No idea, Get a selected columns in df or list 
-        # sql = "SELECT (\"Content\", \"Id\") FROM article WHERE \"" + colum + "\" = '" + id + "'"
-        sql = "SELECT * FROM article WHERE \"" + colum + "\" = '" + id + "'"
-        
+        sql = f"SELECT * FROM article WHERE \"{colum}\" = '{id}' AND (Score_max_value IS NULL OR Score_max_name IS NULL)"
+
         try:
-            # self.cursor.execute(sql)
-            # result = self.cursor.fetchall()
-            # print(self.cursor.description)
-            # cols = list(map(lambda x: x[0], self.cursor.description))
             df = pandas.read_sql_query(sql, self.db)
-            # df.columns = ['Id', 'Content']
-            # df = pandas.io.sql.frame_query(sql, self.db)
 
         except Exception as e :
             df = ("Read DB err : ", e)

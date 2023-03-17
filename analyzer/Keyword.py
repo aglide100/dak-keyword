@@ -31,18 +31,14 @@ if __name__ == '__main__':
             # sent = spell_checker.check(row['Content']).checked
             score = analyze_word(repeat_normalize(row['Content'], num_repeats=2))
             # score = analyze_word(repeat_normalize(sent, num_repeats=2))
-            # print(row[''])
-            # print(row.head() )
-            # print(row[1])
-            # print(row['Content'])
-            # print(row['Article_id'])
 
             if score is not None:
                 try:
                     Database.CRUD.updateScore(db, score[0][0], score[0][1], score[0][2], score[0][3], score[0][4], score[0][5], score[2], score[1], workerId, row['Id'])
                     
-                    msg = "Analyzing... : " + str(index) + " / " + str(len(rows))
-                    Calling.sendUpdating(workerId, msg)
+                    if index % 3 == 0:
+                        msg = "Analyzing... : " + str(index) + " / " + str(len(rows))
+                        Calling.sendUpdating(workerId, msg)
                     
                 except Exception as err:
                     print(err)
@@ -53,12 +49,7 @@ if __name__ == '__main__':
 
         Calling.sendDoneMSG(workerId)
 
- 
-
-
     except psycopg2.DatabaseError as db_err:
         print(db_err)
         Calling.sendErrMSG(workerId, db_err)
-
-
     
