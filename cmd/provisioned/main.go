@@ -57,11 +57,13 @@ func realMain() error {
 		return fmt.Errorf("Can't read dbPort!: %v %v", dbPort, err)
 	}
 
+	twitterToken := os.Getenv("BearerToken")
+
 	grpcServer := grpc.NewServer(opts...)
 
 	q := container.NewContainerQueue()
 
-	c, err := container.NewController(10, q)
+	c, err := container.NewController(10, q, twitterToken)
 	if err != nil {
 		return err
 	}

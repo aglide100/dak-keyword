@@ -27,16 +27,18 @@ type Controller struct {
 	cli *client.Client
 	analyzerCount int
 	analyzerMaxCount int
+	twitterToken string
 	cQueue *ContainerQueue
 	Container
 }
 
-func NewController(maxAnalyzer int, cQueue *ContainerQueue) (C *Controller, err error) {
+func NewController(maxAnalyzer int, cQueue *ContainerQueue, twitterToken string) (C *Controller, err error) {
 	c := new(Controller)
 	c.cli, err = client.NewClientWithOpts(client.FromEnv)
 
 	c.analyzerMaxCount = maxAnalyzer
 	c.analyzerCount = 0
+	c.twitterToken = twitterToken
 	c.cQueue = cQueue
 
 	if err != nil {
