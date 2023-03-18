@@ -24,6 +24,9 @@ if __name__ == '__main__':
         db = Database.Databases(host, dbname, user, password, port)
         # (2, 'author', 'keyword', 'contant', 'platform', 'happy', 'fear', 'emb', 'sad', 'rage', 'hurt', 'max_value', 'create_at', 'test', 'test')
         rows = Database.CRUD.readTextFromArticleInJob(db, 'Worker_id', workerId)
+        
+        print("rows",rows)
+
         Calling.sendStartMSG(workerId)
 
 
@@ -34,7 +37,8 @@ if __name__ == '__main__':
 
             if score is not None:
                 try:
-                    Database.CRUD.updateScore(db, score[0][0], score[0][1], score[0][2], score[0][3], score[0][4], score[0][5], score[2], score[1], workerId, row['Id'])
+                    print("Update")
+                    Database.CRUD.updateScore(db, score[0][0], score[0][1], score[0][2], score[0][3], score[0][4], score[0][5], score[2], score[1], row['Worker_id'], row['Id'])
                     
                     if index % 3 == 0:
                         msg = "Analyzing... : " + str(index) + " / " + str(len(rows))
