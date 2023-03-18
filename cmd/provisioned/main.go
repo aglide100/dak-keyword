@@ -104,7 +104,7 @@ func realMain() error {
 						}
 
 						if (cSpec.Type == "Scraper") {
-							err, countErr := c.CreateNewScraper(cSpec.WorkerId, cSpec.JobId, cSpec.Keyword, cSpec.Token, dbConfig)
+							err, countErr := c.CreateNewScraper(cSpec.WorkerId, cSpec.JobId, cSpec.Keyword, dbConfig)
 							if err != nil {
 								log.Println("Can't make scraper in queue %v", err)
 								q.Enqueue(cSpec)
