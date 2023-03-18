@@ -13,7 +13,7 @@ import (
 
 // const nodeRole = "node.role == worker"
 
-func (c *Controller) CreateNewScraper(workerId string, jobId string, keyword string, token string, dbConfig *db.DBConfig) (error, bool) {
+func (c *Controller) CreateNewScraper(workerId string, jobId string, keyword string, dbConfig *db.DBConfig) (error, bool) {
 	ctx := context.Background()
 
 	if c.analyzerCount >= c.analyzerMaxCount {
@@ -22,7 +22,7 @@ func (c *Controller) CreateNewScraper(workerId string, jobId string, keyword str
 			WorkerId: workerId,
 			Keyword: keyword,
 			JobId: jobId,
-			Token: token,
+			Token: c.twitterToken,
 			Type: "Scraper",
 		})
 		return nil, true
@@ -46,7 +46,7 @@ func (c *Controller) CreateNewScraper(workerId string, jobId string, keyword str
 					"DB_NAME=" + dbConfig.Dbname,
 					"WORKER_ID=" + workerId,
 					"JOB_ID=" + jobId,
-					"BearerToken=" + token,
+					"BearerToken=" + c.twitterToken,
 				},
 			},
 
