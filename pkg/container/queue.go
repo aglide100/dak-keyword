@@ -8,7 +8,6 @@ type ContainerSpec struct {
 	Type string
 }
 
-
 type ContainerQueue struct {
 	queue []ContainerSpec
 }
