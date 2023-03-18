@@ -8,18 +8,18 @@ services:
             context: .
             dockerfile: ./Dockerfile
         command: Analyzer.py
-        hostname: py
-        networks:
-            - db_keyword-network
+        # hostname: py
+        # networks:
+        #     - db_keyword-network
         environment:
             DB_ADDR: db
             DB_NAME: keyword
             DB_USER: table_admin
             DB_PASSWORD: HelloWorld
             # DB_PORT: 5432
-            DB_PORT: 8432
+            DB_PORT: 8888
             WORKER_ID: cfb0cc69-6700-46f5-ac41-c70cade581b6
-
-networks:
-    db_keyword-network:
-        external: true
+            TEST: true
+# networks:
+#     db_keyword-network:
+#         external: true

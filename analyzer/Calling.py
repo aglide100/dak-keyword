@@ -1,8 +1,6 @@
 import grpc
-
 import pb.svc.manager.manager_pb2 as manager_pb2
 import pb.svc.manager.manager_pb2_grpc as manager_pb2_grpc
-
 
 def sendStartMSG(workerId):
     with grpc.insecure_channel("keyword_apid:50010") as channel:

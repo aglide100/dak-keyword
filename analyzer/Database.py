@@ -39,8 +39,8 @@ class CRUD(Databases):
         return result
 
     def readTextFromArticleInJob(self, colum, id):
-        sql = f"SELECT * FROM article WHERE \"{colum}\" = '{id}' AND (Score_max_value IS NULL OR Score_max_name IS NULL)"
-
+        sql = f"SELECT * FROM article WHERE \"{colum}\" = '{id}' AND (\"Score_max_value\" IS NULL OR \"Score_max_name\" IS NULL)"
+        
         try:
             df = pandas.read_sql_query(sql, self.db)
 
@@ -79,7 +79,7 @@ class CRUD(Databases):
             self.cursor.execute(sql)
             self.db.commit()
         except Exception as e:
-            print("delete DB err : ", e)
+            print("Update score err : ", e)
 
     def updateDB(self, schema, table, colum, value, condition):
         sql = "UPDATE {schema}.{table} SET {colum}='{value}' WHERE {colum}='{condition}' ".format(schema=schema
