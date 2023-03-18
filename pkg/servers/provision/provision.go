@@ -27,7 +27,7 @@ func (s *ProvisionSrv) CreateScraper(ctx context.Context, in *pb_svc_provision.C
 		log.Printf("Received CreateScraper call: %v", in.String())
 	}
 	
-	err, countErr := s.c.CreateNewScraper(in.WorkerId, in.JobId, in.Keyword, in.Token, &s.dbConfig)
+	err, countErr := s.c.CreateNewScraper(in.WorkerId, in.JobId, in.Keyword, &s.dbConfig)
 	if err != nil {
 		log.Printf("Can't create new scraper : %v", err)
 		return nil, err
