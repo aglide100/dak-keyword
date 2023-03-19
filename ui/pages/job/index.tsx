@@ -30,7 +30,7 @@ export default function Job() {
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
     useEffect(() => {
-        if (!isLoaded) {
+        if (!isLoaded && router.isReady) {
             fetchGetJobIsReRun();
         }
     }, []);
