@@ -23,6 +23,100 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type GetJobIsReRunReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *GetJobIsReRunReq) Reset() {
+	*x = GetJobIsReRunReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[0]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetJobIsReRunReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetJobIsReRunReq) ProtoMessage() {}
+
+func (x *GetJobIsReRunReq) ProtoReflect() protoreflect.Message {
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[0]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetJobIsReRunReq.ProtoReflect.Descriptor instead.
+func (*GetJobIsReRunReq) Descriptor() ([]byte, []int) {
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *GetJobIsReRunReq) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+type GetJobIsReRunRes struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Result bool `protobuf:"varint,2,opt,name=result,proto3" json:"result,omitempty"`
+}
+
+func (x *GetJobIsReRunRes) Reset() {
+	*x = GetJobIsReRunRes{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetJobIsReRunRes) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetJobIsReRunRes) ProtoMessage() {}
+
+func (x *GetJobIsReRunRes) ProtoReflect() protoreflect.Message {
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetJobIsReRunRes.ProtoReflect.Descriptor instead.
+func (*GetJobIsReRunRes) Descriptor() ([]byte, []int) {
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *GetJobIsReRunRes) GetResult() bool {
+	if x != nil {
+		return x.Result
+	}
+	return false
+}
+
 type GetArticleCountByDayReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -34,7 +128,7 @@ type GetArticleCountByDayReq struct {
 func (x *GetArticleCountByDayReq) Reset() {
 	*x = GetArticleCountByDayReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[0]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -47,7 +141,7 @@ func (x *GetArticleCountByDayReq) String() string {
 func (*GetArticleCountByDayReq) ProtoMessage() {}
 
 func (x *GetArticleCountByDayReq) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[0]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -60,7 +154,7 @@ func (x *GetArticleCountByDayReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetArticleCountByDayReq.ProtoReflect.Descriptor instead.
 func (*GetArticleCountByDayReq) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{0}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *GetArticleCountByDayReq) GetId() string {
@@ -81,7 +175,7 @@ type GetArticleCountByDayRes struct {
 func (x *GetArticleCountByDayRes) Reset() {
 	*x = GetArticleCountByDayRes{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[1]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -94,7 +188,7 @@ func (x *GetArticleCountByDayRes) String() string {
 func (*GetArticleCountByDayRes) ProtoMessage() {}
 
 func (x *GetArticleCountByDayRes) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[1]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -107,7 +201,7 @@ func (x *GetArticleCountByDayRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetArticleCountByDayRes.ProtoReflect.Descriptor instead.
 func (*GetArticleCountByDayRes) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{1}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *GetArticleCountByDayRes) GetArticleCount() []*article.ArticleCount {
@@ -128,7 +222,7 @@ type GetArticleCountByHourReq struct {
 func (x *GetArticleCountByHourReq) Reset() {
 	*x = GetArticleCountByHourReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[2]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -141,7 +235,7 @@ func (x *GetArticleCountByHourReq) String() string {
 func (*GetArticleCountByHourReq) ProtoMessage() {}
 
 func (x *GetArticleCountByHourReq) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[2]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -154,7 +248,7 @@ func (x *GetArticleCountByHourReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetArticleCountByHourReq.ProtoReflect.Descriptor instead.
 func (*GetArticleCountByHourReq) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{2}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *GetArticleCountByHourReq) GetId() string {
@@ -175,7 +269,7 @@ type GetArticleCountByHourRes struct {
 func (x *GetArticleCountByHourRes) Reset() {
 	*x = GetArticleCountByHourRes{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[3]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -188,7 +282,7 @@ func (x *GetArticleCountByHourRes) String() string {
 func (*GetArticleCountByHourRes) ProtoMessage() {}
 
 func (x *GetArticleCountByHourRes) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[3]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -201,7 +295,7 @@ func (x *GetArticleCountByHourRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetArticleCountByHourRes.ProtoReflect.Descriptor instead.
 func (*GetArticleCountByHourRes) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{3}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *GetArticleCountByHourRes) GetArticleCount() []*article.ArticleCount {
@@ -224,7 +318,7 @@ type CreateNewJobReq struct {
 func (x *CreateNewJobReq) Reset() {
 	*x = CreateNewJobReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[4]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -237,7 +331,7 @@ func (x *CreateNewJobReq) String() string {
 func (*CreateNewJobReq) ProtoMessage() {}
 
 func (x *CreateNewJobReq) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[4]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -250,7 +344,7 @@ func (x *CreateNewJobReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateNewJobReq.ProtoReflect.Descriptor instead.
 func (*CreateNewJobReq) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{4}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *CreateNewJobReq) GetKeyword() string {
@@ -285,7 +379,7 @@ type CreateNewJobRes struct {
 func (x *CreateNewJobRes) Reset() {
 	*x = CreateNewJobRes{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[5]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -298,7 +392,7 @@ func (x *CreateNewJobRes) String() string {
 func (*CreateNewJobRes) ProtoMessage() {}
 
 func (x *CreateNewJobRes) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[5]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -311,7 +405,7 @@ func (x *CreateNewJobRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateNewJobRes.ProtoReflect.Descriptor instead.
 func (*CreateNewJobRes) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{5}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *CreateNewJobRes) GetMsg() string {
@@ -334,7 +428,7 @@ type ReRunJobReq struct {
 func (x *ReRunJobReq) Reset() {
 	*x = ReRunJobReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[6]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -347,7 +441,7 @@ func (x *ReRunJobReq) String() string {
 func (*ReRunJobReq) ProtoMessage() {}
 
 func (x *ReRunJobReq) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[6]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -360,7 +454,7 @@ func (x *ReRunJobReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReRunJobReq.ProtoReflect.Descriptor instead.
 func (*ReRunJobReq) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{6}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *ReRunJobReq) GetId() string {
@@ -395,7 +489,7 @@ type ReRunJobRes struct {
 func (x *ReRunJobRes) Reset() {
 	*x = ReRunJobRes{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[7]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -408,7 +502,7 @@ func (x *ReRunJobRes) String() string {
 func (*ReRunJobRes) ProtoMessage() {}
 
 func (x *ReRunJobRes) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[7]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -421,7 +515,7 @@ func (x *ReRunJobRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReRunJobRes.ProtoReflect.Descriptor instead.
 func (*ReRunJobRes) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{7}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *ReRunJobRes) GetMsg() string {
@@ -443,7 +537,7 @@ type GetJobStatusReq struct {
 func (x *GetJobStatusReq) Reset() {
 	*x = GetJobStatusReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[8]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -456,7 +550,7 @@ func (x *GetJobStatusReq) String() string {
 func (*GetJobStatusReq) ProtoMessage() {}
 
 func (x *GetJobStatusReq) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[8]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -469,7 +563,7 @@ func (x *GetJobStatusReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetJobStatusReq.ProtoReflect.Descriptor instead.
 func (*GetJobStatusReq) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{8}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *GetJobStatusReq) GetId() string {
@@ -497,7 +591,7 @@ type GetJobStatusRes struct {
 func (x *GetJobStatusRes) Reset() {
 	*x = GetJobStatusRes{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[9]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -510,7 +604,7 @@ func (x *GetJobStatusRes) String() string {
 func (*GetJobStatusRes) ProtoMessage() {}
 
 func (x *GetJobStatusRes) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[9]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -523,7 +617,7 @@ func (x *GetJobStatusRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetJobStatusRes.ProtoReflect.Descriptor instead.
 func (*GetJobStatusRes) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{9}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *GetJobStatusRes) GetStatus() string {
@@ -544,7 +638,7 @@ type StopJobReq struct {
 func (x *StopJobReq) Reset() {
 	*x = StopJobReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[10]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -557,7 +651,7 @@ func (x *StopJobReq) String() string {
 func (*StopJobReq) ProtoMessage() {}
 
 func (x *StopJobReq) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[10]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -570,7 +664,7 @@ func (x *StopJobReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StopJobReq.ProtoReflect.Descriptor instead.
 func (*StopJobReq) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{10}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *StopJobReq) GetId() string {
@@ -591,7 +685,7 @@ type StopJobRes struct {
 func (x *StopJobRes) Reset() {
 	*x = StopJobRes{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[11]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -604,7 +698,7 @@ func (x *StopJobRes) String() string {
 func (*StopJobRes) ProtoMessage() {}
 
 func (x *StopJobRes) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[11]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -617,7 +711,7 @@ func (x *StopJobRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StopJobRes.ProtoReflect.Descriptor instead.
 func (*StopJobRes) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{11}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *StopJobRes) GetResult() string {
@@ -638,7 +732,7 @@ type WhenDoneScraperReq struct {
 func (x *WhenDoneScraperReq) Reset() {
 	*x = WhenDoneScraperReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[12]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[14]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -651,7 +745,7 @@ func (x *WhenDoneScraperReq) String() string {
 func (*WhenDoneScraperReq) ProtoMessage() {}
 
 func (x *WhenDoneScraperReq) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[12]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -664,7 +758,7 @@ func (x *WhenDoneScraperReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WhenDoneScraperReq.ProtoReflect.Descriptor instead.
 func (*WhenDoneScraperReq) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{12}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *WhenDoneScraperReq) GetId() string {
@@ -685,7 +779,7 @@ type WhenDoneScraperRes struct {
 func (x *WhenDoneScraperRes) Reset() {
 	*x = WhenDoneScraperRes{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[13]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -698,7 +792,7 @@ func (x *WhenDoneScraperRes) String() string {
 func (*WhenDoneScraperRes) ProtoMessage() {}
 
 func (x *WhenDoneScraperRes) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[13]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -711,7 +805,7 @@ func (x *WhenDoneScraperRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WhenDoneScraperRes.ProtoReflect.Descriptor instead.
 func (*WhenDoneScraperRes) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{13}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *WhenDoneScraperRes) GetResult() string {
@@ -732,7 +826,7 @@ type WhenDoneAnalyzerReq struct {
 func (x *WhenDoneAnalyzerReq) Reset() {
 	*x = WhenDoneAnalyzerReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[14]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[16]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -745,7 +839,7 @@ func (x *WhenDoneAnalyzerReq) String() string {
 func (*WhenDoneAnalyzerReq) ProtoMessage() {}
 
 func (x *WhenDoneAnalyzerReq) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[14]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -758,7 +852,7 @@ func (x *WhenDoneAnalyzerReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WhenDoneAnalyzerReq.ProtoReflect.Descriptor instead.
 func (*WhenDoneAnalyzerReq) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{14}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *WhenDoneAnalyzerReq) GetId() string {
@@ -779,7 +873,7 @@ type WhenDoneAnalyzerRes struct {
 func (x *WhenDoneAnalyzerRes) Reset() {
 	*x = WhenDoneAnalyzerRes{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[15]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[17]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -792,7 +886,7 @@ func (x *WhenDoneAnalyzerRes) String() string {
 func (*WhenDoneAnalyzerRes) ProtoMessage() {}
 
 func (x *WhenDoneAnalyzerRes) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[15]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[17]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -805,7 +899,7 @@ func (x *WhenDoneAnalyzerRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WhenDoneAnalyzerRes.ProtoReflect.Descriptor instead.
 func (*WhenDoneAnalyzerRes) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{15}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *WhenDoneAnalyzerRes) GetResult() string {
@@ -827,7 +921,7 @@ type UpdateJobStatusReq struct {
 func (x *UpdateJobStatusReq) Reset() {
 	*x = UpdateJobStatusReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[16]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[18]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -840,7 +934,7 @@ func (x *UpdateJobStatusReq) String() string {
 func (*UpdateJobStatusReq) ProtoMessage() {}
 
 func (x *UpdateJobStatusReq) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[16]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[18]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -853,7 +947,7 @@ func (x *UpdateJobStatusReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateJobStatusReq.ProtoReflect.Descriptor instead.
 func (*UpdateJobStatusReq) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{16}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *UpdateJobStatusReq) GetId() string {
@@ -881,7 +975,7 @@ type UpdateJobStatusRes struct {
 func (x *UpdateJobStatusRes) Reset() {
 	*x = UpdateJobStatusRes{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[17]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[19]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -894,7 +988,7 @@ func (x *UpdateJobStatusRes) String() string {
 func (*UpdateJobStatusRes) ProtoMessage() {}
 
 func (x *UpdateJobStatusRes) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[17]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[19]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -907,7 +1001,7 @@ func (x *UpdateJobStatusRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateJobStatusRes.ProtoReflect.Descriptor instead.
 func (*UpdateJobStatusRes) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{17}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *UpdateJobStatusRes) GetResult() string {
@@ -926,7 +1020,7 @@ type GetJobListReq struct {
 func (x *GetJobListReq) Reset() {
 	*x = GetJobListReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[18]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[20]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -939,7 +1033,7 @@ func (x *GetJobListReq) String() string {
 func (*GetJobListReq) ProtoMessage() {}
 
 func (x *GetJobListReq) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[18]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[20]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -952,7 +1046,7 @@ func (x *GetJobListReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetJobListReq.ProtoReflect.Descriptor instead.
 func (*GetJobListReq) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{18}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{20}
 }
 
 type GetJobListRes struct {
@@ -966,7 +1060,7 @@ type GetJobListRes struct {
 func (x *GetJobListRes) Reset() {
 	*x = GetJobListRes{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[19]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[21]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -979,7 +1073,7 @@ func (x *GetJobListRes) String() string {
 func (*GetJobListRes) ProtoMessage() {}
 
 func (x *GetJobListRes) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[19]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[21]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -992,7 +1086,7 @@ func (x *GetJobListRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetJobListRes.ProtoReflect.Descriptor instead.
 func (*GetJobListRes) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{19}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *GetJobListRes) GetJob() []*job.Job {
@@ -1013,7 +1107,7 @@ type GetWorkerListReq struct {
 func (x *GetWorkerListReq) Reset() {
 	*x = GetWorkerListReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[20]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[22]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1026,7 +1120,7 @@ func (x *GetWorkerListReq) String() string {
 func (*GetWorkerListReq) ProtoMessage() {}
 
 func (x *GetWorkerListReq) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[20]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[22]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1039,7 +1133,7 @@ func (x *GetWorkerListReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetWorkerListReq.ProtoReflect.Descriptor instead.
 func (*GetWorkerListReq) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{20}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *GetWorkerListReq) GetId() string {
@@ -1060,7 +1154,7 @@ type GetWorkerListRes struct {
 func (x *GetWorkerListRes) Reset() {
 	*x = GetWorkerListRes{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[21]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[23]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1073,7 +1167,7 @@ func (x *GetWorkerListRes) String() string {
 func (*GetWorkerListRes) ProtoMessage() {}
 
 func (x *GetWorkerListRes) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[21]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[23]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1086,7 +1180,7 @@ func (x *GetWorkerListRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetWorkerListRes.ProtoReflect.Descriptor instead.
 func (*GetWorkerListRes) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{21}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *GetWorkerListRes) GetWorker() []*worker.Worker {
@@ -1108,7 +1202,7 @@ type GetArticleListReq struct {
 func (x *GetArticleListReq) Reset() {
 	*x = GetArticleListReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[22]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[24]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1121,7 +1215,7 @@ func (x *GetArticleListReq) String() string {
 func (*GetArticleListReq) ProtoMessage() {}
 
 func (x *GetArticleListReq) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[22]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[24]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1134,7 +1228,7 @@ func (x *GetArticleListReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetArticleListReq.ProtoReflect.Descriptor instead.
 func (*GetArticleListReq) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{22}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *GetArticleListReq) GetId() string {
@@ -1162,7 +1256,7 @@ type GetArticleListRes struct {
 func (x *GetArticleListRes) Reset() {
 	*x = GetArticleListRes{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[23]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[25]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1175,7 +1269,7 @@ func (x *GetArticleListRes) String() string {
 func (*GetArticleListRes) ProtoMessage() {}
 
 func (x *GetArticleListRes) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[23]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[25]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1188,7 +1282,7 @@ func (x *GetArticleListRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetArticleListRes.ProtoReflect.Descriptor instead.
 func (*GetArticleListRes) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{23}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *GetArticleListRes) GetArticle() []*article.Article {
@@ -1209,7 +1303,7 @@ type GetArticleInfoReq struct {
 func (x *GetArticleInfoReq) Reset() {
 	*x = GetArticleInfoReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[24]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[26]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1222,7 +1316,7 @@ func (x *GetArticleInfoReq) String() string {
 func (*GetArticleInfoReq) ProtoMessage() {}
 
 func (x *GetArticleInfoReq) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[24]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[26]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1235,7 +1329,7 @@ func (x *GetArticleInfoReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetArticleInfoReq.ProtoReflect.Descriptor instead.
 func (*GetArticleInfoReq) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{24}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *GetArticleInfoReq) GetId() string {
@@ -1257,7 +1351,7 @@ type GetArticleInfoRes struct {
 func (x *GetArticleInfoRes) Reset() {
 	*x = GetArticleInfoRes{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[25]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[27]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1270,7 +1364,7 @@ func (x *GetArticleInfoRes) String() string {
 func (*GetArticleInfoRes) ProtoMessage() {}
 
 func (x *GetArticleInfoRes) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[25]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[27]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1283,7 +1377,7 @@ func (x *GetArticleInfoRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetArticleInfoRes.ProtoReflect.Descriptor instead.
 func (*GetArticleInfoRes) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{25}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *GetArticleInfoRes) GetTotalCount() int32 {
@@ -1311,7 +1405,7 @@ type WhenStartScraperReq struct {
 func (x *WhenStartScraperReq) Reset() {
 	*x = WhenStartScraperReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[26]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[28]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1324,7 +1418,7 @@ func (x *WhenStartScraperReq) String() string {
 func (*WhenStartScraperReq) ProtoMessage() {}
 
 func (x *WhenStartScraperReq) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[26]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[28]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1337,7 +1431,7 @@ func (x *WhenStartScraperReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WhenStartScraperReq.ProtoReflect.Descriptor instead.
 func (*WhenStartScraperReq) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{26}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *WhenStartScraperReq) GetId() string {
@@ -1358,7 +1452,7 @@ type WhenStartScraperRes struct {
 func (x *WhenStartScraperRes) Reset() {
 	*x = WhenStartScraperRes{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[27]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[29]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1371,7 +1465,7 @@ func (x *WhenStartScraperRes) String() string {
 func (*WhenStartScraperRes) ProtoMessage() {}
 
 func (x *WhenStartScraperRes) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[27]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[29]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1384,7 +1478,7 @@ func (x *WhenStartScraperRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WhenStartScraperRes.ProtoReflect.Descriptor instead.
 func (*WhenStartScraperRes) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{27}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *WhenStartScraperRes) GetResult() string {
@@ -1405,7 +1499,7 @@ type WhenStartAnalyzerReq struct {
 func (x *WhenStartAnalyzerReq) Reset() {
 	*x = WhenStartAnalyzerReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[28]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[30]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1418,7 +1512,7 @@ func (x *WhenStartAnalyzerReq) String() string {
 func (*WhenStartAnalyzerReq) ProtoMessage() {}
 
 func (x *WhenStartAnalyzerReq) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[28]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[30]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1431,7 +1525,7 @@ func (x *WhenStartAnalyzerReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WhenStartAnalyzerReq.ProtoReflect.Descriptor instead.
 func (*WhenStartAnalyzerReq) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{28}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *WhenStartAnalyzerReq) GetId() string {
@@ -1452,7 +1546,7 @@ type WhenStartAnalyzerRes struct {
 func (x *WhenStartAnalyzerRes) Reset() {
 	*x = WhenStartAnalyzerRes{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[29]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[31]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1465,7 +1559,7 @@ func (x *WhenStartAnalyzerRes) String() string {
 func (*WhenStartAnalyzerRes) ProtoMessage() {}
 
 func (x *WhenStartAnalyzerRes) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[29]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[31]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1478,7 +1572,7 @@ func (x *WhenStartAnalyzerRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WhenStartAnalyzerRes.ProtoReflect.Descriptor instead.
 func (*WhenStartAnalyzerRes) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{29}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *WhenStartAnalyzerRes) GetResult() string {
@@ -1500,7 +1594,7 @@ type WhenScraperHavingErrReq struct {
 func (x *WhenScraperHavingErrReq) Reset() {
 	*x = WhenScraperHavingErrReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[30]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[32]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1513,7 +1607,7 @@ func (x *WhenScraperHavingErrReq) String() string {
 func (*WhenScraperHavingErrReq) ProtoMessage() {}
 
 func (x *WhenScraperHavingErrReq) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[30]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[32]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1526,7 +1620,7 @@ func (x *WhenScraperHavingErrReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WhenScraperHavingErrReq.ProtoReflect.Descriptor instead.
 func (*WhenScraperHavingErrReq) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{30}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{32}
 }
 
 func (x *WhenScraperHavingErrReq) GetId() string {
@@ -1552,7 +1646,7 @@ type WhenScraperHavingErrRes struct {
 func (x *WhenScraperHavingErrRes) Reset() {
 	*x = WhenScraperHavingErrRes{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[31]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[33]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1565,7 +1659,7 @@ func (x *WhenScraperHavingErrRes) String() string {
 func (*WhenScraperHavingErrRes) ProtoMessage() {}
 
 func (x *WhenScraperHavingErrRes) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[31]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[33]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1578,7 +1672,7 @@ func (x *WhenScraperHavingErrRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WhenScraperHavingErrRes.ProtoReflect.Descriptor instead.
 func (*WhenScraperHavingErrRes) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{31}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{33}
 }
 
 type WhenAnalyzerHavingErrReq struct {
@@ -1593,7 +1687,7 @@ type WhenAnalyzerHavingErrReq struct {
 func (x *WhenAnalyzerHavingErrReq) Reset() {
 	*x = WhenAnalyzerHavingErrReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[32]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[34]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1606,7 +1700,7 @@ func (x *WhenAnalyzerHavingErrReq) String() string {
 func (*WhenAnalyzerHavingErrReq) ProtoMessage() {}
 
 func (x *WhenAnalyzerHavingErrReq) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[32]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[34]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1619,7 +1713,7 @@ func (x *WhenAnalyzerHavingErrReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WhenAnalyzerHavingErrReq.ProtoReflect.Descriptor instead.
 func (*WhenAnalyzerHavingErrReq) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{32}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{34}
 }
 
 func (x *WhenAnalyzerHavingErrReq) GetId() string {
@@ -1645,7 +1739,7 @@ type WhenAnalyzerHavingErrRes struct {
 func (x *WhenAnalyzerHavingErrRes) Reset() {
 	*x = WhenAnalyzerHavingErrRes{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[33]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[35]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1658,7 +1752,7 @@ func (x *WhenAnalyzerHavingErrRes) String() string {
 func (*WhenAnalyzerHavingErrRes) ProtoMessage() {}
 
 func (x *WhenAnalyzerHavingErrRes) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[33]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[35]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1671,7 +1765,7 @@ func (x *WhenAnalyzerHavingErrRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WhenAnalyzerHavingErrRes.ProtoReflect.Descriptor instead.
 func (*WhenAnalyzerHavingErrRes) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{33}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{35}
 }
 
 type UpdateWorkerStatusReq struct {
@@ -1686,7 +1780,7 @@ type UpdateWorkerStatusReq struct {
 func (x *UpdateWorkerStatusReq) Reset() {
 	*x = UpdateWorkerStatusReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[34]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[36]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1699,7 +1793,7 @@ func (x *UpdateWorkerStatusReq) String() string {
 func (*UpdateWorkerStatusReq) ProtoMessage() {}
 
 func (x *UpdateWorkerStatusReq) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[34]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[36]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1712,7 +1806,7 @@ func (x *UpdateWorkerStatusReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateWorkerStatusReq.ProtoReflect.Descriptor instead.
 func (*UpdateWorkerStatusReq) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{34}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{36}
 }
 
 func (x *UpdateWorkerStatusReq) GetId() string {
@@ -1738,7 +1832,7 @@ type UpdateWorkerStatusRes struct {
 func (x *UpdateWorkerStatusRes) Reset() {
 	*x = UpdateWorkerStatusRes{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_manager_proto_msgTypes[35]
+		mi := &file_pb_svc_manager_manager_proto_msgTypes[37]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1751,7 +1845,7 @@ func (x *UpdateWorkerStatusRes) String() string {
 func (*UpdateWorkerStatusRes) ProtoMessage() {}
 
 func (x *UpdateWorkerStatusRes) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_manager_proto_msgTypes[35]
+	mi := &file_pb_svc_manager_manager_proto_msgTypes[37]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1764,7 +1858,7 @@ func (x *UpdateWorkerStatusRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateWorkerStatusRes.ProtoReflect.Descriptor instead.
 func (*UpdateWorkerStatusRes) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{35}
+	return file_pb_svc_manager_manager_proto_rawDescGZIP(), []int{37}
 }
 
 var File_pb_svc_manager_manager_proto protoreflect.FileDescriptor
@@ -1778,7 +1872,12 @@ var file_pb_svc_manager_manager_proto_rawDesc = []byte{
 	0x6f, 0x72, 0x6b, 0x65, 0x72, 0x2f, 0x77, 0x6f, 0x72, 0x6b, 0x65, 0x72, 0x2e, 0x70, 0x72, 0x6f,
 	0x74, 0x6f, 0x1a, 0x1d, 0x70, 0x62, 0x2f, 0x75, 0x6e, 0x69, 0x74, 0x2f, 0x61, 0x72, 0x74, 0x69,
 	0x63, 0x6c, 0x65, 0x2f, 0x61, 0x72, 0x74, 0x69, 0x63, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x22, 0x29, 0x0a, 0x17, 0x47, 0x65, 0x74, 0x41, 0x72, 0x74, 0x69, 0x63, 0x6c, 0x65, 0x43,
+	0x6f, 0x22, 0x22, 0x0a, 0x10, 0x47, 0x65, 0x74, 0x4a, 0x6f, 0x62, 0x49, 0x73, 0x52, 0x65, 0x52,
+	0x75, 0x6e, 0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0x2a, 0x0a, 0x10, 0x47, 0x65, 0x74, 0x4a, 0x6f, 0x62, 0x49,
+	0x73, 0x52, 0x65, 0x52, 0x75, 0x6e, 0x52, 0x65, 0x73, 0x12, 0x16, 0x0a, 0x06, 0x72, 0x65, 0x73,
+	0x75, 0x6c, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x08, 0x52, 0x06, 0x72, 0x65, 0x73, 0x75, 0x6c,
+	0x74, 0x22, 0x29, 0x0a, 0x17, 0x47, 0x65, 0x74, 0x41, 0x72, 0x74, 0x69, 0x63, 0x6c, 0x65, 0x43,
 	0x6f, 0x75, 0x6e, 0x74, 0x42, 0x79, 0x44, 0x61, 0x79, 0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a, 0x02,
 	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0x5c, 0x0a, 0x17,
 	0x47, 0x65, 0x74, 0x41, 0x72, 0x74, 0x69, 0x63, 0x6c, 0x65, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x42,
@@ -1893,7 +1992,7 @@ var file_pb_svc_manager_manager_proto_rawDesc = []byte{
 	0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x10, 0x0a, 0x03, 0x6d, 0x73, 0x67, 0x18,
 	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6d, 0x73, 0x67, 0x22, 0x17, 0x0a, 0x15, 0x55, 0x70,
 	0x64, 0x61, 0x74, 0x65, 0x57, 0x6f, 0x72, 0x6b, 0x65, 0x72, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73,
-	0x52, 0x65, 0x73, 0x32, 0xec, 0x0c, 0x0a, 0x07, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x12,
+	0x52, 0x65, 0x73, 0x32, 0xc1, 0x0d, 0x0a, 0x07, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x12,
 	0x50, 0x0a, 0x0c, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4e, 0x65, 0x77, 0x4a, 0x6f, 0x62, 0x12,
 	0x1f, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72,
 	0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x4e, 0x65, 0x77, 0x4a, 0x6f, 0x62, 0x52, 0x65, 0x71,
@@ -1913,93 +2012,99 @@ var file_pb_svc_manager_manager_proto_rawDesc = []byte{
 	0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x47, 0x65, 0x74, 0x4a, 0x6f, 0x62, 0x4c,
 	0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x1d, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e,
 	0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x47, 0x65, 0x74, 0x4a, 0x6f, 0x62, 0x4c, 0x69,
-	0x73, 0x74, 0x52, 0x65, 0x73, 0x12, 0x53, 0x0a, 0x0d, 0x47, 0x65, 0x74, 0x57, 0x6f, 0x72, 0x6b,
-	0x65, 0x72, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x20, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e,
-	0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x47, 0x65, 0x74, 0x57, 0x6f, 0x72, 0x6b, 0x65,
-	0x72, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x20, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76,
-	0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x47, 0x65, 0x74, 0x57, 0x6f, 0x72,
-	0x6b, 0x65, 0x72, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x12, 0x56, 0x0a, 0x0e, 0x47, 0x65,
-	0x74, 0x41, 0x72, 0x74, 0x69, 0x63, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x21, 0x2e, 0x70,
-	0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x47, 0x65,
-	0x74, 0x41, 0x72, 0x74, 0x69, 0x63, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x71, 0x1a,
-	0x21, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72,
-	0x2e, 0x47, 0x65, 0x74, 0x41, 0x72, 0x74, 0x69, 0x63, 0x6c, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52,
-	0x65, 0x73, 0x12, 0x56, 0x0a, 0x0e, 0x47, 0x65, 0x74, 0x41, 0x72, 0x74, 0x69, 0x63, 0x6c, 0x65,
-	0x4c, 0x69, 0x73, 0x74, 0x12, 0x21, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61,
+	0x73, 0x74, 0x52, 0x65, 0x73, 0x12, 0x53, 0x0a, 0x0d, 0x47, 0x65, 0x74, 0x4a, 0x6f, 0x62, 0x49,
+	0x73, 0x52, 0x65, 0x52, 0x75, 0x6e, 0x12, 0x20, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e,
+	0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x47, 0x65, 0x74, 0x4a, 0x6f, 0x62, 0x49, 0x73,
+	0x52, 0x65, 0x52, 0x75, 0x6e, 0x52, 0x65, 0x71, 0x1a, 0x20, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76,
+	0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x47, 0x65, 0x74, 0x4a, 0x6f, 0x62,
+	0x49, 0x73, 0x52, 0x65, 0x52, 0x75, 0x6e, 0x52, 0x65, 0x73, 0x12, 0x53, 0x0a, 0x0d, 0x47, 0x65,
+	0x74, 0x57, 0x6f, 0x72, 0x6b, 0x65, 0x72, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x20, 0x2e, 0x70, 0x62,
+	0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x47, 0x65, 0x74,
+	0x57, 0x6f, 0x72, 0x6b, 0x65, 0x72, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x20, 0x2e,
+	0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x47,
+	0x65, 0x74, 0x57, 0x6f, 0x72, 0x6b, 0x65, 0x72, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x12,
+	0x56, 0x0a, 0x0e, 0x47, 0x65, 0x74, 0x41, 0x72, 0x74, 0x69, 0x63, 0x6c, 0x65, 0x49, 0x6e, 0x66,
+	0x6f, 0x12, 0x21, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67,
+	0x65, 0x72, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x72, 0x74, 0x69, 0x63, 0x6c, 0x65, 0x49, 0x6e, 0x66,
+	0x6f, 0x52, 0x65, 0x71, 0x1a, 0x21, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61,
 	0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x72, 0x74, 0x69, 0x63, 0x6c, 0x65,
-	0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x21, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63,
-	0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x72, 0x74, 0x69,
-	0x63, 0x6c, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x12, 0x6b, 0x0a, 0x15, 0x47, 0x65,
-	0x74, 0x41, 0x72, 0x74, 0x69, 0x63, 0x6c, 0x65, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x42, 0x79, 0x48,
-	0x6f, 0x75, 0x72, 0x12, 0x28, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e,
-	0x61, 0x67, 0x65, 0x72, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x72, 0x74, 0x69, 0x63, 0x6c, 0x65, 0x43,
-	0x6f, 0x75, 0x6e, 0x74, 0x42, 0x79, 0x48, 0x6f, 0x75, 0x72, 0x52, 0x65, 0x71, 0x1a, 0x28, 0x2e,
+	0x49, 0x6e, 0x66, 0x6f, 0x52, 0x65, 0x73, 0x12, 0x56, 0x0a, 0x0e, 0x47, 0x65, 0x74, 0x41, 0x72,
+	0x74, 0x69, 0x63, 0x6c, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x21, 0x2e, 0x70, 0x62, 0x2e, 0x73,
+	0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x72,
+	0x74, 0x69, 0x63, 0x6c, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x21, 0x2e, 0x70,
+	0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x47, 0x65,
+	0x74, 0x41, 0x72, 0x74, 0x69, 0x63, 0x6c, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x12,
+	0x6b, 0x0a, 0x15, 0x47, 0x65, 0x74, 0x41, 0x72, 0x74, 0x69, 0x63, 0x6c, 0x65, 0x43, 0x6f, 0x75,
+	0x6e, 0x74, 0x42, 0x79, 0x48, 0x6f, 0x75, 0x72, 0x12, 0x28, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76,
+	0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x72, 0x74,
+	0x69, 0x63, 0x6c, 0x65, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x42, 0x79, 0x48, 0x6f, 0x75, 0x72, 0x52,
+	0x65, 0x71, 0x1a, 0x28, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61,
+	0x67, 0x65, 0x72, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x72, 0x74, 0x69, 0x63, 0x6c, 0x65, 0x43, 0x6f,
+	0x75, 0x6e, 0x74, 0x42, 0x79, 0x48, 0x6f, 0x75, 0x72, 0x52, 0x65, 0x73, 0x12, 0x68, 0x0a, 0x14,
+	0x47, 0x65, 0x74, 0x41, 0x72, 0x74, 0x69, 0x63, 0x6c, 0x65, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x42,
+	0x79, 0x44, 0x61, 0x79, 0x12, 0x27, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61,
+	0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x72, 0x74, 0x69, 0x63, 0x6c, 0x65,
+	0x43, 0x6f, 0x75, 0x6e, 0x74, 0x42, 0x79, 0x44, 0x61, 0x79, 0x52, 0x65, 0x71, 0x1a, 0x27, 0x2e,
 	0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x47,
 	0x65, 0x74, 0x41, 0x72, 0x74, 0x69, 0x63, 0x6c, 0x65, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x42, 0x79,
-	0x48, 0x6f, 0x75, 0x72, 0x52, 0x65, 0x73, 0x12, 0x68, 0x0a, 0x14, 0x47, 0x65, 0x74, 0x41, 0x72,
-	0x74, 0x69, 0x63, 0x6c, 0x65, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x42, 0x79, 0x44, 0x61, 0x79, 0x12,
-	0x27, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72,
-	0x2e, 0x47, 0x65, 0x74, 0x41, 0x72, 0x74, 0x69, 0x63, 0x6c, 0x65, 0x43, 0x6f, 0x75, 0x6e, 0x74,
-	0x42, 0x79, 0x44, 0x61, 0x79, 0x52, 0x65, 0x71, 0x1a, 0x27, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76,
-	0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x72, 0x74,
-	0x69, 0x63, 0x6c, 0x65, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x42, 0x79, 0x44, 0x61, 0x79, 0x52, 0x65,
-	0x73, 0x12, 0x62, 0x0a, 0x12, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x57, 0x6f, 0x72, 0x6b, 0x65,
-	0x72, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x25, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63,
-	0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x57,
-	0x6f, 0x72, 0x6b, 0x65, 0x72, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x71, 0x1a, 0x25,
-	0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e,
-	0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x57, 0x6f, 0x72, 0x6b, 0x65, 0x72, 0x53, 0x74, 0x61, 0x74,
-	0x75, 0x73, 0x52, 0x65, 0x73, 0x12, 0x59, 0x0a, 0x0f, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x4a,
-	0x6f, 0x62, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x22, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76,
-	0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65,
-	0x4a, 0x6f, 0x62, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x71, 0x1a, 0x22, 0x2e, 0x70,
+	0x44, 0x61, 0x79, 0x52, 0x65, 0x73, 0x12, 0x62, 0x0a, 0x12, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65,
+	0x57, 0x6f, 0x72, 0x6b, 0x65, 0x72, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x25, 0x2e, 0x70,
 	0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x55, 0x70,
-	0x64, 0x61, 0x74, 0x65, 0x4a, 0x6f, 0x62, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x73,
-	0x12, 0x5c, 0x0a, 0x10, 0x57, 0x68, 0x65, 0x6e, 0x53, 0x74, 0x61, 0x72, 0x74, 0x53, 0x63, 0x72,
-	0x61, 0x70, 0x65, 0x72, 0x12, 0x23, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61,
-	0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x57, 0x68, 0x65, 0x6e, 0x53, 0x74, 0x61, 0x72, 0x74, 0x53,
-	0x63, 0x72, 0x61, 0x70, 0x65, 0x72, 0x52, 0x65, 0x71, 0x1a, 0x23, 0x2e, 0x70, 0x62, 0x2e, 0x73,
+	0x64, 0x61, 0x74, 0x65, 0x57, 0x6f, 0x72, 0x6b, 0x65, 0x72, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73,
+	0x52, 0x65, 0x71, 0x1a, 0x25, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e,
+	0x61, 0x67, 0x65, 0x72, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x57, 0x6f, 0x72, 0x6b, 0x65,
+	0x72, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x73, 0x12, 0x59, 0x0a, 0x0f, 0x55, 0x70,
+	0x64, 0x61, 0x74, 0x65, 0x4a, 0x6f, 0x62, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x22, 0x2e,
+	0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x55,
+	0x70, 0x64, 0x61, 0x74, 0x65, 0x4a, 0x6f, 0x62, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x65,
+	0x71, 0x1a, 0x22, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67,
+	0x65, 0x72, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x4a, 0x6f, 0x62, 0x53, 0x74, 0x61, 0x74,
+	0x75, 0x73, 0x52, 0x65, 0x73, 0x12, 0x5c, 0x0a, 0x10, 0x57, 0x68, 0x65, 0x6e, 0x53, 0x74, 0x61,
+	0x72, 0x74, 0x53, 0x63, 0x72, 0x61, 0x70, 0x65, 0x72, 0x12, 0x23, 0x2e, 0x70, 0x62, 0x2e, 0x73,
 	0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x57, 0x68, 0x65, 0x6e, 0x53,
-	0x74, 0x61, 0x72, 0x74, 0x53, 0x63, 0x72, 0x61, 0x70, 0x65, 0x72, 0x52, 0x65, 0x73, 0x12, 0x59,
-	0x0a, 0x0f, 0x57, 0x68, 0x65, 0x6e, 0x44, 0x6f, 0x6e, 0x65, 0x53, 0x63, 0x72, 0x61, 0x70, 0x65,
-	0x72, 0x12, 0x22, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67,
-	0x65, 0x72, 0x2e, 0x57, 0x68, 0x65, 0x6e, 0x44, 0x6f, 0x6e, 0x65, 0x53, 0x63, 0x72, 0x61, 0x70,
-	0x65, 0x72, 0x52, 0x65, 0x71, 0x1a, 0x22, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d,
-	0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x57, 0x68, 0x65, 0x6e, 0x44, 0x6f, 0x6e, 0x65, 0x53,
-	0x63, 0x72, 0x61, 0x70, 0x65, 0x72, 0x52, 0x65, 0x73, 0x12, 0x5f, 0x0a, 0x11, 0x57, 0x68, 0x65,
-	0x6e, 0x53, 0x74, 0x61, 0x72, 0x74, 0x41, 0x6e, 0x61, 0x6c, 0x79, 0x7a, 0x65, 0x72, 0x12, 0x24,
+	0x74, 0x61, 0x72, 0x74, 0x53, 0x63, 0x72, 0x61, 0x70, 0x65, 0x72, 0x52, 0x65, 0x71, 0x1a, 0x23,
 	0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e,
-	0x57, 0x68, 0x65, 0x6e, 0x53, 0x74, 0x61, 0x72, 0x74, 0x41, 0x6e, 0x61, 0x6c, 0x79, 0x7a, 0x65,
-	0x72, 0x52, 0x65, 0x71, 0x1a, 0x24, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61,
-	0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x57, 0x68, 0x65, 0x6e, 0x53, 0x74, 0x61, 0x72, 0x74, 0x41,
-	0x6e, 0x61, 0x6c, 0x79, 0x7a, 0x65, 0x72, 0x52, 0x65, 0x73, 0x12, 0x5c, 0x0a, 0x10, 0x57, 0x68,
-	0x65, 0x6e, 0x44, 0x6f, 0x6e, 0x65, 0x41, 0x6e, 0x61, 0x6c, 0x79, 0x7a, 0x65, 0x72, 0x12, 0x23,
-	0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e,
-	0x57, 0x68, 0x65, 0x6e, 0x44, 0x6f, 0x6e, 0x65, 0x41, 0x6e, 0x61, 0x6c, 0x79, 0x7a, 0x65, 0x72,
-	0x52, 0x65, 0x71, 0x1a, 0x23, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e,
+	0x57, 0x68, 0x65, 0x6e, 0x53, 0x74, 0x61, 0x72, 0x74, 0x53, 0x63, 0x72, 0x61, 0x70, 0x65, 0x72,
+	0x52, 0x65, 0x73, 0x12, 0x59, 0x0a, 0x0f, 0x57, 0x68, 0x65, 0x6e, 0x44, 0x6f, 0x6e, 0x65, 0x53,
+	0x63, 0x72, 0x61, 0x70, 0x65, 0x72, 0x12, 0x22, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e,
+	0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x57, 0x68, 0x65, 0x6e, 0x44, 0x6f, 0x6e, 0x65,
+	0x53, 0x63, 0x72, 0x61, 0x70, 0x65, 0x72, 0x52, 0x65, 0x71, 0x1a, 0x22, 0x2e, 0x70, 0x62, 0x2e,
+	0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x57, 0x68, 0x65, 0x6e,
+	0x44, 0x6f, 0x6e, 0x65, 0x53, 0x63, 0x72, 0x61, 0x70, 0x65, 0x72, 0x52, 0x65, 0x73, 0x12, 0x5f,
+	0x0a, 0x11, 0x57, 0x68, 0x65, 0x6e, 0x53, 0x74, 0x61, 0x72, 0x74, 0x41, 0x6e, 0x61, 0x6c, 0x79,
+	0x7a, 0x65, 0x72, 0x12, 0x24, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e,
+	0x61, 0x67, 0x65, 0x72, 0x2e, 0x57, 0x68, 0x65, 0x6e, 0x53, 0x74, 0x61, 0x72, 0x74, 0x41, 0x6e,
+	0x61, 0x6c, 0x79, 0x7a, 0x65, 0x72, 0x52, 0x65, 0x71, 0x1a, 0x24, 0x2e, 0x70, 0x62, 0x2e, 0x73,
+	0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x57, 0x68, 0x65, 0x6e, 0x53,
+	0x74, 0x61, 0x72, 0x74, 0x41, 0x6e, 0x61, 0x6c, 0x79, 0x7a, 0x65, 0x72, 0x52, 0x65, 0x73, 0x12,
+	0x5c, 0x0a, 0x10, 0x57, 0x68, 0x65, 0x6e, 0x44, 0x6f, 0x6e, 0x65, 0x41, 0x6e, 0x61, 0x6c, 0x79,
+	0x7a, 0x65, 0x72, 0x12, 0x23, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e,
 	0x61, 0x67, 0x65, 0x72, 0x2e, 0x57, 0x68, 0x65, 0x6e, 0x44, 0x6f, 0x6e, 0x65, 0x41, 0x6e, 0x61,
-	0x6c, 0x79, 0x7a, 0x65, 0x72, 0x52, 0x65, 0x73, 0x12, 0x68, 0x0a, 0x14, 0x57, 0x68, 0x65, 0x6e,
-	0x53, 0x63, 0x72, 0x61, 0x70, 0x65, 0x72, 0x48, 0x61, 0x76, 0x69, 0x6e, 0x67, 0x45, 0x72, 0x72,
-	0x12, 0x27, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65,
-	0x72, 0x2e, 0x57, 0x68, 0x65, 0x6e, 0x53, 0x63, 0x72, 0x61, 0x70, 0x65, 0x72, 0x48, 0x61, 0x76,
-	0x69, 0x6e, 0x67, 0x45, 0x72, 0x72, 0x52, 0x65, 0x71, 0x1a, 0x27, 0x2e, 0x70, 0x62, 0x2e, 0x73,
-	0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x57, 0x68, 0x65, 0x6e, 0x53,
-	0x63, 0x72, 0x61, 0x70, 0x65, 0x72, 0x48, 0x61, 0x76, 0x69, 0x6e, 0x67, 0x45, 0x72, 0x72, 0x52,
-	0x65, 0x73, 0x12, 0x6b, 0x0a, 0x15, 0x57, 0x68, 0x65, 0x6e, 0x41, 0x6e, 0x61, 0x6c, 0x79, 0x7a,
-	0x65, 0x72, 0x48, 0x61, 0x76, 0x69, 0x6e, 0x67, 0x45, 0x72, 0x72, 0x12, 0x28, 0x2e, 0x70, 0x62,
-	0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x57, 0x68, 0x65,
-	0x6e, 0x41, 0x6e, 0x61, 0x6c, 0x79, 0x7a, 0x65, 0x72, 0x48, 0x61, 0x76, 0x69, 0x6e, 0x67, 0x45,
-	0x72, 0x72, 0x52, 0x65, 0x71, 0x1a, 0x28, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d,
-	0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x57, 0x68, 0x65, 0x6e, 0x41, 0x6e, 0x61, 0x6c, 0x79,
-	0x7a, 0x65, 0x72, 0x48, 0x61, 0x76, 0x69, 0x6e, 0x67, 0x45, 0x72, 0x72, 0x52, 0x65, 0x73, 0x12,
-	0x41, 0x0a, 0x07, 0x53, 0x74, 0x6f, 0x70, 0x4a, 0x6f, 0x62, 0x12, 0x1a, 0x2e, 0x70, 0x62, 0x2e,
-	0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x53, 0x74, 0x6f, 0x70,
-	0x4a, 0x6f, 0x62, 0x52, 0x65, 0x71, 0x1a, 0x1a, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e,
-	0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x53, 0x74, 0x6f, 0x70, 0x4a, 0x6f, 0x62, 0x52,
-	0x65, 0x73, 0x42, 0x31, 0x5a, 0x2f, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d,
-	0x2f, 0x61, 0x67, 0x6c, 0x69, 0x64, 0x65, 0x31, 0x30, 0x30, 0x2f, 0x64, 0x61, 0x6b, 0x2d, 0x6b,
-	0x65, 0x79, 0x77, 0x6f, 0x72, 0x64, 0x2f, 0x70, 0x62, 0x2f, 0x73, 0x76, 0x63, 0x2f, 0x6d, 0x61,
-	0x6e, 0x61, 0x67, 0x65, 0x72, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6c, 0x79, 0x7a, 0x65, 0x72, 0x52, 0x65, 0x71, 0x1a, 0x23, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76,
+	0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x57, 0x68, 0x65, 0x6e, 0x44, 0x6f,
+	0x6e, 0x65, 0x41, 0x6e, 0x61, 0x6c, 0x79, 0x7a, 0x65, 0x72, 0x52, 0x65, 0x73, 0x12, 0x68, 0x0a,
+	0x14, 0x57, 0x68, 0x65, 0x6e, 0x53, 0x63, 0x72, 0x61, 0x70, 0x65, 0x72, 0x48, 0x61, 0x76, 0x69,
+	0x6e, 0x67, 0x45, 0x72, 0x72, 0x12, 0x27, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d,
+	0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x57, 0x68, 0x65, 0x6e, 0x53, 0x63, 0x72, 0x61, 0x70,
+	0x65, 0x72, 0x48, 0x61, 0x76, 0x69, 0x6e, 0x67, 0x45, 0x72, 0x72, 0x52, 0x65, 0x71, 0x1a, 0x27,
+	0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e,
+	0x57, 0x68, 0x65, 0x6e, 0x53, 0x63, 0x72, 0x61, 0x70, 0x65, 0x72, 0x48, 0x61, 0x76, 0x69, 0x6e,
+	0x67, 0x45, 0x72, 0x72, 0x52, 0x65, 0x73, 0x12, 0x6b, 0x0a, 0x15, 0x57, 0x68, 0x65, 0x6e, 0x41,
+	0x6e, 0x61, 0x6c, 0x79, 0x7a, 0x65, 0x72, 0x48, 0x61, 0x76, 0x69, 0x6e, 0x67, 0x45, 0x72, 0x72,
+	0x12, 0x28, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65,
+	0x72, 0x2e, 0x57, 0x68, 0x65, 0x6e, 0x41, 0x6e, 0x61, 0x6c, 0x79, 0x7a, 0x65, 0x72, 0x48, 0x61,
+	0x76, 0x69, 0x6e, 0x67, 0x45, 0x72, 0x72, 0x52, 0x65, 0x71, 0x1a, 0x28, 0x2e, 0x70, 0x62, 0x2e,
+	0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x57, 0x68, 0x65, 0x6e,
+	0x41, 0x6e, 0x61, 0x6c, 0x79, 0x7a, 0x65, 0x72, 0x48, 0x61, 0x76, 0x69, 0x6e, 0x67, 0x45, 0x72,
+	0x72, 0x52, 0x65, 0x73, 0x12, 0x41, 0x0a, 0x07, 0x53, 0x74, 0x6f, 0x70, 0x4a, 0x6f, 0x62, 0x12,
+	0x1a, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72,
+	0x2e, 0x53, 0x74, 0x6f, 0x70, 0x4a, 0x6f, 0x62, 0x52, 0x65, 0x71, 0x1a, 0x1a, 0x2e, 0x70, 0x62,
+	0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x53, 0x74, 0x6f,
+	0x70, 0x4a, 0x6f, 0x62, 0x52, 0x65, 0x73, 0x42, 0x31, 0x5a, 0x2f, 0x67, 0x69, 0x74, 0x68, 0x75,
+	0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x61, 0x67, 0x6c, 0x69, 0x64, 0x65, 0x31, 0x30, 0x30, 0x2f,
+	0x64, 0x61, 0x6b, 0x2d, 0x6b, 0x65, 0x79, 0x77, 0x6f, 0x72, 0x64, 0x2f, 0x70, 0x62, 0x2f, 0x73,
+	0x76, 0x63, 0x2f, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x33,
 }
 
 var (
@@ -2014,93 +2119,97 @@ func file_pb_svc_manager_manager_proto_rawDescGZIP() []byte {
 	return file_pb_svc_manager_manager_proto_rawDescData
 }
 
-var file_pb_svc_manager_manager_proto_msgTypes = make([]protoimpl.MessageInfo, 36)
+var file_pb_svc_manager_manager_proto_msgTypes = make([]protoimpl.MessageInfo, 38)
 var file_pb_svc_manager_manager_proto_goTypes = []interface{}{
-	(*GetArticleCountByDayReq)(nil),  // 0: pb.svc.manager.GetArticleCountByDayReq
-	(*GetArticleCountByDayRes)(nil),  // 1: pb.svc.manager.GetArticleCountByDayRes
-	(*GetArticleCountByHourReq)(nil), // 2: pb.svc.manager.GetArticleCountByHourReq
-	(*GetArticleCountByHourRes)(nil), // 3: pb.svc.manager.GetArticleCountByHourRes
-	(*CreateNewJobReq)(nil),          // 4: pb.svc.manager.CreateNewJobReq
-	(*CreateNewJobRes)(nil),          // 5: pb.svc.manager.CreateNewJobRes
-	(*ReRunJobReq)(nil),              // 6: pb.svc.manager.ReRunJobReq
-	(*ReRunJobRes)(nil),              // 7: pb.svc.manager.ReRunJobRes
-	(*GetJobStatusReq)(nil),          // 8: pb.svc.manager.GetJobStatusReq
-	(*GetJobStatusRes)(nil),          // 9: pb.svc.manager.GetJobStatusRes
-	(*StopJobReq)(nil),               // 10: pb.svc.manager.StopJobReq
-	(*StopJobRes)(nil),               // 11: pb.svc.manager.StopJobRes
-	(*WhenDoneScraperReq)(nil),       // 12: pb.svc.manager.WhenDoneScraperReq
-	(*WhenDoneScraperRes)(nil),       // 13: pb.svc.manager.WhenDoneScraperRes
-	(*WhenDoneAnalyzerReq)(nil),      // 14: pb.svc.manager.WhenDoneAnalyzerReq
-	(*WhenDoneAnalyzerRes)(nil),      // 15: pb.svc.manager.WhenDoneAnalyzerRes
-	(*UpdateJobStatusReq)(nil),       // 16: pb.svc.manager.UpdateJobStatusReq
-	(*UpdateJobStatusRes)(nil),       // 17: pb.svc.manager.UpdateJobStatusRes
-	(*GetJobListReq)(nil),            // 18: pb.svc.manager.GetJobListReq
-	(*GetJobListRes)(nil),            // 19: pb.svc.manager.GetJobListRes
-	(*GetWorkerListReq)(nil),         // 20: pb.svc.manager.GetWorkerListReq
-	(*GetWorkerListRes)(nil),         // 21: pb.svc.manager.GetWorkerListRes
-	(*GetArticleListReq)(nil),        // 22: pb.svc.manager.GetArticleListReq
-	(*GetArticleListRes)(nil),        // 23: pb.svc.manager.GetArticleListRes
-	(*GetArticleInfoReq)(nil),        // 24: pb.svc.manager.GetArticleInfoReq
-	(*GetArticleInfoRes)(nil),        // 25: pb.svc.manager.GetArticleInfoRes
-	(*WhenStartScraperReq)(nil),      // 26: pb.svc.manager.WhenStartScraperReq
-	(*WhenStartScraperRes)(nil),      // 27: pb.svc.manager.WhenStartScraperRes
-	(*WhenStartAnalyzerReq)(nil),     // 28: pb.svc.manager.WhenStartAnalyzerReq
-	(*WhenStartAnalyzerRes)(nil),     // 29: pb.svc.manager.WhenStartAnalyzerRes
-	(*WhenScraperHavingErrReq)(nil),  // 30: pb.svc.manager.WhenScraperHavingErrReq
-	(*WhenScraperHavingErrRes)(nil),  // 31: pb.svc.manager.WhenScraperHavingErrRes
-	(*WhenAnalyzerHavingErrReq)(nil), // 32: pb.svc.manager.WhenAnalyzerHavingErrReq
-	(*WhenAnalyzerHavingErrRes)(nil), // 33: pb.svc.manager.WhenAnalyzerHavingErrRes
-	(*UpdateWorkerStatusReq)(nil),    // 34: pb.svc.manager.UpdateWorkerStatusReq
-	(*UpdateWorkerStatusRes)(nil),    // 35: pb.svc.manager.UpdateWorkerStatusRes
-	(*article.ArticleCount)(nil),     // 36: pb.unit.article.ArticleCount
-	(*job.Job)(nil),                  // 37: pb.unit.job.Job
-	(*worker.Worker)(nil),            // 38: pb.unit.worker.Worker
-	(*article.Article)(nil),          // 39: pb.unit.article.Article
+	(*GetJobIsReRunReq)(nil),         // 0: pb.svc.manager.GetJobIsReRunReq
+	(*GetJobIsReRunRes)(nil),         // 1: pb.svc.manager.GetJobIsReRunRes
+	(*GetArticleCountByDayReq)(nil),  // 2: pb.svc.manager.GetArticleCountByDayReq
+	(*GetArticleCountByDayRes)(nil),  // 3: pb.svc.manager.GetArticleCountByDayRes
+	(*GetArticleCountByHourReq)(nil), // 4: pb.svc.manager.GetArticleCountByHourReq
+	(*GetArticleCountByHourRes)(nil), // 5: pb.svc.manager.GetArticleCountByHourRes
+	(*CreateNewJobReq)(nil),          // 6: pb.svc.manager.CreateNewJobReq
+	(*CreateNewJobRes)(nil),          // 7: pb.svc.manager.CreateNewJobRes
+	(*ReRunJobReq)(nil),              // 8: pb.svc.manager.ReRunJobReq
+	(*ReRunJobRes)(nil),              // 9: pb.svc.manager.ReRunJobRes
+	(*GetJobStatusReq)(nil),          // 10: pb.svc.manager.GetJobStatusReq
+	(*GetJobStatusRes)(nil),          // 11: pb.svc.manager.GetJobStatusRes
+	(*StopJobReq)(nil),               // 12: pb.svc.manager.StopJobReq
+	(*StopJobRes)(nil),               // 13: pb.svc.manager.StopJobRes
+	(*WhenDoneScraperReq)(nil),       // 14: pb.svc.manager.WhenDoneScraperReq
+	(*WhenDoneScraperRes)(nil),       // 15: pb.svc.manager.WhenDoneScraperRes
+	(*WhenDoneAnalyzerReq)(nil),      // 16: pb.svc.manager.WhenDoneAnalyzerReq
+	(*WhenDoneAnalyzerRes)(nil),      // 17: pb.svc.manager.WhenDoneAnalyzerRes
+	(*UpdateJobStatusReq)(nil),       // 18: pb.svc.manager.UpdateJobStatusReq
+	(*UpdateJobStatusRes)(nil),       // 19: pb.svc.manager.UpdateJobStatusRes
+	(*GetJobListReq)(nil),            // 20: pb.svc.manager.GetJobListReq
+	(*GetJobListRes)(nil),            // 21: pb.svc.manager.GetJobListRes
+	(*GetWorkerListReq)(nil),         // 22: pb.svc.manager.GetWorkerListReq
+	(*GetWorkerListRes)(nil),         // 23: pb.svc.manager.GetWorkerListRes
+	(*GetArticleListReq)(nil),        // 24: pb.svc.manager.GetArticleListReq
+	(*GetArticleListRes)(nil),        // 25: pb.svc.manager.GetArticleListRes
+	(*GetArticleInfoReq)(nil),        // 26: pb.svc.manager.GetArticleInfoReq
+	(*GetArticleInfoRes)(nil),        // 27: pb.svc.manager.GetArticleInfoRes
+	(*WhenStartScraperReq)(nil),      // 28: pb.svc.manager.WhenStartScraperReq
+	(*WhenStartScraperRes)(nil),      // 29: pb.svc.manager.WhenStartScraperRes
+	(*WhenStartAnalyzerReq)(nil),     // 30: pb.svc.manager.WhenStartAnalyzerReq
+	(*WhenStartAnalyzerRes)(nil),     // 31: pb.svc.manager.WhenStartAnalyzerRes
+	(*WhenScraperHavingErrReq)(nil),  // 32: pb.svc.manager.WhenScraperHavingErrReq
+	(*WhenScraperHavingErrRes)(nil),  // 33: pb.svc.manager.WhenScraperHavingErrRes
+	(*WhenAnalyzerHavingErrReq)(nil), // 34: pb.svc.manager.WhenAnalyzerHavingErrReq
+	(*WhenAnalyzerHavingErrRes)(nil), // 35: pb.svc.manager.WhenAnalyzerHavingErrRes
+	(*UpdateWorkerStatusReq)(nil),    // 36: pb.svc.manager.UpdateWorkerStatusReq
+	(*UpdateWorkerStatusRes)(nil),    // 37: pb.svc.manager.UpdateWorkerStatusRes
+	(*article.ArticleCount)(nil),     // 38: pb.unit.article.ArticleCount
+	(*job.Job)(nil),                  // 39: pb.unit.job.Job
+	(*worker.Worker)(nil),            // 40: pb.unit.worker.Worker
+	(*article.Article)(nil),          // 41: pb.unit.article.Article
 }
 var file_pb_svc_manager_manager_proto_depIdxs = []int32{
-	36, // 0: pb.svc.manager.GetArticleCountByDayRes.ArticleCount:type_name -> pb.unit.article.ArticleCount
-	36, // 1: pb.svc.manager.GetArticleCountByHourRes.ArticleCount:type_name -> pb.unit.article.ArticleCount
-	37, // 2: pb.svc.manager.GetJobListRes.Job:type_name -> pb.unit.job.Job
-	38, // 3: pb.svc.manager.GetWorkerListRes.Worker:type_name -> pb.unit.worker.Worker
-	39, // 4: pb.svc.manager.GetArticleListRes.Article:type_name -> pb.unit.article.Article
-	4,  // 5: pb.svc.manager.Manager.CreateNewJob:input_type -> pb.svc.manager.CreateNewJobReq
-	6,  // 6: pb.svc.manager.Manager.ReRunJob:input_type -> pb.svc.manager.ReRunJobReq
-	8,  // 7: pb.svc.manager.Manager.GetJobStatus:input_type -> pb.svc.manager.GetJobStatusReq
-	18, // 8: pb.svc.manager.Manager.GetJobList:input_type -> pb.svc.manager.GetJobListReq
-	20, // 9: pb.svc.manager.Manager.GetWorkerList:input_type -> pb.svc.manager.GetWorkerListReq
-	24, // 10: pb.svc.manager.Manager.GetArticleInfo:input_type -> pb.svc.manager.GetArticleInfoReq
-	22, // 11: pb.svc.manager.Manager.GetArticleList:input_type -> pb.svc.manager.GetArticleListReq
-	2,  // 12: pb.svc.manager.Manager.GetArticleCountByHour:input_type -> pb.svc.manager.GetArticleCountByHourReq
-	0,  // 13: pb.svc.manager.Manager.GetArticleCountByDay:input_type -> pb.svc.manager.GetArticleCountByDayReq
-	34, // 14: pb.svc.manager.Manager.UpdateWorkerStatus:input_type -> pb.svc.manager.UpdateWorkerStatusReq
-	16, // 15: pb.svc.manager.Manager.UpdateJobStatus:input_type -> pb.svc.manager.UpdateJobStatusReq
-	26, // 16: pb.svc.manager.Manager.WhenStartScraper:input_type -> pb.svc.manager.WhenStartScraperReq
-	12, // 17: pb.svc.manager.Manager.WhenDoneScraper:input_type -> pb.svc.manager.WhenDoneScraperReq
-	28, // 18: pb.svc.manager.Manager.WhenStartAnalyzer:input_type -> pb.svc.manager.WhenStartAnalyzerReq
-	14, // 19: pb.svc.manager.Manager.WhenDoneAnalyzer:input_type -> pb.svc.manager.WhenDoneAnalyzerReq
-	30, // 20: pb.svc.manager.Manager.WhenScraperHavingErr:input_type -> pb.svc.manager.WhenScraperHavingErrReq
-	32, // 21: pb.svc.manager.Manager.WhenAnalyzerHavingErr:input_type -> pb.svc.manager.WhenAnalyzerHavingErrReq
-	10, // 22: pb.svc.manager.Manager.StopJob:input_type -> pb.svc.manager.StopJobReq
-	5,  // 23: pb.svc.manager.Manager.CreateNewJob:output_type -> pb.svc.manager.CreateNewJobRes
-	7,  // 24: pb.svc.manager.Manager.ReRunJob:output_type -> pb.svc.manager.ReRunJobRes
-	9,  // 25: pb.svc.manager.Manager.GetJobStatus:output_type -> pb.svc.manager.GetJobStatusRes
-	19, // 26: pb.svc.manager.Manager.GetJobList:output_type -> pb.svc.manager.GetJobListRes
-	21, // 27: pb.svc.manager.Manager.GetWorkerList:output_type -> pb.svc.manager.GetWorkerListRes
-	25, // 28: pb.svc.manager.Manager.GetArticleInfo:output_type -> pb.svc.manager.GetArticleInfoRes
-	23, // 29: pb.svc.manager.Manager.GetArticleList:output_type -> pb.svc.manager.GetArticleListRes
-	3,  // 30: pb.svc.manager.Manager.GetArticleCountByHour:output_type -> pb.svc.manager.GetArticleCountByHourRes
-	1,  // 31: pb.svc.manager.Manager.GetArticleCountByDay:output_type -> pb.svc.manager.GetArticleCountByDayRes
-	35, // 32: pb.svc.manager.Manager.UpdateWorkerStatus:output_type -> pb.svc.manager.UpdateWorkerStatusRes
-	17, // 33: pb.svc.manager.Manager.UpdateJobStatus:output_type -> pb.svc.manager.UpdateJobStatusRes
-	27, // 34: pb.svc.manager.Manager.WhenStartScraper:output_type -> pb.svc.manager.WhenStartScraperRes
-	13, // 35: pb.svc.manager.Manager.WhenDoneScraper:output_type -> pb.svc.manager.WhenDoneScraperRes
-	29, // 36: pb.svc.manager.Manager.WhenStartAnalyzer:output_type -> pb.svc.manager.WhenStartAnalyzerRes
-	15, // 37: pb.svc.manager.Manager.WhenDoneAnalyzer:output_type -> pb.svc.manager.WhenDoneAnalyzerRes
-	31, // 38: pb.svc.manager.Manager.WhenScraperHavingErr:output_type -> pb.svc.manager.WhenScraperHavingErrRes
-	33, // 39: pb.svc.manager.Manager.WhenAnalyzerHavingErr:output_type -> pb.svc.manager.WhenAnalyzerHavingErrRes
-	11, // 40: pb.svc.manager.Manager.StopJob:output_type -> pb.svc.manager.StopJobRes
-	23, // [23:41] is the sub-list for method output_type
-	5,  // [5:23] is the sub-list for method input_type
+	38, // 0: pb.svc.manager.GetArticleCountByDayRes.ArticleCount:type_name -> pb.unit.article.ArticleCount
+	38, // 1: pb.svc.manager.GetArticleCountByHourRes.ArticleCount:type_name -> pb.unit.article.ArticleCount
+	39, // 2: pb.svc.manager.GetJobListRes.Job:type_name -> pb.unit.job.Job
+	40, // 3: pb.svc.manager.GetWorkerListRes.Worker:type_name -> pb.unit.worker.Worker
+	41, // 4: pb.svc.manager.GetArticleListRes.Article:type_name -> pb.unit.article.Article
+	6,  // 5: pb.svc.manager.Manager.CreateNewJob:input_type -> pb.svc.manager.CreateNewJobReq
+	8,  // 6: pb.svc.manager.Manager.ReRunJob:input_type -> pb.svc.manager.ReRunJobReq
+	10, // 7: pb.svc.manager.Manager.GetJobStatus:input_type -> pb.svc.manager.GetJobStatusReq
+	20, // 8: pb.svc.manager.Manager.GetJobList:input_type -> pb.svc.manager.GetJobListReq
+	0,  // 9: pb.svc.manager.Manager.GetJobIsReRun:input_type -> pb.svc.manager.GetJobIsReRunReq
+	22, // 10: pb.svc.manager.Manager.GetWorkerList:input_type -> pb.svc.manager.GetWorkerListReq
+	26, // 11: pb.svc.manager.Manager.GetArticleInfo:input_type -> pb.svc.manager.GetArticleInfoReq
+	24, // 12: pb.svc.manager.Manager.GetArticleList:input_type -> pb.svc.manager.GetArticleListReq
+	4,  // 13: pb.svc.manager.Manager.GetArticleCountByHour:input_type -> pb.svc.manager.GetArticleCountByHourReq
+	2,  // 14: pb.svc.manager.Manager.GetArticleCountByDay:input_type -> pb.svc.manager.GetArticleCountByDayReq
+	36, // 15: pb.svc.manager.Manager.UpdateWorkerStatus:input_type -> pb.svc.manager.UpdateWorkerStatusReq
+	18, // 16: pb.svc.manager.Manager.UpdateJobStatus:input_type -> pb.svc.manager.UpdateJobStatusReq
+	28, // 17: pb.svc.manager.Manager.WhenStartScraper:input_type -> pb.svc.manager.WhenStartScraperReq
+	14, // 18: pb.svc.manager.Manager.WhenDoneScraper:input_type -> pb.svc.manager.WhenDoneScraperReq
+	30, // 19: pb.svc.manager.Manager.WhenStartAnalyzer:input_type -> pb.svc.manager.WhenStartAnalyzerReq
+	16, // 20: pb.svc.manager.Manager.WhenDoneAnalyzer:input_type -> pb.svc.manager.WhenDoneAnalyzerReq
+	32, // 21: pb.svc.manager.Manager.WhenScraperHavingErr:input_type -> pb.svc.manager.WhenScraperHavingErrReq
+	34, // 22: pb.svc.manager.Manager.WhenAnalyzerHavingErr:input_type -> pb.svc.manager.WhenAnalyzerHavingErrReq
+	12, // 23: pb.svc.manager.Manager.StopJob:input_type -> pb.svc.manager.StopJobReq
+	7,  // 24: pb.svc.manager.Manager.CreateNewJob:output_type -> pb.svc.manager.CreateNewJobRes
+	9,  // 25: pb.svc.manager.Manager.ReRunJob:output_type -> pb.svc.manager.ReRunJobRes
+	11, // 26: pb.svc.manager.Manager.GetJobStatus:output_type -> pb.svc.manager.GetJobStatusRes
+	21, // 27: pb.svc.manager.Manager.GetJobList:output_type -> pb.svc.manager.GetJobListRes
+	1,  // 28: pb.svc.manager.Manager.GetJobIsReRun:output_type -> pb.svc.manager.GetJobIsReRunRes
+	23, // 29: pb.svc.manager.Manager.GetWorkerList:output_type -> pb.svc.manager.GetWorkerListRes
+	27, // 30: pb.svc.manager.Manager.GetArticleInfo:output_type -> pb.svc.manager.GetArticleInfoRes
+	25, // 31: pb.svc.manager.Manager.GetArticleList:output_type -> pb.svc.manager.GetArticleListRes
+	5,  // 32: pb.svc.manager.Manager.GetArticleCountByHour:output_type -> pb.svc.manager.GetArticleCountByHourRes
+	3,  // 33: pb.svc.manager.Manager.GetArticleCountByDay:output_type -> pb.svc.manager.GetArticleCountByDayRes
+	37, // 34: pb.svc.manager.Manager.UpdateWorkerStatus:output_type -> pb.svc.manager.UpdateWorkerStatusRes
+	19, // 35: pb.svc.manager.Manager.UpdateJobStatus:output_type -> pb.svc.manager.UpdateJobStatusRes
+	29, // 36: pb.svc.manager.Manager.WhenStartScraper:output_type -> pb.svc.manager.WhenStartScraperRes
+	15, // 37: pb.svc.manager.Manager.WhenDoneScraper:output_type -> pb.svc.manager.WhenDoneScraperRes
+	31, // 38: pb.svc.manager.Manager.WhenStartAnalyzer:output_type -> pb.svc.manager.WhenStartAnalyzerRes
+	17, // 39: pb.svc.manager.Manager.WhenDoneAnalyzer:output_type -> pb.svc.manager.WhenDoneAnalyzerRes
+	33, // 40: pb.svc.manager.Manager.WhenScraperHavingErr:output_type -> pb.svc.manager.WhenScraperHavingErrRes
+	35, // 41: pb.svc.manager.Manager.WhenAnalyzerHavingErr:output_type -> pb.svc.manager.WhenAnalyzerHavingErrRes
+	13, // 42: pb.svc.manager.Manager.StopJob:output_type -> pb.svc.manager.StopJobRes
+	24, // [24:43] is the sub-list for method output_type
+	5,  // [5:24] is the sub-list for method input_type
 	5,  // [5:5] is the sub-list for extension type_name
 	5,  // [5:5] is the sub-list for extension extendee
 	0,  // [0:5] is the sub-list for field type_name
@@ -2113,7 +2222,7 @@ func file_pb_svc_manager_manager_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_pb_svc_manager_manager_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetArticleCountByDayReq); i {
+			switch v := v.(*GetJobIsReRunReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2125,7 +2234,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetArticleCountByDayRes); i {
+			switch v := v.(*GetJobIsReRunRes); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2137,7 +2246,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetArticleCountByHourReq); i {
+			switch v := v.(*GetArticleCountByDayReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2149,7 +2258,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetArticleCountByHourRes); i {
+			switch v := v.(*GetArticleCountByDayRes); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2161,7 +2270,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateNewJobReq); i {
+			switch v := v.(*GetArticleCountByHourReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2173,7 +2282,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateNewJobRes); i {
+			switch v := v.(*GetArticleCountByHourRes); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2185,7 +2294,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ReRunJobReq); i {
+			switch v := v.(*CreateNewJobReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2197,7 +2306,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ReRunJobRes); i {
+			switch v := v.(*CreateNewJobRes); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2209,7 +2318,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetJobStatusReq); i {
+			switch v := v.(*ReRunJobReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2221,7 +2330,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetJobStatusRes); i {
+			switch v := v.(*ReRunJobRes); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2233,7 +2342,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*StopJobReq); i {
+			switch v := v.(*GetJobStatusReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2245,7 +2354,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*StopJobRes); i {
+			switch v := v.(*GetJobStatusRes); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2257,7 +2366,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*WhenDoneScraperReq); i {
+			switch v := v.(*StopJobReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2269,7 +2378,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*WhenDoneScraperRes); i {
+			switch v := v.(*StopJobRes); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2281,7 +2390,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*WhenDoneAnalyzerReq); i {
+			switch v := v.(*WhenDoneScraperReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2293,7 +2402,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*WhenDoneAnalyzerRes); i {
+			switch v := v.(*WhenDoneScraperRes); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2305,7 +2414,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateJobStatusReq); i {
+			switch v := v.(*WhenDoneAnalyzerReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2317,7 +2426,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateJobStatusRes); i {
+			switch v := v.(*WhenDoneAnalyzerRes); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2329,7 +2438,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetJobListReq); i {
+			switch v := v.(*UpdateJobStatusReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2341,7 +2450,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetJobListRes); i {
+			switch v := v.(*UpdateJobStatusRes); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2353,7 +2462,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetWorkerListReq); i {
+			switch v := v.(*GetJobListReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2365,7 +2474,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetWorkerListRes); i {
+			switch v := v.(*GetJobListRes); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2377,7 +2486,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetArticleListReq); i {
+			switch v := v.(*GetWorkerListReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2389,7 +2498,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetArticleListRes); i {
+			switch v := v.(*GetWorkerListRes); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2401,7 +2510,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetArticleInfoReq); i {
+			switch v := v.(*GetArticleListReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2413,7 +2522,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetArticleInfoRes); i {
+			switch v := v.(*GetArticleListRes); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2425,7 +2534,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*WhenStartScraperReq); i {
+			switch v := v.(*GetArticleInfoReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2437,7 +2546,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*WhenStartScraperRes); i {
+			switch v := v.(*GetArticleInfoRes); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2449,7 +2558,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[28].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*WhenStartAnalyzerReq); i {
+			switch v := v.(*WhenStartScraperReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2461,7 +2570,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[29].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*WhenStartAnalyzerRes); i {
+			switch v := v.(*WhenStartScraperRes); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2473,7 +2582,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[30].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*WhenScraperHavingErrReq); i {
+			switch v := v.(*WhenStartAnalyzerReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2485,7 +2594,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[31].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*WhenScraperHavingErrRes); i {
+			switch v := v.(*WhenStartAnalyzerRes); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2497,7 +2606,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[32].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*WhenAnalyzerHavingErrReq); i {
+			switch v := v.(*WhenScraperHavingErrReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2509,7 +2618,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[33].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*WhenAnalyzerHavingErrRes); i {
+			switch v := v.(*WhenScraperHavingErrRes); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2521,7 +2630,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[34].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateWorkerStatusReq); i {
+			switch v := v.(*WhenAnalyzerHavingErrReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2533,6 +2642,30 @@ func file_pb_svc_manager_manager_proto_init() {
 			}
 		}
 		file_pb_svc_manager_manager_proto_msgTypes[35].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*WhenAnalyzerHavingErrRes); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_pb_svc_manager_manager_proto_msgTypes[36].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UpdateWorkerStatusReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_pb_svc_manager_manager_proto_msgTypes[37].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*UpdateWorkerStatusRes); i {
 			case 0:
 				return &v.state
@@ -2551,7 +2684,7 @@ func file_pb_svc_manager_manager_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_pb_svc_manager_manager_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   36,
+			NumMessages:   38,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

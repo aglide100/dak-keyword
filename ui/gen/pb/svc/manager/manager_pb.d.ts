@@ -6,6 +6,46 @@ import * as pb_unit_job_job_pb from "../../../pb/unit/job/job_pb";
 import * as pb_unit_worker_worker_pb from "../../../pb/unit/worker/worker_pb";
 import * as pb_unit_article_article_pb from "../../../pb/unit/article/article_pb";
 
+export class GetJobIsReRunReq extends jspb.Message {
+  getId(): string;
+  setId(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetJobIsReRunReq.AsObject;
+  static toObject(includeInstance: boolean, msg: GetJobIsReRunReq): GetJobIsReRunReq.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: GetJobIsReRunReq, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetJobIsReRunReq;
+  static deserializeBinaryFromReader(message: GetJobIsReRunReq, reader: jspb.BinaryReader): GetJobIsReRunReq;
+}
+
+export namespace GetJobIsReRunReq {
+  export type AsObject = {
+    id: string,
+  }
+}
+
+export class GetJobIsReRunRes extends jspb.Message {
+  getResult(): boolean;
+  setResult(value: boolean): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetJobIsReRunRes.AsObject;
+  static toObject(includeInstance: boolean, msg: GetJobIsReRunRes): GetJobIsReRunRes.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: GetJobIsReRunRes, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetJobIsReRunRes;
+  static deserializeBinaryFromReader(message: GetJobIsReRunRes, reader: jspb.BinaryReader): GetJobIsReRunRes;
+}
+
+export namespace GetJobIsReRunRes {
+  export type AsObject = {
+    result: boolean,
+  }
+}
+
 export class GetArticleCountByDayReq extends jspb.Message {
   getId(): string;
   setId(value: string): void;

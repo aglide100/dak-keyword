@@ -9,4 +9,5 @@ message Job {
     string keyword = 3;
     string owner = 4;
     string date = 5;
+    bool autoReRun = 6;
 }
