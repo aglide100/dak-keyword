@@ -94,6 +94,7 @@ func (db *Database) GetAllJob() ([]*models.Job, error) {
 	
 	return jobs, nil
 }
+
 func (db *Database) UpdateScheduleJob(id string, isSchedule bool) error {
 	const q =`
 	UPDATE job 
@@ -149,6 +150,31 @@ func (db *Database) DeleteJob(id string) error {
 
 	return nil
 }
+
+func (db *Database) GetJobIsReRun(id string) (bool, error) {
+	const q =`
+	SELECT job."AutoReRun" FROM job
+	WHERE "Id" = $1
+	`	
+
+	var (
+		isReRun bool
+	)
+
+	row, err := db.Conn.Query(q, id)
+	if err != nil {
+		return false, fmt.Errorf("GetJobIsReRun: %v", err)
+	}
+	
+	
+	err = row.Scan(&isReRun)
+	if err != nil {
+		return false, err
+	}
+	
+	return isReRun, nil
+}
+
 func (db *Database) GetAllReRunJob() ([]string, error) {
 	const q = `
 	SELECT ("Id") FROM job

@@ -73,7 +73,8 @@ proto.pb.unit.job.Job.toObject = function(includeInstance, msg) {
     status: jspb.Message.getFieldWithDefault(msg, 2, ""),
     keyword: jspb.Message.getFieldWithDefault(msg, 3, ""),
     owner: jspb.Message.getFieldWithDefault(msg, 4, ""),
-    date: jspb.Message.getFieldWithDefault(msg, 5, "")
+    date: jspb.Message.getFieldWithDefault(msg, 5, ""),
+    autorerun: jspb.Message.getBooleanFieldWithDefault(msg, 6, false)
   };
 
   if (includeInstance) {
@@ -129,6 +130,10 @@ proto.pb.unit.job.Job.deserializeBinaryFromReader = function(msg, reader) {
     case 5:
       var value = /** @type {string} */ (reader.readString());
       msg.setDate(value);
+      break;
+    case 6:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setAutorerun(value);
       break;
     default:
       reader.skipField();
@@ -191,6 +196,13 @@ proto.pb.unit.job.Job.serializeBinaryToWriter = function(message, writer) {
   if (f.length > 0) {
     writer.writeString(
       5,
+      f
+    );
+  }
+  f = message.getAutorerun();
+  if (f) {
+    writer.writeBool(
+      6,
       f
     );
   }
@@ -284,6 +296,24 @@ proto.pb.unit.job.Job.prototype.getDate = function() {
  */
 proto.pb.unit.job.Job.prototype.setDate = function(value) {
   return jspb.Message.setProto3StringField(this, 5, value);
+};
+
+
+/**
+ * optional bool autoReRun = 6;
+ * @return {boolean}
+ */
+proto.pb.unit.job.Job.prototype.getAutorerun = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 6, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.pb.unit.job.Job} returns this
+ */
+proto.pb.unit.job.Job.prototype.setAutorerun = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 6, value);
 };
 
 

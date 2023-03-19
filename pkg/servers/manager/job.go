@@ -191,3 +191,20 @@ func (s *ManagerSrv) GetJobList(ctx context.Context, in *pb_svc_manager.GetJobLi
 		Job: pbJobs,
 	}, nil
 }
+
+func (s *ManagerSrv) GetJobIsReRun(ctx context.Context, in *pb_svc_manager.GetJobIsReRunReq) (*pb_svc_manager.GetJobIsReRunRes, error) {
+	// if in != nil {
+	// 	p, _ := peer.FromContext(ctx)
+	// 	log.Printf("Received GetJobList call by : %s", p.Addr.String())
+	// }
+
+	isReRun, err := s.db.GetJobIsReRun(in.Id)
+	if err != nil {
+		log.Printf("err : %v", err)
+		return nil, status.Error(codes.NotFound, "Can't find job in dbms")
+	}
+
+	return &pb_svc_manager.GetJobIsReRunRes{
+		Result: isReRun,
+	}, nil
+}
