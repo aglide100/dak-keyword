@@ -166,6 +166,7 @@ func (db *Database) GetJobIsReRun(id string) (bool, error) {
         return false, err
     }
 	
+
 	return isReRun, nil
 }
 
