@@ -62,14 +62,13 @@ export const ArticleList: React.FC = () => {
 
     let ArticleList;
 
-    const rowRanderer = ({ index, style }) => {
+    const rowRanderer = ({ index }) => {
         const article = data[index];
-        // console.log(index);
         return (
             <div
-                style={style}
+                // style={style}
                 key={"article" + index}
-                className="w-full flex justify-center"
+                className="w-full h-fit flex justify-center"
             >
                 <ArticleItem
                     Id={article.Id}
@@ -100,7 +99,7 @@ export const ArticleList: React.FC = () => {
                     <List
                         rowCount={data.length}
                         height={height}
-                        rowHeight={490}
+                        rowHeight={500}
                         width={width}
                         rowRenderer={rowRanderer}
                         overscanRowCount={10}
@@ -114,7 +113,7 @@ export const ArticleList: React.FC = () => {
         }
     } else {
         ArticleList = (
-            <div className="w-full h-full flex justify-center mt-10">
+            <div className="flex flex-col fixed z-30 inset-0 bg-gray-700 flex items-center justify-center">
                 <TailSpin
                     height="80"
                     width="80"
@@ -125,6 +124,12 @@ export const ArticleList: React.FC = () => {
                     wrapperClass=""
                     visible={true}
                 />
+                <div className="mt-10 text-white text-2xl flex flex-row">
+                    Loading articles
+                    <div className="writer">
+                        <div className="writer-text">...</div>
+                    </div>
+                </div>
             </div>
         );
     }

@@ -49,7 +49,7 @@ const Header: React.FC<HeaderProps> = ({
         <div>
             <nav
                 className={classNames(
-                    "group w-full  h-20 flex flex-row items-center fixed left-0 top-0 transition duration-500 z-40 transform shadow",
+                    "group w-full h-20 flex flex-row items-center fixed left-0 top-0 transition duration-500 z-40 transform shadow",
                     {
                         // "translate-y-0": isIconClick,
                         "bg-white": scrollY < 100 && !isIconClick,
@@ -145,7 +145,7 @@ const Header: React.FC<HeaderProps> = ({
 
             <div
                 className={classNames(
-                    "fixed top-5 transform transition duration-500 -right-6 sm:right-0 z-50",
+                    "fixed top-5 transform transition duration-500 -right-10 sm:right-0 z-50",
                     {
                         "translate-y-0":
                             isIconClick ||
