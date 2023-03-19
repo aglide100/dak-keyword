@@ -40,6 +40,15 @@ type ManagerGetJobList = {
   readonly responseType: typeof pb_svc_manager_manager_pb.GetJobListRes;
 };
 
+type ManagerGetJobIsReRun = {
+  readonly methodName: string;
+  readonly service: typeof Manager;
+  readonly requestStream: false;
+  readonly responseStream: false;
+  readonly requestType: typeof pb_svc_manager_manager_pb.GetJobIsReRunReq;
+  readonly responseType: typeof pb_svc_manager_manager_pb.GetJobIsReRunRes;
+};
+
 type ManagerGetWorkerList = {
   readonly methodName: string;
   readonly service: typeof Manager;
@@ -172,6 +181,7 @@ export class Manager {
   static readonly ReRunJob: ManagerReRunJob;
   static readonly GetJobStatus: ManagerGetJobStatus;
   static readonly GetJobList: ManagerGetJobList;
+  static readonly GetJobIsReRun: ManagerGetJobIsReRun;
   static readonly GetWorkerList: ManagerGetWorkerList;
   static readonly GetArticleInfo: ManagerGetArticleInfo;
   static readonly GetArticleList: ManagerGetArticleList;
@@ -255,6 +265,15 @@ export class ManagerClient {
   getJobList(
     requestMessage: pb_svc_manager_manager_pb.GetJobListReq,
     callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.GetJobListRes|null) => void
+  ): UnaryResponse;
+  getJobIsReRun(
+    requestMessage: pb_svc_manager_manager_pb.GetJobIsReRunReq,
+    metadata: grpc.Metadata,
+    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.GetJobIsReRunRes|null) => void
+  ): UnaryResponse;
+  getJobIsReRun(
+    requestMessage: pb_svc_manager_manager_pb.GetJobIsReRunReq,
+    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.GetJobIsReRunRes|null) => void
   ): UnaryResponse;
   getWorkerList(
     requestMessage: pb_svc_manager_manager_pb.GetWorkerListReq,

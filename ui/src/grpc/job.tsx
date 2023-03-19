@@ -49,6 +49,35 @@ export async function CallReRunJob(id, accessCode, isSchedule, callback) {
     });
 }
 
+export async function CallGetJobIsReRun(id, callback) {
+    const reRunJobReq = new pb_svc_manager.GetJobIsReRunReq();
+    console.log("Call GetJobIsReRunReq");
+    reRunJobReq.setId(id);
+
+    await new Promise<void>(async (resolve) => {
+        grpc.unary(Manager.GetJobIsReRun, {
+            host: (await GrpcManager.getInstance()).GetHost(),
+            request: reRunJobReq,
+            onEnd: async (res) => {
+                const { status, message, statusMessage, headers } = res;
+
+                console.log("CallReRunJob.onEnd.status", status, statusMessage);
+                console.log("CallReRunJob.onEnd.headers", headers);
+
+                if (status === grpc.Code.OK && message) {
+                    callback(message.toObject(), statusMessage);
+                } else if (
+                    status === grpc.Code.Canceled &&
+                    statusMessage.length > 1
+                ) {
+                    callback("", statusMessage);
+                }
+                resolve();
+            },
+        });
+    });
+}
+
 export async function CallNewJob(keyword, owner, accessCode, callback) {
     const createNewJobReq = new pb_svc_manager.CreateNewJobReq();
 

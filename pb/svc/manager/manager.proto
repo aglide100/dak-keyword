@@ -12,6 +12,7 @@ service Manager {
     rpc ReRunJob(ReRunJobReq) returns (ReRunJobRes);
     rpc GetJobStatus(GetJobStatusReq) returns (GetJobStatusRes);
     rpc GetJobList(GetJobListReq) returns (GetJobListRes);
+    rpc GetJobIsReRun(GetJobIsReRunReq) returns (GetJobIsReRunRes);
     rpc GetWorkerList(GetWorkerListReq) returns (GetWorkerListRes);
     rpc GetArticleInfo(GetArticleInfoReq) returns (GetArticleInfoRes); 
     rpc GetArticleList(GetArticleListReq) returns (GetArticleListRes);
@@ -26,6 +27,14 @@ service Manager {
     rpc WhenScraperHavingErr(WhenScraperHavingErrReq) returns (WhenScraperHavingErrRes);
     rpc WhenAnalyzerHavingErr(WhenAnalyzerHavingErrReq) returns (WhenAnalyzerHavingErrRes);
     rpc StopJob(StopJobReq) returns (StopJobRes);
+}
+
+message GetJobIsReRunReq {
+    string id = 1;
+}
+
+message GetJobIsReRunRes {
+    bool result = 2;
 }
 
 message GetArticleCountByDayReq {

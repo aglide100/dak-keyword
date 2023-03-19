@@ -26,6 +26,7 @@ type ManagerClient interface {
 	ReRunJob(ctx context.Context, in *ReRunJobReq, opts ...grpc.CallOption) (*ReRunJobRes, error)
 	GetJobStatus(ctx context.Context, in *GetJobStatusReq, opts ...grpc.CallOption) (*GetJobStatusRes, error)
 	GetJobList(ctx context.Context, in *GetJobListReq, opts ...grpc.CallOption) (*GetJobListRes, error)
+	GetJobIsReRun(ctx context.Context, in *GetJobIsReRunReq, opts ...grpc.CallOption) (*GetJobIsReRunRes, error)
 	GetWorkerList(ctx context.Context, in *GetWorkerListReq, opts ...grpc.CallOption) (*GetWorkerListRes, error)
 	GetArticleInfo(ctx context.Context, in *GetArticleInfoReq, opts ...grpc.CallOption) (*GetArticleInfoRes, error)
 	GetArticleList(ctx context.Context, in *GetArticleListReq, opts ...grpc.CallOption) (*GetArticleListRes, error)
@@ -80,6 +81,15 @@ func (c *managerClient) GetJobStatus(ctx context.Context, in *GetJobStatusReq, o
 func (c *managerClient) GetJobList(ctx context.Context, in *GetJobListReq, opts ...grpc.CallOption) (*GetJobListRes, error) {
 	out := new(GetJobListRes)
 	err := c.cc.Invoke(ctx, "/pb.svc.manager.Manager/GetJobList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *managerClient) GetJobIsReRun(ctx context.Context, in *GetJobIsReRunReq, opts ...grpc.CallOption) (*GetJobIsReRunRes, error) {
+	out := new(GetJobIsReRunRes)
+	err := c.cc.Invoke(ctx, "/pb.svc.manager.Manager/GetJobIsReRun", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -220,6 +230,7 @@ type ManagerServer interface {
 	ReRunJob(context.Context, *ReRunJobReq) (*ReRunJobRes, error)
 	GetJobStatus(context.Context, *GetJobStatusReq) (*GetJobStatusRes, error)
 	GetJobList(context.Context, *GetJobListReq) (*GetJobListRes, error)
+	GetJobIsReRun(context.Context, *GetJobIsReRunReq) (*GetJobIsReRunRes, error)
 	GetWorkerList(context.Context, *GetWorkerListReq) (*GetWorkerListRes, error)
 	GetArticleInfo(context.Context, *GetArticleInfoReq) (*GetArticleInfoRes, error)
 	GetArticleList(context.Context, *GetArticleListReq) (*GetArticleListRes, error)
@@ -252,6 +263,9 @@ func (UnimplementedManagerServer) GetJobStatus(context.Context, *GetJobStatusReq
 }
 func (UnimplementedManagerServer) GetJobList(context.Context, *GetJobListReq) (*GetJobListRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetJobList not implemented")
+}
+func (UnimplementedManagerServer) GetJobIsReRun(context.Context, *GetJobIsReRunReq) (*GetJobIsReRunRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetJobIsReRun not implemented")
 }
 func (UnimplementedManagerServer) GetWorkerList(context.Context, *GetWorkerListReq) (*GetWorkerListRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetWorkerList not implemented")
@@ -376,6 +390,24 @@ func _Manager_GetJobList_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ManagerServer).GetJobList(ctx, req.(*GetJobListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Manager_GetJobIsReRun_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetJobIsReRunReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManagerServer).GetJobIsReRun(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.svc.manager.Manager/GetJobIsReRun",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManagerServer).GetJobIsReRun(ctx, req.(*GetJobIsReRunReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -654,6 +686,10 @@ var Manager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetJobList",
 			Handler:    _Manager_GetJobList_Handler,
+		},
+		{
+			MethodName: "GetJobIsReRun",
+			Handler:    _Manager_GetJobIsReRun_Handler,
 		},
 		{
 			MethodName: "GetWorkerList",

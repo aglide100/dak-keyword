@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import { Button } from "../../src/components/atom/Button/Button";
-import { CallReRunJob } from "../../src/grpc/job";
+import { CallGetJobIsReRun, CallReRunJob } from "../../src/grpc/job";
 import Modal from "react-modal";
 import { motion } from "framer-motion";
 import Switch from "react-switch";
@@ -27,6 +27,21 @@ export default function Job() {
     const [accessCode, setAccessCode] = useState("");
 
     const [isClick, setIsClick] = useState<boolean>(false);
+    const [isLoaded, setIsLoaded] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (!isLoaded) {
+            fetchGetJobIsReRun();
+        }
+    }, []);
+
+    async function fetchGetJobIsReRun() {
+        CallGetJobIsReRun(router.query.jobId, (message) => {
+            setIsClick(message.result);
+
+            setIsLoaded(true);
+        });
+    }
 
     const closeModal = () => {
         setModalIsOpen(false);

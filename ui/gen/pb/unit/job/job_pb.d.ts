@@ -19,6 +19,9 @@ export class Job extends jspb.Message {
   getDate(): string;
   setDate(value: string): void;
 
+  getAutorerun(): boolean;
+  setAutorerun(value: boolean): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Job.AsObject;
   static toObject(includeInstance: boolean, msg: Job): Job.AsObject;
@@ -36,6 +39,7 @@ export namespace Job {
     keyword: string,
     owner: string,
     date: string,
+    autorerun: boolean,
   }
 }
 
