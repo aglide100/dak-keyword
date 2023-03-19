@@ -116,7 +116,6 @@ export const ArticleGraph: React.FC = () => {
     }
 
     function countArticle(data: ArticleCountProto[]) {
-        let create_at = "";
         let count_happy = 0;
         let count_fear = 0;
         let count_embarrassed = 0;
@@ -139,10 +138,13 @@ export const ArticleGraph: React.FC = () => {
         });
 
         const countArray = new Array<ArticleCount>();
+        let prevCreateAt;
         tmpArray.map((value, index) => {
-            if (value.Create_at != create_at && index != 0) {
+            if (index == 0) {
+                prevCreateAt = value.Create_at;
+            } else if (value.Create_at != prevCreateAt && index != 0) {
                 countArray.push({
-                    Create_at: create_at,
+                    Create_at: prevCreateAt,
                     Count_happy: count_happy,
                     Count_fear: count_fear,
                     Count_embarrassed: count_embarrassed,
@@ -151,7 +153,27 @@ export const ArticleGraph: React.FC = () => {
                     Count_hurt: count_hurt,
                 });
 
-                create_at = value.Create_at;
+                prevCreateAt = value.Create_at;
+                count_happy = 0;
+                count_fear = 0;
+                count_embarrassed = 0;
+                count_sad = 0;
+                count_rage = 0;
+                count_hurt = 0;
+            }
+
+            if (value.Create_at != prevCreateAt) {
+                countArray.push({
+                    Create_at: prevCreateAt,
+                    Count_happy: count_happy,
+                    Count_fear: count_fear,
+                    Count_embarrassed: count_embarrassed,
+                    Count_sad: count_sad,
+                    Count_rage: count_rage,
+                    Count_hurt: count_hurt,
+                });
+
+                prevCreateAt = value.Create_at;
                 count_happy = 0;
                 count_fear = 0;
                 count_embarrassed = 0;
@@ -159,7 +181,6 @@ export const ArticleGraph: React.FC = () => {
                 count_rage = 0;
                 count_hurt = 0;
             } else {
-                create_at = value.Create_at;
                 if (value.Score_max_name == "Happy") {
                     count_happy = parseInt(value.Count);
                 }
@@ -183,6 +204,18 @@ export const ArticleGraph: React.FC = () => {
                 if (value.Score_max_name == "Rage") {
                     count_rage = parseInt(value.Count);
                 }
+            }
+
+            if (index == tmpArray.length - 1) {
+                countArray.push({
+                    Create_at: prevCreateAt,
+                    Count_happy: count_happy,
+                    Count_fear: count_fear,
+                    Count_embarrassed: count_embarrassed,
+                    Count_sad: count_sad,
+                    Count_rage: count_rage,
+                    Count_hurt: count_hurt,
+                });
             }
         });
 
@@ -218,11 +251,11 @@ export const ArticleGraph: React.FC = () => {
     });
 
     const checkBoxList = (
-        <ul className="flex space-x-4">
+        <ul className="flex flex-row flex-wrap w-full space-x-4">
             {Object.keys(CountIndexToName).map((value, index) => {
                 return (
                     <li
-                        className="flex flex-row ml-2 pl-2 pr-2 border-2 "
+                        className="flex ml-2 mb-3 pl-2 pr-2 border-2 "
                         key={index + "check"}
                     >
                         <span>{CountIndexToName[value]}</span>
@@ -243,7 +276,7 @@ export const ArticleGraph: React.FC = () => {
 
     if (isLoaded) {
         renderBarChart = (
-            <div className="w-full h-full">
+            <div className="w-full h-full ">
                 <ResponsiveContainer width="100%" height="100%">
                     <BarChart
                         width={500}
@@ -318,7 +351,7 @@ export const ArticleGraph: React.FC = () => {
                     <span className="ml-1">Hour</span>
                 </div>
 
-                <div className="flex flex-row flex-wrap w-full content-around">
+                <div className="flex  w-full content-around">
                     {checkBoxList}
                 </div>
                 <div className="w-full h-96 mt-20 pr-10">{renderBarChart}</div>

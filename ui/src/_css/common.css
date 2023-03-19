@@ -83,3 +83,40 @@
     -webkit-transform: translateY(-14px) rotate(45deg);
     transform: translateY(-14px) rotate(45deg);
 }
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink {
+    from,
+    to {
+        border-color: transparent;
+    }
+    50% {
+        border-color: orange;
+    }
+}
+
+.writer {
+    font-family: Courier, monospace;
+    display: inline-block;
+}
+
+.writer-text {
+    display: inline-block;
+    overflow: hidden;
+    letter-spacing: 2px;
+    animation: typing 2s steps(30, end), blink 0.5s step-end infinite;
+    white-space: nowrap;
+    font-size: 25px;
+    font-weight: 700;
+    /* border-right: 4px solid orange; */
+    box-sizing: border-box;
+    animation-iteration-count: infinite;
+}
