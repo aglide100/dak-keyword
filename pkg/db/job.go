@@ -161,16 +161,10 @@ func (db *Database) GetJobIsReRun(id string) (bool, error) {
 		isReRun bool
 	)
 
-	row, err := db.Conn.Query(q, id)
-	if err != nil {
-		return false, fmt.Errorf("GetJobIsReRun: %v", err)
-	}
-	
-	
-	err = row.Scan(&isReRun)
-	if err != nil {
-		return false, err
-	}
+	err := db.Conn.QueryRow(q, id).Scan(&isReRun)
+    if err != nil {
+        return false, err
+    }
 	
 	return isReRun, nil
 }

@@ -7,25 +7,27 @@ type ContainerSpec struct {
 
 
 type ContainerQueue struct {
-	queue []ContainerSpec
+	queue chan *ContainerSpec
 }
 
 
 func NewContainerQueue() *ContainerQueue{
-	return &ContainerQueue{}
+	return &ContainerQueue{
+		queue: make(chan *ContainerSpec, 100),
+	}
 }
 
 func (q *ContainerQueue) Enqueue(cSpec *ContainerSpec) {
-	q.queue = append(q.queue, *cSpec)
+	q.queue <- cSpec
 }
 
 func (q *ContainerQueue) Dequeue() (*ContainerSpec, bool) {
-	if len(q.queue) == 0 {
-		return nil, false
-	}
-	v := q.queue[0]
-	q.queue = q.queue[1:]
-	return &v, true
+	select {
+    case cSpec := <-q.queue:
+        return cSpec, true
+    default:
+        return nil, false
+    }
 }
 
 func (q *ContainerQueue) Len() (int) {
