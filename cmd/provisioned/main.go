@@ -93,7 +93,7 @@ func realMain() error {
 		for {
 			select {
             case <-time.Tick(1 * time.Second):
-                for q.Len() > 0 {
+                for (q.Len() > 0) {
 					if (c.GetCurrentAnalyzerCount() < c.GetMaxAnalyzerCount()) {
 						cSpec, ok := q.Dequeue()
 						if ok {

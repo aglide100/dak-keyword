@@ -41,7 +41,7 @@ func realMain() error {
 			log.Printf("Enqueue!")
 
 
-			time.Sleep(5*time.Second)
+			time.Sleep(1*time.Second)
 		}
 	}()
 
@@ -49,13 +49,14 @@ func realMain() error {
 	go func() {
         for {
             select {
-            case <-time.Tick(1 * time.Second):
-                for q.Len() > 0 {
-					cSpec, ok := q.Dequeue()
-					
-					if ok {
-						log.Printf("Dequeue %v", cSpec)
-					}
+            case <-time.Tick(3 * time.Second):
+				log.Printf(strconv.Itoa(q.Len()))
+				cSpec, ok := q.Dequeue()
+
+				if ok {
+					log.Printf("Dequeue %v", cSpec)
+					log.Printf("Some kind of logic")
+					time.Sleep(1*time.Second)
 				}
             }
         }
