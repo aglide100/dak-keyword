@@ -6,7 +6,7 @@ import { CallGetJobIsReRun, CallReRunJob } from "../../src/grpc/job";
 import Modal from "react-modal";
 import { motion } from "framer-motion";
 import Switch from "react-switch";
-
+import { TailSpin } from "react-loader-spinner";
 const WorkerList = dynamic(
     () =>
         import("../../src/components/layout/WorkerList/WorkerList").catch(
@@ -23,11 +23,13 @@ const WorkerList = dynamic(
 export default function Job() {
     const router = useRouter();
 
-    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [IsModalOpen, setIsModalOpen] = useState(false);
     const [accessCode, setAccessCode] = useState("");
 
     const [isClick, setIsClick] = useState<boolean>(false);
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
+
+    const [isLogicRun, setIsLogicRun] = useState<boolean>(false);
 
     useEffect(() => {
         if (!isLoaded && router.isReady) {
@@ -44,11 +46,13 @@ export default function Job() {
     }
 
     const closeModal = () => {
-        setModalIsOpen(false);
+        setIsModalOpen(false);
         setAccessCode("");
     };
 
     const handleReRunJob = async () => {
+        setIsLogicRun(true);
+
         try {
             await CallReRunJob(
                 router.query.jobId,
@@ -58,6 +62,7 @@ export default function Job() {
                     console.log(res);
                 },
             ).then(() => {
+                setIsLogicRun(false);
                 closeModal();
             });
         } catch (error) {
@@ -103,18 +108,42 @@ export default function Job() {
                         <Button
                             size="full"
                             color={"purple"}
-                            onClick={() => setModalIsOpen(true)}
+                            onClick={() => setIsModalOpen(true)}
                         >
                             ReRunJob
                         </Button>
 
                         <Modal
-                            isOpen={modalIsOpen}
+                            isOpen={IsModalOpen}
                             ariaHideApp={false}
                             onRequestClose={closeModal}
                             contentLabel="ReRunJob Modal"
-                            className="fixed inset-0 z-50 overflow-auto bg-gray-700 bg-opacity-75"
+                            className="fixed inset-0 z-30 overflow-auto bg-gray-700 bg-opacity-75"
                         >
+                            {isLogicRun ? (
+                                <div className="flex flex-col fixed z-40 inset-0 bg-gray-700 flex items-center justify-center">
+                                    <TailSpin
+                                        height="80"
+                                        width="80"
+                                        color="#4fa94d"
+                                        ariaLabel="tail-spin-loading"
+                                        radius="1"
+                                        wrapperStyle={{}}
+                                        wrapperClass=""
+                                        visible={true}
+                                    />
+                                    <div className="mt-10 text-white text-2xl flex flex-row">
+                                        Trying to reruning job
+                                        <div className="writer">
+                                            <div className="writer-text">
+                                                ...
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ) : (
+                                <></>
+                            )}
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
@@ -122,31 +151,33 @@ export default function Job() {
                             >
                                 <div className="bg-white rounded-lg shadow-lg">
                                     <div className="px-6 py-4">
-                                        <h2 className="text-xl mb-4">
+                                        <div className="text-xl mb-4">
                                             Are you sure you want to rerun the
                                             job?
-                                        </h2>
-                                        <span className="mr-3">
-                                            Running on schedule every day
-                                        </span>
-                                        <Switch
-                                            onChange={() => {
-                                                setIsClick(!isClick);
-                                            }}
-                                            checked={isClick}
-                                            onColor="#86d3ff"
-                                            onHandleColor="#2693e6"
-                                            handleDiameter={30}
-                                            uncheckedIcon={isClick}
-                                            checkedIcon={isClick}
-                                            boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                                            activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                                            height={20}
-                                            width={48}
-                                            className="react-switch"
-                                            id="material-switch"
-                                        />
-                                        <div className="mb-4">
+                                        </div>
+                                        <div className="flex items-center">
+                                            <span className="mr-3">
+                                                Running on schedule every day
+                                            </span>
+                                            <Switch
+                                                onChange={() => {
+                                                    setIsClick(!isClick);
+                                                }}
+                                                checked={isClick}
+                                                onColor="#86d3ff"
+                                                onHandleColor="#2693e6"
+                                                handleDiameter={30}
+                                                uncheckedIcon={isClick}
+                                                checkedIcon={isClick}
+                                                boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                                                activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                                                height={20}
+                                                width={48}
+                                                className="react-switch"
+                                                id="material-switch"
+                                            />
+                                        </div>
+                                        <div className="mb-4 mt-3">
                                             <label
                                                 htmlFor="accessCode"
                                                 className="block text-gray-700 font-bold mb-2"
@@ -162,7 +193,7 @@ export default function Job() {
                                                         e.target.value,
                                                     )
                                                 }
-                                                className="w-full px-3 py-2 border-gray-300 rounded-md"
+                                                className="block w-full p-3 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             />
                                         </div>
                                         <div className="flex justify-around w-full mt-6 h-10">
