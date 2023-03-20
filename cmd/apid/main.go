@@ -32,8 +32,6 @@ var (
 	usingTls = flag.Bool("grpc.tls", false, "using http2")
 	serverCrt = flag.String("cert.crt", "/run/secrets/crt-file", "crt file location")
 	serverKey = flag.String("cert.key", "/run/secrets/key-file", "ket file location")
-	// serverCrt = flag.String("cert.crt", "../keys/server.crt", "crt file location")
-	// serverKey = flag.String("cert.key", "../keys/server.key", "ket file location")
 )
 
 func main() {

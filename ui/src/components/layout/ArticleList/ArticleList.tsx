@@ -66,7 +66,6 @@ export const ArticleList: React.FC = () => {
         const article = data[index];
         return (
             <div
-                // style={style}
                 key={"article" + index}
                 className="w-full h-fit flex justify-center"
             >

@@ -26,9 +26,23 @@ func (db *Database) RemoveDuplicateArticle(jobID string) error {
 }
 
 func (db *Database) WriteTweetToArticle(tweet models.TweetArticle) error {
+	count := 0
+	const selectSQL = `
+	SELECT COUNT(*) FROM article WHERE "Content" = $1 AND "Job_id" = $2
+	`
+
+	err := db.Conn.QueryRow(selectSQL, tweet.Text, os.Getenv("JOB_ID")).Scan(&count)
+	if err != nil {
+	    return fmt.Errorf("selecting: %v", err)
+	}
+
+	if count > 0 {
+	    return fmt.Errorf("duplicate content: %s", tweet.Text)
+	}
+	
 	const q =`
 	INSERT INTO article (
-		"Keyword",z
+		"Keyword",
 		"Content",
 		"Platform",
 		"Job_id",
@@ -37,7 +51,7 @@ func (db *Database) WriteTweetToArticle(tweet models.TweetArticle) error {
 		"Create_at"
 	) VALUES ($1, $2, $3, $4, $5, $6, $7)`
 
-	_, err := db.Conn.Exec(q,
+	_, err = db.Conn.Exec(q,
 		os.Getenv("Keyword"),
 		tweet.Text,
 		"tweet",
