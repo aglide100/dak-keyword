@@ -37,9 +37,9 @@ func (db *Database) WriteTweetToArticle(tweet models.TweetArticle) error {
 	}
 
 	if count > 0 {
-	    return fmt.Errorf("duplicate content: %s", tweet.Text)
+	    return fmt.Errorf("duplicate content")
 	}
-	
+
 	const q =`
 	INSERT INTO article (
 		"Keyword",

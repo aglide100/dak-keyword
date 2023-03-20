@@ -71,6 +71,10 @@ func realMain() error {
 
 	for _, value := range result {
 		err := myScraper.WriteTweetOnDB(value)
+		if err.Error() == "duplicate content" {
+			continue
+		} 
+
 		if err != nil {
 			scraper.CallGrpcCallWhenScraperHavingErr(workerId, err.Error())
 		}
@@ -81,7 +85,6 @@ func realMain() error {
 		return err
 	}
 
-	// time.Sleep(20 * time.Second)   
 	err = scraper.CallGrpcCallWhenDone(workerId)
 	if err != nil {
 		return err
