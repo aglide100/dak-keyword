@@ -15,7 +15,7 @@ var (
 	addr = flag.String("addr", "keyword_apid:50010", "the address to connect to")
 )
 
-func CallGrpcCallWhenScraperHaving(workerId string, errMSG string) error {
+func CallGrpcCallWhenScraperHavingErr(workerId string, errMSG string) error {
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
 		log.Fatalf("can't connect grpc server : %v", err)

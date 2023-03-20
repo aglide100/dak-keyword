@@ -15,7 +15,7 @@ func main() {
 	if err := realMain(); err != nil {
 		log.Printf("err :%s", err)
 		workerId := os.Getenv("WORKER_ID")
-		scraper.CallGrpcCallWhenScraperHaving(workerId, err.Error())
+		scraper.CallGrpcCallWhenScraperHavingErr(workerId, err.Error())
 		os.Exit(1)
 	}
 }
@@ -70,7 +70,10 @@ func realMain() error {
 	}
 
 	for _, value := range result {
-		myScraper.WriteTweetOnDB(value)
+		err := myScraper.WriteTweetOnDB(value)
+		if err != nil {
+			scraper.CallGrpcCallWhenScraperHavingErr(workerId, err.Error())
+		}
 	}
 
 	err = myScraper.MakeUniqueArticle(jobId)
