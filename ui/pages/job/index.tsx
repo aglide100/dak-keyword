@@ -145,6 +145,7 @@ export default function Job() {
                                 <></>
                             )}
                             <motion.div
+                                key={"modal_inner"}
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 className="flex flex-col h-full justify-center inset-0 p-8 mx-auto max-w-lg"
@@ -193,7 +194,7 @@ export default function Job() {
                                                         e.target.value,
                                                     )
                                                 }
-                                                className="block w-full p-3 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                className="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                             />
                                         </div>
                                         <div className="flex justify-around w-full mt-6 h-10">

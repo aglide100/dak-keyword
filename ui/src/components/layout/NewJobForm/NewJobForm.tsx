@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button } from "../../atom/Button/Button";
 import { CallNewJob } from "../../../grpc/job";
 import { TailSpin } from "react-loader-spinner";
+import { motion } from "framer-motion";
 
 const NewJobForm: React.FC = () => {
     const [keyword, setKeyword] = useState<string>("");
@@ -39,7 +40,10 @@ const NewJobForm: React.FC = () => {
     return (
         <div className="flex flex-col w-3/4 h-3/4 items-center">
             {isLogicRun ? (
-                <div className="flex flex-col fixed z-40 inset-0 bg-gray-700 flex items-center justify-center">
+                <motion.div
+                    key={"tailspin"}
+                    className="flex flex-col fixed z-30 inset-0 bg-gray-700 flex items-center justify-center"
+                >
                     <TailSpin
                         height="80"
                         width="80"
@@ -56,7 +60,7 @@ const NewJobForm: React.FC = () => {
                             <div className="writer-text">...</div>
                         </div>
                     </div>
-                </div>
+                </motion.div>
             ) : (
                 <></>
             )}
@@ -123,9 +127,9 @@ const NewJobForm: React.FC = () => {
                                         (_, statusMessage: string) => {
                                             alert(statusMessage);
                                             if (statusMessage.length > 1) {
-                                                alert(statusMessage);
+                                                console.log(statusMessage);
                                             }
-                                            // // router.push("/");
+
                                             setIsLogicRun(false);
                                             location.replace("/");
                                         },
