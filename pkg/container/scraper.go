@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"strconv"
+	"strings"
 
 	"github.com/aglide100/dak-keyword/pkg/db"
 	"github.com/docker/docker/api/types"
@@ -84,4 +85,22 @@ func (c *Controller) RemoveScraper(id string) (error) {
 	c.analyzerCount--
 
 	return nil
+}
+
+func (c *Controller) CountRunningCurrentScraper(id string) (int, error) {
+	ctx := context.Background()
+
+	containers, err := c.cli.ContainerList(ctx, types.ContainerListOptions{})
+	if err != nil {
+		return 0, err
+	}
+	count := 0
+
+	for _, container := range containers {
+		if strings.Contains(container.Names[0], "scraper_") {
+			count++;
+		}
+	}
+
+	return count, nil
 }
