@@ -65,7 +65,6 @@ func (s Scraper) GetRecentSearch(keyword string, nextToken string, injectNum ...
 	meta := gjson.Get(resp, "meta")
 	data := gjson.Get(resp, "data")
 
-
 	var articles []models.TweetArticle
 
 	data.ForEach(func(key, value gjson.Result) bool {
