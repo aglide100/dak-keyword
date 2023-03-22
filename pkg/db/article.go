@@ -72,7 +72,8 @@ func (db *Database) WriteTweetToArticle(tweet models.TweetArticle) error {
 
 func (db *Database) GetArticles(id string) ([]*models.Article, error) {
 	const q = `
-	SELECT * FROM article
+	SELECT "Id", "Author", "Keyword", "Content", "Platform", "Score_happy", "Score_fear", "Score_embarrassed", "Score_sad", "Score_rage", "Score_hurt", "Score_max_value", "Score_max_name", "Create_at", "Job_id", "Worker_id"
+	FROM article
 	WHERE "Job_id" = $1
 	AND article."Score_max_value" is not null
 	AND article."Score_max_name" is not null
