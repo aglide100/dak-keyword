@@ -38,31 +38,33 @@ create unique index worker_id_uindex
 
 create table public.article
 (
-    "Id"                serial
+    "Id"                   serial
         constraint article_pk
             primary key
         unique,
-    "Author"            varchar,
-    "Keyword"           varchar,
-    "Content"           varchar,
-    "Platform"          varchar,
-    "Score_happy"       varchar,
-    "Score_fear"        varchar,
-    "Score_embarrassed" varchar,
-    "Score_sad"         varchar,
-    "Score_rage"        varchar,
-    "Score_hurt"        varchar,
-    "Score_max_value"   varchar,
-    "Score_max_name"    varchar,
-    "Create_at"         varchar,
-    "Job_id"            varchar
+    "Author"               varchar,
+    "Keyword"              varchar,
+    "Content"              varchar,
+    "Platform"             varchar,
+    "Score_happy"          varchar,
+    "Score_fear"           varchar,
+    "Score_embarrassed"    varchar,
+    "Score_sad"            varchar,
+    "Score_rage"           varchar,
+    "Score_hurt"           varchar,
+    "Score_max_value"      varchar,
+    "Score_max_name"       varchar,
+    "Create_at"            varchar,
+    "Job_id"               varchar
         constraint "Job_id"
             references public.job
             on update cascade on delete cascade,
-    "Worker_id"         varchar
+    "Worker_id"            varchar
         constraint "Worker_id"
             references public.worker
-            on update cascade on delete cascade
+            on update cascade on delete cascade,
+    "Preprocessed_content" varchar,
+    "Translated_content"   varchar
 );
 
 alter table public.article
