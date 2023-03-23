@@ -50,7 +50,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             <AnimatePresence
                 exitBeforeEnter
                 initial={false}
-                onExitComplete={() => window.scrollTo(0, 0)}
+                // onExitComplete={() => window.scrollTo(0, 0)}
             >
                 <motion.div
                     key={router.pathname}

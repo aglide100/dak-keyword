@@ -43,6 +43,7 @@ module.exports = {
                 19.5: "4.875rem",
                 maxContent: "max-content",
                 "110vh": "110vh",
+                fit: "fit-content !important",
             },
             maxWidth: {
                 48: "12rem",
