@@ -3,14 +3,25 @@ import { ArticleItem, ArticleProps } from "../../atom/ArticleItem/ArticleItem";
 import { CallGetArticleList } from "../../../grpc/article";
 import { useRouter } from "next/router";
 import { TailSpin } from "react-loader-spinner";
-import { AutoSizer, List } from "react-virtualized";
-import useWindowDimensions from "../../../Hooks/getWindowDimension";
+import {
+    AutoSizer,
+    List,
+    CellMeasurer,
+    CellMeasurerCache,
+} from "react-virtualized";
+import { motion } from "framer-motion";
 
 export const ArticleList: React.FC = () => {
     const router = useRouter();
     const [data, setData] = useState<ArticleProps[]>([]);
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
-    const { height } = useWindowDimensions();
+
+    window.onresize = () => cache.clearAll();
+
+    const cache = new CellMeasurerCache({
+        // defaultWidth: 500,
+        fixedWidth: true,
+    });
 
     useEffect(() => {
         if (!isLoaded) {
@@ -62,46 +73,57 @@ export const ArticleList: React.FC = () => {
 
     let ArticleList;
 
-    const rowRanderer = ({ index }) => {
-        const article = data[index];
+    const rowRenderer = ({ index, key, parent, style }) => {
         return (
-            <div
-                key={"article" + index}
-                className="w-full h-fit flex justify-center"
+            <CellMeasurer
+                cache={cache}
+                columnIndex={0}
+                key={key}
+                rowIndex={index}
+                parent={parent}
             >
-                <ArticleItem
-                    Id={article.Id}
-                    Author={article.Author}
-                    Keyword={article.Keyword}
-                    Content={article.Content}
-                    Platform={article.Platform}
-                    Score_happy={article.Score_happy}
-                    Score_fear={article.Score_fear}
-                    Score_embarrassed={article.Score_embarrassed}
-                    Score_sad={article.Score_sad}
-                    Score_rage={article.Score_rage}
-                    Score_hurt={article.Score_hurt}
-                    Score_max_value={article.Score_max_value}
-                    Score_max_name={article.Score_max_name}
-                    Create_at={article.Create_at}
-                    Job_id={article.Job_id}
-                    Worker_id={article.Worker_id}
-                ></ArticleItem>
-            </div>
+                <motion.div
+                    style={style}
+                    initial={{ x: -300, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    // exit={{ x: 300, opacity: 0 }}
+                    className="w-full h-fit flex justify-center"
+                >
+                    <ArticleItem
+                        Id={data[index].Id}
+                        Author={data[index].Author}
+                        Keyword={data[index].Keyword}
+                        Content={data[index].Content}
+                        Platform={data[index].Platform}
+                        Score_happy={data[index].Score_happy}
+                        Score_fear={data[index].Score_fear}
+                        Score_embarrassed={data[index].Score_embarrassed}
+                        Score_sad={data[index].Score_sad}
+                        Score_rage={data[index].Score_rage}
+                        Score_hurt={data[index].Score_hurt}
+                        Score_max_value={data[index].Score_max_value}
+                        Score_max_name={data[index].Score_max_name}
+                        Create_at={data[index].Create_at}
+                        Job_id={data[index].Job_id}
+                        Worker_id={data[index].Worker_id}
+                    ></ArticleItem>
+                </motion.div>
+            </CellMeasurer>
         );
     };
 
     if (isLoaded && data != undefined) {
         ArticleList = (
-            <AutoSizer AutoSizer>
-                {({ width }) => (
+            <AutoSizer>
+                {({ height, width }) => (
                     <List
+                        deferredMeasurementCache={cache}
                         rowCount={data.length}
                         height={height}
-                        rowHeight={500}
+                        rowHeight={cache.rowHeight}
                         width={width}
-                        rowRenderer={rowRanderer}
-                        overscanRowCount={10}
+                        rowRenderer={rowRenderer}
+                        overscanRowCount={0}
                     />
                 )}
             </AutoSizer>
@@ -132,7 +154,7 @@ export const ArticleList: React.FC = () => {
             </div>
         );
     }
-    return <>{ArticleList}</>;
+    return <div style={{ flex: "1 1 auto" }}>{ArticleList}</div>;
 };
 
 export default ArticleList;
