@@ -6,6 +6,12 @@
 
 } */
 
+@supports (-webkit-touch-callout: none) {
+    .h-screen {
+        height: -webkit-fill-available;
+    }
+}
+
 /* 햄버거 css */
 
 .menu-trigger {
