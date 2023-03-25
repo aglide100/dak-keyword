@@ -134,7 +134,7 @@ export const ArticleList: React.FC = () => {
         }
     } else {
         ArticleList = (
-            <div className="flex flex-col fixed z-30 inset-0 bg-gray-700 flex items-center justify-center">
+            <div className="flex flex-col w-full fixed z-30 inset-0 bg-gray-700 flex items-center justify-center">
                 <TailSpin
                     height="80"
                     width="80"
@@ -154,7 +154,20 @@ export const ArticleList: React.FC = () => {
             </div>
         );
     }
-    return <div style={{ flex: "1 1 auto" }}>{ArticleList}</div>;
+    return (
+        <div
+            style={{
+                width: "95%",
+                // height: "calc(var(--vh, 1vh) * 89) ",
+                height: "calc(100vh - 100px)",
+                WebkitOverflowScrolling: "auto",
+                flex: "1 1 auto",
+                touchAction: "none",
+            }}
+        >
+            {ArticleList}
+        </div>
+    );
 };
 
 export default ArticleList;
