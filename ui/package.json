@@ -4,6 +4,7 @@
     "main": "index.tsx",
     "scripts": {
         "dev": "next",
+        "dev-custom": "node server.js",
         "build": "next build",
         "next": "next start",
         "start": "node server.js",

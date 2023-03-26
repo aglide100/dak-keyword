@@ -123,7 +123,7 @@ export const ArticleList: React.FC = () => {
                         rowHeight={cache.rowHeight}
                         width={width}
                         rowRenderer={rowRenderer}
-                        overscanRowCount={0}
+                        overscanRowCount={10}
                     />
                 )}
             </AutoSizer>
@@ -157,12 +157,13 @@ export const ArticleList: React.FC = () => {
     return (
         <div
             style={{
-                width: "95%",
+                width: "100%",
                 // height: "calc(var(--vh, 1vh) * 89) ",
                 height: "calc(100vh - 100px)",
                 WebkitOverflowScrolling: "auto",
                 flex: "1 1 auto",
                 touchAction: "none",
+                zIndex: "80",
             }}
         >
             {ArticleList}
