@@ -73,3 +73,4 @@ alter table public.article
 create unique index article_id_uindex
     on public.article ("Id");
 
+SET pg_trgm.similarity_threshold = 0.8;
