@@ -1,59 +1,20 @@
-package main
+package scraper
 
 import (
-	"errors"
 	"fmt"
 	"unicode/utf8"
+
+	"github.com/aglide100/dak-keyword/pkg/models"
 )
 
-func main() {
-	// config := &db.DBConfig{
-	// 	Host : "192.168.0.28", 
-	// 	Port : 8888, 
-	// 	User : "table_admin", 
-	// 	Password : "HelloWorld", 
-	// 	Dbname : "keyword", 
-	// 	Sslmode : "disable", 
-	// 	// Sslmode : "verify-full", 
-	// 	// Sslrootcert : "keys/ca.crt", 
-	// 	// Sslkey : "keys/client.key", 
-	// 	// Sslsert : "keys/client.crt", 
-	// }
-
-	// myDB, err := db.ConnectDB(config)
-	// if err != nil {
-	// 	log.Println("err :%v", err)
-	// }
-
-	// res ,err := myDB.GetArticlesByWorkerID("da0ad51f-71b2-4b6e-b800-3b9b3d378821")
-	// if err != nil {
-	// 	log.Println("err :%v", err)
-	// }
-
-	// log.Println(len(res))
-	// result := Levenshtein("하하하하", "호호호호",nil,  true)
-
-	// log.Println(result)
-
-	// res := decompose("아")
-	
-	// res2 := compose(res[len(res)-1], res[len(res)-1], res[len(res)-1]  )
-    
-	list := []string{"https://t.co/SDFDSFASR3LDg42cfXR3", "https://t.co/SDFDSFASR3", "fdsfdsfds", "fdsfdsfdsfs", "hvrjsefjll", "4fsjviso"}
-	
-	list = removeSimilar(list, 10)
-    fmt.Println(list) 
-
-}
-
-func removeSimilar(arr []string, threshold float64) []string {
-	var result []string
+func RemoveSimilar(arr []models.TweetArticle, threshold float64) []models.TweetArticle {
+	var result []models.TweetArticle
 
 	distances := make([][]float64, len(arr))
 	for i := range distances {
 		distances[i] = make([]float64, len(arr))
 		for j := range distances[i] {
-			distances[i][j] = Levenshtein(arr[i], arr[j], nil, false)
+			distances[i][j] = Levenshtein(arr[i].Text, arr[j].Text, nil, false)
 		}
 	}
 	deleted := make([]bool, len(arr))
@@ -193,60 +154,4 @@ func min(nums ...uint16) uint16 {
         }
     }
     return res
-}
-
-func decompose(s string) []rune {
-	var result []rune
-
-	for _, r := range s {
-		// 한글 유니코드 범위 내의 문자인지 확인
-		if r >= 0xAC00 && r <= 0xD7A3 {
-			// 초성
-			cho := ((r - 0xAC00) / 28) / 21
-			result = append(result, cho+0x1100)
-
-			// 중성
-			jung := ((r - 0xAC00) / 28) % 21
-			result = append(result, jung+0x1161)
-
-			// 종성
-			jong := (r - 0xAC00) % 28
-			if jong != 0 {
-				result = append(result, jong+0x11A7)
-			}
-		} else {
-			result = append(result, r)
-		}
-	}
-
-	return result
-}
-
-
-
-func compose(chosung, jungsung, jongsung rune) (rune, error) {
-    const (
-        ChosungBase  rune = 0x1100
-        JungsungBase rune = 0x1161
-        JongsungBase rune = 0x11A7
-        JongsungEnd  rune = 0x11FF
-    )
-
-    if chosung < ChosungBase || chosung > ChosungBase+27 {
-        return 0, errors.New("invalid chosung")
-    }
-
-    if jungsung < JungsungBase || jungsung > JungsungBase+20 {
-        return 0, errors.New("invalid jungsung")
-    }
-
-    if jongsung != 0 && (jongsung < JongsungBase || jongsung > JongsungEnd) {
-        return 0, errors.New("invalid jongsung")
-    }
-
-    s := ((chosung-ChosungBase)*21 + (jungsung-JungsungBase)) * 28
-    if jongsung != 0 {
-        s += jongsung - JongsungBase + 1
-    }
-    return s, nil
 }
