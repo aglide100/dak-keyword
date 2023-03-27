@@ -42,7 +42,7 @@ const NewJobForm: React.FC = () => {
             {isLogicRun ? (
                 <motion.div
                     key={"tailspin"}
-                    className="flex flex-col fixed z-30 inset-0 bg-gray-700 flex items-center justify-center"
+                    className="flex flex-col w-full fixed z-30 inset-0 bg-gray-700 flex items-center justify-center"
                 >
                     <TailSpin
                         height="80"

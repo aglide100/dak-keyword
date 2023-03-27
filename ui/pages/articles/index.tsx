@@ -21,7 +21,7 @@ const ArticleList = dynamic(
 
 export const Articles: React.FC = () => {
     return (
-        <div className="w-full min-h-screen bg-gray-100 flex flex-col content-around">
+        <div className="w-full h-full bg-gray-100 flex flex-col content-around">
             <ArticleList></ArticleList>
         </div>
     );
