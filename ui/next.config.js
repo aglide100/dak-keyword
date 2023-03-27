@@ -34,26 +34,3 @@ module.exports = {
         return [apiProxy];
     },
 };
-
-// module.exports = {
-//     reactStrictMode: false,
-//     async rewrites() {
-//         return [
-//             {
-//                 source: "/pb/:path*",
-//                 destination: `https://` + `${GRPCWEBADDR}` + `/:path*`,
-//             },
-//         ];
-//     },
-//     async serverMiddleware() {
-//         const proxy = createProxyMiddleware({
-//             target: `https://` + `${GRPCWEBADDR}`,
-//             changeOrigin: true,
-//             secure: true,
-//         });
-
-//         return {
-//             "/pb": proxy,
-//         };
-//     },
-// };

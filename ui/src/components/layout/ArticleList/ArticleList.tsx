@@ -84,9 +84,14 @@ export const ArticleList: React.FC = () => {
             >
                 <motion.div
                     style={style}
-                    initial={{ x: -300, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    // exit={{ x: 300, opacity: 0 }}
+                    initial={{
+                        x: -350,
+                        opacity: 0.1,
+                    }}
+                    animate={{
+                        x: 0,
+                        opacity: 1,
+                    }}
                     className="w-full h-fit flex justify-center"
                 >
                     <ArticleItem
@@ -123,7 +128,7 @@ export const ArticleList: React.FC = () => {
                         rowHeight={cache.rowHeight}
                         width={width}
                         rowRenderer={rowRenderer}
-                        overscanRowCount={0}
+                        overscanRowCount={1}
                     />
                 )}
             </AutoSizer>
@@ -134,7 +139,7 @@ export const ArticleList: React.FC = () => {
         }
     } else {
         ArticleList = (
-            <div className="flex flex-col fixed z-30 inset-0 bg-gray-700 flex items-center justify-center">
+            <div className="flex flex-col w-full fixed z-30 inset-0 bg-gray-700 flex items-center justify-center">
                 <TailSpin
                     height="80"
                     width="80"
@@ -154,7 +159,20 @@ export const ArticleList: React.FC = () => {
             </div>
         );
     }
-    return <div style={{ flex: "1 1 auto" }}>{ArticleList}</div>;
+    return (
+        <div
+            style={{
+                width: "100%",
+                height: "calc(100vh - 100px)",
+                WebkitOverflowScrolling: "auto",
+                flex: "1 1 auto",
+                touchAction: "none",
+                zIndex: "30",
+            }}
+        >
+            {ArticleList}
+        </div>
+    );
 };
 
 export default ArticleList;
