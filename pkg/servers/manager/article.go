@@ -23,7 +23,7 @@ func (s *ManagerSrv) GetArticleList(ctx context.Context, in *pb_svc_manager.GetA
 	}
 	
 
-	articles, err := s.db.GetArticles(in.Id)
+	articles, err := s.db.GetArticlesByJobID(in.Id)
 	if err != nil {
 		log.Printf("err %v", err)
 		return nil, status.Error(codes.Internal, "Can't querying :" + err.Error())
