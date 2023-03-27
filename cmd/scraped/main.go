@@ -33,14 +33,14 @@ func realMain() error {
 	dbPasswd := os.Getenv("DB_PASSWORD")
 	dbName := os.Getenv("DB_NAME")
 	workerId := os.Getenv("WORKER_ID")
-	jobId := os.Getenv("JOB_ID")
+	// jobId := os.Getenv("JOB_ID")
 
 	dbport, err := strconv.Atoi(dbPort)
 	if err != nil {
 		fmt.Errorf("Can't read dbPort!: %v %v", dbPort, err)
 		dbport = 8432
 	}
-	// log.Printf("%v", dbName)
+	log.Printf("%v", dbName)
 	
 	myDB, err := db.ConnectDB(&db.DBConfig{
 		Host : dbAddr, 
@@ -69,6 +69,8 @@ func realMain() error {
 		return err
 	}
 
+	result = scraper.RemoveSimilar(result, 10)
+
 	for _, value := range result {
 		err := myScraper.WriteTweetOnDB(value)
 		
@@ -77,10 +79,10 @@ func realMain() error {
 		}
 	}
 
-	err = myScraper.MakeUniqueArticle(jobId)
-	if err != nil {
-		return err
-	}
+	// err = myScraper.MakeUniqueArticle(jobId)
+	// if err != nil {
+	// 	return err
+	// }
 
 	err = scraper.CallGrpcCallWhenDone(workerId)
 	if err != nil {
