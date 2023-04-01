@@ -7,12 +7,16 @@ services:
         image: ghcr.io/aglide100/dak-keyword--db:latest
         # image: db
         command: postgres -c 'max_connections=200'
+        ports:
+            - 8888:5432
         volumes:
             - <<: *services-volume
               source: /media/pi/OS3/db/dak-keyword
               target: /var/lib/postgresql/data
         env_file:
             - ./env/db.env
+        environment:
+            - TZ=Asia/Seoul
         networks:
             - keyword-network
         deploy:
@@ -26,9 +30,9 @@ services:
         secrets:
             - crt-file
             - key-file
-        # ports:
-        #     - 50011:50011
-        #     - 50010:50010
+        ports:
+            - 50011:50011
+            - 50010:50010
         environment:
             - TLS=false
             - ACCESS_CODE=${ACCESS_CODE}
@@ -53,7 +57,6 @@ services:
                 - traefik.http.routers.keyword-apid--https.tls=true
                 - traefik.http.routers.keyword-apid--https.tls.certresolver=myresolver
                 - traefik.http.routers.keyword-apid--https.entrypoints=websecure
-
     provisioned:
         image: ghcr.io/aglide100/dak-keyword--provisioned:latest
         # image: provisioned
@@ -68,12 +71,21 @@ services:
         #     - 50012:50012
         environment:
             - DOCKER_API_VERSION=${CLI_API_VERSION}
+            - TZ=Asia/Seoul
         depends_on:
             - db
         deploy:
             placement:
                 constraints: [node.role==manager]
-
+    envoy:
+        image: ghcr.io/aglide100/dak-keyword--envoy:latest
+        # build:
+        #     context: ./envoy
+        #     dockerfile: ./Dockerfile
+        networks:
+            - keyword-network
+        ports:
+            - 50008:50008
 secrets:
     crt-file:
         file: ./keys/localhost.crt
