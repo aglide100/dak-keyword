@@ -73,6 +73,15 @@ services:
         deploy:
             placement:
                 constraints: [node.role==manager]
+    envoy:
+        image: ghcr.io/aglide100/dak-keyword--envoy:latest
+        # build:
+        #     context: ./envoy
+        #     dockerfile: ./Dockerfile
+        networks:
+            - keyword-network
+        ports:
+            - 50008:50008
 
 secrets:
     crt-file:

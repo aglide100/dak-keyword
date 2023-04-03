@@ -133,7 +133,6 @@ func realMain() error {
 		return nil
 	})
 
-
 	wg.Go(func() error {
 		// wrapped grpc srv
 		wrappedServer := grpcweb.WrapServer(grpcServer, grpcweb.WithOriginFunc(func(origin string) bool {
