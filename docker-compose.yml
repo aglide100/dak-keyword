@@ -3,12 +3,136 @@ x-services-volume: &services-volume
     type: bind
 
 services:
-    envoy:
-        build:
-            context: ./
-            dockerfile: ./net/grpc/gateway/docker/envoy/Dockerfile
-        image: grpcweb/envoy
+    db:
+        image: ghcr.io/aglide100/dak-keyword--db:latest
+        # image: db
+        command: postgres -c 'max_connections=200'
         ports:
-            - "8080:8080"
-        links:
-            - node-server
+            - 8888:5432
+        volumes:
+            - <<: *services-volume
+              source: /media/pi/OS3/db/dak-keyword
+              target: /var/lib/postgresql/data
+        env_file:
+            - ./env/db.env
+        environment:
+            - TZ=Asia/Seoul
+        networks:
+            - keyword-network
+        deploy:
+            placement:
+                constraints: [node.role==manager]
+    apid:
+        image: ghcr.io/aglide100/dak-keyword--apid:latest
+        networks:
+            - keyword-network
+            - traefik-network
+        secrets:
+            - crt-file
+            - key-file
+        ports:
+            - 50011:50011
+            - 50010:50010
+        environment:
+            - TLS=false
+            - ACCESS_CODE=${ACCESS_CODE}
+            - TZ=Asia/Seoul
+            - DB_ADDR=${DB_ADDR}
+            - DB_PORT=${DB_PORT}
+            - DB_USER=${DB_USER}
+            - DB_PASSWORD=${DB_PASSWORD}
+            - DB_NAME=${DB_NAME}
+            # - BearerToken=${BearerToken}
+        depends_on:
+            - db
+        deploy:
+            labels:
+                - traefik.enable=true
+                - traefik.docker.network=traefik-network
+                - traefik.http.routers.keyword-apid.rule=Host(`keyword-grpc.${DOMAIN}`)
+                - traefik.http.routers.keyword-apid.middlewares=redirect-to-https
+                - traefik.http.routers.keyword-apid.entrypoints=web
+                - traefik.http.services.keyword-apid.loadbalancer.server.port=50011
+                - traefik.http.routers.keyword-apid--https.rule=Host(`keyword-grpc.${DOMAIN}`)
+                - traefik.http.routers.keyword-apid--https.tls=true
+                - traefik.http.routers.keyword-apid--https.tls.certresolver=myresolver
+                - traefik.http.routers.keyword-apid--https.entrypoints=websecure
+    provisioned:
+        image: ghcr.io/aglide100/dak-keyword--provisioned:latest
+        # image: provisioned
+        env_file:
+            - ./env/dbConfig.env
+            - ./env/tweet_secret.env
+        networks:
+            - keyword-network
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+        # ports:
+        #     - 50012:50012
+        environment:
+            - DOCKER_API_VERSION=${CLI_API_VERSION}
+            - TZ=Asia/Seoul
+        depends_on:
+            - db
+        deploy:
+            placement:
+                constraints: [node.role==manager]
+    ui:
+        image: ghcr.io/aglide100/dak-keyword--ui:latest
+        # image: node
+        networks:
+            - keyword-network
+            - traefik-network
+        environment:
+            - ADDR=${GRPCWEBADDR}
+        secrets:
+            - crt-file
+            - key-file
+        deploy:
+            labels:
+                - traefik.enable=true
+                - traefik.docker.network=traefik-network
+                - traefik.http.routers.keyword-node.rule=Host(`keyword.${DOMAIN}`)
+                - traefik.http.routers.keyword-node.middlewares=redirect-to-https
+                - traefik.http.routers.keyword-node.entrypoints=web
+                - traefik.http.services.keyword-node.loadbalancer.server.port=80
+                - traefik.http.routers.keyword-node--https.rule=Host(`keyword.${DOMAIN}`)
+                - traefik.http.routers.keyword-node--https.tls=true
+                - traefik.http.routers.keyword-node--https.tls.certresolver=myresolver
+                - traefik.http.routers.keyword-node--https.entrypoints=websecure
+    envoy:
+        image: ghcr.io/aglide100/dak-keyword--envoy:latest
+        # build:
+        #     context: ./envoy
+        #     dockerfile: ./Dockerfile
+        networks:
+            - keyword-network
+            - traefik-network
+        deploy:
+            labels:
+                - traefik.enable=true
+                - traefik.docker.network=traefik-network
+                - traefik.http.routers.keyword-envoy.rule=Host(`envoy.${DOMAIN}`)
+                - traefik.http.routers.keyword-envoy.middlewares=redirect-to-https
+                - traefik.http.routers.keyword-envoy.entrypoints=web
+                - traefik.http.services.keyword-envoy.loadbalancer.server.port=50008
+                - traefik.http.routers.keyword-envoy--https.rule=Host(`envoy.${DOMAIN}`)
+                - traefik.http.routers.keyword-envoy--https.tls=true
+                - traefik.http.routers.keyword-envoy--https.tls.certresolver=myresolver
+                - traefik.http.routers.keyword-envoy--https.entrypoints=websecure
+secrets:
+    crt-file:
+        file: ./keys/localhost.crt
+    key-file:
+        file: ./keys/localhost.key
+
+networks:
+    keyword-network:
+        driver: overlay
+    traefik-network:
+        external: true
+
+volumes:
+    keys:
+        external:
+            name: keys

@@ -22,7 +22,7 @@ export type ArticleProps = {
 
 export const ArticleItem = (props: ArticleProps) => {
     return (
-        <li className="flex flex-col w-fit h-fit items-center pb-10 pt-10 pl-5 pr-5 mt-10 w-9/12 top-24 rounded-lg bg-white shadow-md">
+        <li className="flex flex-col w-fit h-fit items-center pb-10 pt-10 pl-5 pr-5 my-5 w-9/12 top-24 rounded-lg bg-white shadow-md">
             <div className="w-full ml-5 flex flex-col mr-2 ">
                 <div>
                     <span className="font-semibold">Author : </span>
