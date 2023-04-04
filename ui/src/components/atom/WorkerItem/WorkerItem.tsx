@@ -16,7 +16,7 @@ export const WorkerItem = (props: WorkerProps) => {
             <motion.li
                 layoutId={props.workerId + "_view"}
                 className={classNames(
-                    "flex flex-col items-center pb-10 pt-10 mt-10 w-9/12 top-24 rounded-lg bg-white shadow-md",
+                    "flex flex-col items-center pb-10 pt-10 my-5 w-9/12 top-24 rounded-lg bg-white shadow-md",
                     {},
                 )}
             >
