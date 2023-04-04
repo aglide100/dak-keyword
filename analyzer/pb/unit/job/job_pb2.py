@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x15pb/unit/job/job.proto\x12\x0bpb.unit.job\"O\n\x03Job\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0e\n\x06status\x18\x02 \x01(\t\x12\x0f\n\x07keyword\x18\x03 \x01(\t\x12\r\n\x05owner\x18\x04 \x01(\t\x12\x0c\n\x04\x64\x61te\x18\x05 \x01(\tB.Z,github.com/aglide100/dak-keyword/pb/unit/jobb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x15pb/unit/job/job.proto\x12\x0bpb.unit.job\"b\n\x03Job\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0e\n\x06status\x18\x02 \x01(\t\x12\x0f\n\x07keyword\x18\x03 \x01(\t\x12\r\n\x05owner\x18\x04 \x01(\t\x12\x0c\n\x04\x64\x61te\x18\x05 \x01(\t\x12\x11\n\tautoReRun\x18\x06 \x01(\x08\x42.Z,github.com/aglide100/dak-keyword/pb/unit/jobb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'pb.unit.job.job_pb2', globals())
@@ -22,5 +22,5 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z,github.com/aglide100/dak-keyword/pb/unit/job'
   _JOB._serialized_start=38
-  _JOB._serialized_end=117
+  _JOB._serialized_end=136
 # @@protoc_insertion_point(module_scope)

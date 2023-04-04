@@ -31,17 +31,21 @@ protoc --go_out=../../.. --go-grpc_out=../../.. pb/svc/provision/*.proto
  --ts_out="service=grpc-web:./ui/gen" \
  pb/unit/**/*.proto
 
-protoc \
-  --plugin=protoc-gen-grpc-web=./ui2/node_modules/.bin/grpc_tools_node_protoc_plugin \
-  --js_out=import_style=commonjs,binary:./ui2/gen \
-  --grpc-web_out=import_style=commonjs,mode=grpcwebtext:./ui2/gen \
-  pb/svc/**/*.proto
+# protoc \
+#   --plugin=protoc-gen-grpc-web=./ui2/node_modules/.bin/grpc_tools_node_protoc_plugin \
+#   --js_out=import_style=commonjs,binary:./ui2/gen \
+#   --grpc-web_out=import_style=commonjs,mode=grpcwebtext:./ui2/gen \
+#   pb/svc/**/*.proto
 
-protoc \
-  --plugin=protoc-gen-grpc-web=./ui2/node_modules/.bin/grpc_tools_node_protoc_plugin \
-  --js_out=import_style=commonjs,binary:./ui2/gen \
-  --grpc-web_out=import_style=commonjs,mode=grpcwebtext:./ui2/gen \
-  pb/unit/**/*.proto
+# protoc \
+#   --plugin=protoc-gen-grpc-web=./ui2/node_modules/.bin/grpc_tools_node_protoc_plugin \
+#   --js_out=import_style=commonjs,binary:./ui2/gen \
+#   --grpc-web_out=import_style=commonjs,mode=grpcwebtext:./ui2/gen \
+#   pb/unit/**/*.proto
+
+protoc -I=. pb/svc/**/*.proto --js_out=import_style=commonjs:./ui/gen --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:./ui/gen
+
+protoc -I=. pb/unit/**/*.proto --js_out=import_style=commonjs:./ui/gen --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:./ui/gen
 
 # python3 -m grpc_tools.protoc -I . --python_out=./analyzer --grpc_python_out=./analyzer ./pb/svc/analyzer/analyzer.proto
 

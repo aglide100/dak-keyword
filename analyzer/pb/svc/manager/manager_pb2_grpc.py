@@ -34,6 +34,11 @@ class ManagerStub(object):
                 request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetJobListReq.SerializeToString,
                 response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetJobListRes.FromString,
                 )
+        self.GetJobIsReRun = channel.unary_unary(
+                '/pb.svc.manager.Manager/GetJobIsReRun',
+                request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetJobIsReRunReq.SerializeToString,
+                response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetJobIsReRunRes.FromString,
+                )
         self.GetWorkerList = channel.unary_unary(
                 '/pb.svc.manager.Manager/GetWorkerList',
                 request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetWorkerListReq.SerializeToString,
@@ -48,6 +53,16 @@ class ManagerStub(object):
                 '/pb.svc.manager.Manager/GetArticleList',
                 request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleListReq.SerializeToString,
                 response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleListRes.FromString,
+                )
+        self.GetArticleCountByHour = channel.unary_unary(
+                '/pb.svc.manager.Manager/GetArticleCountByHour',
+                request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleCountByHourReq.SerializeToString,
+                response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleCountByHourRes.FromString,
+                )
+        self.GetArticleCountByDay = channel.unary_unary(
+                '/pb.svc.manager.Manager/GetArticleCountByDay',
+                request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleCountByDayReq.SerializeToString,
+                response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleCountByDayRes.FromString,
                 )
         self.UpdateWorkerStatus = channel.unary_unary(
                 '/pb.svc.manager.Manager/UpdateWorkerStatus',
@@ -123,6 +138,12 @@ class ManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetJobIsReRun(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def GetWorkerList(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -136,6 +157,18 @@ class ManagerServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetArticleList(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetArticleCountByHour(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetArticleCountByDay(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -218,6 +251,11 @@ def add_ManagerServicer_to_server(servicer, server):
                     request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetJobListReq.FromString,
                     response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetJobListRes.SerializeToString,
             ),
+            'GetJobIsReRun': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetJobIsReRun,
+                    request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetJobIsReRunReq.FromString,
+                    response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetJobIsReRunRes.SerializeToString,
+            ),
             'GetWorkerList': grpc.unary_unary_rpc_method_handler(
                     servicer.GetWorkerList,
                     request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetWorkerListReq.FromString,
@@ -232,6 +270,16 @@ def add_ManagerServicer_to_server(servicer, server):
                     servicer.GetArticleList,
                     request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleListReq.FromString,
                     response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleListRes.SerializeToString,
+            ),
+            'GetArticleCountByHour': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetArticleCountByHour,
+                    request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleCountByHourReq.FromString,
+                    response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleCountByHourRes.SerializeToString,
+            ),
+            'GetArticleCountByDay': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetArticleCountByDay,
+                    request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleCountByDayReq.FromString,
+                    response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleCountByDayRes.SerializeToString,
             ),
             'UpdateWorkerStatus': grpc.unary_unary_rpc_method_handler(
                     servicer.UpdateWorkerStatus,
@@ -357,6 +405,23 @@ class Manager(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def GetJobIsReRun(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/GetJobIsReRun',
+            pb_dot_svc_dot_manager_dot_manager__pb2.GetJobIsReRunReq.SerializeToString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.GetJobIsReRunRes.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def GetWorkerList(request,
             target,
             options=(),
@@ -404,6 +469,40 @@ class Manager(object):
         return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/GetArticleList',
             pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleListReq.SerializeToString,
             pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleListRes.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetArticleCountByHour(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/GetArticleCountByHour',
+            pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleCountByHourReq.SerializeToString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleCountByHourRes.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetArticleCountByDay(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/GetArticleCountByDay',
+            pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleCountByDayReq.SerializeToString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleCountByDayRes.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

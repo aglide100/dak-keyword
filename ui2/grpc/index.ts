@@ -1,6 +1,6 @@
 // import { secrets } from "docker-secret";
 import * as axios from "axios";
-import { ManagerClient } from "../gen/pb/svc/manager/manager_pb_service";
+import { ManagerClient } from "../gen/pb/svc/manager/manager_grpc_web_pb";
 
 export class GrpcManager {
     private static instance: GrpcManager;
@@ -49,7 +49,7 @@ export class GrpcManager {
             });
         } catch {
             console.log("Can't get env from server!");
-            addr = "https://envoy.";
+            addr = "https://envoy.like-a-junk.com";
         }
 
         return addr;
@@ -60,6 +60,6 @@ export class GrpcManager {
     }
 
     public static SetClient() {
-        GrpcManager.client = new ManagerClient("https://envoy.");
+        GrpcManager.client = new ManagerClient("https://envoy.like-a-junk.com");
     }
 }

@@ -1,62 +1,59 @@
-// package: pb.unit.article
-// file: pb/unit/article/article.proto
+import * as jspb from 'google-protobuf'
 
-import * as jspb from "google-protobuf";
+
 
 export class Article extends jspb.Message {
   getId(): string;
-  setId(value: string): void;
+  setId(value: string): Article;
 
   getAuthor(): string;
-  setAuthor(value: string): void;
+  setAuthor(value: string): Article;
 
   getKeyword(): string;
-  setKeyword(value: string): void;
+  setKeyword(value: string): Article;
 
   getContent(): string;
-  setContent(value: string): void;
+  setContent(value: string): Article;
 
   getPlatform(): string;
-  setPlatform(value: string): void;
+  setPlatform(value: string): Article;
 
   getScoreHappy(): string;
-  setScoreHappy(value: string): void;
+  setScoreHappy(value: string): Article;
 
   getScoreFear(): string;
-  setScoreFear(value: string): void;
+  setScoreFear(value: string): Article;
 
   getScoreEmbarrassed(): string;
-  setScoreEmbarrassed(value: string): void;
+  setScoreEmbarrassed(value: string): Article;
 
   getScoreSad(): string;
-  setScoreSad(value: string): void;
+  setScoreSad(value: string): Article;
 
   getScoreRage(): string;
-  setScoreRage(value: string): void;
+  setScoreRage(value: string): Article;
 
   getScoreHurt(): string;
-  setScoreHurt(value: string): void;
+  setScoreHurt(value: string): Article;
 
   getScoreMaxValue(): string;
-  setScoreMaxValue(value: string): void;
+  setScoreMaxValue(value: string): Article;
 
   getScoreMaxName(): string;
-  setScoreMaxName(value: string): void;
+  setScoreMaxName(value: string): Article;
 
   getCreateAt(): string;
-  setCreateAt(value: string): void;
+  setCreateAt(value: string): Article;
 
   getJobId(): string;
-  setJobId(value: string): void;
+  setJobId(value: string): Article;
 
   getWorkerId(): string;
-  setWorkerId(value: string): void;
+  setWorkerId(value: string): Article;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Article.AsObject;
   static toObject(includeInstance: boolean, msg: Article): Article.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
   static serializeBinaryToWriter(message: Article, writer: jspb.BinaryWriter): void;
   static deserializeBinary(bytes: Uint8Array): Article;
   static deserializeBinaryFromReader(message: Article, reader: jspb.BinaryReader): Article;
@@ -85,19 +82,17 @@ export namespace Article {
 
 export class ArticleCount extends jspb.Message {
   getCreateattime(): string;
-  setCreateattime(value: string): void;
+  setCreateattime(value: string): ArticleCount;
 
   getCount(): string;
-  setCount(value: string): void;
+  setCount(value: string): ArticleCount;
 
   getScoremaxname(): string;
-  setScoremaxname(value: string): void;
+  setScoremaxname(value: string): ArticleCount;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): ArticleCount.AsObject;
   static toObject(includeInstance: boolean, msg: ArticleCount): ArticleCount.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
   static serializeBinaryToWriter(message: ArticleCount, writer: jspb.BinaryWriter): void;
   static deserializeBinary(bytes: Uint8Array): ArticleCount;
   static deserializeBinaryFromReader(message: ArticleCount, reader: jspb.BinaryReader): ArticleCount;

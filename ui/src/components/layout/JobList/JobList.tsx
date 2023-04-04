@@ -23,24 +23,25 @@ const List: React.FC = () => {
     async function fetchJobList() {
         try {
             CallGetJobList((message) => {
-                const newJobList = [...data];
-                message.jobList.map((value, _) => {
-                    const newJob: job = {
-                        id: value.id,
-                        status: value.status,
-                        keyword: value.keyword,
-                        owner: value.owner,
-                        date: value.date.slice(0, 10),
-                    };
-                    newJobList.push(newJob);
-                });
-                newJobList.sort((a, b) => {
-                    return (
-                        new Date(b.date).getTime() - new Date(a.date).getTime()
-                    );
-                });
+                console.log(message);
+                // const newJobList = [...data];
+                // message.jobList.map((value, _) => {
+                //     const newJob: job = {
+                //         id: value.id,
+                //         status: value.status,
+                //         keyword: value.keyword,
+                //         owner: value.owner,
+                //         date: value.date.slice(0, 10),
+                //     };
+                //     newJobList.push(newJob);
+                // });
+                // newJobList.sort((a, b) => {
+                //     return (
+                //         new Date(b.date).getTime() - new Date(a.date).getTime()
+                //     );
+                // });
 
-                setData(newJobList);
+                // setData(newJobList);
                 setIsLoaded(true);
             });
         } catch (err) {

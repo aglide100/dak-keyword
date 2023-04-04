@@ -7,7 +7,7 @@ export default function Home() {
     useEffect(() => {
         CallGetJobList((res: any) => {
             setJobs(res.jobListList);
-            console.log(jobs);
+            console.log(res.array);
         });
     }, []);
 
