@@ -100,26 +100,26 @@ services:
                 - traefik.http.routers.keyword-node--https.tls=true
                 - traefik.http.routers.keyword-node--https.tls.certresolver=myresolver
                 - traefik.http.routers.keyword-node--https.entrypoints=websecure
-    envoy:
-        image: ghcr.io/aglide100/dak-keyword--envoy:latest
-        # build:
-        #     context: ./envoy
-        #     dockerfile: ./Dockerfile
-        networks:
-            - keyword-network
-            - traefik-network
-        deploy:
-            labels:
-                - traefik.enable=true
-                - traefik.docker.network=traefik-network
-                - traefik.http.routers.keyword-envoy.rule=Host(`envoy.${DOMAIN}`)
-                - traefik.http.routers.keyword-envoy.middlewares=redirect-to-https
-                - traefik.http.routers.keyword-envoy.entrypoints=web
-                - traefik.http.services.keyword-envoy.loadbalancer.server.port=50008
-                - traefik.http.routers.keyword-envoy--https.rule=Host(`envoy.${DOMAIN}`)
-                - traefik.http.routers.keyword-envoy--https.tls=true
-                - traefik.http.routers.keyword-envoy--https.tls.certresolver=myresolver
-                - traefik.http.routers.keyword-envoy--https.entrypoints=websecure
+    # envoy:
+    #     image: ghcr.io/aglide100/dak-keyword--envoy:latest
+    #     # build:
+    #     #     context: ./envoy
+    #     #     dockerfile: ./Dockerfile
+    #     networks:
+    #         - keyword-network
+    #         - traefik-network
+    #     deploy:
+    #         labels:
+    #             - traefik.enable=true
+    #             - traefik.docker.network=traefik-network
+    #             - traefik.http.routers.keyword-envoy.rule=Host(`envoy.${DOMAIN}`)
+    #             - traefik.http.routers.keyword-envoy.middlewares=redirect-to-https
+    #             - traefik.http.routers.keyword-envoy.entrypoints=web
+    #             - traefik.http.services.keyword-envoy.loadbalancer.server.port=50008
+    #             - traefik.http.routers.keyword-envoy--https.rule=Host(`envoy.${DOMAIN}`)
+    #             - traefik.http.routers.keyword-envoy--https.tls=true
+    #             - traefik.http.routers.keyword-envoy--https.tls.certresolver=myresolver
+    #             - traefik.http.routers.keyword-envoy--https.entrypoints=websecure
 secrets:
     crt-file:
         file: ./keys/localhost.crt
