@@ -23,6 +23,7 @@ const List: React.FC = () => {
     async function fetchJobList() {
         try {
             CallGetJobList((message) => {
+                console.log(message);
                 const newJobList = [...data];
                 message.jobList.map((value, _) => {
                     const newJob: job = {
