@@ -49,7 +49,8 @@ export class GrpcManager {
             });
         } catch {
             console.log("Can't get env from server!");
-            addr = "https://envoy.like-a-junk.com";
+            addr = "./pb";
+            // addr = "https://envoy.like-a-junk.com";
         }
 
         return addr;
@@ -60,6 +61,9 @@ export class GrpcManager {
     }
 
     public static SetClient() {
-        GrpcManager.client = new ManagerClient("https://envoy.like-a-junk.com");
+        // let addr: string;
+
+        const addr = GrpcManager.host.toString();
+        GrpcManager.client = new ManagerClient(addr);
     }
 }
