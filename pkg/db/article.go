@@ -1,7 +1,6 @@
 package db
 
 import (
-	"errors"
 	"fmt"
 	"os"
 
@@ -38,7 +37,7 @@ func (db *Database) WriteTweetToArticle(tweet models.TweetArticle) error {
 	}
 
 	if count > 0 {
-	    return errors.New("duplicate content")
+	    return NewDuplicateContent("Duplicate content")
 	}
 
 	const q =`

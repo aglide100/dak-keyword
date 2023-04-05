@@ -73,9 +73,14 @@ func realMain() error {
 
 	for _, value := range result {
 		err := myScraper.WriteTweetOnDB(value)
-		
+
 		if err != nil {
-			scraper.CallGrpcCallWhenScraperHavingErr(workerId, err.Error())
+			switch err.(type) {
+			case *db.DuplicateContent:
+				// pass
+			default:
+				scraper.CallGrpcCallWhenScraperHavingErr(workerId, err.Error())
+			}
 		}
 	}
 
