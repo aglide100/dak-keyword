@@ -1,9 +1,11 @@
 // import { secrets } from "docker-secret";
 import * as axios from "axios";
+import { ManagerClient } from "../../gen/pb/svc/manager/manager_grpc_web_pb";
 
 export class GrpcManager {
     private static instance: GrpcManager;
     private static host: string;
+    private static client: ManagerClient;
 
     public static async getInstance(): Promise<GrpcManager> {
         if (!GrpcManager.instance) {
@@ -11,6 +13,7 @@ export class GrpcManager {
             GrpcManager.SetHost(result);
             GrpcManager.instance = new GrpcManager();
 
+            GrpcManager.SetClient();
             return GrpcManager.instance;
         }
 
@@ -39,5 +42,18 @@ export class GrpcManager {
 
     public static async SetHost(addr) {
         GrpcManager.host = addr;
+    }
+
+    public static SetClient() {
+        const addr = GrpcManager.host.toString();
+        GrpcManager.client = new ManagerClient(addr);
+    }
+
+    public GetClient(): ManagerClient {
+        if (GrpcManager.client == undefined) {
+            GrpcManager.SetClient();
+        }
+
+        return GrpcManager.client;
     }
 }

@@ -53,6 +53,7 @@
         "eslint-config-prettier": "^8.3.0",
         "framer-motion": "^4.1.17",
         "google-protobuf": "^3.20.1",
+        "grpc-web": "^1.4.2",
         "http-proxy-middleware": "^2.0.6",
         "install": "^0.13.0",
         "next": "^12.3.0",
