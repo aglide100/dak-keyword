@@ -31,6 +31,11 @@ protoc --go_out=../../.. --go-grpc_out=../../.. pb/svc/provision/*.proto
  --ts_out="service=grpc-web:./ui/gen" \
  pb/unit/**/*.proto
 
+
+protoc -I=. pb/svc/**/*.proto --js_out=import_style=commonjs:./ui/gen --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:./ui/gen
+
+protoc -I=. pb/unit/**/*.proto --js_out=import_style=commonjs:./ui/gen --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:./ui/gen
+
 # python3 -m grpc_tools.protoc -I . --python_out=./analyzer --grpc_python_out=./analyzer ./pb/svc/analyzer/analyzer.proto
 
 python3 -m grpc_tools.protoc -I . --python_out=./analyzer --grpc_python_out=./analyzer ./pb/svc/manager/manager.proto
