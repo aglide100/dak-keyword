@@ -48,8 +48,9 @@ func (db *Database) WriteTweetToArticle(tweet models.TweetArticle) error {
 		"Job_id",
 		"Worker_id",
 		"Author",
-		"Create_at"
-	) VALUES ($1, $2, $3, $4, $5, $6, $7)`
+		"Create_at",
+		"Preprocessed_content"
+	) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`
 
 	_, err = db.Conn.Exec(q,
 		os.Getenv("Keyword"),
@@ -59,6 +60,7 @@ func (db *Database) WriteTweetToArticle(tweet models.TweetArticle) error {
 		os.Getenv("WORKER_ID"),
 		tweet.Id,
 		tweet.Created_at,
+		tweet.PreprocessedText,
 	)
 
 	// log.Printf("res : %v", res)

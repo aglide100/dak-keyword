@@ -32,7 +32,8 @@ if __name__ == '__main__':
 
         for index, row in rows.iterrows():
             # sent = spell_checker.check(row['Content']).checked
-            score = analyze_word(repeat_normalize(row['Content'], num_repeats=2))
+            score = analyze_word(repeat_normalize(row['Preprocessed_content'], num_repeats=2))
+            # score = analyze_word(repeat_normalize(row['Content'], num_repeats=2))
             # score = analyze_word(repeat_normalize(sent, num_repeats=2))
 
             if score is not None:
