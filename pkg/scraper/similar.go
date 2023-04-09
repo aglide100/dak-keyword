@@ -14,7 +14,7 @@ func RemoveSimilar(arr []models.TweetArticle, threshold float64) []models.TweetA
 	for i := range distances {
 		distances[i] = make([]float64, len(arr))
 		for j := range distances[i] {
-			distances[i][j] = Levenshtein(arr[i].Text, arr[j].Text, nil, false)
+			distances[i][j] = Levenshtein(arr[i].PreprocessedText, arr[j].PreprocessedText, nil, false)
 		}
 	}
 	deleted := make([]bool, len(arr))
@@ -147,11 +147,13 @@ func min(nums ...uint16) uint16 {
     if len(nums) == 0 {
         return 0
     }
+
     res := nums[0]
     for _, num := range nums[1:] {
         if num < res {
             res = num
         }
     }
+
     return res
 }
