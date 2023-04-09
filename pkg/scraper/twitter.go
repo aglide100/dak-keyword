@@ -70,6 +70,7 @@ func (s Scraper) GetRecentSearch(keyword string, nextToken string, injectNum ...
 		newArticle := models.TweetArticle{
 			Id: gjson.Get(value.String(), "id").String(),
 			Text: gjson.Get(value.String(), "text").String(),
+			PreprocessedText: Preprocessing(gjson.Get(value.String(), "text").String()),
 			Created_at: gjson.Get(value.String(), "created_at").String(),
 		}
 
