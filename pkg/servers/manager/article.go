@@ -20,7 +20,6 @@ func (s *ManagerSrv) GetArticleList(ctx context.Context, in *pb_svc_manager.GetA
 	} else {
 		return nil, status.Error(codes.InvalidArgument, "Can't find argument!")
 	}
-	
 
 	articles, err := s.db.GetArticlesByJobID(in.Id)
 	if err != nil {
@@ -49,7 +48,6 @@ func (s *ManagerSrv) GetArticleCountByHour(ctx context.Context, in *pb_svc_manag
 	} else {
 		return nil, status.Error(codes.InvalidArgument, "Can't find argument!")
 	}
-	
 
 	articles, err := s.db.GetCountByHour(in.Id)
 	if err != nil {
@@ -78,7 +76,6 @@ func (s *ManagerSrv) GetArticleCountByDay(ctx context.Context, in *pb_svc_manage
 	} else {
 		return nil, status.Error(codes.InvalidArgument, "Can't find argument!")
 	}
-	
 
 	articles, err := s.db.GetCountByDay(in.Id)
 	if err != nil {
