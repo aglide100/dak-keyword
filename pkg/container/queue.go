@@ -13,10 +13,10 @@ type ContainerQueue struct {
 }
 
 
-func NewContainerQueue() *ContainerQueue{
+func NewContainerQueue(length int) *ContainerQueue{
 	return &ContainerQueue{
 		// when using unbuffered channel, logic is blocked..
-		queue: make(chan *ContainerSpec, 100),
+		queue: make(chan *ContainerSpec, length),
 	}
 }
 

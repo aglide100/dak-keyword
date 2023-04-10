@@ -15,10 +15,10 @@ var (
 	addr = flag.String("addr", "keyword_apid:50010", "the address to connect to")
 )
 
-func CallGrpcCallWhenScraperHavingErr(workerId string, errMSG string) error {
+func CallGrpcWhenScraperHavingErr(workerId string, errMSG string) error {
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
-		log.Fatalf("can't connect grpc server : %v", err)
+		log.Fatalf("Can't connect grpc server : %v", err)
 		return err
 	}
 	defer conn.Close()
@@ -44,12 +44,10 @@ func CallGrpcCallWhenScraperHavingErr(workerId string, errMSG string) error {
 	return nil
 }
 
-
-
-func CallGrpcCallWhenStaring(workerId string) error {
+func CallGrpcWhenStaring(workerId string) error {
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
-		log.Fatalf("can't connect grpc server : %v", err)
+		log.Fatalf("Can't connect grpc server : %v", err)
 		return err
 	}
 	defer conn.Close()
@@ -73,10 +71,10 @@ func CallGrpcCallWhenStaring(workerId string) error {
 	return nil
 }
 
-func CallGrpcCallWhenDone(workerId string) error {
+func CallGrpcWhenDone(workerId string) error {
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
-		log.Fatalf("can't connect grpc server : %v", err)
+		log.Fatalf("Can't connect grpc server : %v", err)
 		return err
 	}
 	defer conn.Close()
@@ -100,10 +98,10 @@ func CallGrpcCallWhenDone(workerId string) error {
 	return nil
 }
 
-func CallGrpcCallUpdateJob(workerId string, status string) error {
+func CallGrpcUpdateJob(workerId string, status string) error {
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
-		log.Fatalf("can't connect grpc server : %v", err)
+		log.Fatalf("Can't connect grpc server : %v", err)
 		return err
 	}
 

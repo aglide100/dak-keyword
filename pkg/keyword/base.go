@@ -29,11 +29,11 @@ func GetKeywords(keyword string, topic string) ([]string, error) {
 	}
 	// log.Printf("google %v", google)
 
-	// daum, err := GetKeyWordSetFromDaum(keyword)
-	// if err != nil {
-	// 	log.Printf("Can't get keywordset from daum! %v", err)
-	// }
-	// log.Printf("daum %v", daum)
+	daum, err := GetKeyWordSetFromDaum(keyword)
+	if err != nil {
+		log.Printf("Can't get keywordset from daum! %v", err)
+	}
+	log.Printf("daum %v", daum)
 
 	// bing, err := GetKeyWordSetFromBing(keyword)
 	// if err != nil {
@@ -41,7 +41,7 @@ func GetKeywords(keyword string, topic string) ([]string, error) {
 	// }
 	// log.Printf("bing %v", bing)
 
-	keywords, err := MergeKeywords(naver, naver2, google)
+	keywords, err := MergeKeywords(naver, naver2, google, daum)
 	if err != nil {
 		log.Printf("Can't merge keyword! %v", err)
 	}

@@ -63,11 +63,11 @@ func (s Scraper) CreateHttpReq(url string) (string, error) {
 	if res.StatusCode == 429 {
 		log.Printf("Too many request, 15min sleep")
 		time.Sleep(15 * 60 * time.Second)
-		CallGrpcCallUpdateJob(s.Worker.id, "Too many request, sleeps 15min...")
+		CallGrpcUpdateJob(s.Worker.id, "Too many request, sleeps 15min...")
 		
 		result, err := s.CreateHttpReq(url)
 		
-		CallGrpcCallUpdateJob(s.Worker.id, "Collecting...")
+		CallGrpcUpdateJob(s.Worker.id, "Collecting...")
 		if err != nil {
 			return "", err
 		}

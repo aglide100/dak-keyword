@@ -61,7 +61,7 @@ func realMain() error {
 
 	grpcServer := grpc.NewServer(opts...)
 
-	q := container.NewContainerQueue()
+	q := container.NewContainerQueue(200)
 
 	c, err := container.NewController(10, q, twitterToken)
 	if err != nil {
@@ -97,14 +97,14 @@ func realMain() error {
 					if (c.GetCurrentAnalyzerCount() < c.GetMaxAnalyzerCount()) {
 						cSpec, ok := q.Dequeue()
 						if ok {
-							log.Printf("Dequeue %v", cSpec)
+							// log.Printf("Dequeue %v", cSpec)
 						} else {
 							log.Println("Can't dequeue from queue")
 							continue
 						}
 
 						if (cSpec.Type == "Scraper") {
-							err, countErr := c.CreateNewScraper(cSpec.WorkerId, cSpec.JobId, cSpec.Keyword, dbConfig)
+							err, countErr := c.CreateScraperService(cSpec.WorkerId, cSpec.JobId, cSpec.Keyword, dbConfig)
 							if err != nil {
 								log.Println("Can't make scraper in queue %v", err)
 								q.Enqueue(cSpec)
@@ -117,7 +117,7 @@ func realMain() error {
 						} 
 
 						if (cSpec.Type == "Analyzer") {
-							err, countErr := c.CreateNewAnalyzer(cSpec.WorkerId, cSpec.Keyword, dbConfig)
+							err, countErr := c.CreateAnalyzerService(cSpec.WorkerId, cSpec.Keyword, dbConfig)
 							if err != nil {
 								log.Println("Can't make analyzer in queue %v", err)
 								q.Enqueue(cSpec)

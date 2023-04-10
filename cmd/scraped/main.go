@@ -15,7 +15,7 @@ func main() {
 	if err := realMain(); err != nil {
 		log.Printf("err :%s", err)
 		workerId := os.Getenv("WORKER_ID")
-		scraper.CallGrpcCallWhenScraperHavingErr(workerId, err.Error())
+		scraper.CallGrpcWhenScraperHavingErr(workerId, err.Error())
 		os.Exit(1)
 	}
 }
@@ -58,7 +58,7 @@ func realMain() error {
 		return fmt.Errorf("Can't connect DB: %v", err)
 	}
 
-	err = scraper.CallGrpcCallWhenStaring(workerId)
+	err = scraper.CallGrpcWhenStaring(workerId)
 	if err != nil {
 		return err
 	}
@@ -79,7 +79,7 @@ func realMain() error {
 			case *db.DuplicateContent:
 				// pass
 			default:
-				scraper.CallGrpcCallWhenScraperHavingErr(workerId, err.Error())
+				scraper.CallGrpcWhenScraperHavingErr(workerId, err.Error())
 			}
 		}
 	}
@@ -89,7 +89,7 @@ func realMain() error {
 	// 	return err
 	// }
 
-	err = scraper.CallGrpcCallWhenDone(workerId)
+	err = scraper.CallGrpcWhenDone(workerId)
 	if err != nil {
 		return err
 	}

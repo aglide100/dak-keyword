@@ -27,7 +27,7 @@ func (s *ProvisionSrv) CreateScraper(ctx context.Context, in *pb_svc_provision.C
 		log.Printf("Received CreateScraper call: %v", in.String())
 	}
 	
-	err, countErr := s.c.CreateNewScraper(in.WorkerId, in.JobId, in.Keyword, &s.dbConfig)
+	err, countErr := s.c.CreateScraperService(in.WorkerId, in.JobId, in.Keyword, &s.dbConfig)
 	if err != nil {
 		log.Printf("Can't create new scraper : %v", err)
 		return nil, err
@@ -50,7 +50,7 @@ func (s *ProvisionSrv) CreateAnalyzer(ctx context.Context, in *pb_svc_provision.
 		log.Printf("Received CreateAnalyzer call: %v", in.String())
 	}
 
-	err, countErr := s.c.CreateNewAnalyzer(in.ScraperId, in.Keyword, &s.dbConfig)
+	err, countErr := s.c.CreateAnalyzerService(in.ScraperId, in.Keyword, &s.dbConfig)
 	if err != nil {
 		return nil, err
 	}
