@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	res, err := keyword.GetKeyWordSetFromGoogle("일론머스크")
+	res, err := keyword.GetKeyWordSetFromDaum("일론머스크")
 	if err != nil {
 		log.Println("err :%v", err)
 	}
