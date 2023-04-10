@@ -59,7 +59,7 @@ func (s *ManagerSrv) WhenDoneScraper(ctx context.Context, in *pb_svc_manager.Whe
 		return nil, status.Error(codes.Canceled, "Can't update remove scraper")
 	}
 
-	err = callMakeAnalysis(in.Id)
+	err = CallMakeAnalysis(in.Id)
 	if err != nil {
 		s.db.UpdateJob(in.Id, "Can't make analysis")
 		return nil, err

@@ -2,6 +2,13 @@ import React, { useEffect, useState, useRef } from "react";
 import { CallGetWorkers } from "../../../grpc/worker";
 import { WorkerItem } from "../../atom/WorkerItem/WorkerItem";
 import { useRouter } from "next/router";
+import {
+    AutoSizer,
+    List,
+    CellMeasurer,
+    CellMeasurerCache,
+} from "react-virtualized";
+import { motion } from "framer-motion";
 
 type worker = {
     WorkerId: string;
@@ -11,12 +18,17 @@ type worker = {
     UpdateAt: string;
 };
 
-const List: React.FC<{ JobId }> = ({ JobId }) => {
+const WorkerList: React.FC<{ JobId }> = ({ JobId }) => {
     const [data, setData] = useState<worker[]>([]);
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
     const [number, setNumber] = useState(0);
     const number_ref = useRef(0);
     const router = useRouter();
+
+    const cache = new CellMeasurerCache({
+        // defaultWidth: 500,
+        fixedWidth: true,
+    });
 
     useEffect(() => {
         if (router.pathname == "/job" && !isLoaded) {
@@ -67,6 +79,31 @@ const List: React.FC<{ JobId }> = ({ JobId }) => {
     }
 
     let WorkerList;
+
+    const rowRenderer = ({ index, key, parent, style }) => {
+        return (
+            <CellMeasurer
+                cache={cache}
+                columnIndex={0}
+                key={key}
+                rowIndex={index}
+                parent={parent}
+            >
+                <motion.div
+                    style={style}
+                    className="w-full h-fit flex justify-center mb-5"
+                >
+                    <WorkerItem
+                        workerId={data[index].WorkerId}
+                        status={data[index].Status}
+                        jobId={data[index].JobId}
+                        workerKeyword={data[index].Keyword}
+                        updateAt={data[index].UpdateAt}
+                    ></WorkerItem>
+                </motion.div>
+            </CellMeasurer>
+        );
+    };
     if (!isLoaded) {
         WorkerList = (
             <div className="w-full flex justify-center mt-10">
@@ -74,19 +111,37 @@ const List: React.FC<{ JobId }> = ({ JobId }) => {
             </div>
         );
     } else {
-        WorkerList = data.map((job, index) => {
-            return (
-                <div key={"job" + index} className="w-full flex justify-center">
-                    <WorkerItem
-                        workerId={job.WorkerId}
-                        status={job.Status}
-                        jobId={job.JobId}
-                        workerKeyword={job.Keyword}
-                        updateAt={job.UpdateAt}
-                    ></WorkerItem>
-                </div>
+        if (data != undefined) {
+            WorkerList = (
+                <AutoSizer>
+                    {({ height, width }) => (
+                        <List
+                            deferredMeasurementCache={cache}
+                            rowCount={data.length}
+                            height={height}
+                            rowHeight={cache.rowHeight}
+                            width={width}
+                            rowRenderer={rowRenderer}
+                            overscanRowCount={1}
+                        />
+                    )}
+                </AutoSizer>
             );
-        });
+        }
+
+        // WorkerList = data.map((job, index) => {
+        //     return (
+        //         <div key={"job" + index} className="w-full flex justify-center">
+        //             <WorkerItem
+        //                 workerId={job.WorkerId}
+        //                 status={job.Status}
+        //                 jobId={job.JobId}
+        //                 workerKeyword={job.Keyword}
+        //                 updateAt={job.UpdateAt}
+        //             ></WorkerItem>
+        //         </div>
+        //     );
+        // });
 
         if (data == undefined || data.length <= 0) {
             WorkerList = <>There's no worker...</>;
@@ -96,4 +151,4 @@ const List: React.FC<{ JobId }> = ({ JobId }) => {
     return <>{WorkerList}</>;
 };
 
-export default List;
+export default WorkerList;
