@@ -2,7 +2,6 @@ package container
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"strconv"
 	"strings"
@@ -14,7 +13,7 @@ import (
 
 // const nodeRole = "node.role == worker"
 
-func (c *Controller) CreateNewScraper(workerId string, jobId string, keyword string, dbConfig *db.DBConfig) (error, bool) {
+func (c *Controller) CreateScraperService(workerId string, jobId string, keyword string, dbConfig *db.DBConfig) (error, bool) {
 	ctx := context.Background()
 
 	if c.analyzerCount >= c.analyzerMaxCount {
@@ -31,7 +30,7 @@ func (c *Controller) CreateNewScraper(workerId string, jobId string, keyword str
 
 	c.cli.ImagePull(ctx, "ghcr.io/aglide100/dak-keyword--scraped:latest", types.ImagePullOptions{})
 
-	reader, err := c.cli.ServiceCreate(ctx, swarm.ServiceSpec{
+	_, err := c.cli.ServiceCreate(ctx, swarm.ServiceSpec{
 		Annotations: swarm.Annotations{
 			Name: "scraper_"+workerId,
 		},
@@ -70,7 +69,7 @@ func (c *Controller) CreateNewScraper(workerId string, jobId string, keyword str
 
 	c.analyzerCount++
 
-	fmt.Println("crate scraper ", reader.ID, c.analyzerCount)
+	// fmt.Println("crate scraper ", reader.ID, c.analyzerCount)
 	return nil, false
 }
 
