@@ -32,14 +32,19 @@ if __name__ == '__main__':
 
         for index, row in rows.iterrows():
             # sent = spell_checker.check(row['Content']).checked
-            score = analyze_word(repeat_normalize(row['Preprocessed_content'], num_repeats=2))
+
+            text = remove_unnecessary_word(repeat_normalize(row['Preprocessed_content'], num_repeats=2))
+            score = analyze_word(text)
+            # score = analyze_word(repeat_normalize(row['Preprocessed_content'], num_repeats=2))
             # score = analyze_word(repeat_normalize(row['Content'], num_repeats=2))
             # score = analyze_word(repeat_normalize(sent, num_repeats=2))
 
             if score is not None:
                 try:
                     print("Update")
-                    Database.CRUD.updateScore(db, score[0][0], score[0][1], score[0][2], score[0][3], score[0][4], score[0][5], score[2], score[1], row['Worker_id'], row['Id'])
+                    # Database.CRUD.updateScore(db, score[0][0], score[0][1], score[0][2], score[0][3], score[0][4], score[0][5], score[2], score[1], row['Worker_id'], row['Id'])
+                    
+                    Database.CRUD.updateScoreWithPreprocessed(db, score[0][0], score[0][1], score[0][2], score[0][3], score[0][4], score[0][5], score[2], score[1], text, row['Worker_id'], row['Id'])
                     
                     if index % 3 == 0:
                         msg = "Analyzing... : " + str(index) + " / " + str(len(rows))
