@@ -31,13 +31,13 @@ func CallMakeScraper(workerId string, jobId string, keyword string, token string
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
 	
-	res, err := client.CreateScraper(ctx, in)
+	_, err = client.CreateScraper(ctx, in)
 
 	if err != nil {
 		log.Fatalf("Can't receive anything! %v", err)
 		return err
 	}
-	log.Printf("Received msg from Make Scraper %v", res)
+	// log.Printf("Received msg from Make Scraper %v", res)
 
 	return nil
 }
@@ -58,13 +58,12 @@ func CallRemoveScraper(id string) (error) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
 	
-	res, err := client.RemoveScraper(ctx, in)
-
+	_, err = client.RemoveScraper(ctx, in)
 	if err != nil {
 		log.Fatalf("Can't receive anything! %v", err)
 		return err
 	}
-	log.Printf("Received msg from Remove Scraper %v", res)
+	// log.Printf("Received msg from Remove Scraper %v", res)
 
 	return nil
 }
@@ -72,7 +71,7 @@ func CallRemoveScraper(id string) (error) {
 func CallRemoveAnalyzer(id string) (error) {
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
-		log.Fatalf("Can't connect grpc servier : %v", err)
+		log.Fatalf("Can't connect grpc service : %v", err)
 	}
 	defer conn.Close()
 
@@ -85,13 +84,13 @@ func CallRemoveAnalyzer(id string) (error) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
 
-	res, err := client.RemoveAnalyzer(ctx, in)
+	_, err = client.RemoveAnalyzer(ctx, in)
 
 	if err != nil {
 		log.Fatalf("Can't receive anything! %v", err)
 		return err
 	}
-	log.Printf("Received msg from Remove Analyzer %v", res)
+	// log.Printf("Received msg from Remove Analyzer %v", res)
 
 	return nil
 }
@@ -113,13 +112,13 @@ func callMakeAnalysis(id string) (error) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
 	
-	res, err := client.CreateAnalyzer(ctx, in)
+	_, err = client.CreateAnalyzer(ctx, in)
 
 	if err != nil {
 		log.Fatalf("Can't receive anything! %v", err)
 		return err
 	}
-	log.Printf("Received msg from Make Analyzer %v", res)
+	// log.Printf("Received msg from Make Analyzer %v", res)
 
 	return nil
 }

@@ -4,7 +4,6 @@ import (
 	"log"
 	"net/url"
 	"strconv"
-	"time"
 
 	"github.com/aglide100/dak-keyword/pkg/models"
 	"github.com/tidwall/gjson"
@@ -12,23 +11,10 @@ import (
 
 // maxResult is between 10-100
 const maxResult = 100
-// Twitter limit 3200 per oncs
+// Twitter limit 3200 per once
 const limitResult = 32
 const twitterv2api = `https://api.twitter.com/2/`
-
-func (s Scraper) GetMockTweets(keyword string) ([]models.TweetArticle) {
-	var articles []models.TweetArticle
-
-	for i:=0; i<5; i++ { 
-		articles = append(articles, models.TweetArticle{
-			Id: strconv.Itoa(i),
-			Text: "안녕하세요!!!!"+keyword,
-			Created_at: time.Now().String(),
-		})
-	}
-
-	return articles
-}
+const wordLength = 5
 
 func (s Scraper) GetRecentSearch(keyword string, nextToken string, injectNum ...int) ([]models.TweetArticle, error) {
 	var num int
@@ -66,6 +52,8 @@ func (s Scraper) GetRecentSearch(keyword string, nextToken string, injectNum ...
 
 	var articles []models.TweetArticle
 
+	keywordLength := GetTextLength(keyword)
+
 	data.ForEach(func(key, value gjson.Result) bool {
 		newArticle := models.TweetArticle{
 			Id: gjson.Get(value.String(), "id").String(),
@@ -74,11 +62,12 @@ func (s Scraper) GetRecentSearch(keyword string, nextToken string, injectNum ...
 			Created_at: gjson.Get(value.String(), "created_at").String(),
 		}
 
-		articles = append(articles, newArticle)
+		if (GetTextLength(newArticle.PreprocessedText) + wordLength >= keywordLength) {
+			articles = append(articles, newArticle)
+		}
 
 		return true
 	})
-
 
 	if len(gjson.Get(meta.String(), "next_token").String()) > 1 {
 		result, err := s.GetRecentSearch(keyword, gjson.Get(meta.String(), "next_token").String(), num+1)
@@ -96,14 +85,14 @@ func (s Scraper) GetRecentSearch(keyword string, nextToken string, injectNum ...
 
 
 // needs academic api.....
-func (s Scraper) GetFullArchiveRecentSearch(keyword string) (error) {
-	log.Printf("Starting get recent tweets....")
+// func (s Scraper) GetFullArchiveRecentSearch(keyword string) (error) {
+// 	log.Printf("Starting get recent tweets....")
 	
-	resp, err := s.CreateHttpReq(twitterv2api+ "tweets/search/all?query=" + url.QueryEscape(keyword))
-	if err != nil {
-		return err
-	}
+// 	resp, err := s.CreateHttpReq(twitterv2api+ "tweets/search/all?query=" + url.QueryEscape(keyword))
+// 	if err != nil {
+// 		return err
+// 	}
 
-	log.Printf("resp: %v", resp)
-	return nil
-}
+// 	log.Printf("resp: %v", resp)
+// 	return nil
+// }
