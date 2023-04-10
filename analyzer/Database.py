@@ -49,6 +49,24 @@ class CRUD(Databases):
         
         return df
 
+    def updatePreprocessedText(self, text, workerId, articleId):
+        sql = ("UPDATE \"article\"" 
+        " SET "
+        " \"Preprocessed_content\" "
+        " = '{Text}'"
+        " WHERE "
+        " \"Worker_id\""
+        " = '{workerId}' AND " 
+        " \"Id\""
+        " = '{articleId}'"
+        ).format(Text = text, workerId = workerId, articleId = articleId)
+        
+        try :
+            self.cursor.execute(sql)
+            self.db.commit()
+        except Exception as e:
+            print("Update Preprocessed_content err : ", e)
+
     def updateScore(self, Score_happy, Score_fear, Score_embarrassed, Score_sad, Score_rage, Score_hurt, Score_max_value, Score_max_name, workerId, articleId):
         sql = ("UPDATE \"article\"" 
         " SET "
@@ -74,6 +92,40 @@ class CRUD(Databases):
         " \"Id\""
         " = '{articleId}'"
         ).format(Score_happy = Score_happy, Score_fear = Score_fear,  Score_embarrassed = Score_embarrassed, Score_sad = Score_sad, Score_rage = Score_rage, Score_hurt = Score_hurt, Score_max_value = Score_max_value, Score_max_name = Score_max_name, workerId = workerId, articleId = articleId)
+        
+        try :
+            self.cursor.execute(sql)
+            self.db.commit()
+        except Exception as e:
+            print("Update score err : ", e)
+
+    def updateScoreWithPreprocessed(self, Score_happy, Score_fear, Score_embarrassed, Score_sad, Score_rage, Score_hurt, Score_max_value, Score_max_name, Preprocessed_content, workerId, articleId):
+        sql = ("UPDATE \"article\"" 
+        " SET "
+        " \"Score_happy\" "
+        " = '{Score_happy}',"
+        " \"Score_fear\" "
+        " = '{Score_fear}',"
+        " \"Score_embarrassed\" "
+        " = '{Score_embarrassed}',"
+        " \"Score_sad\" "
+        " = '{Score_sad}',"
+        " \"Score_rage\" "
+        " = '{Score_rage}',"
+        " \"Score_hurt\" "
+        " = '{Score_hurt}',"
+        " \"Score_max_value\" "
+        " = '{Score_max_value}',"
+        " \"Score_max_name\" "
+        " = '{Score_max_name}',"
+        " \"Preprocessed_content\" "
+        " = '{Preprocessed_content}'"
+        " WHERE "
+        " \"Worker_id\""
+        " = '{workerId}' AND " 
+        " \"Id\""
+        " = '{articleId}'"
+        ).format(Score_happy = Score_happy, Score_fear = Score_fear,  Score_embarrassed = Score_embarrassed, Score_sad = Score_sad, Score_rage = Score_rage, Score_hurt = Score_hurt, Score_max_value = Score_max_value, Score_max_name = Score_max_name, Preprocessed_content = Preprocessed_content, workerId = workerId, articleId = articleId)
         
         try :
             self.cursor.execute(sql)
