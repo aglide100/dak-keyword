@@ -38,8 +38,19 @@ class CRUD(Databases):
         
         return result
 
-    def readTextFromArticleInJob(self, colum, id):
+    def readTextFromArticleByColum(self, colum, id):
         sql = f"SELECT * FROM article WHERE \"{colum}\" = '{id}' AND (\"Score_max_value\" IS NULL OR \"Score_max_name\" IS NULL)"
+        
+        try:
+            df = pandas.read_sql_query(sql, self.db)
+
+        except Exception as e :
+            df = ("Read DB err : ", e)
+        
+        return df
+
+    def readTextFromArticleAll(self, colum, id):
+        sql = f"SELECT * FROM article WHERE \"{colum}\" = '{id}'"
         
         try:
             df = pandas.read_sql_query(sql, self.db)
