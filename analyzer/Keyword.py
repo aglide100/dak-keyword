@@ -32,8 +32,12 @@ if __name__ == '__main__':
 
         for index, row in rows.iterrows():
             # sent = spell_checker.check(row['Content']).checked
+            content = row['Preprocessed_content']
+            if not content:
+                print("Preporcessed is null")
+                content = row['Content']
 
-            text = remove_unnecessary_word(repeat_normalize(row['Preprocessed_content'], num_repeats=2))
+            text = remove_unnecessary_word(repeat_normalize(content, num_repeats=2))
             score = analyze_word(text)
             # score = analyze_word(repeat_normalize(row['Preprocessed_content'], num_repeats=2))
             # score = analyze_word(repeat_normalize(row['Content'], num_repeats=2))
