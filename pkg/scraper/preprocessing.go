@@ -17,19 +17,22 @@ func Preprocessing(text string) string {
 
 	content := string(validRunes)
 	// remove URL
-	regex := regexp.MustCompile(`(?i)(http|https|ftp|ftps)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(/\S*)?`)
-	content = regex.ReplaceAllString(content, "")
+	// regex := regexp.MustCompile(`(?i)(http|https|ftp|ftps)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(/\S*)?`)
+	// content = regex.ReplaceAllString(content, "")
 
-	// remove hash tag
-	regex = regexp.MustCompile(`#(\S+)`)
-    content = regex.ReplaceAllString(content, "")
+	// // remove hash tag
+	// regex = regexp.MustCompile(`#(\S+)`)
+    // content = regex.ReplaceAllString(content, "")
 	
-	// remove other character
-	regex = regexp.MustCompile(`[^\p{Hangul}\s]+`)
-	content = regex.ReplaceAllString(content, "")
+	// // remove other character
+	// regex = regexp.MustCompile(`[^\p{Hangul}\s]+`)
+	// content = regex.ReplaceAllString(content, "")
 
-	// remove space
-	regex = regexp.MustCompile(`\s+`)
+	// // remove space
+	// regex = regexp.MustCompile(`\s+`)
+    // content = regex.ReplaceAllString(content, "")
+
+	regex := regexp.MustCompile(`[^가-힣ㄱ-ㅎㅏ-ㅣ\\s]+`)
     content = regex.ReplaceAllString(content, "")
 	
 	return content
