@@ -10,7 +10,7 @@ require (
 	github.com/groovili/gogtrends v1.7.0
 	github.com/improbable-eng/grpc-web v0.15.0
 	github.com/joho/godotenv v1.5.1
-	github.com/lib/pq v1.10.7
+	github.com/lib/pq v1.10.8
 	github.com/robfig/cron v1.2.0
 	github.com/tidwall/gjson v1.14.4
 	golang.org/x/sync v0.1.0
