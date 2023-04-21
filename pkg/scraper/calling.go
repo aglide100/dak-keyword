@@ -36,7 +36,7 @@ func CallGrpcWhenScraperHavingErr(workerId string, errMSG string) error {
 	res, err := client.WhenScraperHavingErr(ctx, in)
 
 	if err != nil {
-		log.Fatalf("Can't receive anything! %v", err)
+		log.Fatalf("err in CallGrpcWhenScraperHavingErr %v", err)
 		return err
 	}
 	log.Printf("res %v", res)
@@ -64,7 +64,7 @@ func CallGrpcWhenStaring(workerId string) error {
 	_, err = client.WhenStartScraper(ctx, in)
 
 	if err != nil {
-		log.Fatalf("Can't receive anything! %v", err)
+		log.Fatalf("err in CallGrpcWhenStaring %v", err)
 		return err
 	}
 	
@@ -91,7 +91,7 @@ func CallGrpcWhenDone(workerId string) error {
 	_, err = client.WhenDoneScraper(ctx, in)
 
 	if err != nil {
-		log.Fatalf("Can't receive anything! %v", err)
+		log.Fatalf("err in CallGrpcWhenDone %v", err)
 		return err
 	}
 	
@@ -120,7 +120,7 @@ func CallGrpcUpdateJob(workerId string, status string) error {
 	_, err = client.UpdateJobStatus(ctx, in)
 
 	if err != nil {
-		log.Fatalf("Can't receive anything! %v", err)
+		log.Fatalf("err in CallGrpcUpdateJob %v", err)
 		return err
 	}
 

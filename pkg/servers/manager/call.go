@@ -34,7 +34,7 @@ func CallMakeScraper(workerId string, jobId string, keyword string, token string
 	_, err = client.CreateScraper(ctx, in)
 
 	if err != nil {
-		log.Fatalf("Can't receive anything! %v", err)
+		log.Fatalf("err in CallMakeScraper %v", err)
 		return err
 	}
 	// log.Printf("Received msg from Make Scraper %v", res)
@@ -60,7 +60,7 @@ func CallRemoveScraper(id string) (error) {
 	
 	_, err = client.RemoveScraper(ctx, in)
 	if err != nil {
-		log.Fatalf("Can't receive anything! %v", err)
+		log.Fatalf("err in CallRemoveScraper %v", err)
 		return err
 	}
 	// log.Printf("Received msg from Remove Scraper %v", res)
@@ -87,7 +87,7 @@ func CallRemoveAnalyzer(id string) (error) {
 	_, err = client.RemoveAnalyzer(ctx, in)
 
 	if err != nil {
-		log.Fatalf("Can't receive anything! %v", err)
+		log.Fatalf("err in CallRemoveAnalyzer %v", err)
 		return err
 	}
 	// log.Printf("Received msg from Remove Analyzer %v", res)
@@ -115,7 +115,7 @@ func CallMakeAnalysis(id string) (error) {
 	_, err = client.CreateAnalyzer(ctx, in)
 
 	if err != nil {
-		log.Fatalf("Can't receive anything! %v", err)
+		log.Fatalf("err in CallMakeAnalysis %v", err)
 		return err
 	}
 	// log.Printf("Received msg from Make Analyzer %v", res)
