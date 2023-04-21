@@ -33,7 +33,7 @@ func GetKeywords(keyword string, topic string) ([]string, error) {
 	if err != nil {
 		log.Printf("Can't get keywordset from daum! %v", err)
 	}
-	log.Printf("daum %v", daum)
+	// log.Printf("daum %v", daum)
 
 	// bing, err := GetKeyWordSetFromBing(keyword)
 	// if err != nil {
