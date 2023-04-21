@@ -34,7 +34,7 @@ func (s *ProvisionSrv) CreateScraper(ctx context.Context, in *pb_svc_provision.C
 	}
 
 	if countErr {
-		log.Println("Add queue")
+		// log.Println("Add queue")
 		return &pb_svc_provision.CreateScraperRes{
 			Status: "Add queue",
 		}, nil
@@ -46,9 +46,9 @@ func (s *ProvisionSrv) CreateScraper(ctx context.Context, in *pb_svc_provision.C
 }
 
 func (s *ProvisionSrv) CreateAnalyzer(ctx context.Context, in *pb_svc_provision.CreateAnalyzerReq) (*pb_svc_provision.CreateAnalyzerRes, error) {
-	if in != nil {
-		log.Printf("Received CreateAnalyzer call: %v", in.String())
-	}
+	// if in != nil {
+	// 	log.Printf("Received CreateAnalyzer call: %v", in.String())
+	// }
 
 	err, countErr := s.c.CreateAnalyzerService(in.ScraperId, in.Keyword, &s.dbConfig)
 	if err != nil {
