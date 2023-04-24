@@ -73,4 +73,52 @@ alter table public.article
 create unique index article_id_uindex
     on public.article ("Id");
 
-SET pg_trgm.similarity_threshold = 0.8;
+create table public.cosine_similarity
+(
+    id      integer default nextval('tfidf_id_seq'::regclass) not null
+        constraint tfidf_pkey
+            primary key,
+    doc1_id integer                                           not null
+        constraint doc1_id
+            references public.article
+            on update cascade on delete cascade,
+    doc2_id integer
+        constraint doc2_id
+            references public.article
+            on update cascade on delete cascade,
+    score   double precision                                  not null,
+    date    date                                              not null
+);
+
+alter table public.cosine_similarity
+    owner to table_admin;
+
+create table public.word
+(
+    id   serial
+        primary key,
+    text character varying[] not null
+        unique,
+    date date
+);
+
+alter table public.word
+    owner to table_admin;
+
+create table public.tfidf
+(
+    word_id   serial
+        constraint word_id
+            references public.word
+            on update cascade on delete cascade,
+    values    double precision[] not null,
+    date      date,
+    worker_id varchar
+        constraint worker_id
+            references public.worker
+            on update cascade on delete cascade
+);
+
+alter table public.tfidf
+    owner to table_admin;
+

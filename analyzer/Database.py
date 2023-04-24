@@ -99,6 +99,22 @@ class CRUD(Databases):
         except Exception as e:
             print("Update score err : ", e)
 
+    def updatePreprocessed(self, Preprocessed_content, articleId):
+        sql = ("UPDATE \"article\"" 
+        " SET "
+        " \"Preprocessed_content\" "
+        " = '{Preprocessed_content}'"
+        " WHERE "
+        " \"Id\""
+        " = '{articleId}'"
+        ).format(Preprocessed_content = Preprocessed_content, articleId = articleId)
+        
+        try :
+            self.cursor.execute(sql)
+            self.db.commit()
+        except Exception as e:
+            print("Update score err : ", e)
+
     def updateScoreWithPreprocessed(self, Score_happy, Score_fear, Score_embarrassed, Score_sad, Score_rage, Score_hurt, Score_max_value, Score_max_name, Preprocessed_content, workerId, articleId):
         sql = ("UPDATE \"article\"" 
         " SET "
