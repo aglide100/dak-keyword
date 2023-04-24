@@ -31,13 +31,12 @@ func main() {
 
 	result := tfidf.CalcTfIdf(documents)
 
-
 	for i, _ := range result {
 		max, index := 0.0, 0
-	    for k, _ := range result[i] {
+	    for k, score := range result[i] {
 			if i != k {
-				if result[i][k] > max {
-					max = result[i][k]
+				if score > max {
+					max = score
 					index = k
 				}
 			}
