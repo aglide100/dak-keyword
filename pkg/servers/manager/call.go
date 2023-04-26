@@ -15,7 +15,7 @@ func CallMakeScraper(workerId string, jobId string, keyword string, token string
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	
 	if err != nil {
-		log.Fatalf("can't connect grpc server : %v", err)
+		log.Printf("can't connect grpc server : %v", err)
 	}
 	defer conn.Close()
 	
@@ -34,7 +34,7 @@ func CallMakeScraper(workerId string, jobId string, keyword string, token string
 	_, err = client.CreateScraper(ctx, in)
 
 	if err != nil {
-		log.Fatalf("err in CallMakeScraper %v", err)
+		log.Printf("err in CallMakeScraper %v", err)
 		return err
 	}
 	// log.Printf("Received msg from Make Scraper %v", res)
@@ -45,7 +45,7 @@ func CallMakeScraper(workerId string, jobId string, keyword string, token string
 func CallRemoveScraper(id string) (error) {
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
-		log.Fatalf("Can't connect grpc server : %v", err)
+		log.Printf("Can't connect grpc server : %v", err)
 	}
 	defer conn.Close()
 	
@@ -60,7 +60,7 @@ func CallRemoveScraper(id string) (error) {
 	
 	_, err = client.RemoveScraper(ctx, in)
 	if err != nil {
-		log.Fatalf("err in CallRemoveScraper %v", err)
+		log.Printf("err in CallRemoveScraper %v", err)
 		return err
 	}
 	// log.Printf("Received msg from Remove Scraper %v", res)
@@ -71,7 +71,7 @@ func CallRemoveScraper(id string) (error) {
 func CallRemoveAnalyzer(id string) (error) {
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
-		log.Fatalf("Can't connect grpc service : %v", err)
+		log.Printf("Can't connect grpc service : %v", err)
 	}
 	defer conn.Close()
 
@@ -87,7 +87,7 @@ func CallRemoveAnalyzer(id string) (error) {
 	_, err = client.RemoveAnalyzer(ctx, in)
 
 	if err != nil {
-		log.Fatalf("err in CallRemoveAnalyzer %v", err)
+		log.Printf("err in CallRemoveAnalyzer %v", err)
 		return err
 	}
 	// log.Printf("Received msg from Remove Analyzer %v", res)
@@ -99,7 +99,7 @@ func CallMakeAnalysis(id string) (error) {
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	
 	if err != nil {
-		log.Fatalf("can't connect grpc server : %v", err)
+		log.Printf("can't connect grpc server : %v", err)
 	}
 	defer conn.Close()
 	
@@ -115,7 +115,7 @@ func CallMakeAnalysis(id string) (error) {
 	_, err = client.CreateAnalyzer(ctx, in)
 
 	if err != nil {
-		log.Fatalf("err in CallMakeAnalysis %v", err)
+		log.Printf("err in CallMakeAnalysis %v", err)
 		return err
 	}
 	// log.Printf("Received msg from Make Analyzer %v", res)
