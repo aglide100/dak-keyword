@@ -220,6 +220,7 @@ export const ArticleGraph: React.FC = () => {
         });
 
         setDataCount(countArray);
+        console.log(countArray);
     }
 
     const checkHandler = ({ target }) => {
