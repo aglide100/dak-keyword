@@ -10,6 +10,7 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
+const maxRetry = 5
 
 func CallMakeScraper(workerId string, jobId string, keyword string, token string) (error) {
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
@@ -31,7 +32,21 @@ func CallMakeScraper(workerId string, jobId string, keyword string, token string
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
 	
-	_, err = client.CreateScraper(ctx, in)
+	err = nil
+	count := 0
+	for {
+		if count == maxRetry {
+			break;
+		}
+		_, err = client.CreateScraper(ctx, in)
+		if err != nil {
+			log.Println("Can't make scraper, ", err)
+			log.Println("retrying... ", count)
+			count++
+			continue
+		}
+		break;
+	}
 
 	if err != nil {
 		log.Printf("err in CallMakeScraper %v", err)
@@ -112,7 +127,21 @@ func CallMakeAnalysis(id string) (error) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
 	
-	_, err = client.CreateAnalyzer(ctx, in)
+	err = nil
+	count := 0
+	for {
+		if count == maxRetry {
+			break;
+		}
+		_, err = client.CreateAnalyzer(ctx, in)
+		if err != nil {
+			log.Println("Can't make analyzer, ", err)
+			log.Println("retrying... ", count)
+			count++
+			continue
+		}
+		break;
+	}
 
 	if err != nil {
 		log.Printf("err in CallMakeAnalysis %v", err)
