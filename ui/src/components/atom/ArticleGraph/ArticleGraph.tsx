@@ -123,22 +123,28 @@ export const ArticleGraph: React.FC = () => {
         let count_rage = 0;
         let count_hurt = 0;
 
+        // YYYY-MM-DDTHH:mm:ss.sssZ
         const tmpArray = data.sort(function (a, b) {
             if (!isChecked) {
-                // return (
-                //     new Date(a.Create_at + ":00:00").valueOf() -
-                //     new Date(b.Create_at + ":00:00").valueOf()
-                // );
                 return (
-                    Date.parse(a.Create_at + ":00:00") -
-                    Date.parse(b.Create_at + ":00:00")
+                    Date.parse(a.Create_at + "T00:00:00.000Z") -
+                    Date.parse(b.Create_at + "T00:00:00.000Z")
                 );
             } else {
-                // return (
-                //     new Date(a.Create_at).valueOf() -
-                //     new Date(b.Create_at).valueOf()
-                // );
-                return Date.parse(a.Create_at) - Date.parse(b.Create_at);
+                return (
+                    Date.parse(
+                        a.Create_at.substring(0, 10) +
+                            "T" +
+                            a.Create_at.substring(11, 13) +
+                            ":00:00.000Z",
+                    ) -
+                    Date.parse(
+                        b.Create_at.substring(0, 10) +
+                            "T" +
+                            b.Create_at.substring(11, 13) +
+                            ":00:00.000Z",
+                    )
+                );
             }
         });
 
