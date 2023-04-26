@@ -125,15 +125,20 @@ export const ArticleGraph: React.FC = () => {
 
         const tmpArray = data.sort(function (a, b) {
             if (!isChecked) {
+                // return (
+                //     new Date(a.Create_at + ":00:00").valueOf() -
+                //     new Date(b.Create_at + ":00:00").valueOf()
+                // );
                 return (
-                    new Date(a.Create_at + ":00:00").valueOf() -
-                    new Date(b.Create_at + ":00:00").valueOf()
+                    Date.parse(a.Create_at + ":00:00") -
+                    Date.parse(b.Create_at + ":00:00")
                 );
             } else {
-                return (
-                    new Date(a.Create_at).valueOf() -
-                    new Date(b.Create_at).valueOf()
-                );
+                // return (
+                //     new Date(a.Create_at).valueOf() -
+                //     new Date(b.Create_at).valueOf()
+                // );
+                return Date.parse(a.Create_at) - Date.parse(b.Create_at);
             }
         });
 
