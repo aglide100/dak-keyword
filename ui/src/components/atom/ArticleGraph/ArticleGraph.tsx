@@ -63,7 +63,7 @@ export const ArticleGraph: React.FC = () => {
     const [dataCount, setDataCount] = useState<ArticleCount[]>([]);
 
     const [checkedItems, setCheckedItems] = useState(new Set());
-    const [isChecked, setIsChecked] = useState(false);
+    const [isChecked, setIsChecked] = useState<boolean>(false);
 
     let renderBarChart;
 
@@ -125,26 +125,27 @@ export const ArticleGraph: React.FC = () => {
 
         // YYYY-MM-DDTHH:mm:ss.sssZ
         const tmpArray = data.sort(function (a, b) {
-            if (!isChecked) {
+            if (isClick) {
                 return (
                     Date.parse(a.Create_at + "T00:00:00.000Z") -
                     Date.parse(b.Create_at + "T00:00:00.000Z")
                 );
             } else {
-                return (
-                    Date.parse(
-                        a.Create_at.substring(0, 10) +
-                            "T" +
-                            a.Create_at.substring(11, 13) +
-                            ":00:00.000Z",
-                    ) -
-                    Date.parse(
-                        b.Create_at.substring(0, 10) +
-                            "T" +
-                            b.Create_at.substring(11, 13) +
-                            ":00:00.000Z",
-                    )
-                );
+                const aDate = new Date(
+                    a.Create_at.substring(0, 10) +
+                        "T" +
+                        a.Create_at.substring(11, 14) +
+                        ":00:00.000Z",
+                ).valueOf();
+
+                const bDate = new Date(
+                    b.Create_at.substring(0, 10) +
+                        "T" +
+                        b.Create_at.substring(11, 14) +
+                        ":00:00.000Z",
+                ).valueOf();
+
+                return aDate - bDate;
             }
         });
 
@@ -231,7 +232,6 @@ export const ArticleGraph: React.FC = () => {
         });
 
         setDataCount(countArray);
-        console.log(countArray);
     }
 
     const checkHandler = ({ target }) => {
