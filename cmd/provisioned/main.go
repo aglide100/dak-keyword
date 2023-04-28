@@ -6,7 +6,6 @@ import (
 	"log"
 	"net"
 	"os"
-	"strconv"
 	"sync"
 	"time"
 
@@ -17,6 +16,7 @@ import (
 
 	pb_svc_provision "github.com/aglide100/dak-keyword/pb/svc/provision"
 
+	"github.com/aglide100/dak-keyword/pkg/config"
 	"github.com/aglide100/dak-keyword/pkg/container"
 	"github.com/aglide100/dak-keyword/pkg/db"
 	"github.com/aglide100/dak-keyword/pkg/servers/provision"
@@ -46,18 +46,7 @@ func realMain() error {
 
 	var opts []grpc.ServerOption
 	
-	dbAddr := os.Getenv("DB_ADDR")
-	dbPort := os.Getenv("DB_PORT")
-	dbUser := os.Getenv("DB_USER")
-	dbPasswd := os.Getenv("DB_PASSWORD")
-	dbName := os.Getenv("DB_NAME")
-	
-	dbport, err := strconv.Atoi(dbPort)
-	if err != nil {
-		return fmt.Errorf("Can't read dbPort!: %v %v", dbPort, err)
-	}
-
-	twitterToken := os.Getenv("BearerToken")
+	twitterToken := config.GetInstance().GetTwitterBearerToken()
 
 	grpcServer := grpc.NewServer(opts...)
 
@@ -66,21 +55,12 @@ func realMain() error {
 	c, err := container.NewController(10, q, twitterToken)
 	if err != nil {
 		return err
-	}
+	} 
 
-	dbConfig := &db.DBConfig{
-		Host : dbAddr, 
-		Port : dbport, 
-		User : dbUser, 
-		Password : dbPasswd, 
-		Dbname : dbName, 
-		Sslmode : "disable", 
-		// Sslmode : "verify-full", 
-		// Sslrootcert : "keys/ca.crt", 
-		// Sslkey : "keys/client.key", 
-		// Sslsert : "keys/client.crt", 
+	dbConfig, err := db.GetDBConfig()
+	if err != nil {
+		return err
 	}
-
 
 	provisionSrv := provision.NewProvisionServiceServer(c, *dbConfig)
 
@@ -91,46 +71,46 @@ func realMain() error {
 
 	wg.Go(func() error {
 		for {
-			select {
-            case <-time.Tick(1 * time.Second):
-                for (q.Len() > 0) {
-					if (c.GetCurrentAnalyzerCount() < c.GetMaxAnalyzerCount()) {
-						cSpec, ok := q.Dequeue()
-						if ok {
-							// log.Printf("Dequeue %v", cSpec)
-						} else {
-							log.Println("Can't dequeue from queue")
-							continue
+			<-time.After(5*time.Second)
+            for (q.Len() > 0) {
+				if (c.GetCurrentAnalyzerCount() < c.GetMaxAnalyzerCount()) {
+					cSpec, ok := q.Dequeue()
+					if ok {
+						// log.Printf("Dequeue %v", cSpec)
+					} else {
+						log.Println("Can't dequeue from queue")
+						continue
+					}
+
+					if (cSpec.Type == "Scraper") {
+						err, countErr := c.CreateScraperService(cSpec.WorkerId, cSpec.JobId, cSpec.Keyword, dbConfig)
+						if err != nil {
+							log.Println("Can't make scraper in queue ", err)
+							q.Enqueue(cSpec)
+						}
+						if (countErr) {
+							log.Println("Queue is full.. ", err)
+							q.Enqueue(cSpec)
+							time.Sleep(5*time.Second)
+						}
+					} 
+					
+					if (cSpec.Type == "Analyzer") {
+						err, countErr := c.CreateAnalyzerService(cSpec.WorkerId, cSpec.Keyword, dbConfig)
+						if err != nil {
+							log.Println("Can't make analyzer in queue ", err)
+							q.Enqueue(cSpec)
 						}
 
-						if (cSpec.Type == "Scraper") {
-							err, countErr := c.CreateScraperService(cSpec.WorkerId, cSpec.JobId, cSpec.Keyword, dbConfig)
-							if err != nil {
-								log.Println("Can't make scraper in queue %v", err)
-								q.Enqueue(cSpec)
-							}
-
-							if (countErr) {
-								log.Println("Queue is full..? %v", err)
-								q.Enqueue(cSpec)
-							}
-						} 
-
-						if (cSpec.Type == "Analyzer") {
-							err, countErr := c.CreateAnalyzerService(cSpec.WorkerId, cSpec.Keyword, dbConfig)
-							if err != nil {
-								log.Println("Can't make analyzer in queue %v", err)
-								q.Enqueue(cSpec)
-							}
-	
-							if (countErr) {
-								log.Println("Queue is full..? %v", err)
-								q.Enqueue(cSpec)
-							}
+						if (countErr) {
+							log.Println("Container queue is full..", err)
+							q.Enqueue(cSpec)
+							time.Sleep(5*time.Second)
 						}
 					}
 				}
-            }
+			}
+            
 		}
 	})
 

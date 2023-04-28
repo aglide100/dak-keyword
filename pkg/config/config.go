@@ -3,7 +3,6 @@ package config
 import (
 	"io/ioutil"
 	"log"
-	"os"
 
 	"github.com/joho/godotenv"
 )
@@ -14,24 +13,11 @@ type CommonConfig interface {
 
 type Config struct {
 	CommonConfig
-	TwitterGetter
-	FacebookSecret
 }
-
-type TwitterGetter interface {
-	GetTwitterConsumerKey() (string)
-	GetTwitterConsumerSecret() (string)
-	GetTwitterAccessToken() (string)
-	GetTwitterAccessSecret() (string)
-	GetTwitterBearerToken() (string)
-	SaveTwitterSecret() ()
-}
-
-type FacebookSecret interface {}
 
 func LoadEnv(path string) (*Config, error) {
 	// path := ".env"
-	os.Clearenv()
+	// os.Clearenv()
 
 	err := godotenv.Load(path)
 	// log.Printf("Load env file! :%v", path)

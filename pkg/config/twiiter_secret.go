@@ -1,41 +1,72 @@
 package config
 
 import (
+	"fmt"
 	"os"
+	"sync"
 )
 
-var (
+type TwitterSecret struct {
 	ConsumerKey string
 	ConsumerSecret string
 	AccessSecret string
 	AccessToken string
 	BearerToken string
-)
-
-// 옵션? 쿼터량
-func (con *Config) SaveTwitterSecret() {
-	ConsumerKey = os.Getenv("Key")
-	ConsumerSecret = os.Getenv("Key")
-	AccessSecret = os.Getenv("Key")
-	AccessToken = os.Getenv("Key")
+	TwitterGetter
 }
 
-func (con *Config) GetTwitterConsumerKey() (string) {
-	return ConsumerKey
+type TwitterGetter interface {
+	GetTwitterConsumerKey() (string)
+	GetTwitterConsumerSecret() (string)
+	GetTwitterAccessToken() (string)
+	GetTwitterAccessSecret() (string)
+	GetTwitterBearerToken() (string)
+	SaveTwitterSecret() ()
 }
 
-func (con *Config) GetTwitterConsumerSecret() (string) {
-	return ConsumerSecret
+var lock = &sync.Mutex{}
+
+var singleInstance *TwitterSecret
+
+func GetInstance() *TwitterSecret {
+	if singleInstance == nil {
+		lock.Lock()
+		defer lock.Unlock()
+
+		if singleInstance == nil {
+			singleInstance = &TwitterSecret{
+				ConsumerKey : os.Getenv("Key"),
+				ConsumerSecret : os.Getenv("Key"),
+				AccessSecret : os.Getenv("Key"),
+				AccessToken : os.Getenv("Key"),
+				BearerToken : os.Getenv("BearerToken"),
+			}
+
+			fmt.Println("Created single instance")
+		} else {
+			fmt.Println("Single instance is already created")
+		}
+	}
+	
+	return singleInstance
 }
 
-func (con *Config) GetTwitterAccessSecret() (string) {
-	return AccessSecret
+func (getter *TwitterSecret) GetTwitterConsumerKey() (string) {
+	return getter.ConsumerKey
 }
 
-func (con *Config) GetTwitterAccessToken() (string) {
-	return AccessToken
+func (getter *TwitterSecret) GetTwitterConsumerSecret() (string) {
+	return getter.ConsumerSecret
 }
 
-func (con *Config) GetTwitterBearerToken() (string) {
-	return BearerToken
+func (getter *TwitterSecret) GetTwitterAccessSecret() (string) {
+	return getter.AccessSecret
+}
+
+func (getter *TwitterSecret) GetTwitterAccessToken() (string) {
+	return getter.AccessToken
+}
+
+func (getter *TwitterSecret) GetTwitterBearerToken() (string) {
+	return getter.BearerToken
 }
