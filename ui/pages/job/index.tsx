@@ -96,12 +96,12 @@ export default function Job() {
                             onClick={(e) => {
                                 e.preventDefault();
                                 router.push({
-                                    pathname: "/graph",
+                                    pathname: "/analyzer",
                                     query: { jobId: router.query.jobId },
                                 });
                             }}
                         >
-                            Graph
+                            Analyzer
                         </Button>
                     </div>
                     <div className="w-1/4 mr-10">
@@ -133,7 +133,7 @@ export default function Job() {
                                         visible={true}
                                     />
                                     <div className="mt-10 text-white text-2xl flex flex-row">
-                                        Trying to reruning job
+                                        Trying to rerunning job
                                         <div className="writer">
                                             <div className="writer-text">
                                                 ...

@@ -18,6 +18,8 @@ service Manager {
     rpc GetArticleList(GetArticleListReq) returns (GetArticleListRes);
     rpc GetArticleCountByHour(GetArticleCountByHourReq) returns (GetArticleCountByHourRes);
     rpc GetArticleCountByDay(GetArticleCountByDayReq) returns (GetArticleCountByDayRes);
+    rpc GetVocabList(GetVocabListReq) returns (GetVocabListRes);
+    rpc GetSimilarity(GetSimilarityReq) returns (GetSimilarityRes);
     rpc UpdateWorkerStatus(UpdateWorkerStatusReq) returns (UpdateWorkerStatusRes);
     rpc UpdateJobStatus(UpdateJobStatusReq) returns (UpdateJobStatusRes);
     rpc WhenStartScraper(WhenStartScraperReq) returns (WhenStartScraperRes);
@@ -27,6 +29,22 @@ service Manager {
     rpc WhenScraperHavingErr(WhenScraperHavingErrReq) returns (WhenScraperHavingErrRes);
     rpc WhenAnalyzerHavingErr(WhenAnalyzerHavingErrReq) returns (WhenAnalyzerHavingErrRes);
     rpc StopJob(StopJobReq) returns (StopJobRes);
+}
+
+message GetSimilarityReq {
+
+}
+
+message GetSimilarityRes {
+    
+}
+
+message GetVocabListReq {
+
+}
+
+message GetVocabListRes {
+
 }
 
 message GetJobIsReRunReq {

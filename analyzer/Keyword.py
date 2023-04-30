@@ -3,8 +3,8 @@
 # dbname = "keyword"
 # user = "table_admin"
 # password = "HelloWorld"
-# port = "8432"
-# workerId = "test"
+# port = "8888"
+# workerId = ""
 
 import os
 host = os.environ['DB_ADDR']
@@ -16,7 +16,6 @@ workerId = os.environ['WORKER_ID']
 
 import Database
 import psycopg2
-# from hanspell import spell_checker
 from soynlp.normalizer import *
 import Calling
 if __name__ == '__main__':
@@ -31,7 +30,6 @@ if __name__ == '__main__':
 
 
         for index, row in rows.iterrows():
-            # sent = spell_checker.check(row['Content']).checked
             content = row['Preprocessed_content']
             if not content:
                 print("Preporcessed is null")
@@ -39,9 +37,6 @@ if __name__ == '__main__':
 
             text = remove_unnecessary_word(repeat_normalize(content, num_repeats=2))
             score = analyze_word(text)
-            # score = analyze_word(repeat_normalize(row['Preprocessed_content'], num_repeats=2))
-            # score = analyze_word(repeat_normalize(row['Content'], num_repeats=2))
-            # score = analyze_word(repeat_normalize(sent, num_repeats=2))
 
             if score is not None:
                 try:

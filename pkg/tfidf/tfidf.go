@@ -1,7 +1,6 @@
 package tfidf
 
 import (
-	"log"
 	"math"
 	"sort"
 	"strings"
@@ -48,12 +47,11 @@ func cosineSimilarity(vec1 []float64, vec2 []float64) float64 {
     return dotProduct / (vec1Size * vec2Size)
 }
 
-func CalcTfIdf(documents []string) [][]float64 {
+func CalcTfIdf(documents []string) ([]string, [][]float64) {
 	vocab := make(map[string]bool)
 	for _, doc := range documents {
 		words := strings.Split(doc, " ")
 		for _, word := range words {
-			log.Println(word)
 			vocab[word] = true
 		}
 	}
@@ -90,5 +88,5 @@ func CalcTfIdf(documents []string) [][]float64 {
 		}
 	}
 
-	return similarityList
+	return vocabList, similarityList
 }
