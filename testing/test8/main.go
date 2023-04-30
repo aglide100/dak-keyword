@@ -29,7 +29,7 @@ func main() {
 		// "Donec sed tempor dolor, a fringilla turpis",
 	}
 
-	result := tfidf.CalcTfIdf(documents)
+	_, result := tfidf.CalcTfIdf(documents)
 
 	for i, _ := range result {
 		max, index := 0.0, 0

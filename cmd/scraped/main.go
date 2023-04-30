@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strconv"
 
 	"github.com/aglide100/dak-keyword/pkg/db"
 	"github.com/aglide100/dak-keyword/pkg/scraper"
@@ -27,33 +26,17 @@ func realMain() error {
 		// }
 	// config.SaveTwitterSecret()
 
-	dbAddr := os.Getenv("DB_ADDR")
-	dbPort := os.Getenv("DB_PORT")
-	dbUser := os.Getenv("DB_USER")
-	dbPasswd := os.Getenv("DB_PASSWORD")
-	dbName := os.Getenv("DB_NAME")
+	dbConfig, err := db.GetDBConfig()
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+
 	workerId := os.Getenv("WORKER_ID")
 	// jobId := os.Getenv("JOB_ID")
 
-	dbport, err := strconv.Atoi(dbPort)
-	if err != nil {
-		fmt.Errorf("Can't read dbPort!: %v %v", dbPort, err)
-		dbport = 8432
-	}
-	log.Printf("%v", dbName)
 	
-	myDB, err := db.ConnectDB(&db.DBConfig{
-		Host : dbAddr, 
-		Port : dbport, 
-		User : dbUser, 
-		Password : dbPasswd, 
-		Dbname : dbName, 
-		Sslmode : "disable", 
-		// Sslmode : "verify-full", 
-		// Sslrootcert : "keys/ca.crt", 
-		// Sslkey : "keys/client.key", 
-		// Sslsert : "keys/client.crt", 
-	})
+	myDB, err := db.ConnectDB(dbConfig)
 	if err != nil {
 		return fmt.Errorf("Can't connect DB: %v", err)
 	}
