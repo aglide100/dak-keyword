@@ -40,9 +40,11 @@ func realMain() error {
 
 	documents := make([]string, len(res))
 
-	vocabList, similarityList := tfidf.CalcTfIdf(documents)
+	vocabList, tfidf, similarityList := tfidf.CalcTfIdf(documents)
 
 	log.Println(vocabList)
+	
+	log.Println(tfidf)
 
 	log.Println(similarityList)
 

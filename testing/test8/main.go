@@ -3,20 +3,19 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 
-	"github.com/aglide100/dak-keyword/pkg/keyword"
+	"github.com/aglide100/dak-keyword/pkg/config"
 	"github.com/aglide100/dak-keyword/pkg/tfidf"
 )
 
-func main() {
-	res, err := keyword.GetKeyWordSetFromDaum("일론머스크")
-	if err != nil {
-		log.Println("err :%v", err)
-	}
+func test() string {
+	return os.Getenv("Hello")
+}
 
-	for i, val := range res {
-		log.Println("i :%v, val : %v", i, val)
-	}
+func main() {
+	log.Printf(config.GetInstance().GetTwitterAccessSecret())
+	
 	documents := []string{
 		"2개월 이상 월세 연체 시 임대인은 임대차 계약을 해지할 수 있다.",
 		"월세를 두번 이상 연체하면 방을 빼셔야 합니다.",
@@ -28,19 +27,28 @@ func main() {
 		// "Maecenas venenatis leo vel tempor semper", 
 		// "Donec sed tempor dolor, a fringilla turpis",
 	}
+	vocabList, tfidfscore, similarityList := tfidf.CalcTfIdf(documents)
 
-	_, result := tfidf.CalcTfIdf(documents)
+	for _, word := range vocabList {
+		log.Println(word)
+	}
+	
+	for i := range documents {
+		fmt.Printf("Document %d:\n", i+1)
+		fmt.Printf("%v:\n", documents[i])
 
-	for i, _ := range result {
-		max, index := 0.0, 0
-	    for k, score := range result[i] {
-			if i != k {
-				if score > max {
-					max = score
-					index = k
-				}
+		for j, word := range vocabList {
+			score := tfidfscore[i][j]
+			if score > 0 {
+				fmt.Printf("\t%s: %.4f\n", word, score)
 			}
-	    }
-		fmt.Printf("%v // %v: %f\n", documents[i], documents[index], result[i][index])
+		}
+		fmt.Println()
+	}
+
+	for i := 0; i < len(documents); i++ {
+		for j := i + 1; j < len(documents); j++ {
+			fmt.Printf("Cosine similarity between document %d and document %d: %f\n", i+1, j+1, similarityList[i][j])
+		}
 	}
 }
