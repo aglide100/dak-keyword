@@ -47,7 +47,7 @@ func cosineSimilarity(vec1 []float64, vec2 []float64) float64 {
     return dotProduct / (vec1Size * vec2Size)
 }
 
-func CalcTfIdf(documents []string) ([]string, [][]float64) {
+func CalcTfIdf(documents []string) ([]string, [][]float64, [][]float64) {
 	vocab := make(map[string]bool)
 	for _, doc := range documents {
 		words := strings.Split(doc, " ")
@@ -88,5 +88,5 @@ func CalcTfIdf(documents []string) ([]string, [][]float64) {
 		}
 	}
 
-	return vocabList, similarityList
+	return vocabList, tfIdfScores, similarityList
 }

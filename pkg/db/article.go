@@ -10,10 +10,10 @@ import (
 func (db *Database) RemoveDuplicateArticle(jobID string) error {
 	const q =`
 	DELETE FROM article
-	WHERE "Id" IN (
-    SELECT "Id"
+	WHERE "Article_id" IN (
+    SELECT "Article_id"
     FROM (
-        SELECT "Id", row_number() over (PARTITION BY regexp_replace("Content", 'http\S+'
+        SELECT "Article_id", row_number() over (PARTITION BY regexp_replace("Content", 'http\S+'
     , '', 'g')) AS A FROM article WHERE "Job_id" = $1 ) B WHERE A > 1)
 	`
 
@@ -73,7 +73,7 @@ func (db *Database) WriteTweetToArticle(tweet models.TweetArticle) error {
 
 func (db *Database) GetArticlesByJobID(jobID string) ([]*models.Article, error) {
 	const q = `
-	SELECT "Id", "Author", "Keyword", "Content", "Platform", "Score_happy", "Score_fear", "Score_embarrassed", "Score_sad", "Score_rage", "Score_hurt", "Score_max_value", "Score_max_name", "Create_at", "Job_id", "Worker_id"
+	SELECT "Article_id", "Author", "Keyword", "Content", "Platform", "Score_happy", "Score_fear", "Score_embarrassed", "Score_sad", "Score_rage", "Score_hurt", "Score_max_value", "Score_max_name", "Create_at", "Job_id", "Worker_id"
 	FROM article
 	WHERE "Job_id" = $1
 	AND article."Score_max_value" is not null
@@ -158,7 +158,7 @@ func (db *Database) GetArticlesByJobID(jobID string) ([]*models.Article, error) 
 
 func (db *Database) GetArticlesByWorkerID(workerID string) ([]*models.Article, error) {
 	const q = `
-	SELECT "Id", "Author", "Keyword", "Content", "Platform", "Score_happy", "Score_fear", "Score_embarrassed", "Score_sad", "Score_rage", "Score_hurt", "Score_max_value", "Score_max_name", "Create_at", "Job_id", "Worker_id"
+	SELECT "Article_id", "Author", "Keyword", "Content", "Platform", "Score_happy", "Score_fear", "Score_embarrassed", "Score_sad", "Score_rage", "Score_hurt", "Score_max_value", "Score_max_name", "Create_at", "Job_id", "Worker_id"
 	FROM article
 	WHERE "Worker_id" = $1
 	`

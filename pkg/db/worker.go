@@ -99,7 +99,7 @@ func (db *Database) DeleteWorker(workerId string) error {
 	const q =`
 	DELETE 
 	FROM worker
-	WHERE "Id" = $1
+	WHERE "Worker_id" = $1
 	`
 
 	_, err := db.Conn.Exec(q, workerId)

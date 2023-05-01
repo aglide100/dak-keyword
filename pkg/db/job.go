@@ -11,7 +11,7 @@ import (
 func (db *Database) AddNewJob(jobId string, keyword string, owner string) error {
 	const q =`
 	INSERT INTO job (
-		"Id", "Status", "Keyword", "Owner", "Date"
+		"Job_id", "Status", "Keyword", "Owner", "Date"
 	) VALUES ($1, $2, $3, $4, now())`
 
 	_, err := db.Conn.Exec(q,
@@ -31,8 +31,8 @@ func (db *Database) AddNewJob(jobId string, keyword string, owner string) error 
 func (db *Database) GetJob(jobId string) (*models.Job, error) {
 	const q =`
 	SELECT 
-	"Id", "Status", "Keyword", "Owner", "Date" FROM job 
-	WHERE "Id" = $1`
+	"Job_id", "Status", "Keyword", "Owner", "Date" FROM job 
+	WHERE "Job_id" = $1`
 
 	job := new(models.Job)
 
@@ -57,7 +57,7 @@ func (db *Database) GetJob(jobId string) (*models.Job, error) {
 func (db *Database) GetAllJob() ([]*models.Job, error) {
 	const q = `
 	SELECT 
-		"Id", "Status", "Keyword", "Owner", "Date"
+		"Job_id", "Status", "Keyword", "Owner", "Date"
 	FROM job`
 
 	var (
@@ -100,7 +100,7 @@ func (db *Database) UpdateScheduleJob(id string, isSchedule bool) error {
 	UPDATE job 
 	SET 
 		"AutoReRun" = $1
-	WHERE "Id" = $2
+	WHERE "Job_id" = $2
 	`
 	
 	_, err := db.Conn.Exec(q,
@@ -120,7 +120,7 @@ func (db *Database) UpdateJob(id string, status string) error {
 	UPDATE job 
 	SET 
 		"Status" = $1
-	WHERE "Id" = $2
+	WHERE "Job_id" = $2
 	`
 	
 	_, err := db.Conn.Exec(q,
@@ -139,7 +139,7 @@ func (db *Database) DeleteJob(id string) error {
 	const q =`
 	DELETE 
 	FROM job
-	WHERE "Id" = $1
+	WHERE "Job_id" = $1
 	`
 
 	_, err := db.Conn.Exec(q, id)
@@ -154,7 +154,7 @@ func (db *Database) DeleteJob(id string) error {
 func (db *Database) GetJobIsReRun(id string) (bool, error) {
 	const q =`
 	SELECT job."AutoReRun" FROM job
-	WHERE "Id" = $1
+	WHERE "Job_id" = $1
 	`	
 
 	var (
@@ -172,7 +172,7 @@ func (db *Database) GetJobIsReRun(id string) (bool, error) {
 
 func (db *Database) GetAllReRunJob() ([]string, error) {
 	const q = `
-	SELECT ("Id") FROM job
+	SELECT ("Job_id") FROM job
 	WHERE "AutoReRun" = true;`
 
 	var (

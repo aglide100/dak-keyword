@@ -57,7 +57,7 @@ class CRUD(Databases):
         " WHERE "
         " \"Worker_id\""
         " = '{workerId}' AND " 
-        " \"Id\""
+        " \"Article_id\""
         " = '{articleId}'"
         ).format(Text = text, workerId = workerId, articleId = articleId)
         
@@ -105,7 +105,7 @@ class CRUD(Databases):
         " \"Preprocessed_content\" "
         " = '{Preprocessed_content}'"
         " WHERE "
-        " \"Id\""
+        " \"Article_id\""
         " = '{articleId}'"
         ).format(Preprocessed_content = Preprocessed_content, articleId = articleId)
         
@@ -139,7 +139,7 @@ class CRUD(Databases):
         " WHERE "
         " \"Worker_id\""
         " = '{workerId}' AND " 
-        " \"Id\""
+        " \"Article_id\""
         " = '{articleId}'"
         ).format(Score_happy = Score_happy, Score_fear = Score_fear,  Score_embarrassed = Score_embarrassed, Score_sad = Score_sad, Score_rage = Score_rage, Score_hurt = Score_hurt, Score_max_value = Score_max_value, Score_max_name = Score_max_name, Preprocessed_content = Preprocessed_content, workerId = workerId, articleId = articleId)
         

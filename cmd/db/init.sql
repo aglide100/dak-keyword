@@ -1,6 +1,6 @@
-create table public.job
+create table if not exists public.job
 (
-    "Id"        varchar not null
+    "Job_id"    varchar not null
         constraint job_pk
             primary key,
     "Status"    varchar,
@@ -13,10 +13,10 @@ create table public.job
 alter table public.job
     owner to table_admin;
 
-create unique index job_id_uindex
-    on public.job ("Id");
+create unique index if not exists job_id_uindex
+    on public.job ("Job_id");
 
-create table public.worker
+create table if not exists public.worker
 (
     "Worker_id" varchar not null
         constraint worker_pk
@@ -33,15 +33,16 @@ create table public.worker
 alter table public.worker
     owner to table_admin;
 
-create unique index worker_id_uindex
+create unique index if not exists worker_id_uindex
     on public.worker ("Worker_id");
 
-create table public.article
+create table if not exists public.article
 (
-    "Id"                   serial
+    "Article_id"           integer default nextval('"article_Id_seq"'::regclass) not null
         constraint article_pk
             primary key
-        unique,
+        constraint "article_Id_key"
+            unique,
     "Author"               varchar,
     "Keyword"              varchar,
     "Content"              varchar,
@@ -70,52 +71,66 @@ create table public.article
 alter table public.article
     owner to table_admin;
 
-create unique index article_id_uindex
-    on public.article ("Id");
+create unique index if not exists article_id_uindex
+    on public.article ("Article_id");
 
-create table public.cosine_similarity
+create table if not exists public.cosine_similarity
 (
-    id      integer default nextval('tfidf_id_seq'::regclass) not null
+    id        integer default nextval('tfidf_id_seq'::regclass) not null
         constraint tfidf_pkey
             primary key,
-    doc1_id integer                                           not null
+    "Doc1_id" integer                                           not null
         constraint doc1_id
             references public.article
             on update cascade on delete cascade,
-    doc2_id integer
+    "Doc2_id" integer
         constraint doc2_id
             references public.article
             on update cascade on delete cascade,
-    score   double precision                                  not null,
-    date    date                                              not null
+    "Score"   double precision                                  not null,
+    "Date"    date                                              not null
 );
 
 alter table public.cosine_similarity
     owner to table_admin;
 
-create table public.word
+create table if not exists public.vocab_list
 (
-    id   serial
-        primary key,
-    text character varying[] not null
-        unique,
-    date date
+    id           integer default nextval('word_id_seq'::regclass) not null
+        constraint word_pkey
+            primary key,
+    "Words"      character varying[]                              not null
+        constraint word_text_key
+            unique,
+    "Date"       date,
+    "Article_id" integer
+        constraint article_id
+            references public.article
+            on update cascade on delete cascade
 );
 
-alter table public.word
+alter table public.vocab_list
     owner to table_admin;
 
-create table public.tfidf
+create table if not exists public.tfidf
 (
-    word_id   serial
-        constraint word_id
-            references public.word
-            on update cascade on delete cascade,
-    values    double precision[] not null,
-    date      date,
-    worker_id varchar
+    "Score"      double precision[]                                 not null,
+    "Date"       date,
+    "Worker_id"  varchar
         constraint worker_id
             references public.worker
+            on update cascade on delete cascade,
+    "Article_id" integer                                            not null
+        constraint article_id
+            references public.article
+            on update cascade on delete cascade,
+    id           integer default nextval('tfidf_id_seq1'::regclass) not null
+        constraint tfidf_pkey1
+            primary key
+        unique,
+    "Word_id"    integer
+        constraint word_id
+            references public.vocab_list
             on update cascade on delete cascade
 );
 
