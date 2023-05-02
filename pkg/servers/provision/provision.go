@@ -32,6 +32,7 @@ func (s *ProvisionSrv) CreateScraper(ctx context.Context, in *pb_svc_provision.C
 		log.Printf("Can't create new scraper : %v", err)
 		return nil, err
 	}
+	log.Printf("Should be create new scraper, %v", in.String())
 
 	if countErr {
 		// log.Println("Add queue")
