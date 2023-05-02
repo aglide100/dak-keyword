@@ -10,6 +10,13 @@ import (
 
 var validate *validator.Validate
 
+type SimplifiedArticle struct {
+	Id string `validate:"required"`
+	Worker_id string
+	Job_id string
+	Preprocessed_content string `validate:"required"`
+}
+
 type Article struct {
 	Id string 					`validate:"required"`
 	Author string				`validate:"required"`

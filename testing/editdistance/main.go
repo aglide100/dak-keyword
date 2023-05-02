@@ -5,11 +5,12 @@ import (
 	"log"
 
 	"github.com/aglide100/dak-keyword/pkg/db"
+	"github.com/aglide100/dak-keyword/pkg/models"
 )
 
 func main() {
 	config := &db.DBConfig{
-		Host : "192.168.0.28", 
+		Host : "192.168.0.26", 
 		Port : 8888, 
 		User : "table_admin", 
 		Password : "HelloWorld", 
@@ -33,28 +34,28 @@ func main() {
 
 	log.Println(len(res))
 
-	// var minDistance int = -1
-    // var minPair [2]*models.Article
+	var minDistance int = -1
+    var minPair [2]*models.Article
 
-    // for i, a1 := range res {
-    //     for j, a2 := range res {
-    //         if i >= j {
-    //             continue
-    //         }
-    //         distance := editDistance(a1.Content, a2.Content)
-    //         if minDistance == -1 || distance < minDistance {
-    //             minDistance = distance
-    //             minPair = [2]*models.Article{a1, a2}
-    //         }
-    //     }
-    // }
+    for i, a1 := range res {
+        for j, a2 := range res {
+            if i >= j {
+                continue
+            }
+            distance := editDistance(a1.Content, a2.Content)
+            if minDistance == -1 || distance < minDistance {
+                minDistance = distance
+                minPair = [2]*models.Article{a1, a2}
+            }
+        }
+    }
 
-    // if minDistance == -1 {
-    //     fmt.Println("No pairs found")
-    // } else {
-    //     fmt.Printf("Min distance: %d\n", minDistance)
-    //     fmt.Printf("Min pair: %v / %v\n", minPair[0].Content, minPair[1].Content)
-    // }
+    if minDistance == -1 {
+        fmt.Println("No pairs found")
+    } else {
+        fmt.Printf("Min distance: %d\n", minDistance)
+        fmt.Printf("Min pair: %v / %v\n", minPair[0].Content, minPair[1].Content)
+    }
 
     result := editDistance("abcd하", "abc")
     fmt.Println(result)

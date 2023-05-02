@@ -2,6 +2,7 @@ package manager
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"time"
 
@@ -29,32 +30,45 @@ func CallMakeScraper(workerId string, jobId string, keyword string, token string
 		Token: token,
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
 	defer cancel()
 	
 	err = nil
 	count := 0
+	
 	for {
-		if count == maxRetry {
-			break;
-		}
-		_, err = client.CreateScraper(ctx, in)
-		if err != nil {
-			log.Println("Can't make scraper, ", err)
-			log.Println("retrying... ", count)
-			count++
-			continue
-		}
-		break;
-	}
+        if count == maxRetry {
+            return fmt.Errorf("failed to create scraper after %d retries", maxRetry)
+        }
 
-	if err != nil {
-		log.Printf("err in CallMakeScraper %v", err)
-		return err
-	}
+        select {
+        case <-ctx.Done():
+            // Context에서 에러가 발생한 경우
+            if ctx.Err() == context.DeadlineExceeded {
+                log.Printf("failed to create scraper: context deadline exceeded, retrying... (%d/%d)", count+1, maxRetry)
+            } else {
+                log.Printf("failed to create scraper: %v", ctx.Err())
+                return ctx.Err()
+            }
+        default:
+            _, err = client.CreateScraper(ctx, in)
+            if err != nil {
+                log.Printf("failed to create scraper: %v, retrying... (%d/%d)", err, count+1, maxRetry)
+                count++
+                continue
+            }
+            return nil
+        }
+    }
+
+
+	// if err != nil {
+	// 	log.Printf("err in CallMakeScraper %v", err)
+	// 	return err
+	// }
 	// log.Printf("Received msg from Make Scraper %v", res)
 
-	return nil
+	// return nil
 }
 
 func CallRemoveScraper(id string) (error) {

@@ -156,6 +156,51 @@ func (db *Database) GetArticlesByJobID(jobID string) ([]*models.Article, error) 
 	return articles, nil
 }
 
+func (db Database) GetPreprocessedTextByWorkerID(workerID string) ([]*models.SimplifiedArticle, error) {
+	const q = `
+	SELECT "Article_id", "Job_id", "Preprocessed_content"
+	FROM article
+	WHERE "Worker_id" = $1
+	`
+	
+	rows, err := db.Conn.Query(q, workerID)
+	if err != nil {
+		return nil, err 
+	}
+
+	var ( 
+		Id string
+		Worker_id string
+		Job_id string
+		Preprocessed_content string
+	)
+	var articles []*models.SimplifiedArticle
+
+	for rows.Next() {
+		err := rows.Scan(
+			&Id, 
+			&Worker_id, 
+			&Job_id, 
+			&Preprocessed_content,
+		)
+		if err != nil {
+			return nil, err
+		}
+
+		article := &models.SimplifiedArticle{
+			Id: Id,
+			Worker_id: workerID,
+			Job_id: Job_id,
+			Preprocessed_content: Preprocessed_content,
+		}
+		
+		articles = append(articles, article)
+	}
+
+	return articles, nil
+	
+}
+
 func (db *Database) GetArticlesByWorkerID(workerID string) ([]*models.Article, error) {
 	const q = `
 	SELECT "Article_id", "Author", "Keyword", "Content", "Platform", "Score_happy", "Score_fear", "Score_embarrassed", "Score_sad", "Score_rage", "Score_hurt", "Score_max_value", "Score_max_name", "Create_at", "Job_id", "Worker_id"
