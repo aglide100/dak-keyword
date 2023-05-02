@@ -695,6 +695,128 @@ proto.pb.svc.manager.ManagerPromiseClient.prototype.getArticleCountByDay =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
+ *   !proto.pb.svc.manager.GetVocabListReq,
+ *   !proto.pb.svc.manager.GetVocabListRes>}
+ */
+const methodDescriptor_Manager_GetVocabList = new grpc.web.MethodDescriptor(
+  '/pb.svc.manager.Manager/GetVocabList',
+  grpc.web.MethodType.UNARY,
+  proto.pb.svc.manager.GetVocabListReq,
+  proto.pb.svc.manager.GetVocabListRes,
+  /**
+   * @param {!proto.pb.svc.manager.GetVocabListReq} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.pb.svc.manager.GetVocabListRes.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.pb.svc.manager.GetVocabListReq} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.pb.svc.manager.GetVocabListRes)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.pb.svc.manager.GetVocabListRes>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.pb.svc.manager.ManagerClient.prototype.getVocabList =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/pb.svc.manager.Manager/GetVocabList',
+      request,
+      metadata || {},
+      methodDescriptor_Manager_GetVocabList,
+      callback);
+};
+
+
+/**
+ * @param {!proto.pb.svc.manager.GetVocabListReq} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.pb.svc.manager.GetVocabListRes>}
+ *     Promise that resolves to the response
+ */
+proto.pb.svc.manager.ManagerPromiseClient.prototype.getVocabList =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/pb.svc.manager.Manager/GetVocabList',
+      request,
+      metadata || {},
+      methodDescriptor_Manager_GetVocabList);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.pb.svc.manager.GetSimilarityReq,
+ *   !proto.pb.svc.manager.GetSimilarityRes>}
+ */
+const methodDescriptor_Manager_GetSimilarity = new grpc.web.MethodDescriptor(
+  '/pb.svc.manager.Manager/GetSimilarity',
+  grpc.web.MethodType.UNARY,
+  proto.pb.svc.manager.GetSimilarityReq,
+  proto.pb.svc.manager.GetSimilarityRes,
+  /**
+   * @param {!proto.pb.svc.manager.GetSimilarityReq} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.pb.svc.manager.GetSimilarityRes.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.pb.svc.manager.GetSimilarityReq} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.pb.svc.manager.GetSimilarityRes)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.pb.svc.manager.GetSimilarityRes>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.pb.svc.manager.ManagerClient.prototype.getSimilarity =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/pb.svc.manager.Manager/GetSimilarity',
+      request,
+      metadata || {},
+      methodDescriptor_Manager_GetSimilarity,
+      callback);
+};
+
+
+/**
+ * @param {!proto.pb.svc.manager.GetSimilarityReq} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.pb.svc.manager.GetSimilarityRes>}
+ *     Promise that resolves to the response
+ */
+proto.pb.svc.manager.ManagerPromiseClient.prototype.getSimilarity =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/pb.svc.manager.Manager/GetSimilarity',
+      request,
+      metadata || {},
+      methodDescriptor_Manager_GetSimilarity);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
  *   !proto.pb.svc.manager.UpdateWorkerStatusReq,
  *   !proto.pb.svc.manager.UpdateWorkerStatusRes>}
  */

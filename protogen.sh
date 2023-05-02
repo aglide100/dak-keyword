@@ -1,13 +1,6 @@
 #!/bin/bash
 
-# protoc -I=. --go_out=plugins=grpc:../../.. pb/unit/job/*.proto
-protoc --go_out=../../.. --go-grpc_out=../../.. pb/unit/job/*.proto
-
-# protoc -I=. --go_out=plugins=grpc:../../.. pb/unit/worker/*.proto
-protoc --go_out=../../.. --go-grpc_out=../../.. pb/unit/worker/*.proto
-
-# protoc -I=. --go_out=plugins=grpc:../../.. pb/unit/article/*.proto
-protoc --go_out=../../.. --go-grpc_out=../../.. pb/unit/article/*.proto
+protoc --go_out=../../.. --go-grpc_out=../../.. pb/unit/**/*.proto
 
 # protoc -I=. --go_out=plugins=grpc:../../.. pb/svc/analyzer/*.proto
 protoc --go_out=../../.. --go-grpc_out=../../.. pb/svc/analyzer/*.proto
@@ -17,7 +10,6 @@ protoc --go_out=../../.. --go-grpc_out=../../.. pb/svc/manager/*.proto
 
 # protoc -I=. --go_out=plugins=grpc:../../.. pb/svc/provision/*.proto
 protoc --go_out=../../.. --go-grpc_out=../../.. pb/svc/provision/*.proto
-
 
  protoc \
  --plugin="protoc-gen-ts=./ui/node_modules/.bin/protoc-gen-ts" \

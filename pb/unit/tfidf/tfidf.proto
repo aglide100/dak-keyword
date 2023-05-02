@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package pb.unit.tfidf;
+option go_package = "github.com/aglide100/dak-keyword/pb/unit/tfidf";
+
+message Tfidf {
+     
+}

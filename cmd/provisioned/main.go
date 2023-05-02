@@ -73,7 +73,7 @@ func realMain() error {
 		for {
 			<-time.After(5*time.Second)
             for (q.Len() > 0) {
-				if (c.GetCurrentAnalyzerCount() < c.GetMaxAnalyzerCount()) {
+				if (c.GetCurrentContainerCount() < c.GetLimitContainerCount()) {
 					cSpec, ok := q.Dequeue()
 					if ok {
 						// log.Printf("Dequeue %v", cSpec)

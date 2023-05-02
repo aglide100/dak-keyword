@@ -14,7 +14,7 @@ func RemoveSimilar(arr []models.TweetArticle, threshold float64) []models.TweetA
 	for i := range distances {
 		distances[i] = make([]float64, len(arr))
 		for j := range distances[i] {
-			distances[i][j] = Levenshtein(arr[i].PreprocessedText, arr[j].PreprocessedText, nil, false)
+			distances[i][j] = levenshtein(arr[i].PreprocessedText, arr[j].PreprocessedText, nil, false)
 		}
 	}
 	deleted := make([]bool, len(arr))
@@ -50,7 +50,7 @@ func RemoveSimilar(arr []models.TweetArticle, threshold float64) []models.TweetA
 
 const minLengthThreshold = 32
 
-func Levenshtein(a string, b string, cost map[[2]string]int, debug bool) float64 {
+func levenshtein(a string, b string, cost map[[2]string]int, debug bool) float64 {
 	if len(a) == 0 {
 		return float64(utf8.RuneCountInString(b))
 	}

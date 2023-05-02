@@ -94,6 +94,24 @@ type ManagerGetArticleCountByDay = {
   readonly responseType: typeof pb_svc_manager_manager_pb.GetArticleCountByDayRes;
 };
 
+type ManagerGetVocabList = {
+  readonly methodName: string;
+  readonly service: typeof Manager;
+  readonly requestStream: false;
+  readonly responseStream: false;
+  readonly requestType: typeof pb_svc_manager_manager_pb.GetVocabListReq;
+  readonly responseType: typeof pb_svc_manager_manager_pb.GetVocabListRes;
+};
+
+type ManagerGetSimilarity = {
+  readonly methodName: string;
+  readonly service: typeof Manager;
+  readonly requestStream: false;
+  readonly responseStream: false;
+  readonly requestType: typeof pb_svc_manager_manager_pb.GetSimilarityReq;
+  readonly responseType: typeof pb_svc_manager_manager_pb.GetSimilarityRes;
+};
+
 type ManagerUpdateWorkerStatus = {
   readonly methodName: string;
   readonly service: typeof Manager;
@@ -187,6 +205,8 @@ export class Manager {
   static readonly GetArticleList: ManagerGetArticleList;
   static readonly GetArticleCountByHour: ManagerGetArticleCountByHour;
   static readonly GetArticleCountByDay: ManagerGetArticleCountByDay;
+  static readonly GetVocabList: ManagerGetVocabList;
+  static readonly GetSimilarity: ManagerGetSimilarity;
   static readonly UpdateWorkerStatus: ManagerUpdateWorkerStatus;
   static readonly UpdateJobStatus: ManagerUpdateJobStatus;
   static readonly WhenStartScraper: ManagerWhenStartScraper;
@@ -319,6 +339,24 @@ export class ManagerClient {
   getArticleCountByDay(
     requestMessage: pb_svc_manager_manager_pb.GetArticleCountByDayReq,
     callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.GetArticleCountByDayRes|null) => void
+  ): UnaryResponse;
+  getVocabList(
+    requestMessage: pb_svc_manager_manager_pb.GetVocabListReq,
+    metadata: grpc.Metadata,
+    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.GetVocabListRes|null) => void
+  ): UnaryResponse;
+  getVocabList(
+    requestMessage: pb_svc_manager_manager_pb.GetVocabListReq,
+    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.GetVocabListRes|null) => void
+  ): UnaryResponse;
+  getSimilarity(
+    requestMessage: pb_svc_manager_manager_pb.GetSimilarityReq,
+    metadata: grpc.Metadata,
+    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.GetSimilarityRes|null) => void
+  ): UnaryResponse;
+  getSimilarity(
+    requestMessage: pb_svc_manager_manager_pb.GetSimilarityReq,
+    callback: (error: ServiceError|null, responseMessage: pb_svc_manager_manager_pb.GetSimilarityRes|null) => void
   ): UnaryResponse;
   updateWorkerStatus(
     requestMessage: pb_svc_manager_manager_pb.UpdateWorkerStatusReq,

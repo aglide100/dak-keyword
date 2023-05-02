@@ -26,7 +26,7 @@ class CRUD(Databases):
             self.cursor.execute(sql)
             self.db.commit()
         except Exception as e :
-            print(" insert DB err ",e) 
+            print("insert DB err ",e) 
     
     def readDB(self, schema, table, colum):
         sql = "SELECT {colum} FROM {schema}.{table}".format(colum=colum, schema=schema, table=table)
@@ -89,7 +89,7 @@ class CRUD(Databases):
         " WHERE "
         " \"Worker_id\""
         " = '{workerId}' AND " 
-        " \"Id\""
+        " \"Article_id\""
         " = '{articleId}'"
         ).format(Score_happy = Score_happy, Score_fear = Score_fear,  Score_embarrassed = Score_embarrassed, Score_sad = Score_sad, Score_rage = Score_rage, Score_hurt = Score_hurt, Score_max_value = Score_max_value, Score_max_name = Score_max_name, workerId = workerId, articleId = articleId)
         

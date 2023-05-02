@@ -78,6 +78,20 @@ export class ManagerClient {
                response: pb_svc_manager_manager_pb.GetArticleCountByDayRes) => void
   ): grpcWeb.ClientReadableStream<pb_svc_manager_manager_pb.GetArticleCountByDayRes>;
 
+  getVocabList(
+    request: pb_svc_manager_manager_pb.GetVocabListReq,
+    metadata: grpcWeb.Metadata | undefined,
+    callback: (err: grpcWeb.RpcError,
+               response: pb_svc_manager_manager_pb.GetVocabListRes) => void
+  ): grpcWeb.ClientReadableStream<pb_svc_manager_manager_pb.GetVocabListRes>;
+
+  getSimilarity(
+    request: pb_svc_manager_manager_pb.GetSimilarityReq,
+    metadata: grpcWeb.Metadata | undefined,
+    callback: (err: grpcWeb.RpcError,
+               response: pb_svc_manager_manager_pb.GetSimilarityRes) => void
+  ): grpcWeb.ClientReadableStream<pb_svc_manager_manager_pb.GetSimilarityRes>;
+
   updateWorkerStatus(
     request: pb_svc_manager_manager_pb.UpdateWorkerStatusReq,
     metadata: grpcWeb.Metadata | undefined,
@@ -197,6 +211,16 @@ export class ManagerPromiseClient {
     request: pb_svc_manager_manager_pb.GetArticleCountByDayReq,
     metadata?: grpcWeb.Metadata
   ): Promise<pb_svc_manager_manager_pb.GetArticleCountByDayRes>;
+
+  getVocabList(
+    request: pb_svc_manager_manager_pb.GetVocabListReq,
+    metadata?: grpcWeb.Metadata
+  ): Promise<pb_svc_manager_manager_pb.GetVocabListRes>;
+
+  getSimilarity(
+    request: pb_svc_manager_manager_pb.GetSimilarityReq,
+    metadata?: grpcWeb.Metadata
+  ): Promise<pb_svc_manager_manager_pb.GetSimilarityRes>;
 
   updateWorkerStatus(
     request: pb_svc_manager_manager_pb.UpdateWorkerStatusReq,

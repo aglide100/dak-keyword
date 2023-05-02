@@ -20,7 +20,7 @@ func (c *Controller) CreateAnalyzerService(workerId string, keyword string, dbCo
 	
 	max := uint64(1)
 
-	if c.analyzerCount >= c.analyzerMaxCount {
+	if c.GetCurrentContainerCount() >= c.containerMaximum {
 		log.Println("Too many container to create analyzer container")
 		c.cQueue.Enqueue(&ContainerSpec{
 			WorkerId: workerId,
@@ -85,8 +85,7 @@ func (c *Controller) CreateAnalyzerService(workerId string, keyword string, dbCo
 		return err, false
 	}
 
-	c.analyzerCount++
-	// fmt.Println("crate analyzer",reader.ID, c.analyzerCount)
+	c.IncreaseCurrentContainerCount()
 	
 	return nil, false
 }
@@ -99,16 +98,8 @@ func (c *Controller) RemoveAnalyzer(id string) (error) {
 		return err
 	}
 
-	c.analyzerCount--
+	c.DecreaseCurrentContainerCount()
 
 	return nil
 
-}
-
-func (c *Controller) GetCurrentAnalyzerCount() int {
-	return c.analyzerCount
-}
-
-func (c *Controller) GetMaxAnalyzerCount() int {
-	return c.analyzerMaxCount
 }
