@@ -1,6 +1,5 @@
 .node_modules
 .history
-.DS_store
 vendor/
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
