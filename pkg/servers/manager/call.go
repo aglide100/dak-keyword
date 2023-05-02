@@ -2,25 +2,28 @@ package manager
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"time"
 
 	pb_svc_provision "github.com/aglide100/dak-keyword/pb/svc/provision"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
 )
 
 const maxRetry = 5
 
 func CallMakeScraper(workerId string, jobId string, keyword string, token string) (error) {
-	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
-	
+	// conn, err := Dial()
+	conn, err := retryDial()
+
 	if err != nil {
 		log.Printf("can't connect grpc server : %v", err)
 	}
-	defer conn.Close()
-	
+
+	defer func() {
+		if e := conn.Close(); e != nil {
+			log.Printf("failed to close connection: %s", e)
+		}
+	}()
+
 	client := pb_svc_provision.NewProvisionClient(conn)
 
 	in := &pb_svc_provision.CreateScraperReq{
@@ -33,35 +36,15 @@ func CallMakeScraper(workerId string, jobId string, keyword string, token string
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
 	defer cancel()
 	
-	err = nil
-	count := 0
-	
-	for {
-        if count == maxRetry {
-            return fmt.Errorf("failed to create scraper after %d retries", maxRetry)
-        }
 
-        select {
-        case <-ctx.Done():
-            // Context에서 에러가 발생한 경우
-            if ctx.Err() == context.DeadlineExceeded {
-                log.Printf("failed to create scraper: context deadline exceeded, retrying... (%d/%d)", count+1, maxRetry)
-            } else {
-                log.Printf("failed to create scraper: %v", ctx.Err())
-                return ctx.Err()
-            }
-        default:
-            _, err = client.CreateScraper(ctx, in)
-            if err != nil {
-                log.Printf("failed to create scraper: %v, retrying... (%d/%d)", err, count+1, maxRetry)
-                count++
-                continue
-            }
-            return nil
-        }
+	err = nil
+	_, err = client.CreateScraper(ctx, in)
+    if err != nil {
+        log.Printf("failed to create scraper: %v", err)
+		return err
     }
 
-
+	return nil
 	// if err != nil {
 	// 	log.Printf("err in CallMakeScraper %v", err)
 	// 	return err
@@ -72,7 +55,7 @@ func CallMakeScraper(workerId string, jobId string, keyword string, token string
 }
 
 func CallRemoveScraper(id string) (error) {
-	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
+	conn, err := Dial()
 	if err != nil {
 		log.Printf("Can't connect grpc server : %v", err)
 	}
@@ -98,7 +81,7 @@ func CallRemoveScraper(id string) (error) {
 }
 
 func CallRemoveAnalyzer(id string) (error) {
-	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
+	conn, err := Dial()
 	if err != nil {
 		log.Printf("Can't connect grpc service : %v", err)
 	}
@@ -125,8 +108,8 @@ func CallRemoveAnalyzer(id string) (error) {
 }
 
 func CallMakeAnalysis(id string) (error) {
-	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
-	
+	conn, err := Dial()
+
 	if err != nil {
 		log.Printf("can't connect grpc server : %v", err)
 	}
