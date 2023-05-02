@@ -64,6 +64,16 @@ class ManagerStub(object):
                 request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleCountByDayReq.SerializeToString,
                 response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleCountByDayRes.FromString,
                 )
+        self.GetVocabList = channel.unary_unary(
+                '/pb.svc.manager.Manager/GetVocabList',
+                request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetVocabListReq.SerializeToString,
+                response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetVocabListRes.FromString,
+                )
+        self.GetSimilarity = channel.unary_unary(
+                '/pb.svc.manager.Manager/GetSimilarity',
+                request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetSimilarityReq.SerializeToString,
+                response_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetSimilarityRes.FromString,
+                )
         self.UpdateWorkerStatus = channel.unary_unary(
                 '/pb.svc.manager.Manager/UpdateWorkerStatus',
                 request_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.UpdateWorkerStatusReq.SerializeToString,
@@ -169,6 +179,18 @@ class ManagerServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetArticleCountByDay(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetVocabList(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetSimilarity(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -280,6 +302,16 @@ def add_ManagerServicer_to_server(servicer, server):
                     servicer.GetArticleCountByDay,
                     request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleCountByDayReq.FromString,
                     response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleCountByDayRes.SerializeToString,
+            ),
+            'GetVocabList': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetVocabList,
+                    request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetVocabListReq.FromString,
+                    response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetVocabListRes.SerializeToString,
+            ),
+            'GetSimilarity': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetSimilarity,
+                    request_deserializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetSimilarityReq.FromString,
+                    response_serializer=pb_dot_svc_dot_manager_dot_manager__pb2.GetSimilarityRes.SerializeToString,
             ),
             'UpdateWorkerStatus': grpc.unary_unary_rpc_method_handler(
                     servicer.UpdateWorkerStatus,
@@ -503,6 +535,40 @@ class Manager(object):
         return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/GetArticleCountByDay',
             pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleCountByDayReq.SerializeToString,
             pb_dot_svc_dot_manager_dot_manager__pb2.GetArticleCountByDayRes.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetVocabList(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/GetVocabList',
+            pb_dot_svc_dot_manager_dot_manager__pb2.GetVocabListReq.SerializeToString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.GetVocabListRes.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetSimilarity(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.Manager/GetSimilarity',
+            pb_dot_svc_dot_manager_dot_manager__pb2.GetSimilarityReq.SerializeToString,
+            pb_dot_svc_dot_manager_dot_manager__pb2.GetSimilarityRes.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

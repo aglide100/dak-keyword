@@ -32,6 +32,8 @@ type ManagerClient interface {
 	GetArticleList(ctx context.Context, in *GetArticleListReq, opts ...grpc.CallOption) (*GetArticleListRes, error)
 	GetArticleCountByHour(ctx context.Context, in *GetArticleCountByHourReq, opts ...grpc.CallOption) (*GetArticleCountByHourRes, error)
 	GetArticleCountByDay(ctx context.Context, in *GetArticleCountByDayReq, opts ...grpc.CallOption) (*GetArticleCountByDayRes, error)
+	GetVocabList(ctx context.Context, in *GetVocabListReq, opts ...grpc.CallOption) (*GetVocabListRes, error)
+	GetSimilarity(ctx context.Context, in *GetSimilarityReq, opts ...grpc.CallOption) (*GetSimilarityRes, error)
 	UpdateWorkerStatus(ctx context.Context, in *UpdateWorkerStatusReq, opts ...grpc.CallOption) (*UpdateWorkerStatusRes, error)
 	UpdateJobStatus(ctx context.Context, in *UpdateJobStatusReq, opts ...grpc.CallOption) (*UpdateJobStatusRes, error)
 	WhenStartScraper(ctx context.Context, in *WhenStartScraperReq, opts ...grpc.CallOption) (*WhenStartScraperRes, error)
@@ -141,6 +143,24 @@ func (c *managerClient) GetArticleCountByDay(ctx context.Context, in *GetArticle
 	return out, nil
 }
 
+func (c *managerClient) GetVocabList(ctx context.Context, in *GetVocabListReq, opts ...grpc.CallOption) (*GetVocabListRes, error) {
+	out := new(GetVocabListRes)
+	err := c.cc.Invoke(ctx, "/pb.svc.manager.Manager/GetVocabList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *managerClient) GetSimilarity(ctx context.Context, in *GetSimilarityReq, opts ...grpc.CallOption) (*GetSimilarityRes, error) {
+	out := new(GetSimilarityRes)
+	err := c.cc.Invoke(ctx, "/pb.svc.manager.Manager/GetSimilarity", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *managerClient) UpdateWorkerStatus(ctx context.Context, in *UpdateWorkerStatusReq, opts ...grpc.CallOption) (*UpdateWorkerStatusRes, error) {
 	out := new(UpdateWorkerStatusRes)
 	err := c.cc.Invoke(ctx, "/pb.svc.manager.Manager/UpdateWorkerStatus", in, out, opts...)
@@ -236,6 +256,8 @@ type ManagerServer interface {
 	GetArticleList(context.Context, *GetArticleListReq) (*GetArticleListRes, error)
 	GetArticleCountByHour(context.Context, *GetArticleCountByHourReq) (*GetArticleCountByHourRes, error)
 	GetArticleCountByDay(context.Context, *GetArticleCountByDayReq) (*GetArticleCountByDayRes, error)
+	GetVocabList(context.Context, *GetVocabListReq) (*GetVocabListRes, error)
+	GetSimilarity(context.Context, *GetSimilarityReq) (*GetSimilarityRes, error)
 	UpdateWorkerStatus(context.Context, *UpdateWorkerStatusReq) (*UpdateWorkerStatusRes, error)
 	UpdateJobStatus(context.Context, *UpdateJobStatusReq) (*UpdateJobStatusRes, error)
 	WhenStartScraper(context.Context, *WhenStartScraperReq) (*WhenStartScraperRes, error)
@@ -281,6 +303,12 @@ func (UnimplementedManagerServer) GetArticleCountByHour(context.Context, *GetArt
 }
 func (UnimplementedManagerServer) GetArticleCountByDay(context.Context, *GetArticleCountByDayReq) (*GetArticleCountByDayRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetArticleCountByDay not implemented")
+}
+func (UnimplementedManagerServer) GetVocabList(context.Context, *GetVocabListReq) (*GetVocabListRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetVocabList not implemented")
+}
+func (UnimplementedManagerServer) GetSimilarity(context.Context, *GetSimilarityReq) (*GetSimilarityRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSimilarity not implemented")
 }
 func (UnimplementedManagerServer) UpdateWorkerStatus(context.Context, *UpdateWorkerStatusReq) (*UpdateWorkerStatusRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateWorkerStatus not implemented")
@@ -502,6 +530,42 @@ func _Manager_GetArticleCountByDay_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Manager_GetVocabList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetVocabListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManagerServer).GetVocabList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.svc.manager.Manager/GetVocabList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManagerServer).GetVocabList(ctx, req.(*GetVocabListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Manager_GetSimilarity_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSimilarityReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManagerServer).GetSimilarity(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.svc.manager.Manager/GetSimilarity",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManagerServer).GetSimilarity(ctx, req.(*GetSimilarityReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Manager_UpdateWorkerStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateWorkerStatusReq)
 	if err := dec(in); err != nil {
@@ -710,6 +774,14 @@ var Manager_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetArticleCountByDay",
 			Handler:    _Manager_GetArticleCountByDay_Handler,
+		},
+		{
+			MethodName: "GetVocabList",
+			Handler:    _Manager_GetVocabList_Handler,
+		},
+		{
+			MethodName: "GetSimilarity",
+			Handler:    _Manager_GetSimilarity_Handler,
 		},
 		{
 			MethodName: "UpdateWorkerStatus",

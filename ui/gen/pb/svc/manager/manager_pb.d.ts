@@ -5,6 +5,62 @@ import * as pb_unit_worker_worker_pb from '../../../pb/unit/worker/worker_pb';
 import * as pb_unit_article_article_pb from '../../../pb/unit/article/article_pb';
 
 
+export class GetSimilarityReq extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetSimilarityReq.AsObject;
+  static toObject(includeInstance: boolean, msg: GetSimilarityReq): GetSimilarityReq.AsObject;
+  static serializeBinaryToWriter(message: GetSimilarityReq, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetSimilarityReq;
+  static deserializeBinaryFromReader(message: GetSimilarityReq, reader: jspb.BinaryReader): GetSimilarityReq;
+}
+
+export namespace GetSimilarityReq {
+  export type AsObject = {
+  }
+}
+
+export class GetSimilarityRes extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetSimilarityRes.AsObject;
+  static toObject(includeInstance: boolean, msg: GetSimilarityRes): GetSimilarityRes.AsObject;
+  static serializeBinaryToWriter(message: GetSimilarityRes, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetSimilarityRes;
+  static deserializeBinaryFromReader(message: GetSimilarityRes, reader: jspb.BinaryReader): GetSimilarityRes;
+}
+
+export namespace GetSimilarityRes {
+  export type AsObject = {
+  }
+}
+
+export class GetVocabListReq extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetVocabListReq.AsObject;
+  static toObject(includeInstance: boolean, msg: GetVocabListReq): GetVocabListReq.AsObject;
+  static serializeBinaryToWriter(message: GetVocabListReq, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetVocabListReq;
+  static deserializeBinaryFromReader(message: GetVocabListReq, reader: jspb.BinaryReader): GetVocabListReq;
+}
+
+export namespace GetVocabListReq {
+  export type AsObject = {
+  }
+}
+
+export class GetVocabListRes extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetVocabListRes.AsObject;
+  static toObject(includeInstance: boolean, msg: GetVocabListRes): GetVocabListRes.AsObject;
+  static serializeBinaryToWriter(message: GetVocabListRes, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetVocabListRes;
+  static deserializeBinaryFromReader(message: GetVocabListRes, reader: jspb.BinaryReader): GetVocabListRes;
+}
+
+export namespace GetVocabListRes {
+  export type AsObject = {
+  }
+}
+
 export class GetJobIsReRunReq extends jspb.Message {
   getId(): string;
   setId(value: string): GetJobIsReRunReq;

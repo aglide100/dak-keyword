@@ -21,6 +21,7 @@ jobs:
                     - scraped
                     - provisioned
                     - db
+                    - similarity
         steps:
             - name: Checkout
               uses: actions/checkout@v2
