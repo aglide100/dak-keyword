@@ -41,9 +41,9 @@ if __name__ == '__main__':
             if score is not None:
                 try:
                     print("Update")
-                    # Database.CRUD.updateScore(db, score[0][0], score[0][1], score[0][2], score[0][3], score[0][4], score[0][5], score[2], score[1], row['Worker_id'], row['Id'])
+                    # Database.CRUD.updateScore(db, score[0][0], score[0][1], score[0][2], score[0][3], score[0][4], score[0][5], score[2], score[1], row['Worker_id'], row['Article_id'])
                     
-                    Database.CRUD.updateScoreWithPreprocessed(db, score[0][0], score[0][1], score[0][2], score[0][3], score[0][4], score[0][5], score[2], score[1], text, row['Worker_id'], row['Id'])
+                    Database.CRUD.updateScoreWithPreprocessed(db, score[0][0], score[0][1], score[0][2], score[0][3], score[0][4], score[0][5], score[2], score[1], text, row['Worker_id'], row['Article_id'])
                     
                     if index % 3 == 0:
                         msg = "Analyzing... : " + str(index) + " / " + str(len(rows))

@@ -10,44 +10,6 @@
 
 순으로 진행됩니다!
 
-# 개발환경
-
-docker version
-
-```
-Client:
- Cloud integration: v1.0.29
- Version:           20.10.22
- API version:       1.41
- Go version:        go1.18.9
- Git commit:        3a2c30b
- Built:             Thu Dec 15 22:28:41 2022
- OS/Arch:           darwin/arm64
- Context:           default
- Experimental:      true
-
-Server: Docker Desktop 4.16.2 (95914)
- Engine:
-  Version:          20.10.22
-  API version:      1.41 (minimum version 1.12)
-  Go version:       go1.18.9
-  Git commit:       42c8b31
-  Built:            Thu Dec 15 22:25:43 2022
-  OS/Arch:          linux/arm64
-  Experimental:     false
- containerd:
-  Version:          1.6.14
-  GitCommit:        9ba4b250366a5ddde94bb7c9d1def331423aa323
- runc:
-  Version:          1.1.4
-  GitCommit:        v1.1.4-0-g5fd4c4d
- docker-init:
-  Version:          0.19.0
-  GitCommit:        de40ad0
-```
-
-go 1.18
-
 # 시스템 설계
 
 전체적인 시스템 구성은 아래 그림과 같습니다.
@@ -99,6 +61,45 @@ Docker기반의 Swarm Cluster에서 서비스가 배포되며, 서비스단위�
 
 -   https://github.com/aglide100?tab=packages&repo_name=dak-keyword
 
+# 개발환경
+
+아래의 docker version으로 구성된 pi4 x 4개의 docker swarm
+
+docker version
+
+```
+Client:
+ Version:           20.10.5+dfsg1
+ API version:       1.41
+ Go version:        go1.15.15
+ Git commit:        55c4c88
+ Built:             Mon May 30 18:34:49 2022
+ OS/Arch:           linux/arm64
+ Context:           default
+ Experimental:      true
+
+Server:
+ Engine:
+  Version:          20.10.5+dfsg1
+  API version:      1.41 (minimum version 1.12)
+  Go version:       go1.15.15
+  Git commit:       363e9a8
+  Built:            Mon May 30 18:34:49 2022
+  OS/Arch:          linux/arm64
+  Experimental:     false
+ containerd:
+  Version:          1.4.13~ds1
+  GitCommit:        1.4.13~ds1-1~deb11u2
+ runc:
+  Version:          1.0.0~rc93+ds1
+  GitCommit:        1.0.0~rc93+ds1-5+deb11u2
+ docker-init:
+  Version:          0.19.0
+  GitCommit:
+```
+
+go 1.18
+
 # 프로젝트 시연
 
 ### Job 생성 및 키워드 분석
@@ -126,19 +127,11 @@ Docker기반의 Swarm Cluster에서 서비스가 배포되며, 서비스단위�
 
 # TODO (라 적고 개선하고 싶은 부분)
 
--   E-tag를 활용하여, 용량이 큰 articles(23년 3월 기준 가장 큰 용량이 4mb를 넘어감) 호출할떄, 불필요한 요청은 client단에서 캐싱하고 싶음
+-   E-tag등을 활용하여, 불필요한 요청을 캐싱처리하고 싶음
 
--   좀 더 세분화된 상태 체크
-
--   장애시 대처 로직 부족
+-   세분화된 서비스 상태 체크 및 장애시의 대처 로직
 
 -   클러스터에서 하나뿐인 데이터베이스
-
--   job생성 후 리턴값
-
--   Job화면에서 worker의 상태를 확인시 가독성이 떨어짐(worker수가 많아지는것 또한 있지만 상태가 업데이트 될때마다 react에서 전체 스크롤리 렌더링이 되는듯함. )
-
--   traefik에 의존적인 tls인증서 관리(로컬에서도 적용이 가능하지만, improbable grpc-web의 특성상, 브라우저의 인증서와 grpc-web의 인증서가 공통된 부분을 써야하는듯함. 아마 improbable grpc-web에서 내부에서 구현한 Proxy?의 특징으로 추측함.)
 
 # Reference
 
