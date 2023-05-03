@@ -62,7 +62,7 @@ func CallRemoveScraper(id string) (error) {
 		Id: id,
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
 	defer cancel()
 	
 	_, err = client.RemoveScraper(ctx, in)
@@ -87,7 +87,7 @@ func CallRemoveAnalyzer(id string) (error) {
 		Id: id,
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
 	defer cancel()
 
 	_, err = client.RemoveAnalyzer(ctx, in)
@@ -115,7 +115,7 @@ func CallMakeAnalysis(id string) (error) {
 		ScraperId: id,
 	}
 	
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
 	defer cancel()
 	
 	err = nil

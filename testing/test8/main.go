@@ -52,7 +52,4 @@ func main() {
 		}
 	}
 
-	for (len(documents) > 0) {
-		log.Println("!!!")
-	}
 }

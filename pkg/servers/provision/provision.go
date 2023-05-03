@@ -90,7 +90,9 @@ func (s *ProvisionSrv) RemoveScraper(ctx context.Context, in *pb_svc_provision.R
 		return nil, err
 	}
 
-	return &pb_svc_provision.RemoveScraperRes{}, nil
+	return &pb_svc_provision.RemoveScraperRes{
+		Status: "",
+	}, nil
 }
 
 func (s *ProvisionSrv) RemoveAnalyzer(ctx context.Context, in *pb_svc_provision.RemoveAnalyzerReq) (*pb_svc_provision.RemoveAnalyzerRes, error) {
@@ -100,5 +102,7 @@ func (s *ProvisionSrv) RemoveAnalyzer(ctx context.Context, in *pb_svc_provision.
 		return nil, err
 	}
 
-	return &pb_svc_provision.RemoveAnalyzerRes{}, nil
+	return &pb_svc_provision.RemoveAnalyzerRes{
+		Status: "",
+	}, nil
 }
