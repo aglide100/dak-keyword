@@ -8,6 +8,7 @@ import (
 	"google.golang.org/grpc/status"
 
 	pb_svc_manager "github.com/aglide100/dak-keyword/pb/svc/manager"
+	calling "github.com/aglide100/dak-keyword/pkg/clients/provisioned"
 )
 
 
@@ -36,7 +37,7 @@ func (s *ManagerSrv) WhenAnalyzerHavingErr(ctx context.Context, in *pb_svc_manag
 		return nil, status.Error(codes.Canceled, "Can't update worker status at dbms")
 	}
 
-	err = CallRemoveAnalyzer(in.Id)
+	err = calling.CallRemoveAnalyzer(in.Id)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +58,7 @@ func (s *ManagerSrv) WhenDoneAnalyzer(ctx context.Context, in *pb_svc_manager.Wh
 		return nil, status.Error(codes.Canceled, "Can't update worker status at dbms")
 	}
 
-	err = CallRemoveAnalyzer(in.Id)
+	err = calling.CallRemoveAnalyzer(in.Id)
 	if err != nil {
 		return nil, err
 	}

@@ -62,7 +62,7 @@ func realMain() error {
 		return err
 	}
 
-	provisionSrv := provision.NewProvisionServiceServer(c, *dbConfig)
+	provisionSrv := provision.NewProvisionServiceServer(c,q)
 
 	pb_svc_provision.RegisterProvisionServer(grpcServer, provisionSrv)
 
@@ -76,7 +76,7 @@ func realMain() error {
 				if (c.GetCurrentContainerCount() < c.GetLimitContainerCount()) {
 					cSpec, ok := q.Dequeue()
 					if ok {
-						// log.Printf("Dequeue %v", cSpec)
+						log.Printf("Dequeue %v", cSpec)
 					} else {
 						log.Println("Can't dequeue from queue")
 						continue
@@ -108,6 +108,9 @@ func realMain() error {
 							time.Sleep(5*time.Second)
 						}
 					}
+				} else {
+					log.Printf("!!!")
+					log.Printf("%v",c.GetCurrentContainerCount())
 				}
 			}
             

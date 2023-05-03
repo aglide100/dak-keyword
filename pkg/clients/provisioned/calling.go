@@ -1,4 +1,4 @@
-package manager
+package calling
 
 import (
 	"context"
@@ -6,23 +6,19 @@ import (
 	"time"
 
 	pb_svc_provision "github.com/aglide100/dak-keyword/pb/svc/provision"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 const maxRetry = 5
 
 func CallMakeScraper(workerId string, jobId string, keyword string, token string) (error) {
 	// conn, err := Dial()
-	conn, err := retryDial()
-
+	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
 		log.Printf("can't connect grpc server : %v", err)
 	}
 
-	defer func() {
-		if e := conn.Close(); e != nil {
-			log.Printf("failed to close connection: %s", e)
-		}
-	}()
 
 	client := pb_svc_provision.NewProvisionClient(conn)
 
@@ -36,7 +32,6 @@ func CallMakeScraper(workerId string, jobId string, keyword string, token string
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
 	defer cancel()
 	
-
 	err = nil
 	_, err = client.CreateScraper(ctx, in)
     if err != nil {
@@ -55,7 +50,7 @@ func CallMakeScraper(workerId string, jobId string, keyword string, token string
 }
 
 func CallRemoveScraper(id string) (error) {
-	conn, err := Dial()
+	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())	
 	if err != nil {
 		log.Printf("Can't connect grpc server : %v", err)
 	}
@@ -75,13 +70,12 @@ func CallRemoveScraper(id string) (error) {
 		log.Printf("err in CallRemoveScraper %v", err)
 		return err
 	}
-	// log.Printf("Received msg from Remove Scraper %v", res)
 
 	return nil
 }
 
 func CallRemoveAnalyzer(id string) (error) {
-	conn, err := Dial()
+	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())	
 	if err != nil {
 		log.Printf("Can't connect grpc service : %v", err)
 	}
@@ -108,7 +102,7 @@ func CallRemoveAnalyzer(id string) (error) {
 }
 
 func CallMakeAnalysis(id string) (error) {
-	conn, err := Dial()
+	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())	
 
 	if err != nil {
 		log.Printf("can't connect grpc server : %v", err)
