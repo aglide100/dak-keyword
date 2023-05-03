@@ -50,7 +50,7 @@ func realMain() error {
 
 	grpcServer := grpc.NewServer(opts...)
 
-	q := container.NewContainerQueue(200, 10)
+	q := container.NewContainerQueue(400, 10)
 
 	c, err := container.NewController(q, twitterToken)
 	if err != nil {
@@ -119,8 +119,6 @@ func realMain() error {
 							time.Sleep(5*time.Second)
 						}
 					}
-				} else {
-					log.Printf("%v", q.GetCurrentContainerCount())
 				}
 			}
             
