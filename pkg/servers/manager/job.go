@@ -7,6 +7,7 @@ import (
 
 	pb_svc_manager "github.com/aglide100/dak-keyword/pb/svc/manager"
 	pb_unit_job "github.com/aglide100/dak-keyword/pb/unit/job"
+	calling "github.com/aglide100/dak-keyword/pkg/clients/provisioned"
 	"github.com/aglide100/dak-keyword/pkg/keyword"
 	"github.com/aglide100/dak-keyword/pkg/models"
 	"github.com/google/uuid"
@@ -59,7 +60,7 @@ func (s *ManagerSrv) CreateNewJob(ctx context.Context, in *pb_svc_manager.Create
 			log.Printf("err: %v", err)
 		}
 
-		err = CallMakeScraper(workerId, jobId, value, os.Getenv("BearerToken"))
+		err = calling.CallMakeScraper(workerId, jobId, value, os.Getenv("BearerToken"))
 		if err != nil {
 			log.Printf("err: %v", err)
 		}
@@ -132,7 +133,7 @@ func (s *ManagerSrv) ReRunJob(ctx context.Context, in *pb_svc_manager.ReRunJobRe
 			log.Printf("Can't add worker, err: %v", err)
 		}
 
-		err = CallMakeScraper(workerId, in.Id, value, os.Getenv("BearerToken"))
+		err = calling.CallMakeScraper(workerId, in.Id, value, os.Getenv("BearerToken"))
 		if err != nil {
 			log.Printf("Can't make Scraper, err: %v", err)
 		}

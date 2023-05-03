@@ -5,6 +5,7 @@ import (
 	"log"
 
 	pb_svc_manager "github.com/aglide100/dak-keyword/pb/svc/manager"
+	calling "github.com/aglide100/dak-keyword/pkg/clients/provisioned"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -53,13 +54,13 @@ func (s *ManagerSrv) WhenDoneScraper(ctx context.Context, in *pb_svc_manager.Whe
 		return nil, status.Error(codes.Canceled, "Can't update worker status at dbms")
 	}
 
-	err = CallRemoveScraper(in.Id)
+	err = calling.CallRemoveScraper(in.Id)
 	if err != nil {
 		s.db.UpdateJob(in.Id, "Can't remove scraper")
 		return nil, status.Error(codes.Canceled, "Can't update remove scraper")
 	}
 
-	err = CallMakeAnalysis(in.Id)
+	err = calling.CallMakeAnalysis(in.Id)
 	if err != nil {
 		s.db.UpdateJob(in.Id, "Can't make analysis")
 		return nil, err

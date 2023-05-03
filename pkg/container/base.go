@@ -72,6 +72,7 @@ func (c *Controller) GetLimitContainerCount() int {
 }
 
 func (c *Controller) GetCurrentContainerCount() int {
+	log.Printf("%v", c.currentContainerCount)
 	select {
     case current := <-c.currentContainerCount:
         return current

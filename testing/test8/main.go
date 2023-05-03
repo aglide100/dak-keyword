@@ -51,4 +51,8 @@ func main() {
 			fmt.Printf("Cosine similarity between document %d and document %d: %f\n", i+1, j+1, similarityList[i][j])
 		}
 	}
+
+	for (len(documents) > 0) {
+		log.Println("!!!")
+	}
 }

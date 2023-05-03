@@ -37,7 +37,6 @@ func (s *ManagerSrv) GetArticleList(ctx context.Context, in *pb_svc_manager.GetA
 	grpc.SendHeader(ctx, metadata.Pairs("Cache-Control", "private, max-age=5"))
 	return &pb_svc_manager.GetArticleListRes{
 		Article: pbArticles,
-
 	}, nil
 }
 

@@ -42,9 +42,9 @@ func GetInstance() *TwitterSecret {
 				BearerToken : os.Getenv("BearerToken"),
 			}
 
-			fmt.Println("Created single instance")
+			fmt.Println("Created twitter api's single instance")
 		} else {
-			fmt.Println("Single instance is already created")
+			fmt.Println("Twitter api's single instance is already created")
 		}
 	}
 	

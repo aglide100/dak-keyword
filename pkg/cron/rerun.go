@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/aglide100/dak-keyword/pkg/servers/manager"
+	calling "github.com/aglide100/dak-keyword/pkg/clients/provisioned"
 
 	"github.com/aglide100/dak-keyword/pkg/db"
 	"github.com/aglide100/dak-keyword/pkg/keyword"
@@ -42,7 +42,7 @@ func GetAllReRunJob(db *db.Database) error {
 				log.Printf("Can't add worker, err: %v", err)
 			}
 	
-			err = manager.CallMakeScraper(workerId, raw, value, os.Getenv("BearerToken"))
+			err = calling.CallMakeScraper(workerId, raw, value, os.Getenv("BearerToken"))
 			if err != nil {
 				log.Printf("Can't make Scraper, err: %v", err)
 			}
