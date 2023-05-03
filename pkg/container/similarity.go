@@ -16,7 +16,7 @@ import (
 func (c *Controller) CreateSimilarityService(workerId string, jobId string, keyword string, dbConfig *db.DBConfig) (error, bool) {
 	ctx := context.Background()
 
-	if c.GetCurrentContainerCount() >= c.containerMaximum {
+	if c.cQueue.GetCurrentContainerCount() >= c.containerMaximum {
 		log.Println("Too many container to create scraper container")
 		c.cQueue.Enqueue(&ContainerSpec{
 			WorkerId: workerId,
@@ -66,8 +66,6 @@ func (c *Controller) CreateSimilarityService(workerId string, jobId string, keyw
 		return err, false
 	}
 
-	c.IncreaseCurrentContainerCount()
-
 	// fmt.Println("crate scraper ", reader.ID, c.currentContainerCount)
 	return nil, false
 }
@@ -79,8 +77,6 @@ func (c *Controller) RemoveSimilarity(id string) (error) {
 	if err != nil {
 		return err
 	}
-
-	c.DecreaseCurrentContainerCount()
 
 	return nil
 }

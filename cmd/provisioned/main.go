@@ -50,9 +50,9 @@ func realMain() error {
 
 	grpcServer := grpc.NewServer(opts...)
 
-	q := container.NewContainerQueue(200)
+	q := container.NewContainerQueue(200, 10)
 
-	c, err := container.NewController(10, q, twitterToken)
+	c, err := container.NewController(q, twitterToken)
 	if err != nil {
 		return err
 	} 
@@ -70,10 +70,21 @@ func realMain() error {
 	_ = ctx
 
 	wg.Go(func() error {
+		log.Printf("Starting normal grpcServer at: %s" ,*provisionedAddr)
+		err := grpcServer.Serve(provisionedL)
+		if err != nil {
+			log.Fatalf("failed to serve: %v", err)
+			return err
+		}
+
+		return nil
+	})
+
+	wg.Go(func() error {
 		for {
 			<-time.After(5*time.Second)
             for (q.Len() > 0) {
-				if (c.GetCurrentContainerCount() < c.GetLimitContainerCount()) {
+				if (q.GetCurrentContainerCount() < q.GetLimitContainerCount()) {
 					cSpec, ok := q.Dequeue()
 					if ok {
 						log.Printf("Dequeue %v", cSpec)
@@ -109,23 +120,11 @@ func realMain() error {
 						}
 					}
 				} else {
-					log.Printf("!!!")
-					log.Printf("%v",c.GetCurrentContainerCount())
+					log.Printf("%v", q.GetCurrentContainerCount())
 				}
 			}
             
 		}
-	})
-
-	wg.Go(func() error {
-		log.Printf("Starting normal grpcServer at: %s" ,*provisionedAddr)
-		err := grpcServer.Serve(provisionedL)
-		if err != nil {
-			log.Fatalf("failed to serve: %v", err)
-			return err
-		}
-
-		return nil
 	})
 	
 

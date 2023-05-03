@@ -16,7 +16,7 @@ import (
 func (c *Controller) CreateScraperService(workerId string, jobId string, keyword string, dbConfig *db.DBConfig) (error, bool) {
 	ctx := context.Background()
 
-	if c.GetCurrentContainerCount() >= c.containerMaximum {
+	if c.cQueue.GetCurrentContainerCount() >= c.cQueue.GetLimitContainerCount() {
 		log.Println("Too many container to create scraper container")
 		c.cQueue.Enqueue(&ContainerSpec{
 			WorkerId: workerId,
@@ -67,7 +67,6 @@ func (c *Controller) CreateScraperService(workerId string, jobId string, keyword
 		return err, false
 	}
 
-	c.IncreaseCurrentContainerCount()
 
 	// fmt.Println("crate scraper ", reader.ID, c.currentContainerCount)
 	return nil, false
@@ -80,8 +79,6 @@ func (c *Controller) RemoveScraper(id string) (error) {
 	if err != nil {
 		return err
 	}
-
-	c.DecreaseCurrentContainerCount()
 
 	return nil
 }
