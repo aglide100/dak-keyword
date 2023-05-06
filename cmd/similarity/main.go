@@ -32,16 +32,21 @@ func realMain() error {
 		return fmt.Errorf("Can't connect DB: %v", err)
 	}
 
-	res, err := myDB.GetArticlesByWorkerID(workerId)
+	res, err := myDB.GetPreprocessedTextByWorkerID(workerId)
 	if err != nil {
 		log.Println(err)
 		return err
 	}
 
 	documents := make([]string, len(res))
+	for _, val := range res {
+		documents = append(documents, val.Preprocessed_content)
+	}
 
 	vocabList, tfidf, similarityList := tfidf.CalcTfIdf(documents)
 
+	myDB.AddNewVocabList(vocabList, workerId)
+	// myDB.AddNewTfIdfScore()
 	log.Println(vocabList)
 	
 	log.Println(tfidf)

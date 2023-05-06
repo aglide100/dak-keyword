@@ -18,12 +18,12 @@ func (c *Controller) CreateSimilarityService(workerId string, jobId string, keyw
 
 	if c.cQueue.GetCurrentContainerCount() >= c.containerMaximum {
 		log.Println("Too many container to create scraper container")
-		c.cQueue.Enqueue(&ContainerSpec{
+		c.cQueue.EnqueueFromQueue(&ContainerSpec{
 			WorkerId: workerId,
 			Keyword: keyword,
 			JobId: jobId,
 			Token: c.twitterToken,
-			Type: "Scraper",
+			Type: "Similarity",
 		})
 		return nil, true
     }
@@ -66,6 +66,13 @@ func (c *Controller) CreateSimilarityService(workerId string, jobId string, keyw
 		return err, false
 	}
 
+	c.cQueue.EnqueueFromRunning(&ContainerSpec{
+		WorkerId: workerId,
+		Keyword: keyword,
+		Token: "",
+		Type: "Similarity",
+	})
+
 	// fmt.Println("crate scraper ", reader.ID, c.currentContainerCount)
 	return nil, false
 }
@@ -77,6 +84,8 @@ func (c *Controller) RemoveSimilarity(id string) (error) {
 	if err != nil {
 		return err
 	}
+
+	c.cQueue.DequeueFromRunning()
 
 	return nil
 }

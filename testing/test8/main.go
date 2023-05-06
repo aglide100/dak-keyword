@@ -16,6 +16,16 @@ func test() string {
 func main() {
 	log.Printf(config.GetInstance().GetTwitterAccessSecret())
 	
+	// config, err := db.GetDBConfig()
+	// if err != nil {
+	// 	log.Printf("%v", err)
+	// }
+
+	// myDb, err := db.ConnectDB(config)
+	// if err != nil {
+	// 	log.Printf("%v", err)
+	// }
+
 	documents := []string{
 		"2개월 이상 월세 연체 시 임대인은 임대차 계약을 해지할 수 있다.",
 		"월세를 두번 이상 연체하면 방을 빼셔야 합니다.",
@@ -27,29 +37,32 @@ func main() {
 		// "Maecenas venenatis leo vel tempor semper", 
 		// "Donec sed tempor dolor, a fringilla turpis",
 	}
-	vocabList, tfidfscore, similarityList := tfidf.CalcTfIdf(documents)
+	vocabList, tfidfscore, _ := tfidf.CalcTfIdf(documents)
+
 
 	for _, word := range vocabList {
 		log.Println(word)
 	}
 	
 	for i := range documents {
-		fmt.Printf("Document %d:\n", i+1)
-		fmt.Printf("%v:\n", documents[i])
+		// fmt.Printf("Document %d:\n", i+1)
+		// fmt.Printf("%v:\n", documents[i])
 
-		for j, word := range vocabList {
+		for j, _ := range vocabList {
 			score := tfidfscore[i][j]
-			if score > 0 {
-				fmt.Printf("\t%s: %.4f\n", word, score)
+			if score != 0 {
+				// fmt.Printf("\t%s: %.4f\n", word, score)
+
+				fmt.Printf("\t%d, %d: %.4f\n", i, j, score)
 			}
 		}
 		fmt.Println()
 	}
 
-	for i := 0; i < len(documents); i++ {
-		for j := i + 1; j < len(documents); j++ {
-			fmt.Printf("Cosine similarity between document %d and document %d: %f\n", i+1, j+1, similarityList[i][j])
-		}
-	}
+	// for i := 0; i < len(documents); i++ {
+	// 	for j := i + 1; j < len(documents); j++ {
+	// 		// fmt.Printf("Cosine similarity between document %d and document %d: %f\n", i+1, j+1, similarityList[i][j])
+	// 	}
+	// }
 
 }
