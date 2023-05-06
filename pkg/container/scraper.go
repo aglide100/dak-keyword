@@ -18,7 +18,7 @@ func (c *Controller) CreateScraperService(workerId string, jobId string, keyword
 
 	if c.cQueue.GetCurrentContainerCount() >= c.cQueue.GetLimitContainerCount() {
 		log.Println("Too many container to create scraper container")
-		c.cQueue.Enqueue(&ContainerSpec{
+		c.cQueue.EnqueueFromQueue(&ContainerSpec{
 			WorkerId: workerId,
 			Keyword: keyword,
 			JobId: jobId,
@@ -27,6 +27,7 @@ func (c *Controller) CreateScraperService(workerId string, jobId string, keyword
 		})
 		return nil, true
     }
+	
 
 	c.cli.ImagePull(ctx, "ghcr.io/aglide100/dak-keyword--scraped:latest", types.ImagePullOptions{})
 
@@ -66,6 +67,12 @@ func (c *Controller) CreateScraperService(workerId string, jobId string, keyword
 	if err != nil {
 		return err, false
 	}
+	c.cQueue.EnqueueFromRunning(&ContainerSpec{
+		WorkerId: workerId,
+		Keyword: keyword,
+		Token: "",
+		Type: "Scraper",
+	})
 
 
 	// fmt.Println("crate scraper ", reader.ID, c.currentContainerCount)
@@ -79,6 +86,8 @@ func (c *Controller) RemoveScraper(id string) (error) {
 	if err != nil {
 		return err
 	}
+	
+	c.cQueue.DequeueFromRunning()
 
 	return nil
 }

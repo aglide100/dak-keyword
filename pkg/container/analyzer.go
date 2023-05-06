@@ -22,7 +22,7 @@ func (c *Controller) CreateAnalyzerService(workerId string, keyword string, dbCo
 
 	if c.cQueue.GetCurrentContainerCount() >= c.cQueue.GetLimitContainerCount() {
 		log.Println("Too many container to create analyzer container")
-		c.cQueue.Enqueue(&ContainerSpec{
+		c.cQueue.EnqueueFromQueue(&ContainerSpec{
 			WorkerId: workerId,
 			Keyword: keyword,
 			Token: "",
@@ -80,10 +80,16 @@ func (c *Controller) CreateAnalyzerService(workerId string, keyword string, dbCo
 			// },	
 		},
 	}, types.ServiceCreateOptions{})
-	
 	if err != nil {
 		return err, false
 	}
+
+	c.cQueue.EnqueueFromRunning(&ContainerSpec{
+		WorkerId: workerId,
+		Keyword: keyword,
+		Token: "",
+		Type: "Analyzer",
+	})
 	
 	return nil, false
 }
@@ -95,6 +101,8 @@ func (c *Controller) RemoveAnalyzer(id string) (error) {
 	if err != nil {
 		return err
 	}
+
+	c.cQueue.DequeueFromRunning()
 
 	return nil
 

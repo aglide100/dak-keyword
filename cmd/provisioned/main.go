@@ -62,7 +62,7 @@ func realMain() error {
 		return err
 	}
 
-	provisionSrv := provision.NewProvisionServiceServer(c,q)
+	provisionSrv := provision.NewProvisionServiceServer(c, q, *dbConfig)
 
 	pb_svc_provision.RegisterProvisionServer(grpcServer, provisionSrv)
 
@@ -83,25 +83,19 @@ func realMain() error {
 	wg.Go(func() error {
 		for {
 			<-time.After(5*time.Second)
-            for (q.Len() > 0) {
-				if (q.GetCurrentContainerCount() < q.GetLimitContainerCount()) {
-					cSpec, ok := q.Dequeue()
-					if ok {
-						log.Printf("Dequeue %v", cSpec)
-					} else {
-						log.Println("Can't dequeue from queue")
-						continue
-					}
+            for (q.LenQueue() > 0) {
+				if (q.LenRunning() < q.GetLimitContainerCount()) {
+					cSpec:= q.DequeueFromQueue()
 
 					if (cSpec.Type == "Scraper") {
 						err, countErr := c.CreateScraperService(cSpec.WorkerId, cSpec.JobId, cSpec.Keyword, dbConfig)
 						if err != nil {
 							log.Println("Can't make scraper in queue ", err)
-							q.Enqueue(cSpec)
+							q.EnqueueFromQueue(cSpec)
 						}
 						if (countErr) {
 							log.Println("Queue is full.. ", err)
-							q.Enqueue(cSpec)
+							q.EnqueueFromQueue(cSpec)
 							time.Sleep(5*time.Second)
 						}
 					} 
@@ -110,12 +104,12 @@ func realMain() error {
 						err, countErr := c.CreateAnalyzerService(cSpec.WorkerId, cSpec.Keyword, dbConfig)
 						if err != nil {
 							log.Println("Can't make analyzer in queue ", err)
-							q.Enqueue(cSpec)
+							q.EnqueueFromQueue(cSpec)
 						}
 
 						if (countErr) {
 							log.Println("Container queue is full..", err)
-							q.Enqueue(cSpec)
+							q.EnqueueFromQueue(cSpec)
 							time.Sleep(5*time.Second)
 						}
 					}
