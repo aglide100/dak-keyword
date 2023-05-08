@@ -90,11 +90,12 @@ func realMain() error {
 					if (cSpec.Type == "Scraper") {
 						err, countErr := c.CreateScraperService(cSpec.WorkerId, cSpec.JobId, cSpec.Keyword, dbConfig)
 						if err != nil {
-							log.Println("Can't make scraper in queue ", err)
-							q.EnqueueFromQueue(cSpec)
+							log.Printf("Can't make scraper in queue %v, %v", err, cSpec)
+							// q.EnqueueFromQueue(cSpec)
 						}
+
 						if (countErr) {
-							log.Println("Queue is full.. ", err)
+							log.Println("Container Queue is full.. ", err)
 							q.EnqueueFromQueue(cSpec)
 							time.Sleep(5*time.Second)
 						}
@@ -103,8 +104,8 @@ func realMain() error {
 					if (cSpec.Type == "Analyzer") {
 						err, countErr := c.CreateAnalyzerService(cSpec.WorkerId, cSpec.Keyword, dbConfig)
 						if err != nil {
-							log.Println("Can't make analyzer in queue ", err)
-							q.EnqueueFromQueue(cSpec)
+							log.Printf("Can't make analyzer in queue %v, %v", err, cSpec)
+							// q.EnqueueFromQueue(cSpec)
 						}
 
 						if (countErr) {
@@ -115,10 +116,8 @@ func realMain() error {
 					}
 				}
 			}
-            
 		}
 	})
 	
-
 	return wg.Wait()
 }
