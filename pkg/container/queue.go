@@ -54,7 +54,7 @@ func (q *ContainerQueue) DequeueFromRunning() (*ContainerSpec) {
 }
 
 func (q *ContainerQueue) EnqueueFromQueue(cSpec *ContainerSpec) error {
-	if (len(q.running) > q.containerMaximum) {
+	if (len(q.queue) > q.length) {
 		log.Println("Queue is full")
 		return errors.New("Queue is full...")
 	} else {
@@ -72,47 +72,6 @@ func (q *ContainerQueue) DequeueFromQueue() (*ContainerSpec) {
 		return nil
 	}
 }
-
-
-
-// func (q *ContainerQueue) Enqueue(cSpec *ContainerSpec) {
-// 	if len(q.queue) == q.length {
-// 		log.Println("Queue is full...")
-// 		return
-// 	}
-
-// 	select {
-// 	case current := <-q.currentContainerCount:
-// 		if current >= q.containerMaximum {
-// 			q.currentContainerCount <- current
-// 			log.Println("Container queue is full")
-// 			return
-// 		}
-// 		current++
-// 		q.currentContainerCount <- current
-// 	default:
-// 		q.currentContainerCount <- 1
-// 	}
-
-// 	q.queue <- cSpec
-// }
-
-// func (q *ContainerQueue) Dequeue() (*ContainerSpec, bool) {
-// 	select {
-// 	case current := <-q.currentContainerCount:
-// 		current--
-// 		q.currentContainerCount <- current
-// 	default:
-// 		q.currentContainerCount <- 1
-// 	}
-
-// 	select {
-// 	case cSpec := <-q.queue:
-// 		return cSpec, true
-// 	default:
-// 		return nil, false
-// 	}
-// }
 
 func (q *ContainerQueue) LenRunning() int {
 	return len(q.running)

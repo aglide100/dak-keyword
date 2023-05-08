@@ -65,16 +65,27 @@ func (c *Controller) CreateScraperService(workerId string, jobId string, keyword
 		
 	})
 	if err != nil {
-		return err, false
+		if strings.Contains(err.Error(), "name conflicts with an existing object") {
+			log.Println("An analyzer service with the same name already exists. Enqueuing to create later.")
+			c.cQueue.EnqueueFromQueue(&ContainerSpec{
+				WorkerId: workerId,
+				Keyword: keyword,
+				JobId: jobId,
+				Token: c.twitterToken,
+				Type: "Scraper",
+			})
+			return nil, false
+		} else {
+			return err, false
+		}
 	}
+
 	c.cQueue.EnqueueFromRunning(&ContainerSpec{
 		WorkerId: workerId,
 		Keyword: keyword,
 		Token: "",
 		Type: "Scraper",
 	})
-
-
 	// fmt.Println("crate scraper ", reader.ID, c.currentContainerCount)
 	return nil, false
 }

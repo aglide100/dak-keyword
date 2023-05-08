@@ -27,18 +27,21 @@ func realMain() error {
 	var wait sync.WaitGroup
     wait.Add(1)
 
-	q := containerQueue.NewContainerQueue()
+	q := containerQueue.NewContainerQueue(10, 5)
 
 	go func ()  {
 
 		var i = 0;
 		for {
-			q.Enqueue(&containerQueue.ContainerSpec{
+			err := q.EnqueueFromQueue(&containerQueue.ContainerSpec{
 				WorkerId: strconv.Itoa(i),
 				Keyword: "4567",
 			})
+			if err == nil {
+				log.Printf("Enqueue!")
+			}
+
 			i++
-			log.Printf("Enqueue!")
 
 
 			time.Sleep(1*time.Second)
@@ -50,14 +53,16 @@ func realMain() error {
         for {
             select {
             case <-time.Tick(3 * time.Second):
-				log.Printf(strconv.Itoa(q.Len()))
-				cSpec, ok := q.Dequeue()
+				log.Printf(strconv.Itoa(q.LenQueue()))
+				cSpec := q.DequeueFromQueue()
 
-				if ok {
-					log.Printf("Dequeue %v", cSpec)
-					log.Printf("Some kind of logic")
-					time.Sleep(1*time.Second)
-				}
+				log.Printf("Dequeue %v", cSpec)
+
+				q.EnqueueFromRunning(cSpec)
+
+				log.Printf("Dequeue from running %v", q.DequeueFromRunning(cSpec.WorkerId))
+				// 
+				
             }
         }
     }()

@@ -4,10 +4,10 @@ import (
 	"context"
 	"log"
 	"strconv"
+	"strings"
 
 	"github.com/aglide100/dak-keyword/pkg/db"
 	"github.com/docker/docker/api/types"
-	"github.com/docker/docker/api/types/mount"
 	"github.com/docker/docker/api/types/swarm"
 )
 
@@ -43,14 +43,14 @@ func (c *Controller) CreateAnalyzerService(workerId string, keyword string, dbCo
 					// 	"com.docker.stack.namespace" : "keyword_analyzer",
 					// },
 					Command: []string{"python3", "Analyzer.py"},
-					Mounts: []mount.Mount{
-						{
-							Type:  "volume",
-							Source: "keys",
-							Target: "/keys/",
-							VolumeOptions: &mount.VolumeOptions{},
-						},
-					},
+					// Mounts: []mount.Mount{
+					// 	{
+					// 		Type:  "volume",
+					// 		Source: "keys",
+					// 		Target: "/keys/",
+					// 		VolumeOptions: &mount.VolumeOptions{},
+					// 	},
+					// },
 					Env: []string{
 					"Keyword=" + keyword, 
 					"DB_ADDR=" + dbConfig.Host,
@@ -67,13 +67,10 @@ func (c *Controller) CreateAnalyzerService(workerId string, keyword string, dbCo
 					Target: "keyword_keyword-network",
 				},
 			},
-
-
 			RestartPolicy: &swarm.RestartPolicy{
 				MaxAttempts: &max,
 				Condition: swarm.RestartPolicyConditionOnFailure,
 			},
-
 			// Placement: &swarm.Placement{
 			// 	// MaxReplicas: 1,
 			// 	// Constraints: []string{nodeRole},
@@ -81,7 +78,18 @@ func (c *Controller) CreateAnalyzerService(workerId string, keyword string, dbCo
 		},
 	}, types.ServiceCreateOptions{})
 	if err != nil {
-		return err, false
+		if strings.Contains(err.Error(), "name conflicts with an existing object") {
+			log.Println("An analyzer service with the same name already exists. Enqueuing to create later.")
+			c.cQueue.EnqueueFromQueue(&ContainerSpec{
+				WorkerId: workerId,
+				Keyword: keyword,
+				Token: "",
+				Type: "Analyzer",
+			})
+			return nil, false
+		} else {
+			return err, false
+		}
 	}
 
 	c.cQueue.EnqueueFromRunning(&ContainerSpec{
