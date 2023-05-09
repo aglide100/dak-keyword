@@ -25,9 +25,9 @@ func NewProvisionServiceServer(containerCon *container.Controller, cQueue *conta
 }
 
 func (s *ProvisionSrv) CreateScraper(ctx context.Context, in *pb_svc_provision.CreateScraperReq) (*pb_svc_provision.CreateScraperRes, error) {
-	if in != nil {
-		log.Printf("Received CreateScraper call: %v", in.String())
-	}
+	// if in != nil {
+	// 	log.Printf("Received CreateScraper call: %v", in.String())
+	// }
 	
 	s.cQueue.EnqueueFromQueue(&container.ContainerSpec{
 		WorkerId: in.WorkerId,
@@ -36,18 +36,17 @@ func (s *ProvisionSrv) CreateScraper(ctx context.Context, in *pb_svc_provision.C
 		Type: "Scraper",
 	})
 
-	err, countErr := s.c.CreateScraperService(in.WorkerId, in.JobId, in.Keyword, &s.dbConfig)
-	if err != nil {
-		log.Printf("Can't create new scraper : %v", err)
-		return nil, err
-	}
-	log.Printf("Should be create new scraper, %v", in.String())
+	// err, countErr := s.c.CreateScraperService(in.WorkerId, in.JobId, in.Keyword, &s.dbConfig)
+	// if err != nil {
+	// 	log.Printf("Can't create new scraper : %v", err)
+	// 	return nil, err
+	// }
 
-	if countErr {
-		return &pb_svc_provision.CreateScraperRes{
-			Status: "Too many container is running",
-		}, nil
-	}
+	// if countErr {
+	// 	return &pb_svc_provision.CreateScraperRes{
+	// 		Status: "Too many container is running, added queue",
+	// 	}, nil
+	// }
 
 	return &pb_svc_provision.CreateScraperRes{
 		Status: "Added in container queue",
@@ -65,16 +64,16 @@ func (s *ProvisionSrv) CreateAnalyzer(ctx context.Context, in *pb_svc_provision.
 		Type: "Analyzer",
 	})
 
-	err, countErr := s.c.CreateAnalyzerService(in.ScraperId, in.Keyword, &s.dbConfig)
-	if err != nil {
-		return nil, err
-	}
+	// err, countErr := s.c.CreateAnalyzerService(in.ScraperId, in.Keyword, &s.dbConfig)
+	// if err != nil {
+	// 	return nil, err
+	// }
 
-	if (!countErr) {
-		return &pb_svc_provision.CreateAnalyzerRes{
-			Status: "Too many container is running",
-		}, nil
-	}
+	// if (!countErr) {
+	// 	return &pb_svc_provision.CreateAnalyzerRes{
+	// 		Status: "Too many container is running, added queue",
+	// 	}, nil
+	// }
 
 	return &pb_svc_provision.CreateAnalyzerRes{
 		Status: "Done!",

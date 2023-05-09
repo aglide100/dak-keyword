@@ -2,7 +2,6 @@ package container
 
 import (
 	"context"
-	"log"
 	"strconv"
 	"strings"
 
@@ -16,8 +15,8 @@ import (
 func (c *Controller) CreateSimilarityService(workerId string, jobId string, keyword string, dbConfig *db.DBConfig) (error, bool) {
 	ctx := context.Background()
 
-	if c.cQueue.GetCurrentContainerCount() >= c.containerMaximum {
-		log.Println("Too many container to create scraper container")
+	if c.cQueue.LenRunning() >= c.containerMaximum {
+		// log.Println("Too many container to create scraper container")
 		c.cQueue.EnqueueFromQueue(&ContainerSpec{
 			WorkerId: workerId,
 			Keyword: keyword,

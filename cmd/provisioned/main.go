@@ -16,7 +16,6 @@ import (
 
 	pb_svc_provision "github.com/aglide100/dak-keyword/pb/svc/provision"
 
-	"github.com/aglide100/dak-keyword/pkg/config"
 	"github.com/aglide100/dak-keyword/pkg/container"
 	"github.com/aglide100/dak-keyword/pkg/db"
 	"github.com/aglide100/dak-keyword/pkg/servers/provision"
@@ -46,11 +45,11 @@ func realMain() error {
 
 	var opts []grpc.ServerOption
 	
-	twitterToken := config.GetInstance().GetTwitterBearerToken()
+	twitterToken := ""
 
 	grpcServer := grpc.NewServer(opts...)
 
-	q := container.NewContainerQueue(400, 10)
+	q := container.NewContainerQueue(400, 7)
 
 	c, err := container.NewController(q, twitterToken)
 	if err != nil {
@@ -82,7 +81,7 @@ func realMain() error {
 
 	wg.Go(func() error {
 		for {
-			<-time.After(5*time.Second)
+			<-time.After(10*time.Second)
             for (q.LenQueue() > 0) {
 				if (q.LenRunning() < q.GetLimitContainerCount()) {
 					cSpec:= q.DequeueFromQueue()
