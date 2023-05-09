@@ -16,8 +16,8 @@ import (
 func (c *Controller) CreateScraperService(workerId string, jobId string, keyword string, dbConfig *db.DBConfig) (error, bool) {
 	ctx := context.Background()
 
-	if c.cQueue.GetCurrentContainerCount() >= c.cQueue.GetLimitContainerCount() {
-		log.Println("Too many container to create scraper container")
+	if c.cQueue.LenRunning() >= c.cQueue.GetLimitContainerCount() {
+		// log.Println("Too many container to create scraper container")
 		c.cQueue.EnqueueFromQueue(&ContainerSpec{
 			WorkerId: workerId,
 			Keyword: keyword,
@@ -66,14 +66,7 @@ func (c *Controller) CreateScraperService(workerId string, jobId string, keyword
 	})
 	if err != nil {
 		if strings.Contains(err.Error(), "name conflicts with an existing object") {
-			log.Println("An analyzer service with the same name already exists. Enqueuing to create later.")
-			c.cQueue.EnqueueFromQueue(&ContainerSpec{
-				WorkerId: workerId,
-				Keyword: keyword,
-				JobId: jobId,
-				Token: c.twitterToken,
-				Type: "Scraper",
-			})
+			log.Println("An analyzer service with the same name already exists.")
 			return nil, false
 		} else {
 			return err, false

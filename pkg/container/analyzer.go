@@ -20,10 +20,10 @@ func (c *Controller) CreateAnalyzerService(workerId string, keyword string, dbCo
 	
 	max := uint64(1)
 
-	if c.cQueue.GetCurrentContainerCount() >= c.cQueue.GetLimitContainerCount() {
+	if c.cQueue.LenRunning() >= c.cQueue.GetLimitContainerCount() {
 		log.Println("Too many container to create analyzer container")
 		c.cQueue.EnqueueFromQueue(&ContainerSpec{
-			WorkerId: workerId,
+			WorkerId:  workerId,
 			Keyword: keyword,
 			Token: "",
 			Type: "Analyzer",
@@ -79,13 +79,13 @@ func (c *Controller) CreateAnalyzerService(workerId string, keyword string, dbCo
 	}, types.ServiceCreateOptions{})
 	if err != nil {
 		if strings.Contains(err.Error(), "name conflicts with an existing object") {
-			log.Println("An analyzer service with the same name already exists. Enqueuing to create later.")
-			c.cQueue.EnqueueFromQueue(&ContainerSpec{
-				WorkerId: workerId,
-				Keyword: keyword,
-				Token: "",
-				Type: "Analyzer",
-			})
+			log.Println("An analyzer service with the same name already exists.")
+			// c.cQueue.EnqueueFromQueue(&ContainerSpec{
+			// 	WorkerId: workerId,
+			// 	Keyword: keyword,
+			// 	Token: "",
+			// 	Type: "Analyzer",
+			// })
 			return nil, false
 		} else {
 			return err, false

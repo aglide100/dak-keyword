@@ -18,8 +18,8 @@ func (s *ManagerSrv) WhenStartScraper(ctx context.Context, in *pb_svc_manager.Wh
 
 	err := s.db.UpdateWorker(in.Id, "Scraping data from internets...")
 	if err != nil {
-		s.db.UpdateJob(in.Id, "Can't start scraper")
-		return nil, status.Error(codes.Canceled, "Can't update worker status at dbms")
+		s.db.UpdateJob(in.Id, "Can't start Scraper")
+		return nil, status.Error(codes.Canceled, "Scraper having some error")
 	}
 
 	return &pb_svc_manager.WhenStartScraperRes{
@@ -34,8 +34,8 @@ func (s *ManagerSrv) WhenScraperHavingErr(ctx context.Context, in *pb_svc_manage
 
 	err := s.db.UpdateWorker(in.Id, "Scraper having some error.... " + in.GetMsg())
 	if err != nil {
-		s.db.UpdateJob(in.Id, "Can't start scraper")
-		return nil, status.Error(codes.Canceled, "Can't update worker status at dbms")
+		s.db.UpdateJob(in.Id, "Can't start Scraper")
+		return nil, status.Error(codes.Canceled, "Scraper having some error")
 	}
 
 	return &pb_svc_manager.WhenScraperHavingErrRes{
@@ -50,14 +50,14 @@ func (s *ManagerSrv) WhenDoneScraper(ctx context.Context, in *pb_svc_manager.Whe
 
 	err := s.db.UpdateWorker(in.Id, "Scraper Done. Creating Analyzer")
 	if err != nil {
-		s.db.UpdateJob(in.Id, "Can't remove Analyzer")
-		return nil, status.Error(codes.Canceled, "Can't update worker status at dbms")
+		s.db.UpdateJob(in.Id, "Can't remove Snalyzer")
+		return nil, status.Error(codes.Canceled, "Scraper having some error")
 	}
 
 	err = calling.CallRemoveScraper(in.Id)
 	if err != nil {
-		s.db.UpdateJob(in.Id, "Can't remove scraper")
-		return nil, status.Error(codes.Canceled, "Can't update remove scraper")
+		s.db.UpdateJob(in.Id, "Can't remove Scraper")
+		return nil, status.Error(codes.Canceled, "Can't remove Scraper")
 	}
 
 	err = calling.CallMakeAnalysis(in.Id)
