@@ -20,16 +20,14 @@ type Container interface {
 type Controller struct {
 	cli *client.Client
 	containerMaximum int
-	twitterToken string
 	cQueue *ContainerQueue
 	Container
 }
 
-func NewController( cQueue *ContainerQueue, twitterToken string) (controller *Controller, err error) {
+func NewController(cQueue *ContainerQueue) (controller *Controller, err error) {
 	newController := new(Controller)
 	newController.cli, err = client.NewClientWithOpts(client.FromEnv)
 
-	newController.twitterToken = twitterToken
 	newController.cQueue = cQueue
 
 	if err != nil {

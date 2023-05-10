@@ -21,7 +21,6 @@ func (c *Controller) CreateSimilarityService(workerId string, jobId string, keyw
 			WorkerId: workerId,
 			Keyword: keyword,
 			JobId: jobId,
-			Token: c.twitterToken,
 			Type: "Similarity",
 		})
 		return nil, true

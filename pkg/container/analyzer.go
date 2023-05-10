@@ -16,8 +16,6 @@ import (
 func (c *Controller) CreateAnalyzerService(workerId string, keyword string, dbConfig *db.DBConfig) (error, bool) {
 	ctx := context.Background()
 
-	c.cli.ImagePull(ctx, "ghcr.io/aglide100/dak-keyword--analyzer:latest", types.ImagePullOptions{})
-	
 	max := uint64(1)
 
 	if c.cQueue.LenRunning() >= c.cQueue.GetLimitContainerCount() {
@@ -30,6 +28,9 @@ func (c *Controller) CreateAnalyzerService(workerId string, keyword string, dbCo
 		})
 		return nil, true
     }
+
+	c.cli.ImagePull(ctx, "ghcr.io/aglide100/dak-keyword--analyzer:latest", types.ImagePullOptions{})
+	
 
 	_, err := c.cli.ServiceCreate(ctx, swarm.ServiceSpec{
 		Annotations: swarm.Annotations{

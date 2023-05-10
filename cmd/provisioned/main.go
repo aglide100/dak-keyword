@@ -45,13 +45,13 @@ func realMain() error {
 
 	var opts []grpc.ServerOption
 	
-	twitterToken := ""
+	// twitterToken := config.GetInstance().GetTwitterBearerToken()
 
 	grpcServer := grpc.NewServer(opts...)
 
-	q := container.NewContainerQueue(400, 7)
+	q := container.NewContainerQueue(400, 4)
 
-	c, err := container.NewController(q, twitterToken)
+	c, err := container.NewController(q)
 	if err != nil {
 		return err
 	} 
@@ -87,7 +87,7 @@ func realMain() error {
 					cSpec:= q.DequeueFromQueue()
 
 					if (cSpec.Type == "Scraper") {
-						err, countErr := c.CreateScraperService(cSpec.WorkerId, cSpec.JobId, cSpec.Keyword, dbConfig)
+						err, countErr := c.CreateScraperService(cSpec.WorkerId, cSpec.JobId, cSpec.Keyword, cSpec.InjectString, dbConfig)
 						if err != nil {
 							log.Printf("Can't make scraper in queue %v, %v", err, cSpec)
 							// q.EnqueueFromQueue(cSpec)

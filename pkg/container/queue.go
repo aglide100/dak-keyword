@@ -11,12 +11,13 @@ type ContainerSpec struct {
 	Keyword string
 	Token string
 	Type string
+	// for using token or api key
+	InjectString string
 }
 
 type ContainerQueue struct {
 	running chan *ContainerSpec
 	queue chan *ContainerSpec
-	currentContainerCount chan int
 	containerMaximum int
 	length int
 }

@@ -69,7 +69,8 @@ export const ArticleGraph: React.FC = () => {
 
     useEffect(() => {
         if (!isLoaded && router.isReady) {
-            if (isClick) {
+            setIsClick(!isClick);
+            if (!isClick) {
                 fetchArticleCountByHour();
             } else {
                 fetchArticleCountByDay();
@@ -78,7 +79,7 @@ export const ArticleGraph: React.FC = () => {
     }, [router.isReady]);
 
     async function fetchArticleCountByDay() {
-        CallGetArticleCountByDay(router.query.jobId, (message) => {
+        await CallGetArticleCountByDay(router.query.jobId, (message) => {
             const newArticleCounts: ArticleCountProto[] = [];
             message.articlecountList.map((value, _) => {
                 const newArticleCount: ArticleCountProto = {
@@ -90,14 +91,14 @@ export const ArticleGraph: React.FC = () => {
                 newArticleCounts.push(newArticleCount);
             });
 
-            countArticle(newArticleCounts);
             setDataByDay(newArticleCounts);
+            countArticle(dataByDay);
             setIsLoaded(true);
         });
     }
 
     async function fetchArticleCountByHour() {
-        CallGetArticleCountByHour(router.query.jobId, (message) => {
+        await CallGetArticleCountByHour(router.query.jobId, (message) => {
             const newArticleCounts: ArticleCountProto[] = [];
             message.articlecountList.map((value, _) => {
                 const newArticleCount: ArticleCountProto = {
@@ -109,13 +110,17 @@ export const ArticleGraph: React.FC = () => {
                 newArticleCounts.push(newArticleCount);
             });
 
-            countArticle(newArticleCounts);
             setDataByHour(newArticleCounts);
+            countArticle(newArticleCounts);
             setIsLoaded(true);
         });
     }
 
     function countArticle(data: ArticleCountProto[]) {
+        if (data.length <= 0) {
+            console.log("There's no data");
+            return;
+        }
         let count_happy = 0;
         let count_fear = 0;
         let count_embarrassed = 0;
@@ -268,7 +273,7 @@ export const ArticleGraph: React.FC = () => {
                 return (
                     <li
                         className="flex ml-2 mb-3 pl-2 pr-2 border-2 "
-                        key={index + "check"}
+                        key={"checkedbox_" + index}
                     >
                         <span>{CountIndexToName[value]}</span>
                         <div className="flex ml-3">

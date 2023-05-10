@@ -5,6 +5,7 @@ import (
 	"log"
 
 	pb_svc_provision "github.com/aglide100/dak-keyword/pb/svc/provision"
+	"github.com/aglide100/dak-keyword/pkg/config"
 	"github.com/aglide100/dak-keyword/pkg/container"
 	"github.com/aglide100/dak-keyword/pkg/db"
 )
@@ -34,19 +35,8 @@ func (s *ProvisionSrv) CreateScraper(ctx context.Context, in *pb_svc_provision.C
 		JobId: in.JobId,
 		Keyword: in.Keyword,
 		Type: "Scraper",
+		InjectString: config.GetInstance().GetTwitterBearerToken(),
 	})
-
-	// err, countErr := s.c.CreateScraperService(in.WorkerId, in.JobId, in.Keyword, &s.dbConfig)
-	// if err != nil {
-	// 	log.Printf("Can't create new scraper : %v", err)
-	// 	return nil, err
-	// }
-
-	// if countErr {
-	// 	return &pb_svc_provision.CreateScraperRes{
-	// 		Status: "Too many container is running, added queue",
-	// 	}, nil
-	// }
 
 	return &pb_svc_provision.CreateScraperRes{
 		Status: "Added in container queue",
@@ -54,29 +44,14 @@ func (s *ProvisionSrv) CreateScraper(ctx context.Context, in *pb_svc_provision.C
 }
 
 func (s *ProvisionSrv) CreateAnalyzer(ctx context.Context, in *pb_svc_provision.CreateAnalyzerReq) (*pb_svc_provision.CreateAnalyzerRes, error) {
-	// if in != nil {
-	// 	log.Printf("Received CreateAnalyzer call: %v", in.String())
-	// }
-
 	s.cQueue.EnqueueFromQueue(&container.ContainerSpec{
 		WorkerId: in.ScraperId,
 		Keyword: in.Keyword,
 		Type: "Analyzer",
 	})
 
-	// err, countErr := s.c.CreateAnalyzerService(in.ScraperId, in.Keyword, &s.dbConfig)
-	// if err != nil {
-	// 	return nil, err
-	// }
-
-	// if (!countErr) {
-	// 	return &pb_svc_provision.CreateAnalyzerRes{
-	// 		Status: "Too many container is running, added queue",
-	// 	}, nil
-	// }
-
 	return &pb_svc_provision.CreateAnalyzerRes{
-		Status: "Done!",
+		Status: "Added in container queue",
 	}, nil
 }
 
