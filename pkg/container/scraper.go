@@ -13,8 +13,10 @@ import (
 
 // const nodeRole = "node.role == worker"
 
-func (c *Controller) CreateScraperService(workerId string, jobId string, keyword string, dbConfig *db.DBConfig) (error, bool) {
+func (c *Controller) CreateScraperService(workerId string, jobId string, keyword string, token string, dbConfig *db.DBConfig) (error, bool) {
 	ctx := context.Background()
+
+	max := uint64(1)
 
 	if c.cQueue.LenRunning() >= c.cQueue.GetLimitContainerCount() {
 		// log.Println("Too many container to create scraper container")
@@ -22,7 +24,7 @@ func (c *Controller) CreateScraperService(workerId string, jobId string, keyword
 			WorkerId: workerId,
 			Keyword: keyword,
 			JobId: jobId,
-			Token: c.twitterToken,
+			Token: token,
 			Type: "Scraper",
 		})
 		return nil, true
@@ -47,7 +49,7 @@ func (c *Controller) CreateScraperService(workerId string, jobId string, keyword
 					"DB_NAME=" + dbConfig.Dbname,
 					"WORKER_ID=" + workerId,
 					"JOB_ID=" + jobId,
-					"BearerToken=" + c.twitterToken,
+					"BearerToken=" + token,
 				},
 			},
 
@@ -55,6 +57,10 @@ func (c *Controller) CreateScraperService(workerId string, jobId string, keyword
 				swarm.NetworkAttachmentConfig{
 					Target: "keyword_keyword-network",
 				},
+			},
+			RestartPolicy: &swarm.RestartPolicy{
+				MaxAttempts: &max,
+				Condition: swarm.RestartPolicyConditionOnFailure,
 			},
 
 			// Placement: &swarm.Placement{
