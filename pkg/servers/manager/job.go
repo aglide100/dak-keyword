@@ -16,6 +16,10 @@ import (
 	"google.golang.org/grpc/status"
 )
 
+type JobSrv interface {
+	pb_svc_manager_job.JobServiceServer
+}
+
 func (s *ManagerSrv) CreateNewJob(ctx context.Context, in *pb_svc_manager_job.CreateNewJobReq) (*pb_svc_manager_job.CreateNewJobRes, error) {
 	if in != nil {
 		p, _ := peer.FromContext(ctx)

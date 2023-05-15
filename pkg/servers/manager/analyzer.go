@@ -11,6 +11,9 @@ import (
 	calling "github.com/aglide100/dak-keyword/pkg/clients/provisioned"
 )
 
+type AnalyzerSrv interface {
+	pb_svc_manager_analyzer.AnalyzerServiceServer
+}
 
 func (s *ManagerSrv) WhenStartAnalyzer(ctx context.Context, in *pb_svc_manager_analyzer.WhenStartAnalyzerReq) (*pb_svc_manager_analyzer.WhenStartAnalyzerRes, error) {
 	if in != nil {

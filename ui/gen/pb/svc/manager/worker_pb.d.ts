@@ -3,46 +3,6 @@ import * as jspb from 'google-protobuf'
 import * as pb_unit_worker_worker_pb from '../../../pb/unit/worker/worker_pb';
 
 
-export class UpdateJobStatusReq extends jspb.Message {
-  getId(): string;
-  setId(value: string): UpdateJobStatusReq;
-
-  getStatus(): string;
-  setStatus(value: string): UpdateJobStatusReq;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): UpdateJobStatusReq.AsObject;
-  static toObject(includeInstance: boolean, msg: UpdateJobStatusReq): UpdateJobStatusReq.AsObject;
-  static serializeBinaryToWriter(message: UpdateJobStatusReq, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): UpdateJobStatusReq;
-  static deserializeBinaryFromReader(message: UpdateJobStatusReq, reader: jspb.BinaryReader): UpdateJobStatusReq;
-}
-
-export namespace UpdateJobStatusReq {
-  export type AsObject = {
-    id: string,
-    status: string,
-  }
-}
-
-export class UpdateJobStatusRes extends jspb.Message {
-  getResult(): string;
-  setResult(value: string): UpdateJobStatusRes;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): UpdateJobStatusRes.AsObject;
-  static toObject(includeInstance: boolean, msg: UpdateJobStatusRes): UpdateJobStatusRes.AsObject;
-  static serializeBinaryToWriter(message: UpdateJobStatusRes, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): UpdateJobStatusRes;
-  static deserializeBinaryFromReader(message: UpdateJobStatusRes, reader: jspb.BinaryReader): UpdateJobStatusRes;
-}
-
-export namespace UpdateJobStatusRes {
-  export type AsObject = {
-    result: string,
-  }
-}
-
 export class GetWorkerListReq extends jspb.Message {
   getId(): string;
   setId(value: string): GetWorkerListReq;

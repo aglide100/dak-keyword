@@ -81,7 +81,7 @@ func realMain() error {
 		str := generate.RandStringRunes(10)
 
 		fmt.Println("Can't get accessCode, generate random one")
-		fmt.Printf("generated : %s", str)
+		fmt.Printf("generated : %s \n", str)
 	
 		accessCode = str
 	} 
@@ -133,17 +133,17 @@ func realMain() error {
 	
 	// pb_svc_manager.RegisterManagerServer(grpcWebServer, managerSrv)
 
-	pb_svc_manager_analyzer.RegisterAnalyzerServiceServer(grpcServer, managerSrv.AnalyzerServiceServer)
-	pb_svc_manager_article.RegisterArticleServiceServer(grpcServer, managerSrv.ArticleServiceServer)
-	pb_svc_manager_job.RegisterJobServiceServer(grpcServer, managerSrv.JobServiceServer)
-	pb_svc_manager_scraper.RegisterScraperServiceServer(grpcServer, managerSrv.ScraperServiceServer)
-	pb_svc_manager_similarity.RegisterSimilarityServiceServer(grpcServer, managerSrv.SimilarityServiceServer)
-	pb_svc_manager_worker.RegisterWorkerServiceServer(grpcServer, managerSrv.WorkerServiceServer)
+	pb_svc_manager_analyzer.RegisterAnalyzerServiceServer(grpcServer, managerSrv)
+	pb_svc_manager_article.RegisterArticleServiceServer(grpcServer, managerSrv)
+	pb_svc_manager_job.RegisterJobServiceServer(grpcServer, managerSrv)
+	pb_svc_manager_scraper.RegisterScraperServiceServer(grpcServer, managerSrv)
+	pb_svc_manager_similarity.RegisterSimilarityServiceServer(grpcServer, managerSrv)
+	pb_svc_manager_worker.RegisterWorkerServiceServer(grpcServer, managerSrv)
 
-	pb_svc_manager_article.RegisterArticleServiceServer(grpcWebServer, managerSrv.ArticleServiceServer)
-	pb_svc_manager_job.RegisterJobServiceServer(grpcWebServer, managerSrv.JobServiceServer)
-	pb_svc_manager_worker.RegisterWorkerServiceServer(grpcWebServer, managerSrv.WorkerServiceServer)
-	pb_svc_manager_similarity.RegisterSimilarityServiceServer(grpcWebServer, managerSrv.SimilarityServiceServer)
+	pb_svc_manager_article.RegisterArticleServiceServer(grpcWebServer, managerSrv)
+	pb_svc_manager_job.RegisterJobServiceServer(grpcWebServer, managerSrv)
+	pb_svc_manager_worker.RegisterWorkerServiceServer(grpcWebServer, managerSrv)
+	pb_svc_manager_similarity.RegisterSimilarityServiceServer(grpcWebServer, managerSrv)
 	
 	// pb_svc_manager.RegisterManagerServer(grpcServer, managerSrv)
 

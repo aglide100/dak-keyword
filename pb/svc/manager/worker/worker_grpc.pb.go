@@ -24,7 +24,6 @@ const _ = grpc.SupportPackageIsVersion7
 type WorkerServiceClient interface {
 	GetWorkerList(ctx context.Context, in *GetWorkerListReq, opts ...grpc.CallOption) (*GetWorkerListRes, error)
 	UpdateWorkerStatus(ctx context.Context, in *UpdateWorkerStatusReq, opts ...grpc.CallOption) (*UpdateWorkerStatusRes, error)
-	UpdateJobStatus(ctx context.Context, in *UpdateJobStatusReq, opts ...grpc.CallOption) (*UpdateJobStatusRes, error)
 }
 
 type workerServiceClient struct {
@@ -53,22 +52,12 @@ func (c *workerServiceClient) UpdateWorkerStatus(ctx context.Context, in *Update
 	return out, nil
 }
 
-func (c *workerServiceClient) UpdateJobStatus(ctx context.Context, in *UpdateJobStatusReq, opts ...grpc.CallOption) (*UpdateJobStatusRes, error) {
-	out := new(UpdateJobStatusRes)
-	err := c.cc.Invoke(ctx, "/pb.svc.manager.worker.WorkerService/UpdateJobStatus", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // WorkerServiceServer is the server API for WorkerService service.
 // All implementations must embed UnimplementedWorkerServiceServer
 // for forward compatibility
 type WorkerServiceServer interface {
 	GetWorkerList(context.Context, *GetWorkerListReq) (*GetWorkerListRes, error)
 	UpdateWorkerStatus(context.Context, *UpdateWorkerStatusReq) (*UpdateWorkerStatusRes, error)
-	UpdateJobStatus(context.Context, *UpdateJobStatusReq) (*UpdateJobStatusRes, error)
 	mustEmbedUnimplementedWorkerServiceServer()
 }
 
@@ -81,9 +70,6 @@ func (UnimplementedWorkerServiceServer) GetWorkerList(context.Context, *GetWorke
 }
 func (UnimplementedWorkerServiceServer) UpdateWorkerStatus(context.Context, *UpdateWorkerStatusReq) (*UpdateWorkerStatusRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateWorkerStatus not implemented")
-}
-func (UnimplementedWorkerServiceServer) UpdateJobStatus(context.Context, *UpdateJobStatusReq) (*UpdateJobStatusRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateJobStatus not implemented")
 }
 func (UnimplementedWorkerServiceServer) mustEmbedUnimplementedWorkerServiceServer() {}
 
@@ -134,24 +120,6 @@ func _WorkerService_UpdateWorkerStatus_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
-func _WorkerService_UpdateJobStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateJobStatusReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(WorkerServiceServer).UpdateJobStatus(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/pb.svc.manager.worker.WorkerService/UpdateJobStatus",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(WorkerServiceServer).UpdateJobStatus(ctx, req.(*UpdateJobStatusReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // WorkerService_ServiceDesc is the grpc.ServiceDesc for WorkerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -166,10 +134,6 @@ var WorkerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateWorkerStatus",
 			Handler:    _WorkerService_UpdateWorkerStatus_Handler,
-		},
-		{
-			MethodName: "UpdateJobStatus",
-			Handler:    _WorkerService_UpdateJobStatus_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -11,6 +11,10 @@ import (
 	"google.golang.org/grpc/status"
 )
 
+type ScraperSrv interface {
+	pb_svc_manager_scraper.ScraperServiceServer
+}
+
 func (s *ManagerSrv) WhenStartScraper(ctx context.Context, in *pb_svc_manager_scraper.WhenStartScraperReq) (*pb_svc_manager_scraper.WhenStartScraperRes, error) {
 	if in != nil {
 		log.Printf("Received WhenStartScraper call: %v", in.String())
@@ -43,7 +47,7 @@ func (s *ManagerSrv) WhenScraperHavingErr(ctx context.Context, in *pb_svc_manage
 }
 
 
-func (s *ManagerSrv) WhenScraperHavingMsg(ctx context.Context, in *pb_svc_manager_scraper.WhenScraperHavingErrReq) (*pb_svc_manager_scraper.WhenScraperHavingErrRes, error) {
+func (s *ManagerSrv) WhenScraperHavingMsg(ctx context.Context, in *pb_svc_manager_scraper.WhenScraperHavingMsgReq) (*pb_svc_manager_scraper.WhenScraperHavingMsgRes, error) {
 	if in != nil {
 		log.Printf("Received WhenScraperHavingMsg call: %v", in.String())
 	}
@@ -54,7 +58,7 @@ func (s *ManagerSrv) WhenScraperHavingMsg(ctx context.Context, in *pb_svc_manage
 		return nil, status.Error(codes.Canceled, "Scraper having some error")
 	}
 
-	return &pb_svc_manager_scraper.WhenScraperHavingErrRes{
+	return &pb_svc_manager_scraper.WhenScraperHavingMsgRes{
 	}, nil
 }
 
