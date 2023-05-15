@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package pb.svc.manager.scraper;
+option go_package = "github.com/aglide100/dak-keyword/pb/svc/manager/scraper";
+
+service ScraperService {
+    rpc WhenStartScraper(WhenStartScraperReq) returns (WhenStartScraperRes);
+    rpc WhenDoneScraper(WhenDoneScraperReq) returns (WhenDoneScraperRes);
+    rpc WhenScraperHavingMsg(WhenScraperHavingMsgReq) returns (WhenScraperHavingMsgRes);
+    rpc WhenScraperHavingErr(WhenScraperHavingErrReq) returns (WhenScraperHavingErrRes);
+}
+
+message WhenDoneScraperReq {
+    string id = 1;
+}
+
+message WhenDoneScraperRes {
+    string result = 1;
+}
+
+
+message WhenStartScraperReq{
+    string id = 1;
+}
+
+message WhenStartScraperRes {
+    string result = 1;
+}
+
+message WhenScraperHavingErrReq {
+    string id = 1;
+    string msg = 2;
+}
+
+message WhenScraperHavingErrRes {
+    // passed
+}
+
+
+message WhenScraperHavingMsgReq {
+    string id = 1;
+    string msg = 2;
+}
+
+message WhenScraperHavingMsgRes {
+    // passed
+}
+

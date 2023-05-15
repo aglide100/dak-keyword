@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package pb.svc.manager.similarity;
+option go_package = "github.com/aglide100/dak-keyword/pb/svc/manager/similarity";
+
+service SimilarityService {
+    rpc GetVocabList(GetVocabListReq) returns (GetVocabListRes);
+    rpc GetSimilarity(GetSimilarityReq) returns (GetSimilarityRes);
+    rpc WhenStartSimilarity(WhenStartSimilarityReq) returns (WhenStartSimilarityRes);
+    rpc WhenDoneSimilarity(WhenDoneSimilarityReq) returns (WhenDoneSimilarityRes);
+    rpc WhenHavingErrSimilarity(WhenHavingErrSimilarityReq) returns (WhenHavingErrSimilarityRes);
+    
+}
+
+message WhenHavingErrSimilarityReq {
+
+}
+
+message WhenHavingErrSimilarityRes {
+    
+}
+
+
+message WhenDoneSimilarityReq {
+
+}
+
+message WhenDoneSimilarityRes {
+    
+}
+
+message WhenStartSimilarityReq {
+
+}
+message WhenStartSimilarityRes {
+    
+}
+
+message GetSimilarityReq {
+
+}
+
+message GetSimilarityRes {
+    
+}
+
+message GetVocabListReq {
+
+}
+
+message GetVocabListRes {
+
+}

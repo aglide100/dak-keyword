@@ -1,11 +1,15 @@
 // import { secrets } from "docker-secret";
 import * as axios from "axios";
-import { ManagerClient } from "../../gen/pb/svc/manager/manager_grpc_web_pb";
+import { ArticleServiceClient } from "../../gen/pb/svc/manager/article_grpc_web_pb";
+import { JobServiceClient } from "../../gen/pb/svc/manager/job_grpc_web_pb";
+import { WorkerServiceClient } from "../../gen/pb/svc/manager/worker_grpc_web_pb";
 
 export class GrpcManager {
     private static instance: GrpcManager;
     private static host: string;
-    private static client: ManagerClient;
+    private static articleClient: ArticleServiceClient;
+    private static jobClient: JobServiceClient;
+    private static workerClient: WorkerServiceClient;
 
     public static async getInstance(): Promise<GrpcManager> {
         if (!GrpcManager.instance) {
@@ -46,14 +50,32 @@ export class GrpcManager {
 
     public static SetClient() {
         const addr = GrpcManager.host.toString();
-        GrpcManager.client = new ManagerClient(addr);
+        GrpcManager.jobClient = new JobServiceClient(addr);
+        GrpcManager.articleClient = new ArticleServiceClient(addr);
+        GrpcManager.workerClient = new WorkerServiceClient(addr);
     }
 
-    public GetClient(): ManagerClient {
-        if (GrpcManager.client == undefined) {
+    public GetArticleClient(): ArticleServiceClient {
+        if (GrpcManager.articleClient == undefined) {
             GrpcManager.SetClient();
         }
 
-        return GrpcManager.client;
+        return GrpcManager.articleClient;
+    }
+
+    public GetWorkerClient(): WorkerServiceClient {
+        if (GrpcManager.workerClient == undefined) {
+            GrpcManager.SetClient();
+        }
+
+        return GrpcManager.workerClient;
+    }
+
+    public GetJobClient(): JobServiceClient {
+        if (GrpcManager.jobClient == undefined) {
+            GrpcManager.SetClient();
+        }
+
+        return GrpcManager.jobClient;
     }
 }

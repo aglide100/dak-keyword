@@ -1,4 +1,4 @@
-import * as pb_svc_manager from "../../gen/pb/svc/manager/manager_pb";
+import * as pb_svc_manager from "../../gen/pb/svc/manager/article_pb";
 import { GrpcManager } from ".";
 import * as grpcWeb from "grpc-web";
 
@@ -30,7 +30,7 @@ export async function CallGetArticleList(id, callback) {
     getArticleListReq.setPage(0);
 
     const stream = (await GrpcManager.getInstance())
-        .GetClient()
+        .GetArticleClient()
         .getArticleList(
             getArticleListReq,
             undefined,
@@ -116,7 +116,7 @@ export async function CallGetArticleCountByHour(id, callback) {
     getArticleCountByHourReq.setId(id);
 
     const stream = (await GrpcManager.getInstance())
-        .GetClient()
+        .GetArticleClient()
         .getArticleCountByHour(
             getArticleCountByHourReq,
             undefined,
@@ -159,7 +159,7 @@ export async function CallGetArticleCountByDay(id, callback) {
     getArticleCountByDayReq.setId(id);
 
     const stream = (await GrpcManager.getInstance())
-        .GetClient()
+        .GetArticleClient()
         .getArticleCountByDay(
             getArticleCountByDayReq,
             undefined,

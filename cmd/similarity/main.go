@@ -10,9 +10,9 @@ import (
 )
 
 func main() {
-	
 	if err := realMain(); err != nil {
 		log.Printf("err :%s", err)
+		
 		os.Exit(1)
 	}
 }
@@ -45,8 +45,13 @@ func realMain() error {
 
 	vocabList, tfidf, similarityList := tfidf.CalcTfIdf(documents)
 
-	myDB.AddNewVocabList(vocabList, workerId)
+	err = myDB.AddNewVocabList(vocabList, workerId)
+	if err != nil {
+		return err
+	}
 	// myDB.AddNewTfIdfScore()
+
+
 	log.Println(vocabList)
 	
 	log.Println(tfidf)

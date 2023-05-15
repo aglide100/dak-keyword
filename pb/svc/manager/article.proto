@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package pb.svc.manager.article;
+option go_package = "github.com/aglide100/dak-keyword/pb/svc/manager/article";
+
+import "pb/unit/article/article.proto";
+
+service ArticleService {
+    rpc GetArticleInfo(GetArticleInfoReq) returns (GetArticleInfoRes); 
+    rpc GetArticleList(GetArticleListReq) returns (GetArticleListRes);
+    rpc GetArticleCountByHour(GetArticleCountByHourReq) returns (GetArticleCountByHourRes);
+    rpc GetArticleCountByDay(GetArticleCountByDayReq) returns (GetArticleCountByDayRes);
+    
+}
+
+message GetArticleCountByDayReq {
+    string id = 1;
+}
+
+message GetArticleCountByDayRes {
+    repeated unit.article.ArticleCount ArticleCount = 1;
+}
+
+message GetArticleCountByHourReq {
+    string id = 1;
+}
+
+message GetArticleCountByHourRes {
+    repeated unit.article.ArticleCount ArticleCount = 1;
+}
+
+message GetArticleListReq {
+    string id = 1;
+    int32 page = 2;
+}
+
+message GetArticleListRes {
+    repeated unit.article.Article Article = 1;
+}
+
+message GetArticleInfoReq {
+    string id = 1;
+}
+
+message GetArticleInfoRes {
+    int32 totalCount = 1;
+    int32 pageCount = 2;
+}

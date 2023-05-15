@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package pb.svc.manager.worker;
+option go_package = "github.com/aglide100/dak-keyword/pb/svc/manager/worker";
+
+import "pb/unit/worker/worker.proto";
+
+service WorkerService {
+    rpc GetWorkerList(GetWorkerListReq) returns (GetWorkerListRes);
+    rpc UpdateWorkerStatus(UpdateWorkerStatusReq) returns (UpdateWorkerStatusRes);
+    rpc UpdateJobStatus(UpdateJobStatusReq) returns (UpdateJobStatusRes);
+}
+
+
+message UpdateJobStatusReq {
+    string id = 1;
+    string status = 2;
+}
+
+message UpdateJobStatusRes {
+    string result = 1;
+}
+
+message GetWorkerListReq {
+    string id = 1;
+}
+
+message GetWorkerListRes {
+    repeated unit.worker.Worker Worker = 1;
+}
+
+message UpdateWorkerStatusReq {
+    string id = 1;
+    string msg = 2;
+}
+
+message UpdateWorkerStatusRes {
+    //  passed
+}

@@ -1,6 +1,6 @@
 import grpc
-import pb.svc.manager.manager_pb2 as manager_pb2
-import pb.svc.manager.manager_pb2_grpc as manager_pb2_grpc
+import pb.svc.manager.analyzer_pb2 as manager_pb2
+import pb.svc.manager.analyzer_pb2_grpc as manager_pb2_grpc
 import time
 import os
 addr = "keyword_apid:50010"

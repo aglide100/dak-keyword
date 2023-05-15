@@ -1,4 +1,4 @@
-import * as pb_svc_manager from "../../gen/pb/svc/manager/manager_pb";
+import * as pb_svc_manager from "../../gen/pb/svc/manager/worker_pb";
 import { GrpcManager } from ".";
 import * as grpcWeb from "grpc-web";
 
@@ -33,7 +33,7 @@ export async function CallGetWorkers(jobId, callback) {
     getWorkerListReq.setId(jobId);
 
     const stream = (await GrpcManager.getInstance())
-        .GetClient()
+        .GetWorkerClient()
         .getWorkerList(
             getWorkerListReq,
             undefined,

@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 
-	pb_svc_manager "github.com/aglide100/dak-keyword/pb/svc/manager"
+	pb_svc_manager_article "github.com/aglide100/dak-keyword/pb/svc/manager/article"
 	pb_unit_article "github.com/aglide100/dak-keyword/pb/unit/article"
 	"github.com/aglide100/dak-keyword/pkg/models"
 	"google.golang.org/grpc"
@@ -13,7 +13,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (s *ManagerSrv) GetArticleList(ctx context.Context, in *pb_svc_manager.GetArticleListReq) (*pb_svc_manager.GetArticleListRes, error) {
+func (s *ManagerSrv) GetArticleList(ctx context.Context, in *pb_svc_manager_article.GetArticleListReq) (*pb_svc_manager_article.GetArticleListRes, error) {
 	if in != nil {
 		// p, _ := peer.FromContext(ctx)
 		// log.Printf("Received GetArticleList call: %v , by : %v", in.String(), p.Addr.String())
@@ -35,12 +35,12 @@ func (s *ManagerSrv) GetArticleList(ctx context.Context, in *pb_svc_manager.GetA
 	}
 
 	grpc.SendHeader(ctx, metadata.Pairs("Cache-Control", "private, max-age=5"))
-	return &pb_svc_manager.GetArticleListRes{
+	return &pb_svc_manager_article.GetArticleListRes{
 		Article: pbArticles,
 	}, nil
 }
 
-func (s *ManagerSrv) GetArticleCountByHour(ctx context.Context, in *pb_svc_manager.GetArticleCountByHourReq) (*pb_svc_manager.GetArticleCountByHourRes, error) {
+func (s *ManagerSrv) GetArticleCountByHour(ctx context.Context, in *pb_svc_manager_article.GetArticleCountByHourReq) (*pb_svc_manager_article.GetArticleCountByHourRes, error) {
 	if in != nil {
 		// p, _ := peer.FromContext(ctx)
 		// log.Printf("Received GetArticleList call: %v , by : %v", in.String(), p.Addr.String())
@@ -62,13 +62,13 @@ func (s *ManagerSrv) GetArticleCountByHour(ctx context.Context, in *pb_svc_manag
 	}
 
 	grpc.SendHeader(ctx, metadata.Pairs("Cache-Control", "private, max-age=5"))
-	return &pb_svc_manager.GetArticleCountByHourRes{
+	return &pb_svc_manager_article.GetArticleCountByHourRes{
 		ArticleCount: pbArticles,
 
 	}, nil
 }
 
-func (s *ManagerSrv) GetArticleCountByDay(ctx context.Context, in *pb_svc_manager.GetArticleCountByDayReq) (*pb_svc_manager.GetArticleCountByDayRes, error) {
+func (s *ManagerSrv) GetArticleCountByDay(ctx context.Context, in *pb_svc_manager_article.GetArticleCountByDayReq) (*pb_svc_manager_article.GetArticleCountByDayRes, error) {
 	if in != nil {
 		// p, _ := peer.FromContext(ctx)
 		// log.Printf("Received GetArticleList call: %v , by : %v", in.String(), p.Addr.String())
@@ -90,7 +90,7 @@ func (s *ManagerSrv) GetArticleCountByDay(ctx context.Context, in *pb_svc_manage
 	}
 
 	grpc.SendHeader(ctx, metadata.Pairs("Cache-Control", "private, max-age=5"))
-	return &pb_svc_manager.GetArticleCountByDayRes{
+	return &pb_svc_manager_article.GetArticleCountByDayRes{
 		ArticleCount: pbArticles,
 
 	}, nil

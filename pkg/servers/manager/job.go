@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	pb_svc_manager "github.com/aglide100/dak-keyword/pb/svc/manager"
+	pb_svc_manager_job "github.com/aglide100/dak-keyword/pb/svc/manager/job"
 	pb_unit_job "github.com/aglide100/dak-keyword/pb/unit/job"
 	calling "github.com/aglide100/dak-keyword/pkg/clients/provisioned"
 	"github.com/aglide100/dak-keyword/pkg/keyword"
@@ -16,7 +16,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (s *ManagerSrv) CreateNewJob(ctx context.Context, in *pb_svc_manager.CreateNewJobReq) (*pb_svc_manager.CreateNewJobRes, error) {
+func (s *ManagerSrv) CreateNewJob(ctx context.Context, in *pb_svc_manager_job.CreateNewJobReq) (*pb_svc_manager_job.CreateNewJobRes, error) {
 	if in != nil {
 		p, _ := peer.FromContext(ctx)
 		log.Printf("Received CreateNewJob call: %v , by : %s", in.String(), p.Addr.String())
@@ -24,7 +24,7 @@ func (s *ManagerSrv) CreateNewJob(ctx context.Context, in *pb_svc_manager.Create
 
 	if (s.accessCode != in.AccessCode) {
 		log.Printf("Wrong accessCode")
-		return &pb_svc_manager.CreateNewJobRes{
+		return &pb_svc_manager_job.CreateNewJobRes{
 			Msg: "Wrong code",
 		}, status.Error(codes.PermissionDenied, "Wrong AccessCode")
 	}
@@ -67,17 +67,17 @@ func (s *ManagerSrv) CreateNewJob(ctx context.Context, in *pb_svc_manager.Create
 	}
 
 	if (err != nil ) {
-		return &pb_svc_manager.CreateNewJobRes{
+		return &pb_svc_manager_job.CreateNewJobRes{
 			Msg: err.Error(),
 		}, nil
 	} else {
-		return &pb_svc_manager.CreateNewJobRes{
+		return &pb_svc_manager_job.CreateNewJobRes{
 			Msg: "Done",
 		}, nil
 	}
 } 
 
-func (s *ManagerSrv) GetJobStatus(ctx context.Context, in *pb_svc_manager.GetJobStatusReq) (*pb_svc_manager.GetJobStatusRes, error) {
+func (s *ManagerSrv) GetJobStatus(ctx context.Context, in *pb_svc_manager_job.GetJobStatusReq) (*pb_svc_manager_job.GetJobStatusRes, error) {
 	if in != nil {
 		log.Printf("Received GetJobStatus call: %v", in.String())
 	}
@@ -87,19 +87,19 @@ func (s *ManagerSrv) GetJobStatus(ctx context.Context, in *pb_svc_manager.GetJob
 		return nil,  status.Error(codes.NotFound, "Can't find job in dbms")
 	}
 
-	return &pb_svc_manager.GetJobStatusRes{
+	return &pb_svc_manager_job.GetJobStatusRes{
 		Status: res.Status,
 	}, nil
 }
 
-func (s *ManagerSrv) ReRunJob(ctx context.Context, in *pb_svc_manager.ReRunJobReq) (*pb_svc_manager.ReRunJobRes, error) {
+func (s *ManagerSrv) ReRunJob(ctx context.Context, in *pb_svc_manager_job.ReRunJobReq) (*pb_svc_manager_job.ReRunJobRes, error) {
 	if in != nil {
 		log.Printf("Received ReRunJob call: %v", in.String())
 	}
 
 	if (s.accessCode != in.AccessCode) {
 		log.Printf("Wrong accessCode")
-		return &pb_svc_manager.ReRunJobRes{
+		return &pb_svc_manager_job.ReRunJobRes{
 			Msg: "Wrong code",
 		}, status.Error(codes.PermissionDenied, "Wrong AccessCode")
 	}
@@ -141,18 +141,18 @@ func (s *ManagerSrv) ReRunJob(ctx context.Context, in *pb_svc_manager.ReRunJobRe
 	}
 
 	if (err != nil ) {
-		return &pb_svc_manager.ReRunJobRes{
+		return &pb_svc_manager_job.ReRunJobRes{
 			Msg: err.Error(),
 		}, nil
 	} else {
-		return &pb_svc_manager.ReRunJobRes{
+		return &pb_svc_manager_job.ReRunJobRes{
 			Msg: "Done",
 		}, nil
 	}
 }
 
 
-func (s *ManagerSrv) UpdateJobStatus(ctx context.Context, in *pb_svc_manager.UpdateJobStatusReq) (*pb_svc_manager.UpdateJobStatusRes, error) {
+func (s *ManagerSrv) UpdateJobStatus(ctx context.Context, in *pb_svc_manager_job.UpdateJobStatusReq) (*pb_svc_manager_job.UpdateJobStatusRes, error) {
 	// if in != nil {
 	// 	log.Printf("Received UpdateJobStatus call: %v", in.String())
 	// }
@@ -163,13 +163,13 @@ func (s *ManagerSrv) UpdateJobStatus(ctx context.Context, in *pb_svc_manager.Upd
 		return nil, status.Error(codes.NotFound, "Can't find job in dbms")
 	}
 
-	return &pb_svc_manager.UpdateJobStatusRes{
+	return &pb_svc_manager_job.UpdateJobStatusRes{
 		Result: "Update Job status!",
 	}, nil
 }
 
 
-func (s *ManagerSrv) GetJobList(ctx context.Context, in *pb_svc_manager.GetJobListReq) (*pb_svc_manager.GetJobListRes, error) {
+func (s *ManagerSrv) GetJobList(ctx context.Context, in *pb_svc_manager_job.GetJobListReq) (*pb_svc_manager_job.GetJobListRes, error) {
 	// if in != nil {
 	// 	p, _ := peer.FromContext(ctx)
 	// 	log.Printf("Received GetJobList call by : %s", p.Addr.String())
@@ -188,12 +188,12 @@ func (s *ManagerSrv) GetJobList(ctx context.Context, in *pb_svc_manager.GetJobLi
 		pbJobs = append(pbJobs, pbJob)
 	}
 
-	return &pb_svc_manager.GetJobListRes{
+	return &pb_svc_manager_job.GetJobListRes{
 		Job: pbJobs,
 	}, nil
 }
 
-func (s *ManagerSrv) GetJobIsReRun(ctx context.Context, in *pb_svc_manager.GetJobIsReRunReq) (*pb_svc_manager.GetJobIsReRunRes, error) {
+func (s *ManagerSrv) GetJobIsReRun(ctx context.Context, in *pb_svc_manager_job.GetJobIsReRunReq) (*pb_svc_manager_job.GetJobIsReRunRes, error) {
 	// if in != nil {
 	// 	p, _ := peer.FromContext(ctx)
 	// 	log.Printf("Received GetJobList call by : %s", p.Addr.String())
@@ -205,7 +205,7 @@ func (s *ManagerSrv) GetJobIsReRun(ctx context.Context, in *pb_svc_manager.GetJo
 		return nil, status.Error(codes.NotFound, "Can't find job in dbms")
 	}
 
-	return &pb_svc_manager.GetJobIsReRunRes{
+	return &pb_svc_manager_job.GetJobIsReRunRes{
 		Result: isReRun,
 	}, nil
 }

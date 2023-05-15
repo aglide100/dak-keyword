@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package pb.svc.manager.analyzer;
+option go_package = "github.com/aglide100/dak-keyword/pb/svc/manager/analyzer";
+
+service AnalyzerService {
+    rpc WhenStartAnalyzer(WhenStartAnalyzerReq) returns (WhenStartAnalyzerRes);
+    rpc WhenDoneAnalyzer(WhenDoneAnalyzerReq) returns (WhenDoneAnalyzerRes);
+    rpc WhenAnalyzerHavingErr(WhenAnalyzerHavingErrReq) returns (WhenAnalyzerHavingErrRes);
+   
+}
+
+message WhenDoneAnalyzerReq {
+    string id = 1;
+}
+
+message WhenDoneAnalyzerRes {
+    string result = 1;
+}
+
+message WhenStartAnalyzerReq {
+    string id = 1;
+}
+
+message WhenStartAnalyzerRes {
+    string result = 1;
+}
+
+message WhenAnalyzerHavingErrReq {
+    string id = 1;
+    string msg = 2;
+}
+message WhenAnalyzerHavingErrRes {
+    // passed
+}

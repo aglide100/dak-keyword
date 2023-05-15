@@ -4,14 +4,14 @@ import (
 	"context"
 	"log"
 
-	pb_svc_manager "github.com/aglide100/dak-keyword/pb/svc/manager"
+	pb_svc_manager_scraper "github.com/aglide100/dak-keyword/pb/svc/manager/scraper"
 	calling "github.com/aglide100/dak-keyword/pkg/clients/provisioned"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
-func (s *ManagerSrv) WhenStartScraper(ctx context.Context, in *pb_svc_manager.WhenStartScraperReq) (*pb_svc_manager.WhenStartScraperRes, error) {
+func (s *ManagerSrv) WhenStartScraper(ctx context.Context, in *pb_svc_manager_scraper.WhenStartScraperReq) (*pb_svc_manager_scraper.WhenStartScraperRes, error) {
 	if in != nil {
 		log.Printf("Received WhenStartScraper call: %v", in.String())
 	}
@@ -22,12 +22,12 @@ func (s *ManagerSrv) WhenStartScraper(ctx context.Context, in *pb_svc_manager.Wh
 		return nil, status.Error(codes.Canceled, "Scraper having some error")
 	}
 
-	return &pb_svc_manager.WhenStartScraperRes{
+	return &pb_svc_manager_scraper.WhenStartScraperRes{
 		Result: "Scraper staring...!",
 	}, nil
 }
 
-func (s *ManagerSrv) WhenScraperHavingErr(ctx context.Context, in *pb_svc_manager.WhenScraperHavingErrReq) (*pb_svc_manager.WhenScraperHavingErrRes, error) {
+func (s *ManagerSrv) WhenScraperHavingErr(ctx context.Context, in *pb_svc_manager_scraper.WhenScraperHavingErrReq) (*pb_svc_manager_scraper.WhenScraperHavingErrRes, error) {
 	if in != nil {
 		log.Printf("Received WhenScraperHavingErr call: %v", in.String())
 	}
@@ -38,12 +38,29 @@ func (s *ManagerSrv) WhenScraperHavingErr(ctx context.Context, in *pb_svc_manage
 		return nil, status.Error(codes.Canceled, "Scraper having some error")
 	}
 
-	return &pb_svc_manager.WhenScraperHavingErrRes{
+	return &pb_svc_manager_scraper.WhenScraperHavingErrRes{
 	}, nil
 }
 
 
-func (s *ManagerSrv) WhenDoneScraper(ctx context.Context, in *pb_svc_manager.WhenDoneScraperReq) (*pb_svc_manager.WhenDoneScraperRes, error) {
+func (s *ManagerSrv) WhenScraperHavingMsg(ctx context.Context, in *pb_svc_manager_scraper.WhenScraperHavingErrReq) (*pb_svc_manager_scraper.WhenScraperHavingErrRes, error) {
+	if in != nil {
+		log.Printf("Received WhenScraperHavingMsg call: %v", in.String())
+	}
+
+	err := s.db.UpdateWorker(in.Id, in.GetMsg())
+	if err != nil {
+		s.db.UpdateJob(in.Id, "Can't process msg from Scraper")
+		return nil, status.Error(codes.Canceled, "Scraper having some error")
+	}
+
+	return &pb_svc_manager_scraper.WhenScraperHavingErrRes{
+	}, nil
+}
+
+
+
+func (s *ManagerSrv) WhenDoneScraper(ctx context.Context, in *pb_svc_manager_scraper.WhenDoneScraperReq) (*pb_svc_manager_scraper.WhenDoneScraperRes, error) {
 	if in != nil {
 		log.Printf("Received DoneScraper call: %v", in.String())
 	}
@@ -66,7 +83,7 @@ func (s *ManagerSrv) WhenDoneScraper(ctx context.Context, in *pb_svc_manager.Whe
 		return nil, err
 	}
 
-	return &pb_svc_manager.WhenDoneScraperRes{
+	return &pb_svc_manager_scraper.WhenDoneScraperRes{
 		Result: "Scraping is Done!",
 	}, nil
 }

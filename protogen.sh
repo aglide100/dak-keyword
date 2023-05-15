@@ -11,36 +11,70 @@ protoc --go_out=../../.. --go-grpc_out=../../.. pb/svc/manager/*.proto
 # protoc -I=. --go_out=plugins=grpc:../../.. pb/svc/provision/*.proto
 protoc --go_out=../../.. --go-grpc_out=../../.. pb/svc/provision/*.proto
 
- protoc \
+# for react
+# protoc \
+#  --plugin="protoc-gen-ts=./ui/node_modules/.bin/protoc-gen-ts" \
+#  --js_out="import_style=commonjs,binary:./ui/gen" \
+#  --ts_out="service=grpc-web:./ui/gen" \
+#  pb/svc/manager/article.proto
+
+# protoc \
+#  --plugin="protoc-gen-ts=./ui/node_modules/.bin/protoc-gen-ts" \
+#  --js_out="import_style=commonjs,binary:./ui/gen" \
+#  --ts_out="service=grpc-web:./ui/gen" \
+#  pb/svc/manager/worker.proto
+
+protoc \
  --plugin="protoc-gen-ts=./ui/node_modules/.bin/protoc-gen-ts" \
  --js_out="import_style=commonjs,binary:./ui/gen" \
  --ts_out="service=grpc-web:./ui/gen" \
- pb/svc/**/*.proto
+ pb/svc/manager/job.proto
 
- protoc \
- --plugin="protoc-gen-ts=./ui/node_modules/.bin/protoc-gen-ts" \
- --js_out="import_style=commonjs,binary:./ui/gen" \
- --ts_out="service=grpc-web:./ui/gen" \
- pb/unit/**/*.proto
+# protoc \
+#  --plugin="protoc-gen-ts=./ui/node_modules/.bin/protoc-gen-ts" \
+#  --js_out="import_style=commonjs,binary:./ui/gen" \
+#  --ts_out="service=grpc-web:./ui/gen" \
+#  pb/svc/manager/similarity.proto
 
 
-protoc -I=. pb/svc/**/*.proto --js_out=import_style=commonjs:./ui/gen --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:./ui/gen
+# protoc \
+#  --plugin="protoc-gen-ts=./ui/node_modules/.bin/protoc-gen-ts" \
+#  --js_out="import_style=commonjs,binary:./ui/gen" \
+#  --ts_out="service=grpc-web:./ui/gen" \
+#  pb/unit/article/article.proto
 
-protoc -I=. pb/unit/**/*.proto --js_out=import_style=commonjs:./ui/gen --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:./ui/gen
+
+# protoc \
+#  --plugin="protoc-gen-ts=./ui/node_modules/.bin/protoc-gen-ts" \
+#  --js_out="import_style=commonjs,binary:./ui/gen" \
+#  --ts_out="service=grpc-web:./ui/gen" \
+#  pb/unit/worker/worker.proto
+
+# protoc \
+#  --plugin="protoc-gen-ts=./ui/node_modules/.bin/protoc-gen-ts" \
+#  --js_out="import_style=commonjs,binary:./ui/gen" \
+#  --ts_out="service=grpc-web:./ui/gen" \
+#  pb/unit/job/job.proto
+
+# protoc \
+#  --plugin="protoc-gen-ts=./ui/node_modules/.bin/protoc-gen-ts" \
+#  --js_out="import_style=commonjs,binary:./ui/gen" \
+#  --ts_out="service=grpc-web:./ui/gen" \
+#  pb/unit/similarity/similarity.proto
+
+
+protoc -I=. pb/svc/manager/article.proto --js_out=import_style=commonjs:./ui/gen --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:./ui/gen
+protoc -I=. pb/svc/manager/worker.proto --js_out=import_style=commonjs:./ui/gen --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:./ui/gen
+protoc -I=. pb/svc/manager/job.proto --js_out=import_style=commonjs:./ui/gen --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:./ui/gen
+protoc -I=. pb/svc/manager/similarity.proto --js_out=import_style=commonjs:./ui/gen --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:./ui/gen
+
+protoc -I=. pb/unit/article/article.proto --js_out=import_style=commonjs:./ui/gen --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:./ui/gen
+protoc -I=. pb/unit/worker/worker.proto --js_out=import_style=commonjs:./ui/gen --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:./ui/gen
+protoc -I=. pb/unit/job/job.proto --js_out=import_style=commonjs:./ui/gen --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:./ui/gen
+protoc -I=. pb/unit/similarity/similarity.proto --js_out=import_style=commonjs:./ui/gen --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:./ui/gen
 
 # python3 -m grpc_tools.protoc -I . --python_out=./analyzer --grpc_python_out=./analyzer ./pb/svc/analyzer/analyzer.proto
 
-python3 -m grpc_tools.protoc -I . --python_out=./analyzer --grpc_python_out=./analyzer ./pb/svc/manager/manager.proto
+python3 -m grpc_tools.protoc -I . --python_out=./analyzer --grpc_python_out=./analyzer ./pb/svc/manager/analyzer.proto
 
-python3 -m grpc_tools.protoc -I . --python_out=./analyzer --grpc_python_out=./analyzer ./pb/unit/**/*.proto
-
-# path=$(pwd)
-
-# cd ./analyzer
-
-# cp ./pb/svc/analyzer/* $path/analyzer
-# cp ./pb/svc/manager/* $path/analyzer
-
-# rm -rf ./pb
-
-# cd ..
+# python3 -m grpc_tools.protoc -I . --python_out=./analyzer --grpc_python_out=./analyzer ./pb/unit/**/*.proto

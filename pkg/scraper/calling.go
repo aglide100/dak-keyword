@@ -6,7 +6,7 @@ import (
 	"log"
 	"time"
 
-	pb_svc_manager "github.com/aglide100/dak-keyword/pb/svc/manager"
+	pb_svc_manager_scraper "github.com/aglide100/dak-keyword/pb/svc/manager/scraper"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
@@ -23,9 +23,9 @@ func CallGrpcWhenScraperHavingErr(workerId string, errMSG string) error {
 	}
 	defer conn.Close()
 	
-	client := pb_svc_manager.NewManagerClient(conn)
+	client := pb_svc_manager_scraper.NewScraperServiceClient(conn)
 
-	in := &pb_svc_manager.WhenScraperHavingErrReq{
+	in := &pb_svc_manager_scraper.WhenScraperHavingErrReq{
 		Id: workerId,
 		Msg: errMSG,
 	}
@@ -52,9 +52,9 @@ func CallGrpcWhenStaring(workerId string) error {
 	}
 	defer conn.Close()
 	
-	client := pb_svc_manager.NewManagerClient(conn)
+	client := pb_svc_manager_scraper.NewScraperServiceClient(conn)
 
-	in := &pb_svc_manager.WhenStartScraperReq{
+	in := &pb_svc_manager_scraper.WhenStartScraperReq{
 		Id: workerId,
 	}
 	
@@ -79,9 +79,9 @@ func CallGrpcWhenDone(workerId string) error {
 	}
 	defer conn.Close()
 	
-	client := pb_svc_manager.NewManagerClient(conn)
+	client := pb_svc_manager_scraper.NewScraperServiceClient(conn)
 
-	in := &pb_svc_manager.WhenDoneScraperReq{
+	in := &pb_svc_manager_scraper.WhenDoneScraperReq{
 		Id: workerId,
 	}
 	
@@ -98,7 +98,7 @@ func CallGrpcWhenDone(workerId string) error {
 	return nil
 }
 
-func CallGrpcUpdateJob(workerId string, status string) error {
+func CallSendMsg(workerId string, msg string) error {
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
 		log.Fatalf("Can't connect grpc server : %v", err)
@@ -107,20 +107,18 @@ func CallGrpcUpdateJob(workerId string, status string) error {
 
 	defer conn.Close()
 
-	client := pb_svc_manager.NewManagerClient(conn)
+	client := pb_svc_manager_scraper.NewScraperServiceClient(conn)
 
-	in := &pb_svc_manager.UpdateJobStatusReq{
+	in := &pb_svc_manager_scraper.WhenScraperHavingMsgReq{
 		Id: workerId,
-		Status: status,
+		Msg: msg,
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
 
-	_, err = client.UpdateJobStatus(ctx, in)
-
+	_, err = client.WhenScraperHavingMsg(ctx, in)
 	if err != nil {
-		log.Fatalf("err in CallGrpcUpdateJob %v", err)
 		return err
 	}
 

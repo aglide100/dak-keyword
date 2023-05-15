@@ -10,15 +10,22 @@ import (
 	"os"
 	"strconv"
 
-	pb_svc_manager "github.com/aglide100/dak-keyword/pb/svc/manager"
 	cron_svc "github.com/aglide100/dak-keyword/pkg/cron"
 	"github.com/aglide100/dak-keyword/pkg/db"
+	"github.com/aglide100/dak-keyword/pkg/generate"
 	"github.com/aglide100/dak-keyword/pkg/servers/manager"
 	"github.com/improbable-eng/grpc-web/go/grpcweb"
 	"github.com/robfig/cron"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
+
+	pb_svc_manager_analyzer "github.com/aglide100/dak-keyword/pb/svc/manager/analyzer"
+	pb_svc_manager_article "github.com/aglide100/dak-keyword/pb/svc/manager/article"
+	pb_svc_manager_job "github.com/aglide100/dak-keyword/pb/svc/manager/job"
+	pb_svc_manager_scraper "github.com/aglide100/dak-keyword/pb/svc/manager/scraper"
+	pb_svc_manager_similarity "github.com/aglide100/dak-keyword/pb/svc/manager/similarity"
+	pb_svc_manager_worker "github.com/aglide100/dak-keyword/pb/svc/manager/worker"
 )
 
 const (
@@ -43,6 +50,7 @@ func main() {
 		os.Exit(1)
 	}
 }
+
 
 func realMain() error {
 	gRPCWebL, err := net.Listen("tcp", *apidGrpcWebAddr)
@@ -70,8 +78,12 @@ func realMain() error {
 
 	accessCode := os.Getenv("ACCESS_CODE")
 	if len(accessCode) == 0 {
-		fmt.Println("Can't get accessCode, using default one")
-		accessCode = "HelloWOrld"
+		str := generate.RandStringRunes(10)
+
+		fmt.Println("Can't get accessCode, generate random one")
+		fmt.Printf("generated : %s", str)
+	
+		accessCode = str
 	} 
 
 	dbAddr := os.Getenv("DB_ADDR")
@@ -114,17 +126,30 @@ func realMain() error {
 		opts = append(opts, grpc.Creds(creds))
 	}
 
-	grpcNonTlsServer := grpc.NewServer()
-	grpcServer := grpc.NewServer(opts...)
+	grpcServer := grpc.NewServer()
+	grpcWebServer := grpc.NewServer(opts...)
 
 	managerSrv := manager.NewManagerServiceServer(myDB, accessCode)
 	
-	pb_svc_manager.RegisterManagerServer(grpcServer, managerSrv)
-	pb_svc_manager.RegisterManagerServer(grpcNonTlsServer, managerSrv)
+	// pb_svc_manager.RegisterManagerServer(grpcWebServer, managerSrv)
+
+	pb_svc_manager_analyzer.RegisterAnalyzerServiceServer(grpcServer, managerSrv.AnalyzerServiceServer)
+	pb_svc_manager_article.RegisterArticleServiceServer(grpcServer, managerSrv.ArticleServiceServer)
+	pb_svc_manager_job.RegisterJobServiceServer(grpcServer, managerSrv.JobServiceServer)
+	pb_svc_manager_scraper.RegisterScraperServiceServer(grpcServer, managerSrv.ScraperServiceServer)
+	pb_svc_manager_similarity.RegisterSimilarityServiceServer(grpcServer, managerSrv.SimilarityServiceServer)
+	pb_svc_manager_worker.RegisterWorkerServiceServer(grpcServer, managerSrv.WorkerServiceServer)
+
+	pb_svc_manager_article.RegisterArticleServiceServer(grpcWebServer, managerSrv.ArticleServiceServer)
+	pb_svc_manager_job.RegisterJobServiceServer(grpcWebServer, managerSrv.JobServiceServer)
+	pb_svc_manager_worker.RegisterWorkerServiceServer(grpcWebServer, managerSrv.WorkerServiceServer)
+	pb_svc_manager_similarity.RegisterSimilarityServiceServer(grpcWebServer, managerSrv.SimilarityServiceServer)
+	
+	// pb_svc_manager.RegisterManagerServer(grpcServer, managerSrv)
 
 	wg.Go(func() error {
-		log.Printf("Starting normal grpcServer at: %s" ,*apidGrpcAddr)
-		err := grpcNonTlsServer.Serve(gRPCL)
+		log.Printf("Starting grpcWebServer at: %s" ,*apidGrpcAddr)
+		err := grpcServer.Serve(gRPCL)
 		if err != nil {
 			log.Fatalf("failed to serve: %v", err)
 			return err
@@ -136,7 +161,7 @@ func realMain() error {
 
 	wg.Go(func() error {
 		// wrapped grpc srv
-		wrappedServer := grpcweb.WrapServer(grpcServer, grpcweb.WithOriginFunc(func(origin string) bool {
+		wrappedServer := grpcweb.WrapServer(grpcWebServer, grpcweb.WithOriginFunc(func(origin string) bool {
 			return true
 		}))
 
@@ -174,3 +199,4 @@ func realMain() error {
 
 	return wg.Wait()
 }
+
