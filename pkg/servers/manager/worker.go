@@ -10,6 +10,10 @@ import (
 	"google.golang.org/grpc/status"
 )
 
+type WorkerSrv interface {
+	pb_svc_manager_worker.WorkerServiceServer
+}
+
 func (s *ManagerSrv) GetWorkerList(ctx context.Context, in *pb_svc_manager_worker.GetWorkerListReq) (*pb_svc_manager_worker.GetWorkerListRes, error) {
 	// if in != nil {
 	// 	log.Printf("Received GetWorkerList call: %v", in.String())

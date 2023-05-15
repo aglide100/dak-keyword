@@ -22,13 +22,6 @@ export class WorkerServiceClient {
                response: pb_svc_manager_worker_pb.UpdateWorkerStatusRes) => void
   ): grpcWeb.ClientReadableStream<pb_svc_manager_worker_pb.UpdateWorkerStatusRes>;
 
-  updateJobStatus(
-    request: pb_svc_manager_worker_pb.UpdateJobStatusReq,
-    metadata: grpcWeb.Metadata | undefined,
-    callback: (err: grpcWeb.RpcError,
-               response: pb_svc_manager_worker_pb.UpdateJobStatusRes) => void
-  ): grpcWeb.ClientReadableStream<pb_svc_manager_worker_pb.UpdateJobStatusRes>;
-
 }
 
 export class WorkerServicePromiseClient {
@@ -45,11 +38,6 @@ export class WorkerServicePromiseClient {
     request: pb_svc_manager_worker_pb.UpdateWorkerStatusReq,
     metadata?: grpcWeb.Metadata
   ): Promise<pb_svc_manager_worker_pb.UpdateWorkerStatusRes>;
-
-  updateJobStatus(
-    request: pb_svc_manager_worker_pb.UpdateJobStatusReq,
-    metadata?: grpcWeb.Metadata
-  ): Promise<pb_svc_manager_worker_pb.UpdateJobStatusRes>;
 
 }
 

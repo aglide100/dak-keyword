@@ -13,6 +13,10 @@ import (
 	"google.golang.org/grpc/status"
 )
 
+type ArticleSrv interface {
+	pb_svc_manager_article.ArticleServiceServer
+}
+
 func (s *ManagerSrv) GetArticleList(ctx context.Context, in *pb_svc_manager_article.GetArticleListReq) (*pb_svc_manager_article.GetArticleListRes, error) {
 	if in != nil {
 		// p, _ := peer.FromContext(ctx)

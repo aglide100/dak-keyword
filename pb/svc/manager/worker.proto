@@ -8,17 +8,6 @@ import "pb/unit/worker/worker.proto";
 service WorkerService {
     rpc GetWorkerList(GetWorkerListReq) returns (GetWorkerListRes);
     rpc UpdateWorkerStatus(UpdateWorkerStatusReq) returns (UpdateWorkerStatusRes);
-    rpc UpdateJobStatus(UpdateJobStatusReq) returns (UpdateJobStatusRes);
-}
-
-
-message UpdateJobStatusReq {
-    string id = 1;
-    string status = 2;
-}
-
-message UpdateJobStatusRes {
-    string result = 1;
 }
 
 message GetWorkerListReq {
