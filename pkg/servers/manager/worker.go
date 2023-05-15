@@ -4,13 +4,13 @@ import (
 	"context"
 	"log"
 
-	pb_svc_manager "github.com/aglide100/dak-keyword/pb/svc/manager"
+	pb_svc_manager_worker "github.com/aglide100/dak-keyword/pb/svc/manager/worker"
 	pb_unit_worker "github.com/aglide100/dak-keyword/pb/unit/worker"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
-func (s *ManagerSrv) GetWorkerList(ctx context.Context, in *pb_svc_manager.GetWorkerListReq) (*pb_svc_manager.GetWorkerListRes, error) {
+func (s *ManagerSrv) GetWorkerList(ctx context.Context, in *pb_svc_manager_worker.GetWorkerListReq) (*pb_svc_manager_worker.GetWorkerListRes, error) {
 	// if in != nil {
 	// 	log.Printf("Received GetWorkerList call: %v", in.String())
 	// }
@@ -36,13 +36,13 @@ func (s *ManagerSrv) GetWorkerList(ctx context.Context, in *pb_svc_manager.GetWo
 		pbWorkers = append(pbWorkers, pbWorker)
 	}
 
-	return &pb_svc_manager.GetWorkerListRes{
+	return &pb_svc_manager_worker.GetWorkerListRes{
 		Worker: pbWorkers,
 	}, nil
 }
 
 
-func (s *ManagerSrv) UpdateWorkerStatus(ctx context.Context, in *pb_svc_manager.UpdateWorkerStatusReq) (*pb_svc_manager.UpdateWorkerStatusRes, error) {
+func (s *ManagerSrv) UpdateWorkerStatus(ctx context.Context, in *pb_svc_manager_worker.UpdateWorkerStatusReq) (*pb_svc_manager_worker.UpdateWorkerStatusRes, error) {
 	// if in != nil {
 	// 	log.Printf("Received UpdateWorkerStatus call: %v", in.String())
 	// }
@@ -52,6 +52,6 @@ func (s *ManagerSrv) UpdateWorkerStatus(ctx context.Context, in *pb_svc_manager.
 		return nil,  status.Error(codes.NotFound, "Can't find job in dbms")
 	}
 
-	return &pb_svc_manager.UpdateWorkerStatusRes{
+	return &pb_svc_manager_worker.UpdateWorkerStatusRes{
 	}, nil
 }

@@ -7,12 +7,12 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	pb_svc_manager "github.com/aglide100/dak-keyword/pb/svc/manager"
+	pb_svc_manager_analyzer "github.com/aglide100/dak-keyword/pb/svc/manager/analyzer"
 	calling "github.com/aglide100/dak-keyword/pkg/clients/provisioned"
 )
 
 
-func (s *ManagerSrv) WhenStartAnalyzer(ctx context.Context, in *pb_svc_manager.WhenStartAnalyzerReq) (*pb_svc_manager.WhenStartAnalyzerRes, error) {
+func (s *ManagerSrv) WhenStartAnalyzer(ctx context.Context, in *pb_svc_manager_analyzer.WhenStartAnalyzerReq) (*pb_svc_manager_analyzer.WhenStartAnalyzerRes, error) {
 	if in != nil {
 		log.Printf("Received WhenStartAnalyzer call: %v", in.String())
 	}
@@ -22,12 +22,12 @@ func (s *ManagerSrv) WhenStartAnalyzer(ctx context.Context, in *pb_svc_manager.W
 		return nil, status.Error(codes.Canceled, "Can't update worker status at dbms")
 	}
 
-	return &pb_svc_manager.WhenStartAnalyzerRes{
+	return &pb_svc_manager_analyzer.WhenStartAnalyzerRes{
 		Result: "Analyzer staring...!",
 	}, nil
 }
 
-func (s *ManagerSrv) WhenAnalyzerHavingErr(ctx context.Context, in *pb_svc_manager.WhenAnalyzerHavingErrReq) (*pb_svc_manager.WhenAnalyzerHavingErrRes, error) {
+func (s *ManagerSrv) WhenAnalyzerHavingErr(ctx context.Context, in *pb_svc_manager_analyzer.WhenAnalyzerHavingErrReq) (*pb_svc_manager_analyzer.WhenAnalyzerHavingErrRes, error) {
 	if in != nil {
 		log.Printf("Received WhenAnalyzerHavingErr call: %v", in.String())
 	}
@@ -42,13 +42,13 @@ func (s *ManagerSrv) WhenAnalyzerHavingErr(ctx context.Context, in *pb_svc_manag
 		return nil, err
 	}
 
-	return &pb_svc_manager.WhenAnalyzerHavingErrRes{
+	return &pb_svc_manager_analyzer.WhenAnalyzerHavingErrRes{
 	}, nil
 }
 
 
 
-func (s *ManagerSrv) WhenDoneAnalyzer(ctx context.Context, in *pb_svc_manager.WhenDoneAnalyzerReq) (*pb_svc_manager.WhenDoneAnalyzerRes, error) {
+func (s *ManagerSrv) WhenDoneAnalyzer(ctx context.Context, in *pb_svc_manager_analyzer.WhenDoneAnalyzerReq) (*pb_svc_manager_analyzer.WhenDoneAnalyzerRes, error) {
 	if in != nil {
 		log.Printf("Received DoneScraper call: %v", in.String())
 	}
@@ -63,7 +63,7 @@ func (s *ManagerSrv) WhenDoneAnalyzer(ctx context.Context, in *pb_svc_manager.Wh
 		return nil, err
 	}
 
-	return &pb_svc_manager.WhenDoneAnalyzerRes{
+	return &pb_svc_manager_analyzer.WhenDoneAnalyzerRes{
 		Result: "Analyzer Done",
 	}, nil
 }

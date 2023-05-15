@@ -1,6 +1,6 @@
 /* eslint-disable no-async-promise-executor */
-import * as pb_svc_manager from "../../gen/pb/svc/manager/manager_pb";
-import { Manager } from "../../gen/pb/svc/manager/manager_pb_service";
+import * as pb_svc_manager from "../../gen/pb/svc/manager/job_pb";
+import { JobService } from "../../gen/pb/svc/manager/job_pb_service";
 import { grpc } from "@improbable-eng/grpc-web";
 import { GrpcManager } from ".";
 import * as grpcWeb from "grpc-web";
@@ -9,7 +9,7 @@ export async function CallGetJobList(callback) {
     const getJobListReq = new pb_svc_manager.GetJobListReq();
 
     const stream = (await GrpcManager.getInstance())
-        .GetClient()
+        .GetJobClient()
         .getJobList(
             getJobListReq,
             undefined,
@@ -62,9 +62,8 @@ export async function CallReRunJob(id, accessCode, isSchedule, callback) {
     reRunJobReq.setId(id);
     reRunJobReq.setSchedule(isSchedule);
     reRunJobReq.setAccesscode(accessCode);
-
     await new Promise<void>(async (resolve) => {
-        grpc.unary(Manager.ReRunJob, {
+        grpc.unary(JobService.ReRunJob, {
             host: (await GrpcManager.getInstance()).GetHost(),
             request: reRunJobReq,
             onEnd: async (res) => {
@@ -93,7 +92,7 @@ export async function CallGetJobIsReRun(id, callback) {
     reRunJobReq.setId(id);
 
     await new Promise<void>(async (resolve) => {
-        grpc.unary(Manager.GetJobIsReRun, {
+        grpc.unary(JobService.GetJobIsReRun, {
             host: (await GrpcManager.getInstance()).GetHost(),
             request: reRunJobReq,
             onEnd: async (res) => {
@@ -123,7 +122,7 @@ export async function CallNewJob(keyword, owner, accessCode, callback) {
     createNewJobReq.setOwner(owner);
     createNewJobReq.setAccesscode(accessCode);
 
-    grpc.unary(Manager.CreateNewJob, {
+    grpc.unary(JobService.CreateNewJob, {
         host: (await GrpcManager.getInstance()).GetHost(),
         request: createNewJobReq,
         // transport: NodeHttpTransport(),
