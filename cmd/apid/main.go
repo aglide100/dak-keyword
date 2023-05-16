@@ -35,7 +35,6 @@ const (
 var (
 	apidGrpcWebAddr = flag.String("apid grpc-web addr", "0.0.0.0:50011", "grpc-web address")
 	apidGrpcAddr = flag.String("apid grpc addr", "0.0.0.0:50010", "grpc address")
-	apidAnalyzerAddr = flag.String("apid analyzer addr", "0.0.0.0:50013", "gprc address")
 	usingTls = flag.Bool("grpc.tls", false, "using http2")
 	serverCrt = flag.String("cert.crt", "/run/secrets/crt-file", "crt file location")
 	serverKey = flag.String("cert.key", "/run/secrets/key-file", "ket file location")
@@ -130,8 +129,6 @@ func realMain() error {
 	grpcWebServer := grpc.NewServer(opts...)
 
 	managerSrv := manager.NewManagerServiceServer(myDB, accessCode)
-	
-	// pb_svc_manager.RegisterManagerServer(grpcWebServer, managerSrv)
 
 	pb_svc_manager_analyzer.RegisterAnalyzerServiceServer(grpcServer, managerSrv)
 	pb_svc_manager_article.RegisterArticleServiceServer(grpcServer, managerSrv)
@@ -144,8 +141,6 @@ func realMain() error {
 	pb_svc_manager_job.RegisterJobServiceServer(grpcWebServer, managerSrv)
 	pb_svc_manager_worker.RegisterWorkerServiceServer(grpcWebServer, managerSrv)
 	pb_svc_manager_similarity.RegisterSimilarityServiceServer(grpcWebServer, managerSrv)
-	
-	// pb_svc_manager.RegisterManagerServer(grpcServer, managerSrv)
 
 	wg.Go(func() error {
 		log.Printf("Starting grpcWebServer at: %s" ,*apidGrpcAddr)

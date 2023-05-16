@@ -9,7 +9,7 @@ MAX_NUM_RETRIES = 5
 
 def sendStartMSG(workerId):
     with grpc.insecure_channel(addr) as channel:
-        client = manager_pb2_grpc.ManagerStub(channel)
+        client = manager_pb2_grpc.AnalyzerServiceStub(channel)
 
         retry_count = 0
         while True:
@@ -19,7 +19,7 @@ def sendStartMSG(workerId):
             
             retry_count += 1
             try:
-                response = client.WhenStartAnalyzer(manager_pb2.WhenStartAnalyzerReq(id=workerId))
+                response = client.WhenStartAnalyzer(manager_pb2.WhenAnalyzerHavingErrReq(id=workerId))
                 print(response)
                 break
             except grpc.RpcError as e:
@@ -31,7 +31,7 @@ def sendStartMSG(workerId):
 
 def sendDoneMSG(workerId):
     with grpc.insecure_channel(addr) as channel:
-        client = manager_pb2_grpc.ManagerStub(channel)
+        client = manager_pb2_grpc.AnalyzerServiceStub(channel)
 
         retry_count = 0
         while True:
@@ -53,7 +53,7 @@ def sendDoneMSG(workerId):
 
 def sendErrMSG(workerId, errMSG):
     with grpc.insecure_channel(addr) as channel:
-        client = manager_pb2_grpc.ManagerStub(channel)
+        client = manager_pb2_grpc.AnalyzerServiceStub(channel)
 
         retry_count = 0
         while True:
@@ -75,7 +75,7 @@ def sendErrMSG(workerId, errMSG):
 
 def sendUpdating(workerId, msg):
     with grpc.insecure_channel(addr) as channel:
-        client = manager_pb2_grpc.ManagerStub(channel)
+        client = manager_pb2_grpc.AnalyzerServiceStub(channel)
 
         retry_count = 0
         while True:
@@ -85,7 +85,7 @@ def sendUpdating(workerId, msg):
             
             retry_count += 1
             try:
-                response = client.UpdateWorkerStatus(manager_pb2.UpdateWorkerStatusReq(id=workerId, msg=msg))
+                response = client.WhenAnalyzerHavingMsg(manager_pb2.WhenAnalyzerHavingMsgReq(id=workerId, msg=msg))
                 print(response)
                 break
             except grpc.RpcError as e:

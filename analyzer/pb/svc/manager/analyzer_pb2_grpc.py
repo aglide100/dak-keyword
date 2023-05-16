@@ -29,6 +29,11 @@ class AnalyzerServiceStub(object):
                 request_serializer=pb_dot_svc_dot_manager_dot_analyzer__pb2.WhenAnalyzerHavingErrReq.SerializeToString,
                 response_deserializer=pb_dot_svc_dot_manager_dot_analyzer__pb2.WhenAnalyzerHavingErrRes.FromString,
                 )
+        self.WhenAnalyzerHavingMsg = channel.unary_unary(
+                '/pb.svc.manager.analyzer.AnalyzerService/WhenAnalyzerHavingMsg',
+                request_serializer=pb_dot_svc_dot_manager_dot_analyzer__pb2.WhenAnalyzerHavingMsgReq.SerializeToString,
+                response_deserializer=pb_dot_svc_dot_manager_dot_analyzer__pb2.WhenAnalyzerHavingMsgRes.FromString,
+                )
 
 
 class AnalyzerServiceServicer(object):
@@ -52,6 +57,12 @@ class AnalyzerServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def WhenAnalyzerHavingMsg(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_AnalyzerServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -69,6 +80,11 @@ def add_AnalyzerServiceServicer_to_server(servicer, server):
                     servicer.WhenAnalyzerHavingErr,
                     request_deserializer=pb_dot_svc_dot_manager_dot_analyzer__pb2.WhenAnalyzerHavingErrReq.FromString,
                     response_serializer=pb_dot_svc_dot_manager_dot_analyzer__pb2.WhenAnalyzerHavingErrRes.SerializeToString,
+            ),
+            'WhenAnalyzerHavingMsg': grpc.unary_unary_rpc_method_handler(
+                    servicer.WhenAnalyzerHavingMsg,
+                    request_deserializer=pb_dot_svc_dot_manager_dot_analyzer__pb2.WhenAnalyzerHavingMsgReq.FromString,
+                    response_serializer=pb_dot_svc_dot_manager_dot_analyzer__pb2.WhenAnalyzerHavingMsgRes.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -128,5 +144,22 @@ class AnalyzerService(object):
         return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.analyzer.AnalyzerService/WhenAnalyzerHavingErr',
             pb_dot_svc_dot_manager_dot_analyzer__pb2.WhenAnalyzerHavingErrReq.SerializeToString,
             pb_dot_svc_dot_manager_dot_analyzer__pb2.WhenAnalyzerHavingErrRes.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def WhenAnalyzerHavingMsg(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/pb.svc.manager.analyzer.AnalyzerService/WhenAnalyzerHavingMsg',
+            pb_dot_svc_dot_manager_dot_analyzer__pb2.WhenAnalyzerHavingMsgReq.SerializeToString,
+            pb_dot_svc_dot_manager_dot_analyzer__pb2.WhenAnalyzerHavingMsgRes.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

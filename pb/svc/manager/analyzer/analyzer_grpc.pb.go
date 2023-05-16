@@ -25,6 +25,7 @@ type AnalyzerServiceClient interface {
 	WhenStartAnalyzer(ctx context.Context, in *WhenStartAnalyzerReq, opts ...grpc.CallOption) (*WhenStartAnalyzerRes, error)
 	WhenDoneAnalyzer(ctx context.Context, in *WhenDoneAnalyzerReq, opts ...grpc.CallOption) (*WhenDoneAnalyzerRes, error)
 	WhenAnalyzerHavingErr(ctx context.Context, in *WhenAnalyzerHavingErrReq, opts ...grpc.CallOption) (*WhenAnalyzerHavingErrRes, error)
+	WhenAnalyzerHavingMsg(ctx context.Context, in *WhenAnalyzerHavingMsgReq, opts ...grpc.CallOption) (*WhenAnalyzerHavingMsgRes, error)
 }
 
 type analyzerServiceClient struct {
@@ -62,6 +63,15 @@ func (c *analyzerServiceClient) WhenAnalyzerHavingErr(ctx context.Context, in *W
 	return out, nil
 }
 
+func (c *analyzerServiceClient) WhenAnalyzerHavingMsg(ctx context.Context, in *WhenAnalyzerHavingMsgReq, opts ...grpc.CallOption) (*WhenAnalyzerHavingMsgRes, error) {
+	out := new(WhenAnalyzerHavingMsgRes)
+	err := c.cc.Invoke(ctx, "/pb.svc.manager.analyzer.AnalyzerService/WhenAnalyzerHavingMsg", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AnalyzerServiceServer is the server API for AnalyzerService service.
 // All implementations must embed UnimplementedAnalyzerServiceServer
 // for forward compatibility
@@ -69,6 +79,7 @@ type AnalyzerServiceServer interface {
 	WhenStartAnalyzer(context.Context, *WhenStartAnalyzerReq) (*WhenStartAnalyzerRes, error)
 	WhenDoneAnalyzer(context.Context, *WhenDoneAnalyzerReq) (*WhenDoneAnalyzerRes, error)
 	WhenAnalyzerHavingErr(context.Context, *WhenAnalyzerHavingErrReq) (*WhenAnalyzerHavingErrRes, error)
+	WhenAnalyzerHavingMsg(context.Context, *WhenAnalyzerHavingMsgReq) (*WhenAnalyzerHavingMsgRes, error)
 	mustEmbedUnimplementedAnalyzerServiceServer()
 }
 
@@ -84,6 +95,9 @@ func (UnimplementedAnalyzerServiceServer) WhenDoneAnalyzer(context.Context, *Whe
 }
 func (UnimplementedAnalyzerServiceServer) WhenAnalyzerHavingErr(context.Context, *WhenAnalyzerHavingErrReq) (*WhenAnalyzerHavingErrRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method WhenAnalyzerHavingErr not implemented")
+}
+func (UnimplementedAnalyzerServiceServer) WhenAnalyzerHavingMsg(context.Context, *WhenAnalyzerHavingMsgReq) (*WhenAnalyzerHavingMsgRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method WhenAnalyzerHavingMsg not implemented")
 }
 func (UnimplementedAnalyzerServiceServer) mustEmbedUnimplementedAnalyzerServiceServer() {}
 
@@ -152,6 +166,24 @@ func _AnalyzerService_WhenAnalyzerHavingErr_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AnalyzerService_WhenAnalyzerHavingMsg_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(WhenAnalyzerHavingMsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AnalyzerServiceServer).WhenAnalyzerHavingMsg(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.svc.manager.analyzer.AnalyzerService/WhenAnalyzerHavingMsg",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AnalyzerServiceServer).WhenAnalyzerHavingMsg(ctx, req.(*WhenAnalyzerHavingMsgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AnalyzerService_ServiceDesc is the grpc.ServiceDesc for AnalyzerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -170,6 +202,10 @@ var AnalyzerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "WhenAnalyzerHavingErr",
 			Handler:    _AnalyzerService_WhenAnalyzerHavingErr_Handler,
+		},
+		{
+			MethodName: "WhenAnalyzerHavingMsg",
+			Handler:    _AnalyzerService_WhenAnalyzerHavingMsg_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

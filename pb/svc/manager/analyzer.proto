@@ -7,7 +7,7 @@ service AnalyzerService {
     rpc WhenStartAnalyzer(WhenStartAnalyzerReq) returns (WhenStartAnalyzerRes);
     rpc WhenDoneAnalyzer(WhenDoneAnalyzerReq) returns (WhenDoneAnalyzerRes);
     rpc WhenAnalyzerHavingErr(WhenAnalyzerHavingErrReq) returns (WhenAnalyzerHavingErrRes);
-   
+    rpc WhenAnalyzerHavingMsg(WhenAnalyzerHavingMsgReq) returns (WhenAnalyzerHavingMsgRes);
 }
 
 message WhenDoneAnalyzerReq {
@@ -31,5 +31,13 @@ message WhenAnalyzerHavingErrReq {
     string msg = 2;
 }
 message WhenAnalyzerHavingErrRes {
+    // passed
+}
+
+message WhenAnalyzerHavingMsgReq {
+    string id = 1;
+    string msg = 2;
+}
+message WhenAnalyzerHavingMsgRes {
     // passed
 }
