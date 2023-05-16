@@ -49,6 +49,19 @@ func (s *ManagerSrv) WhenAnalyzerHavingErr(ctx context.Context, in *pb_svc_manag
 	}, nil
 }
 
+func (s *ManagerSrv) WhenAnalyzerHavingMsg(ctx context.Context, in *pb_svc_manager_analyzer.WhenAnalyzerHavingMsgReq) (*pb_svc_manager_analyzer.WhenAnalyzerHavingMsgRes, error) {
+	if in != nil {
+		log.Printf("Received WhenAnalyzerHavingMsg call: %v", in.String())
+	}
+
+	err := s.db.UpdateWorker(in.Id, in.GetMsg())
+	if err != nil {
+		return nil, status.Error(codes.Canceled, "Can't update worker status at dbms")
+	}
+
+	return &pb_svc_manager_analyzer.WhenAnalyzerHavingMsgRes{
+	}, nil
+}
 
 
 func (s *ManagerSrv) WhenDoneAnalyzer(ctx context.Context, in *pb_svc_manager_analyzer.WhenDoneAnalyzerReq) (*pb_svc_manager_analyzer.WhenDoneAnalyzerRes, error) {

@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1dpb/svc/manager/analyzer.proto\x12\x17pb.svc.manager.analyzer\"!\n\x13WhenDoneAnalyzerReq\x12\n\n\x02id\x18\x01 \x01(\t\"%\n\x13WhenDoneAnalyzerRes\x12\x0e\n\x06result\x18\x01 \x01(\t\"\"\n\x14WhenStartAnalyzerReq\x12\n\n\x02id\x18\x01 \x01(\t\"&\n\x14WhenStartAnalyzerRes\x12\x0e\n\x06result\x18\x01 \x01(\t\"3\n\x18WhenAnalyzerHavingErrReq\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0b\n\x03msg\x18\x02 \x01(\t\"\x1a\n\x18WhenAnalyzerHavingErrRes2\xf3\x02\n\x0f\x41nalyzerService\x12q\n\x11WhenStartAnalyzer\x12-.pb.svc.manager.analyzer.WhenStartAnalyzerReq\x1a-.pb.svc.manager.analyzer.WhenStartAnalyzerRes\x12n\n\x10WhenDoneAnalyzer\x12,.pb.svc.manager.analyzer.WhenDoneAnalyzerReq\x1a,.pb.svc.manager.analyzer.WhenDoneAnalyzerRes\x12}\n\x15WhenAnalyzerHavingErr\x12\x31.pb.svc.manager.analyzer.WhenAnalyzerHavingErrReq\x1a\x31.pb.svc.manager.analyzer.WhenAnalyzerHavingErrResB:Z8github.com/aglide100/dak-keyword/pb/svc/manager/analyzerb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1dpb/svc/manager/analyzer.proto\x12\x17pb.svc.manager.analyzer\"!\n\x13WhenDoneAnalyzerReq\x12\n\n\x02id\x18\x01 \x01(\t\"%\n\x13WhenDoneAnalyzerRes\x12\x0e\n\x06result\x18\x01 \x01(\t\"\"\n\x14WhenStartAnalyzerReq\x12\n\n\x02id\x18\x01 \x01(\t\"&\n\x14WhenStartAnalyzerRes\x12\x0e\n\x06result\x18\x01 \x01(\t\"3\n\x18WhenAnalyzerHavingErrReq\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0b\n\x03msg\x18\x02 \x01(\t\"\x1a\n\x18WhenAnalyzerHavingErrRes\"3\n\x18WhenAnalyzerHavingMsgReq\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0b\n\x03msg\x18\x02 \x01(\t\"\x1a\n\x18WhenAnalyzerHavingMsgRes2\xf2\x03\n\x0f\x41nalyzerService\x12q\n\x11WhenStartAnalyzer\x12-.pb.svc.manager.analyzer.WhenStartAnalyzerReq\x1a-.pb.svc.manager.analyzer.WhenStartAnalyzerRes\x12n\n\x10WhenDoneAnalyzer\x12,.pb.svc.manager.analyzer.WhenDoneAnalyzerReq\x1a,.pb.svc.manager.analyzer.WhenDoneAnalyzerRes\x12}\n\x15WhenAnalyzerHavingErr\x12\x31.pb.svc.manager.analyzer.WhenAnalyzerHavingErrReq\x1a\x31.pb.svc.manager.analyzer.WhenAnalyzerHavingErrRes\x12}\n\x15WhenAnalyzerHavingMsg\x12\x31.pb.svc.manager.analyzer.WhenAnalyzerHavingMsgReq\x1a\x31.pb.svc.manager.analyzer.WhenAnalyzerHavingMsgResB:Z8github.com/aglide100/dak-keyword/pb/svc/manager/analyzerb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'pb.svc.manager.analyzer_pb2', globals())
@@ -33,6 +33,10 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _WHENANALYZERHAVINGERRREQ._serialized_end=259
   _WHENANALYZERHAVINGERRRES._serialized_start=261
   _WHENANALYZERHAVINGERRRES._serialized_end=287
-  _ANALYZERSERVICE._serialized_start=290
-  _ANALYZERSERVICE._serialized_end=661
+  _WHENANALYZERHAVINGMSGREQ._serialized_start=289
+  _WHENANALYZERHAVINGMSGREQ._serialized_end=340
+  _WHENANALYZERHAVINGMSGRES._serialized_start=342
+  _WHENANALYZERHAVINGMSGRES._serialized_end=368
+  _ANALYZERSERVICE._serialized_start=371
+  _ANALYZERSERVICE._serialized_end=869
 # @@protoc_insertion_point(module_scope)
