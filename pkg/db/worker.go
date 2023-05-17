@@ -65,6 +65,7 @@ func (db *Database) GetAllWorker(jobId string) ([]*models.Worker, error) {
 		Job_id string
 		Keyword string
 		Update_at string
+		Create_at string
 	)
 
 	var workers []*models.Worker
@@ -88,6 +89,7 @@ func (db *Database) GetAllWorker(jobId string) ([]*models.Worker, error) {
 			Keyword: Keyword,
 			Status: Status,
 			UpdateAt: Update_at,
+			CreateAt: Create_at,
 		}
 		
 		workers = append(workers, worker)
