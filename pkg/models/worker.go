@@ -11,6 +11,7 @@ type Worker struct {
 	Status string `validate:"required"`
 	JobId string `validate:"required"`
 	UpdateAt string
+	CreateAt string
 }
 
 func ValidateWorker(worker Worker) error {
