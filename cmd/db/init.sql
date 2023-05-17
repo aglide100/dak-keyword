@@ -27,7 +27,8 @@ create table if not exists public.worker
         constraint "Job_id"
             references public.job
             on update cascade on delete cascade,
-    "Update_at" timestamp
+    "Update_at" timestamp,
+    "Create_at" timestamp
 );
 
 alter table public.worker
@@ -85,6 +86,10 @@ create table if not exists public.vocab_list
     "Worker_id" varchar
         constraint "Worker_id"
             references public.worker
+            on update cascade on delete cascade,
+    "Job_id"    varchar
+        constraint "Job_id"
+            references public.job
             on update cascade on delete cascade
 );
 

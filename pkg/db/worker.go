@@ -14,8 +14,9 @@ func (db *Database) AddNewWorker(workerId string, jobId string, keyword string) 
 		"Job_id",
 		"Keyword",
 		"Status",
-		"Update_at"
-	) VALUES ($1, $2, $3, $4, now())`
+		"Update_at",
+		"Create_at"
+	) VALUES ($1, $2, $3, $4, now(), now())`
 
 	_, err := db.Conn.Exec(q,
 		workerId,
@@ -98,6 +99,23 @@ func (db *Database) GetAllWorker(jobId string) ([]*models.Worker, error) {
 func (db *Database) DeleteWorker(workerId string) error {
 	const q =`
 	DELETE 
+	FROM worker
+	WHERE "Worker_id" = $1
+	`
+
+	_, err := db.Conn.Exec(q, workerId)
+
+	if err != nil {
+		return fmt.Errorf("deleting: %v", err)
+	}
+
+	return nil
+}
+
+
+func (db *Database) GetWorkerCreateTime(workerId string) error {
+	const q =`
+	SELECT  
 	FROM worker
 	WHERE "Worker_id" = $1
 	`

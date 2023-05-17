@@ -3,6 +3,8 @@ import psycopg2
 import pandas
 class Databases():
     def __init__(self, host, dbname, user, password, port):
+
+        
         self.db = psycopg2.connect(host=host, dbname=dbname,user=user,password=password,port=port)
         self.cursor = self.db.cursor()
 
