@@ -78,7 +78,7 @@ func (db *Database) GetAllWorker(jobId string) ([]*models.Worker, error) {
 	}
 
 	for rows.Next() {
-		err := rows.Scan(&Worker_id, &Keyword, &Status, &Job_id, &Update_at)
+		err := rows.Scan(&Worker_id, &Keyword, &Status, &Job_id, &Update_at, &Create_at)
 		if err != nil {
 			return nil, err
 		}
