@@ -49,7 +49,7 @@ func (c *Controller) CreateSimilarityService(workerId string, jobId string, keyw
 
 			Networks: []swarm.NetworkAttachmentConfig{
 				swarm.NetworkAttachmentConfig{
-					Target: "keyword_keyword-network",
+					Target: "keyword-network",
 				},
 			},
 

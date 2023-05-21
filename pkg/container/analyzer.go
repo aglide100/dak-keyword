@@ -65,7 +65,7 @@ func (c *Controller) CreateAnalyzerService(workerId string, keyword string, dbCo
 			
 			Networks: []swarm.NetworkAttachmentConfig{
 				swarm.NetworkAttachmentConfig{
-					Target: "keyword_keyword-network",
+					Target: "keyword-network",
 				},
 			},
 			RestartPolicy: &swarm.RestartPolicy{
