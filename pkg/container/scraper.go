@@ -55,7 +55,7 @@ func (c *Controller) CreateScraperService(workerId string, jobId string, keyword
 
 			Networks: []swarm.NetworkAttachmentConfig{
 				swarm.NetworkAttachmentConfig{
-					Target: "keyword_keyword-network",
+					Target: "keyword-network",
 				},
 			},
 			RestartPolicy: &swarm.RestartPolicy{
