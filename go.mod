@@ -13,7 +13,7 @@ require (
 	github.com/lib/pq v1.10.9
 	github.com/robfig/cron v1.2.0
 	github.com/tidwall/gjson v1.14.4
-	golang.org/x/sync v0.1.0
+	golang.org/x/sync v0.2.0
 	google.golang.org/grpc v1.55.0
 	google.golang.org/protobuf v1.30.0
 )
