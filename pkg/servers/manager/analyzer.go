@@ -78,6 +78,7 @@ func (s *ManagerSrv) WhenDoneAnalyzer(ctx context.Context, in *pb_svc_manager_an
 	if err != nil {
 		return nil, err
 	}
+	
 
 	return &pb_svc_manager_analyzer.WhenDoneAnalyzerRes{
 		Result: "Analyzer Done",

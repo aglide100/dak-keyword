@@ -101,6 +101,19 @@ func CallRemoveAnalyzer(id string) (error) {
 	return nil
 }
 
+// func CallMakeSimilarity() () {
+// 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())	
+
+// 	if err != nil {
+// 		log.Printf("can't connect grpc server : %v", err)
+// 	}
+// 	defer conn.Close()
+	
+// 	client := pb_svc_provision.NewProvisionClient(conn)
+
+// 	in := &pb_svc_provision
+// }
+
 func CallMakeAnalysis(id string) (error) {
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())	
 

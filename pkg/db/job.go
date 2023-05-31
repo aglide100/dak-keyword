@@ -74,6 +74,7 @@ func (db *Database) GetAllJob() ([]*models.Job, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer rows.Close()
 
 	for rows.Next() {
 		err := rows.Scan(&Id, &Status, &Keyword, &Owner, &Date)
