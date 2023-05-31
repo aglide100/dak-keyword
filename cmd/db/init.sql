@@ -1,4 +1,4 @@
-create table if not exists public.job
+create table if not exists job
 (
     "Job_id"    varchar not null
         constraint job_pk
@@ -10,13 +10,13 @@ create table if not exists public.job
     "AutoReRun" boolean default false
 );
 
-alter table public.job
+alter table job
     owner to table_admin;
 
 create unique index if not exists job_id_uindex
-    on public.job ("Job_id");
+    on job ("Job_id");
 
-create table if not exists public.worker
+create table if not exists worker
 (
     "Worker_id" varchar not null
         constraint worker_pk
@@ -25,19 +25,19 @@ create table if not exists public.worker
     "Status"    varchar,
     "Job_id"    varchar
         constraint "Job_id"
-            references public.job
+            references job
             on update cascade on delete cascade,
     "Update_at" timestamp,
     "Create_at" timestamp
 );
 
-alter table public.worker
+alter table worker
     owner to table_admin;
 
 create unique index if not exists worker_id_uindex
-    on public.worker ("Worker_id");
+    on worker ("Worker_id");
 
-create table if not exists public.article
+create table if not exists article
 (
     "Article_id"           integer default nextval('"article_Id_seq"'::regclass) not null
         constraint article_pk
@@ -59,87 +59,84 @@ create table if not exists public.article
     "Create_at"            varchar,
     "Job_id"               varchar
         constraint "Job_id"
-            references public.job
+            references job
             on update cascade on delete cascade,
     "Worker_id"            varchar
         constraint "Worker_id"
-            references public.worker
+            references worker
             on update cascade on delete cascade,
     "Preprocessed_content" varchar,
     "Translated_content"   varchar
 );
 
-alter table public.article
+alter table article
     owner to table_admin;
 
 create unique index if not exists article_id_uindex
-    on public.article ("Article_id");
+    on article ("Article_id");
 
-create table if not exists public.vocab_list
+create table if not exists vocab_list
 (
     id          integer default nextval('word_id_seq'::regclass) not null
         constraint word_pkey
             primary key,
-    "Words"     character varying[]                              not null
-        constraint word_text_key
-            unique,
+    "Words"     varchar(500)[]                                   not null,
     "Worker_id" varchar
+        unique
         constraint "Worker_id"
-            references public.worker
+            references worker
             on update cascade on delete cascade,
     "Job_id"    varchar
         constraint "Job_id"
-            references public.job
+            references job
             on update cascade on delete cascade
 );
 
-alter table public.vocab_list
+alter table vocab_list
     owner to table_admin;
 
-create table if not exists public.tfidf
+create table if not exists tfidf
 (
-    "Worker_id"  varchar
+    "Worker_id"    varchar
         constraint worker_id
-            references public.worker
+            references worker
             on update cascade on delete cascade,
-    "Article_id" integer                                            not null
+    "Article_id"   integer                                            not null
         constraint article_id
-            references public.article
+            references article
             on update cascade on delete cascade,
-    "Word_id"    integer
-        constraint word_id
-            references public.vocab_list
-            on update cascade on delete cascade,
-    "Row"        integer[],
-    "Column"     integer[],
-    "Score"      double precision[],
-    "Date"       date,
-    id           integer default nextval('tfidf_id_seq1'::regclass) not null
+    "Vocab_column" integer[],
+    "Score"        double precision[],
+    id             integer default nextval('tfidf_id_seq1'::regclass) not null
         constraint tfidf_pkey1
             primary key
-        unique
+        unique,
+    "Vocab_id"     integer
+        constraint vocab_id
+            references vocab_list
+            on update cascade on delete cascade
 );
 
-alter table public.tfidf
+alter table tfidf
     owner to table_admin;
 
-create table if not exists public.cosine_similarity
+create table if not exists cosine_similarity
 (
     id              integer default nextval('cosine_similarity_id_seq'::regclass) not null
         constraint tfidf_pkey
             primary key,
     "Article_id"    integer
         constraint "Article_id"
-            references public.article
+            references article
             on update cascade on delete cascade,
     "Worker_id"     varchar
         constraint "Worker_id"
-            references public.worker
+            references worker
             on update cascade on delete cascade,
     "Comparison_id" integer[],
     "Score"         double precision[]
 );
 
-alter table public.cosine_similarity
+alter table cosine_similarity
     owner to table_admin;
 

@@ -16,7 +16,6 @@ func (c *Controller) CreateSimilarityService(workerId string, jobId string, keyw
 	ctx := context.Background()
 
 	if c.cQueue.LenRunning() >= c.containerMaximum {
-		// log.Println("Too many container to create scraper container")
 		c.cQueue.EnqueueFromQueue(&ContainerSpec{
 			WorkerId: workerId,
 			Keyword: keyword,

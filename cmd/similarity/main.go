@@ -25,38 +25,58 @@ func realMain() error {
 	}
 
 	workerId := os.Getenv("WORKER_ID")
-	// jobId := os.Getenv("JOB_ID")
+	jobId := os.Getenv("JOB_ID")
 
 	myDB, err := db.ConnectDB(dbConfig)
 	if err != nil {
 		return fmt.Errorf("Can't connect DB: %v", err)
 	}
 
-	res, err := myDB.GetPreprocessedTextByWorkerID(workerId)
+	articles, err := myDB.GetPreprocessedTextByWorkerID(workerId)
 	if err != nil {
-		log.Println(err)
 		return err
 	}
 
-	documents := make([]string, len(res))
-	for _, val := range res {
+	documents := []string{}
+	for _, val := range articles {
 		documents = append(documents, val.Preprocessed_content)
 	}
 
-	vocabList, tfidf, similarityList := tfidf.CalcTfIdf(documents)
+	vocabList, tfidfscore, similarityList := tfidf.CalcTfIdf(documents)
 
-	err = myDB.AddNewVocabList(vocabList, workerId)
+	vocabId, err := myDB.AddNewVocabList(vocabList, workerId, jobId)
 	if err != nil {
 		return err
 	}
-	// myDB.AddNewTfIdfScore()
 
-
-	log.Println(vocabList)
 	
-	log.Println(tfidf)
+	for i := range documents {
+		vocab_column := []int{}
+		score_array := []float64{}
 
-	log.Println(similarityList)
+		for j, _ := range vocabList {
+			score := tfidfscore[i][j]
+			if score != 0 {
+				vocab_column = append(vocab_column, j)
+				score_array = append(score_array, score)
+			}
+		}
 
+		err = myDB.AddNewTfIdfScore(workerId, articles[i].Id, vocabId, vocab_column, score_array)
+		if err != nil {
+			return err
+		}
+	}
+
+	for i := 0; i < len(documents); i++ {
+		comparisonId := []string{}
+		for j := 0; j < len(documents); j++ {
+			comparisonId = append(comparisonId, articles[j].Id)
+		}
+		err := myDB.AddNewCosineSimilarity(articles[i].Id, workerId, similarityList[i], comparisonId)
+		if err != nil {
+			return err
+		}
+	}
 	return nil
 }

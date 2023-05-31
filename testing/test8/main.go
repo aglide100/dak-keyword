@@ -37,7 +37,7 @@ func main() {
 		// "Maecenas venenatis leo vel tempor semper", 
 		// "Donec sed tempor dolor, a fringilla turpis",
 	}
-	vocabList, tfidfscore, _ := tfidf.CalcTfIdf(documents)
+	vocabList, tfidfscore, similarityList := tfidf.CalcTfIdf(documents)
 
 
 	for _, word := range vocabList {
@@ -59,10 +59,10 @@ func main() {
 		fmt.Println()
 	}
 
-	// for i := 0; i < len(documents); i++ {
-	// 	for j := i + 1; j < len(documents); j++ {
-	// 		// fmt.Printf("Cosine similarity between document %d and document %d: %f\n", i+1, j+1, similarityList[i][j])
-	// 	}
-	// }
+	for i := 0; i < len(documents); i++ {
+		for j := i + 1; j < len(documents); j++ {
+			fmt.Printf("Cosine similarity between document %d and document %d: %f\n", i+1, j+1, similarityList[i][j])
+		}
+	}
 
 }

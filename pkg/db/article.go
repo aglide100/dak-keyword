@@ -3,6 +3,7 @@ package db
 import (
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/aglide100/dak-keyword/pkg/models"
 )
@@ -156,6 +157,45 @@ func (db *Database) GetArticlesByJobID(jobID string) ([]*models.Article, error) 
 	return articles, nil
 }
 
+func (db Database) GetArticlesByOneDay(startDate, endDate time.Time, workerId string) ([]*models.SimplifiedArticle, error) {
+	const q = `
+		SELECT "Article_id", "Job_id", "Preprocessed_content"
+		FROM article
+		WHERE "Create_at" >= $1 AND "Create_at" < $2
+		AND "Worker_id" = $3
+	`
+
+	rows, err := db.Conn.Query(q, startDate, endDate, workerId)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+
+	var ( 
+		Id string
+		Job_id string
+		Preprocessed_content string
+	)
+
+	var articles []*models.SimplifiedArticle
+	
+	for rows.Next() {
+		err := rows.Scan(&Id, &Job_id, &Preprocessed_content)
+		if err != nil {
+			return nil, err
+		}
+		newArticle := &models.SimplifiedArticle{
+			Id: Id,
+			Job_id: Job_id,
+			Preprocessed_content: Preprocessed_content,
+		}
+		articles = append(articles, newArticle)
+	}
+
+	return articles, nil
+}
+
 func (db Database) GetPreprocessedTextByWorkerID(workerID string) ([]*models.SimplifiedArticle, error) {
 	const q = `
 	SELECT "Article_id", "Job_id", "Preprocessed_content"
@@ -170,7 +210,7 @@ func (db Database) GetPreprocessedTextByWorkerID(workerID string) ([]*models.Sim
 
 	var ( 
 		Id string
-		Worker_id string
+		// Worker_id string
 		Job_id string
 		Preprocessed_content string
 	)
@@ -179,7 +219,7 @@ func (db Database) GetPreprocessedTextByWorkerID(workerID string) ([]*models.Sim
 	for rows.Next() {
 		err := rows.Scan(
 			&Id, 
-			&Worker_id, 
+			// &Worker_id, 
 			&Job_id, 
 			&Preprocessed_content,
 		)
