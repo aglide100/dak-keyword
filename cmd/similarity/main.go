@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	calling "github.com/aglide100/dak-keyword/pkg/clients/similarity"
 	"github.com/aglide100/dak-keyword/pkg/db"
 	"github.com/aglide100/dak-keyword/pkg/tfidf"
 )
@@ -12,6 +13,8 @@ import (
 func main() {
 	if err := realMain(); err != nil {
 		log.Printf("err :%s", err)
+
+		calling.CallGrpcWhenSimilarityHavingErr(os.Getenv("WORKER_ID"), err.Error())
 		
 		os.Exit(1)
 	}
@@ -78,5 +81,12 @@ func realMain() error {
 			return err
 		}
 	}
+
+	err = calling.CallGrpcWhenDoneSimilarity(workerId)
+	if err != nil {
+		return err
+	}
+
+	
 	return nil
 }

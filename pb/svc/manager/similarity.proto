@@ -8,32 +8,44 @@ service SimilarityService {
     rpc GetSimilarity(GetSimilarityReq) returns (GetSimilarityRes);
     rpc WhenStartSimilarity(WhenStartSimilarityReq) returns (WhenStartSimilarityRes);
     rpc WhenDoneSimilarity(WhenDoneSimilarityReq) returns (WhenDoneSimilarityRes);
-    rpc WhenHavingErrSimilarity(WhenHavingErrSimilarityReq) returns (WhenHavingErrSimilarityRes);
+    rpc WhenSimilarityHavingErr(WhenSimilarityHavingErrReq) returns (WhenSimilarityHavingErrRes);
+    rpc WhenSimilarityHavingMsg(WhenSimilarityHavingMsgReq) returns (WhenSimilarityHavingMsgRes);
+    
+}
+message WhenSimilarityHavingMsgReq {
+    string id = 1;
+    string msg = 2;
+}
+
+message WhenSimilarityHavingMsgRes {
     
 }
 
-message WhenHavingErrSimilarityReq {
 
+message WhenSimilarityHavingErrReq {
+    string id = 1;
+    string msg = 2;
 }
 
-message WhenHavingErrSimilarityRes {
+message WhenSimilarityHavingErrRes {
     
 }
 
 
 message WhenDoneSimilarityReq {
-
+    string id = 1;
 }
 
 message WhenDoneSimilarityRes {
-    
+    string result = 1;
 }
 
 message WhenStartSimilarityReq {
-
+    string id = 1;
 }
+
 message WhenStartSimilarityRes {
-    
+    string result = 1;
 }
 
 message GetSimilarityReq {

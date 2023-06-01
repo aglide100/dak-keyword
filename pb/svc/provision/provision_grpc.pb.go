@@ -24,10 +24,12 @@ const _ = grpc.SupportPackageIsVersion7
 type ProvisionClient interface {
 	CreateScraper(ctx context.Context, in *CreateScraperReq, opts ...grpc.CallOption) (*CreateScraperRes, error)
 	CreateAnalyzer(ctx context.Context, in *CreateAnalyzerReq, opts ...grpc.CallOption) (*CreateAnalyzerRes, error)
+	CreateSimilarity(ctx context.Context, in *CreateSimilarityReq, opts ...grpc.CallOption) (*CreateSimilarityRes, error)
 	GetScraperStatus(ctx context.Context, in *GetScraperStatusReq, opts ...grpc.CallOption) (*GetScraperStatusRes, error)
 	GetAnalyzerStatus(ctx context.Context, in *GetAnalyzerStatusReq, opts ...grpc.CallOption) (*GetAnalyzerStatusRes, error)
 	RemoveScraper(ctx context.Context, in *RemoveScraperReq, opts ...grpc.CallOption) (*RemoveScraperRes, error)
 	RemoveAnalyzer(ctx context.Context, in *RemoveAnalyzerReq, opts ...grpc.CallOption) (*RemoveAnalyzerRes, error)
+	RemoveSimilarity(ctx context.Context, in *RemoveSimilarityReq, opts ...grpc.CallOption) (*RemoveSimilarityRes, error)
 }
 
 type provisionClient struct {
@@ -50,6 +52,15 @@ func (c *provisionClient) CreateScraper(ctx context.Context, in *CreateScraperRe
 func (c *provisionClient) CreateAnalyzer(ctx context.Context, in *CreateAnalyzerReq, opts ...grpc.CallOption) (*CreateAnalyzerRes, error) {
 	out := new(CreateAnalyzerRes)
 	err := c.cc.Invoke(ctx, "/pb.svc.provision.Provision/CreateAnalyzer", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *provisionClient) CreateSimilarity(ctx context.Context, in *CreateSimilarityReq, opts ...grpc.CallOption) (*CreateSimilarityRes, error) {
+	out := new(CreateSimilarityRes)
+	err := c.cc.Invoke(ctx, "/pb.svc.provision.Provision/CreateSimilarity", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -92,16 +103,27 @@ func (c *provisionClient) RemoveAnalyzer(ctx context.Context, in *RemoveAnalyzer
 	return out, nil
 }
 
+func (c *provisionClient) RemoveSimilarity(ctx context.Context, in *RemoveSimilarityReq, opts ...grpc.CallOption) (*RemoveSimilarityRes, error) {
+	out := new(RemoveSimilarityRes)
+	err := c.cc.Invoke(ctx, "/pb.svc.provision.Provision/RemoveSimilarity", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProvisionServer is the server API for Provision service.
 // All implementations must embed UnimplementedProvisionServer
 // for forward compatibility
 type ProvisionServer interface {
 	CreateScraper(context.Context, *CreateScraperReq) (*CreateScraperRes, error)
 	CreateAnalyzer(context.Context, *CreateAnalyzerReq) (*CreateAnalyzerRes, error)
+	CreateSimilarity(context.Context, *CreateSimilarityReq) (*CreateSimilarityRes, error)
 	GetScraperStatus(context.Context, *GetScraperStatusReq) (*GetScraperStatusRes, error)
 	GetAnalyzerStatus(context.Context, *GetAnalyzerStatusReq) (*GetAnalyzerStatusRes, error)
 	RemoveScraper(context.Context, *RemoveScraperReq) (*RemoveScraperRes, error)
 	RemoveAnalyzer(context.Context, *RemoveAnalyzerReq) (*RemoveAnalyzerRes, error)
+	RemoveSimilarity(context.Context, *RemoveSimilarityReq) (*RemoveSimilarityRes, error)
 	mustEmbedUnimplementedProvisionServer()
 }
 
@@ -115,6 +137,9 @@ func (UnimplementedProvisionServer) CreateScraper(context.Context, *CreateScrape
 func (UnimplementedProvisionServer) CreateAnalyzer(context.Context, *CreateAnalyzerReq) (*CreateAnalyzerRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAnalyzer not implemented")
 }
+func (UnimplementedProvisionServer) CreateSimilarity(context.Context, *CreateSimilarityReq) (*CreateSimilarityRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateSimilarity not implemented")
+}
 func (UnimplementedProvisionServer) GetScraperStatus(context.Context, *GetScraperStatusReq) (*GetScraperStatusRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetScraperStatus not implemented")
 }
@@ -126,6 +151,9 @@ func (UnimplementedProvisionServer) RemoveScraper(context.Context, *RemoveScrape
 }
 func (UnimplementedProvisionServer) RemoveAnalyzer(context.Context, *RemoveAnalyzerReq) (*RemoveAnalyzerRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RemoveAnalyzer not implemented")
+}
+func (UnimplementedProvisionServer) RemoveSimilarity(context.Context, *RemoveSimilarityReq) (*RemoveSimilarityRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveSimilarity not implemented")
 }
 func (UnimplementedProvisionServer) mustEmbedUnimplementedProvisionServer() {}
 
@@ -172,6 +200,24 @@ func _Provision_CreateAnalyzer_Handler(srv interface{}, ctx context.Context, dec
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProvisionServer).CreateAnalyzer(ctx, req.(*CreateAnalyzerReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Provision_CreateSimilarity_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateSimilarityReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProvisionServer).CreateSimilarity(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.svc.provision.Provision/CreateSimilarity",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProvisionServer).CreateSimilarity(ctx, req.(*CreateSimilarityReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -248,6 +294,24 @@ func _Provision_RemoveAnalyzer_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Provision_RemoveSimilarity_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveSimilarityReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProvisionServer).RemoveSimilarity(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.svc.provision.Provision/RemoveSimilarity",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProvisionServer).RemoveSimilarity(ctx, req.(*RemoveSimilarityReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Provision_ServiceDesc is the grpc.ServiceDesc for Provision service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -264,6 +328,10 @@ var Provision_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Provision_CreateAnalyzer_Handler,
 		},
 		{
+			MethodName: "CreateSimilarity",
+			Handler:    _Provision_CreateSimilarity_Handler,
+		},
+		{
 			MethodName: "GetScraperStatus",
 			Handler:    _Provision_GetScraperStatus_Handler,
 		},
@@ -278,6 +346,10 @@ var Provision_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RemoveAnalyzer",
 			Handler:    _Provision_RemoveAnalyzer_Handler,
+		},
+		{
+			MethodName: "RemoveSimilarity",
+			Handler:    _Provision_RemoveSimilarity_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

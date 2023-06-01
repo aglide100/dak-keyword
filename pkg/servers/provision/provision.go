@@ -45,7 +45,8 @@ func (s *ProvisionSrv) CreateScraper(ctx context.Context, in *pb_svc_provision.C
 
 func (s *ProvisionSrv) CreateAnalyzer(ctx context.Context, in *pb_svc_provision.CreateAnalyzerReq) (*pb_svc_provision.CreateAnalyzerRes, error) {
 	s.cQueue.EnqueueFromQueue(&container.ContainerSpec{
-		WorkerId: in.ScraperId,
+		WorkerId: in.WorkerId,
+		JobId: in.JobId,
 		Keyword: in.Keyword,
 		Type: "Analyzer",
 	})
@@ -55,26 +56,51 @@ func (s *ProvisionSrv) CreateAnalyzer(ctx context.Context, in *pb_svc_provision.
 	}, nil
 }
 
+func (s *ProvisionSrv) CreateSimilarity(ctx context.Context, in *pb_svc_provision.CreateSimilarityReq) (*pb_svc_provision.CreateSimilarityRes, error) {
+	s.cQueue.EnqueueFromQueue(&container.ContainerSpec{
+		WorkerId: in.WorkerId,
+		JobId: in.JobId,
+		Type: "Similarity",
+	})
+
+	return &pb_svc_provision.CreateSimilarityRes{
+		Status: "Added in container queue",
+	}, nil
+}
+
 func (s *ProvisionSrv) RemoveScraper(ctx context.Context, in *pb_svc_provision.RemoveScraperReq) (*pb_svc_provision.RemoveScraperRes, error) {
 	err := s.c.RemoveScraper(in.Id)
 	if err != nil {
-		log.Printf("Received RemoveScraper but not removed call: %v", in.String())
+		log.Printf("Received RemoveScraper but can't removed call: %v", in.String())
 		return nil, err
 	}
 
 	return &pb_svc_provision.RemoveScraperRes{
-		Status: "",
+		Status: "Done",
 	}, nil
 }
 
 func (s *ProvisionSrv) RemoveAnalyzer(ctx context.Context, in *pb_svc_provision.RemoveAnalyzerReq) (*pb_svc_provision.RemoveAnalyzerRes, error) {
 	err := s.c.RemoveAnalyzer(in.Id)
 	if err != nil {
-		log.Printf("Received RemoveAnalyzer but not removed call: %v", in.String())
+		log.Printf("Received RemoveAnalyzer but can't removed call: %v", in.String())
 		return nil, err
 	}
 
 	return &pb_svc_provision.RemoveAnalyzerRes{
-		Status: "",
+		Status: "Done",
+	}, nil
+}
+
+
+func (s *ProvisionSrv) RemoveSimilarity(ctx context.Context, in *pb_svc_provision.RemoveSimilarityReq) (*pb_svc_provision.RemoveSimilarityRes, error) {
+	err := s.c.RemoveSimilarity(in.Id)
+	if err != nil {
+		log.Printf("Received RemoveSimilarity but can't removed call: %v", in.String())
+		return nil, err
+	}
+
+	return &pb_svc_provision.RemoveSimilarityRes{
+		Status: "Done",
 	}, nil
 }
