@@ -1,21 +1,17 @@
-package scraper
+package calling
 
 import (
 	"context"
-	"flag"
 	"log"
 	"time"
 
-	pb_svc_manager_scraper "github.com/aglide100/dak-keyword/pb/svc/manager/scraper"
+	pb_svc_manager_similarity "github.com/aglide100/dak-keyword/pb/svc/manager/similarity"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-var (
-	addr = flag.String("addr", "keyword_apid:50010", "the address to connect to")
-)
 
-func CallGrpcWhenScraperHavingErr(workerId string, errMSG string) error {
+func CallGrpcWhenSimilarityHavingErr(workerId string, errMSG string) error {
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
 		log.Fatalf("Can't connect grpc server : %v", err)
@@ -23,9 +19,9 @@ func CallGrpcWhenScraperHavingErr(workerId string, errMSG string) error {
 	}
 	defer conn.Close()
 	
-	client := pb_svc_manager_scraper.NewScraperServiceClient(conn)
+	client := pb_svc_manager_similarity.NewSimilarityServiceClient(conn)
 
-	in := &pb_svc_manager_scraper.WhenScraperHavingErrReq{
+	in := &pb_svc_manager_similarity.WhenSimilarityHavingErrReq{
 		Id: workerId,
 		Msg: errMSG,
 	}
@@ -33,10 +29,10 @@ func CallGrpcWhenScraperHavingErr(workerId string, errMSG string) error {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
 
-	res, err := client.WhenScraperHavingErr(ctx, in)
+	res, err := client.WhenSimilarityHavingErr(ctx, in)
 
 	if err != nil {
-		log.Fatalf("err in CallGrpcWhenScraperHavingErr %v", err)
+		log.Fatalf("err in CallGrpcWhenSimilarityHavingErr %v", err)
 		return err
 	}
 	log.Printf("res %v", res)
@@ -44,7 +40,7 @@ func CallGrpcWhenScraperHavingErr(workerId string, errMSG string) error {
 	return nil
 }
 
-func CallGrpcWhenStaring(workerId string) error {
+func CallGrpcWhenStaringSimilarity(workerId string) error {
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
 		log.Fatalf("Can't connect grpc server : %v", err)
@@ -52,16 +48,16 @@ func CallGrpcWhenStaring(workerId string) error {
 	}
 	defer conn.Close()
 	
-	client := pb_svc_manager_scraper.NewScraperServiceClient(conn)
+	client := pb_svc_manager_similarity.NewSimilarityServiceClient(conn)
 
-	in := &pb_svc_manager_scraper.WhenStartScraperReq{
+	in := &pb_svc_manager_similarity.WhenStartSimilarityReq{
 		Id: workerId,
 	}
 	
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
 
-	_, err = client.WhenStartScraper(ctx, in)
+	_, err = client.WhenStartSimilarity(ctx, in)
 
 	if err != nil {
 		log.Fatalf("err in CallGrpcWhenStaring %v", err)
@@ -71,7 +67,7 @@ func CallGrpcWhenStaring(workerId string) error {
 	return nil
 }
 
-func CallGrpcWhenDone(workerId string) error {
+func CallGrpcWhenDoneSimilarity(workerId string) error {
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
 		log.Fatalf("Can't connect grpc server : %v", err)
@@ -79,16 +75,16 @@ func CallGrpcWhenDone(workerId string) error {
 	}
 	defer conn.Close()
 	
-	client := pb_svc_manager_scraper.NewScraperServiceClient(conn)
+	client := pb_svc_manager_similarity.NewSimilarityServiceClient(conn)
 
-	in := &pb_svc_manager_scraper.WhenDoneScraperReq{
+	in := &pb_svc_manager_similarity.WhenDoneSimilarityReq{
 		Id: workerId,
 	}
 	
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
 
-	_, err = client.WhenDoneScraper(ctx, in)
+	_, err = client.WhenDoneSimilarity(ctx, in)
 
 	if err != nil {
 		log.Fatalf("err in CallGrpcWhenDone %v", err)
@@ -98,7 +94,7 @@ func CallGrpcWhenDone(workerId string) error {
 	return nil
 }
 
-func CallSendMsg(workerId string, msg string) error {
+func CallSimilaritySendMsg(workerId string, msg string) error {
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
 		log.Fatalf("Can't connect grpc server : %v", err)
@@ -107,9 +103,9 @@ func CallSendMsg(workerId string, msg string) error {
 
 	defer conn.Close()
 
-	client := pb_svc_manager_scraper.NewScraperServiceClient(conn)
+	client := pb_svc_manager_similarity.NewSimilarityServiceClient(conn)
 
-	in := &pb_svc_manager_scraper.WhenScraperHavingMsgReq{
+	in := &pb_svc_manager_similarity.WhenSimilarityHavingMsgReq{
 		Id: workerId,
 		Msg: msg,
 	}
@@ -117,7 +113,7 @@ func CallSendMsg(workerId string, msg string) error {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
 
-	_, err = client.WhenScraperHavingMsg(ctx, in)
+	_, err = client.WhenSimilarityHavingMsg(ctx, in)
 	if err != nil {
 		return err
 	}

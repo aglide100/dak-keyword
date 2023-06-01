@@ -19,7 +19,6 @@ func CallMakeScraper(workerId string, jobId string, keyword string, token string
 		log.Printf("can't connect grpc server : %v", err)
 	}
 
-
 	client := pb_svc_provision.NewProvisionClient(conn)
 
 	in := &pb_svc_provision.CreateScraperReq{
@@ -101,49 +100,7 @@ func CallRemoveAnalyzer(id string) (error) {
 	return nil
 }
 
-func CallMakeSimilarity(workerId, jobId string) (error) {
-	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())	
-
-	if err != nil {
-		log.Printf("can't connect grpc server : %v", err)
-	}
-	defer conn.Close()
-	
-	client := pb_svc_provision.NewProvisionClient(conn)
-
-	in := &pb_svc_provision.CreateSimilarityReq{
-		WorkerId: workerId,
-		JobId: jobId,
-	}
-
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
-	defer cancel()
-	
-	err = nil
-	count := 0
-	for {
-		if count == maxRetry {
-			break;
-		}
-		_, err = client.CreateSimilarity(ctx, in)
-		if err != nil {
-			log.Println("Can't make similarity, ", err)
-			log.Println("retrying... ", count)
-			count++
-			continue
-		}
-		break;
-	}
-
-	if err != nil {
-		log.Printf("err in CallMakeSimilarity %v", err)
-		return err
-	}
-
-	return nil
-}
-
-func CallMakeAnalysis(id string) (error) {
+func CallMakeAnalysis(workerId, jobId string) (error) {
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())	
 
 	if err != nil {
@@ -154,7 +111,8 @@ func CallMakeAnalysis(id string) (error) {
 	client := pb_svc_provision.NewProvisionClient(conn)
 
 	in := &pb_svc_provision.CreateAnalyzerReq{
-		WorkerId: id,
+		WorkerId: workerId,
+		JobId: jobId,
 	}
 	
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)

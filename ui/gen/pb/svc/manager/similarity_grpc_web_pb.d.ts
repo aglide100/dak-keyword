@@ -36,12 +36,19 @@ export class SimilarityServiceClient {
                response: pb_svc_manager_similarity_pb.WhenDoneSimilarityRes) => void
   ): grpcWeb.ClientReadableStream<pb_svc_manager_similarity_pb.WhenDoneSimilarityRes>;
 
-  whenHavingErrSimilarity(
-    request: pb_svc_manager_similarity_pb.WhenHavingErrSimilarityReq,
+  whenSimilarityHavingErr(
+    request: pb_svc_manager_similarity_pb.WhenSimilarityHavingErrReq,
     metadata: grpcWeb.Metadata | undefined,
     callback: (err: grpcWeb.RpcError,
-               response: pb_svc_manager_similarity_pb.WhenHavingErrSimilarityRes) => void
-  ): grpcWeb.ClientReadableStream<pb_svc_manager_similarity_pb.WhenHavingErrSimilarityRes>;
+               response: pb_svc_manager_similarity_pb.WhenSimilarityHavingErrRes) => void
+  ): grpcWeb.ClientReadableStream<pb_svc_manager_similarity_pb.WhenSimilarityHavingErrRes>;
+
+  whenSimilarityHavingMsg(
+    request: pb_svc_manager_similarity_pb.WhenSimilarityHavingMsgReq,
+    metadata: grpcWeb.Metadata | undefined,
+    callback: (err: grpcWeb.RpcError,
+               response: pb_svc_manager_similarity_pb.WhenSimilarityHavingMsgRes) => void
+  ): grpcWeb.ClientReadableStream<pb_svc_manager_similarity_pb.WhenSimilarityHavingMsgRes>;
 
 }
 
@@ -70,10 +77,15 @@ export class SimilarityServicePromiseClient {
     metadata?: grpcWeb.Metadata
   ): Promise<pb_svc_manager_similarity_pb.WhenDoneSimilarityRes>;
 
-  whenHavingErrSimilarity(
-    request: pb_svc_manager_similarity_pb.WhenHavingErrSimilarityReq,
+  whenSimilarityHavingErr(
+    request: pb_svc_manager_similarity_pb.WhenSimilarityHavingErrReq,
     metadata?: grpcWeb.Metadata
-  ): Promise<pb_svc_manager_similarity_pb.WhenHavingErrSimilarityRes>;
+  ): Promise<pb_svc_manager_similarity_pb.WhenSimilarityHavingErrRes>;
+
+  whenSimilarityHavingMsg(
+    request: pb_svc_manager_similarity_pb.WhenSimilarityHavingMsgReq,
+    metadata?: grpcWeb.Metadata
+  ): Promise<pb_svc_manager_similarity_pb.WhenSimilarityHavingMsgRes>;
 
 }
 
