@@ -2,35 +2,82 @@ import * as jspb from 'google-protobuf'
 
 
 
-export class WhenHavingErrSimilarityReq extends jspb.Message {
+export class WhenSimilarityHavingMsgReq extends jspb.Message {
+  getId(): string;
+  setId(value: string): WhenSimilarityHavingMsgReq;
+
+  getMsg(): string;
+  setMsg(value: string): WhenSimilarityHavingMsgReq;
+
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): WhenHavingErrSimilarityReq.AsObject;
-  static toObject(includeInstance: boolean, msg: WhenHavingErrSimilarityReq): WhenHavingErrSimilarityReq.AsObject;
-  static serializeBinaryToWriter(message: WhenHavingErrSimilarityReq, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): WhenHavingErrSimilarityReq;
-  static deserializeBinaryFromReader(message: WhenHavingErrSimilarityReq, reader: jspb.BinaryReader): WhenHavingErrSimilarityReq;
+  toObject(includeInstance?: boolean): WhenSimilarityHavingMsgReq.AsObject;
+  static toObject(includeInstance: boolean, msg: WhenSimilarityHavingMsgReq): WhenSimilarityHavingMsgReq.AsObject;
+  static serializeBinaryToWriter(message: WhenSimilarityHavingMsgReq, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): WhenSimilarityHavingMsgReq;
+  static deserializeBinaryFromReader(message: WhenSimilarityHavingMsgReq, reader: jspb.BinaryReader): WhenSimilarityHavingMsgReq;
 }
 
-export namespace WhenHavingErrSimilarityReq {
+export namespace WhenSimilarityHavingMsgReq {
+  export type AsObject = {
+    id: string,
+    msg: string,
+  }
+}
+
+export class WhenSimilarityHavingMsgRes extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): WhenSimilarityHavingMsgRes.AsObject;
+  static toObject(includeInstance: boolean, msg: WhenSimilarityHavingMsgRes): WhenSimilarityHavingMsgRes.AsObject;
+  static serializeBinaryToWriter(message: WhenSimilarityHavingMsgRes, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): WhenSimilarityHavingMsgRes;
+  static deserializeBinaryFromReader(message: WhenSimilarityHavingMsgRes, reader: jspb.BinaryReader): WhenSimilarityHavingMsgRes;
+}
+
+export namespace WhenSimilarityHavingMsgRes {
   export type AsObject = {
   }
 }
 
-export class WhenHavingErrSimilarityRes extends jspb.Message {
+export class WhenSimilarityHavingErrReq extends jspb.Message {
+  getId(): string;
+  setId(value: string): WhenSimilarityHavingErrReq;
+
+  getMsg(): string;
+  setMsg(value: string): WhenSimilarityHavingErrReq;
+
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): WhenHavingErrSimilarityRes.AsObject;
-  static toObject(includeInstance: boolean, msg: WhenHavingErrSimilarityRes): WhenHavingErrSimilarityRes.AsObject;
-  static serializeBinaryToWriter(message: WhenHavingErrSimilarityRes, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): WhenHavingErrSimilarityRes;
-  static deserializeBinaryFromReader(message: WhenHavingErrSimilarityRes, reader: jspb.BinaryReader): WhenHavingErrSimilarityRes;
+  toObject(includeInstance?: boolean): WhenSimilarityHavingErrReq.AsObject;
+  static toObject(includeInstance: boolean, msg: WhenSimilarityHavingErrReq): WhenSimilarityHavingErrReq.AsObject;
+  static serializeBinaryToWriter(message: WhenSimilarityHavingErrReq, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): WhenSimilarityHavingErrReq;
+  static deserializeBinaryFromReader(message: WhenSimilarityHavingErrReq, reader: jspb.BinaryReader): WhenSimilarityHavingErrReq;
 }
 
-export namespace WhenHavingErrSimilarityRes {
+export namespace WhenSimilarityHavingErrReq {
+  export type AsObject = {
+    id: string,
+    msg: string,
+  }
+}
+
+export class WhenSimilarityHavingErrRes extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): WhenSimilarityHavingErrRes.AsObject;
+  static toObject(includeInstance: boolean, msg: WhenSimilarityHavingErrRes): WhenSimilarityHavingErrRes.AsObject;
+  static serializeBinaryToWriter(message: WhenSimilarityHavingErrRes, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): WhenSimilarityHavingErrRes;
+  static deserializeBinaryFromReader(message: WhenSimilarityHavingErrRes, reader: jspb.BinaryReader): WhenSimilarityHavingErrRes;
+}
+
+export namespace WhenSimilarityHavingErrRes {
   export type AsObject = {
   }
 }
 
 export class WhenDoneSimilarityReq extends jspb.Message {
+  getId(): string;
+  setId(value: string): WhenDoneSimilarityReq;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): WhenDoneSimilarityReq.AsObject;
   static toObject(includeInstance: boolean, msg: WhenDoneSimilarityReq): WhenDoneSimilarityReq.AsObject;
@@ -41,10 +88,14 @@ export class WhenDoneSimilarityReq extends jspb.Message {
 
 export namespace WhenDoneSimilarityReq {
   export type AsObject = {
+    id: string,
   }
 }
 
 export class WhenDoneSimilarityRes extends jspb.Message {
+  getResult(): string;
+  setResult(value: string): WhenDoneSimilarityRes;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): WhenDoneSimilarityRes.AsObject;
   static toObject(includeInstance: boolean, msg: WhenDoneSimilarityRes): WhenDoneSimilarityRes.AsObject;
@@ -55,10 +106,14 @@ export class WhenDoneSimilarityRes extends jspb.Message {
 
 export namespace WhenDoneSimilarityRes {
   export type AsObject = {
+    result: string,
   }
 }
 
 export class WhenStartSimilarityReq extends jspb.Message {
+  getId(): string;
+  setId(value: string): WhenStartSimilarityReq;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): WhenStartSimilarityReq.AsObject;
   static toObject(includeInstance: boolean, msg: WhenStartSimilarityReq): WhenStartSimilarityReq.AsObject;
@@ -69,10 +124,14 @@ export class WhenStartSimilarityReq extends jspb.Message {
 
 export namespace WhenStartSimilarityReq {
   export type AsObject = {
+    id: string,
   }
 }
 
 export class WhenStartSimilarityRes extends jspb.Message {
+  getResult(): string;
+  setResult(value: string): WhenStartSimilarityRes;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): WhenStartSimilarityRes.AsObject;
   static toObject(includeInstance: boolean, msg: WhenStartSimilarityRes): WhenStartSimilarityRes.AsObject;
@@ -83,6 +142,7 @@ export class WhenStartSimilarityRes extends jspb.Message {
 
 export namespace WhenStartSimilarityRes {
   export type AsObject = {
+    result: string,
   }
 }
 

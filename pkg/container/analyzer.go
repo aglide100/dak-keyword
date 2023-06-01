@@ -13,7 +13,7 @@ import (
 
 // const nodeRole = "node.role == worker"
 
-func (c *Controller) CreateAnalyzerService(workerId string, keyword string, dbConfig *db.DBConfig) (error, bool) {
+func (c *Controller) CreateAnalyzerService(workerId, jobId, keyword string, dbConfig *db.DBConfig) (error, bool) {
 	ctx := context.Background()
 
 	max := uint64(1)
@@ -59,7 +59,8 @@ func (c *Controller) CreateAnalyzerService(workerId string, keyword string, dbCo
 					"DB_USER=" + dbConfig.User,
 					"DB_PASSWORD=" + dbConfig.Password,
 					"DB_NAME=" + dbConfig.Dbname,
-					"WORKER_ID=" + workerId,	
+					"WORKER_ID=" + workerId,
+					"JOB_ID=" + jobId,	
 				},
 			},
 			

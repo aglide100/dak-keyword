@@ -101,9 +101,23 @@ func realMain() error {
 					} 
 					
 					if (cSpec.Type == "Analyzer") {
-						err, countErr := c.CreateAnalyzerService(cSpec.WorkerId, cSpec.Keyword, dbConfig)
+						err, countErr := c.CreateAnalyzerService(cSpec.WorkerId, cSpec.JobId, cSpec.Keyword, dbConfig)
 						if err != nil {
 							log.Printf("Can't make analyzer in queue %v, %v", err, cSpec)
+							// q.EnqueueFromQueue(cSpec)
+						}
+
+						if (countErr) {
+							log.Println("Container queue is full..", err)
+							q.EnqueueFromQueue(cSpec)
+							time.Sleep(5*time.Second)
+						}
+					}
+
+					if (cSpec.Type == "Similarity") {
+						err, countErr := c.CreateSimilarityService(cSpec.WorkerId, cSpec.JobId, dbConfig)
+						if err != nil {
+							log.Printf("Can't make similarity in queue %v, %v", err, cSpec)
 							// q.EnqueueFromQueue(cSpec)
 						}
 

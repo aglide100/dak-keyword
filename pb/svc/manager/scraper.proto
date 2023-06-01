@@ -18,7 +18,6 @@ message WhenDoneScraperRes {
     string result = 1;
 }
 
-
 message WhenStartScraperReq{
     string id = 1;
 }

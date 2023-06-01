@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"time"
 
+	calling "github.com/aglide100/dak-keyword/pkg/clients/scraper"
 	"github.com/aglide100/dak-keyword/pkg/db"
 	"github.com/aglide100/dak-keyword/pkg/models"
 )
@@ -63,11 +64,12 @@ func (s Scraper) CreateHttpReq(url string) (string, error) {
 	if res.StatusCode == 429 {
 		log.Printf("Too many request, 15min sleep")
 		time.Sleep(15 * 60 * time.Second)
-		CallSendMsg(s.Worker.id, "Too many request, sleeps 15 min...")
+		
+		calling.CallSendMsg(s.Worker.id, "Too many request, sleeps 15 min...")
 		
 		result, err := s.CreateHttpReq(url)
 		
-		CallSendMsg(s.Worker.id, "Collecting...")
+		calling.CallSendMsg(s.Worker.id, "Collecting...")
 		if err != nil {
 			return "", err
 		}

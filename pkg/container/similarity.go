@@ -12,13 +12,13 @@ import (
 
 // const nodeRole = "node.role == worker"
 
-func (c *Controller) CreateSimilarityService(workerId string, jobId string, keyword string, dbConfig *db.DBConfig) (error, bool) {
+func (c *Controller) CreateSimilarityService(workerId string, jobId string,dbConfig *db.DBConfig) (error, bool) {
 	ctx := context.Background()
 
 	if c.cQueue.LenRunning() >= c.containerMaximum {
 		c.cQueue.EnqueueFromQueue(&ContainerSpec{
 			WorkerId: workerId,
-			Keyword: keyword,
+			// Keyword: keyword,
 			JobId: jobId,
 			Type: "Similarity",
 		})
@@ -35,7 +35,6 @@ func (c *Controller) CreateSimilarityService(workerId string, jobId string, keyw
 			ContainerSpec: &swarm.ContainerSpec{
 					Image: "ghcr.io/aglide100/dak-keyword--similarity:latest",
 					Env: []string{
-					"Keyword=" + keyword, 
 					"DB_ADDR=" + dbConfig.Host,
 					"DB_PORT=" + strconv.Itoa(dbConfig.Port),
 					"DB_USER=" + dbConfig.User,
@@ -65,7 +64,7 @@ func (c *Controller) CreateSimilarityService(workerId string, jobId string, keyw
 
 	c.cQueue.EnqueueFromRunning(&ContainerSpec{
 		WorkerId: workerId,
-		Keyword: keyword,
+		JobId: jobId,
 		Token: "",
 		Type: "Similarity",
 	})

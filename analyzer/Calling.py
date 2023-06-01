@@ -30,10 +30,10 @@ def sendStartMSG(workerId):
         #         else:
         #             raise e
 
-def sendDoneMSG(workerId):
+def sendDoneMSG(workerId, jobId):
     with grpc.insecure_channel(addr) as channel:
         client = manager_pb2_grpc.AnalyzerServiceStub(channel)
-        response = client.WhenDoneAnalyzer(manager_pb2.WhenDoneAnalyzerReq(id=workerId))
+        response = client.WhenDoneAnalyzer(manager_pb2.WhenDoneAnalyzerReq(workerId=workerId, jobId=jobId))
         print(response)
         # retry_count = 0
         # while True:

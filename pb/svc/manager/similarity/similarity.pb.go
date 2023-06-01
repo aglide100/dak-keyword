@@ -20,14 +20,17 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type WhenHavingErrSimilarityReq struct {
+type WhenSimilarityHavingMsgReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
+
+	Id  string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Msg string `protobuf:"bytes,2,opt,name=msg,proto3" json:"msg,omitempty"`
 }
 
-func (x *WhenHavingErrSimilarityReq) Reset() {
-	*x = WhenHavingErrSimilarityReq{}
+func (x *WhenSimilarityHavingMsgReq) Reset() {
+	*x = WhenSimilarityHavingMsgReq{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_pb_svc_manager_similarity_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -35,13 +38,13 @@ func (x *WhenHavingErrSimilarityReq) Reset() {
 	}
 }
 
-func (x *WhenHavingErrSimilarityReq) String() string {
+func (x *WhenSimilarityHavingMsgReq) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*WhenHavingErrSimilarityReq) ProtoMessage() {}
+func (*WhenSimilarityHavingMsgReq) ProtoMessage() {}
 
-func (x *WhenHavingErrSimilarityReq) ProtoReflect() protoreflect.Message {
+func (x *WhenSimilarityHavingMsgReq) ProtoReflect() protoreflect.Message {
 	mi := &file_pb_svc_manager_similarity_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -53,19 +56,33 @@ func (x *WhenHavingErrSimilarityReq) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use WhenHavingErrSimilarityReq.ProtoReflect.Descriptor instead.
-func (*WhenHavingErrSimilarityReq) Descriptor() ([]byte, []int) {
+// Deprecated: Use WhenSimilarityHavingMsgReq.ProtoReflect.Descriptor instead.
+func (*WhenSimilarityHavingMsgReq) Descriptor() ([]byte, []int) {
 	return file_pb_svc_manager_similarity_proto_rawDescGZIP(), []int{0}
 }
 
-type WhenHavingErrSimilarityRes struct {
+func (x *WhenSimilarityHavingMsgReq) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *WhenSimilarityHavingMsgReq) GetMsg() string {
+	if x != nil {
+		return x.Msg
+	}
+	return ""
+}
+
+type WhenSimilarityHavingMsgRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *WhenHavingErrSimilarityRes) Reset() {
-	*x = WhenHavingErrSimilarityRes{}
+func (x *WhenSimilarityHavingMsgRes) Reset() {
+	*x = WhenSimilarityHavingMsgRes{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_pb_svc_manager_similarity_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -73,13 +90,13 @@ func (x *WhenHavingErrSimilarityRes) Reset() {
 	}
 }
 
-func (x *WhenHavingErrSimilarityRes) String() string {
+func (x *WhenSimilarityHavingMsgRes) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*WhenHavingErrSimilarityRes) ProtoMessage() {}
+func (*WhenSimilarityHavingMsgRes) ProtoMessage() {}
 
-func (x *WhenHavingErrSimilarityRes) ProtoReflect() protoreflect.Message {
+func (x *WhenSimilarityHavingMsgRes) ProtoReflect() protoreflect.Message {
 	mi := &file_pb_svc_manager_similarity_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -91,21 +108,116 @@ func (x *WhenHavingErrSimilarityRes) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use WhenHavingErrSimilarityRes.ProtoReflect.Descriptor instead.
-func (*WhenHavingErrSimilarityRes) Descriptor() ([]byte, []int) {
+// Deprecated: Use WhenSimilarityHavingMsgRes.ProtoReflect.Descriptor instead.
+func (*WhenSimilarityHavingMsgRes) Descriptor() ([]byte, []int) {
 	return file_pb_svc_manager_similarity_proto_rawDescGZIP(), []int{1}
+}
+
+type WhenSimilarityHavingErrReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id  string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Msg string `protobuf:"bytes,2,opt,name=msg,proto3" json:"msg,omitempty"`
+}
+
+func (x *WhenSimilarityHavingErrReq) Reset() {
+	*x = WhenSimilarityHavingErrReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pb_svc_manager_similarity_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *WhenSimilarityHavingErrReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*WhenSimilarityHavingErrReq) ProtoMessage() {}
+
+func (x *WhenSimilarityHavingErrReq) ProtoReflect() protoreflect.Message {
+	mi := &file_pb_svc_manager_similarity_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use WhenSimilarityHavingErrReq.ProtoReflect.Descriptor instead.
+func (*WhenSimilarityHavingErrReq) Descriptor() ([]byte, []int) {
+	return file_pb_svc_manager_similarity_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *WhenSimilarityHavingErrReq) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *WhenSimilarityHavingErrReq) GetMsg() string {
+	if x != nil {
+		return x.Msg
+	}
+	return ""
+}
+
+type WhenSimilarityHavingErrRes struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *WhenSimilarityHavingErrRes) Reset() {
+	*x = WhenSimilarityHavingErrRes{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pb_svc_manager_similarity_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *WhenSimilarityHavingErrRes) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*WhenSimilarityHavingErrRes) ProtoMessage() {}
+
+func (x *WhenSimilarityHavingErrRes) ProtoReflect() protoreflect.Message {
+	mi := &file_pb_svc_manager_similarity_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use WhenSimilarityHavingErrRes.ProtoReflect.Descriptor instead.
+func (*WhenSimilarityHavingErrRes) Descriptor() ([]byte, []int) {
+	return file_pb_svc_manager_similarity_proto_rawDescGZIP(), []int{3}
 }
 
 type WhenDoneSimilarityReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
+
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 }
 
 func (x *WhenDoneSimilarityReq) Reset() {
 	*x = WhenDoneSimilarityReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_similarity_proto_msgTypes[2]
+		mi := &file_pb_svc_manager_similarity_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -118,7 +230,7 @@ func (x *WhenDoneSimilarityReq) String() string {
 func (*WhenDoneSimilarityReq) ProtoMessage() {}
 
 func (x *WhenDoneSimilarityReq) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_similarity_proto_msgTypes[2]
+	mi := &file_pb_svc_manager_similarity_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -131,19 +243,28 @@ func (x *WhenDoneSimilarityReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WhenDoneSimilarityReq.ProtoReflect.Descriptor instead.
 func (*WhenDoneSimilarityReq) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_similarity_proto_rawDescGZIP(), []int{2}
+	return file_pb_svc_manager_similarity_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *WhenDoneSimilarityReq) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
 }
 
 type WhenDoneSimilarityRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
+
+	Result string `protobuf:"bytes,1,opt,name=result,proto3" json:"result,omitempty"`
 }
 
 func (x *WhenDoneSimilarityRes) Reset() {
 	*x = WhenDoneSimilarityRes{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_similarity_proto_msgTypes[3]
+		mi := &file_pb_svc_manager_similarity_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -156,7 +277,7 @@ func (x *WhenDoneSimilarityRes) String() string {
 func (*WhenDoneSimilarityRes) ProtoMessage() {}
 
 func (x *WhenDoneSimilarityRes) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_similarity_proto_msgTypes[3]
+	mi := &file_pb_svc_manager_similarity_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -169,19 +290,28 @@ func (x *WhenDoneSimilarityRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WhenDoneSimilarityRes.ProtoReflect.Descriptor instead.
 func (*WhenDoneSimilarityRes) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_similarity_proto_rawDescGZIP(), []int{3}
+	return file_pb_svc_manager_similarity_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *WhenDoneSimilarityRes) GetResult() string {
+	if x != nil {
+		return x.Result
+	}
+	return ""
 }
 
 type WhenStartSimilarityReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
+
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 }
 
 func (x *WhenStartSimilarityReq) Reset() {
 	*x = WhenStartSimilarityReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_similarity_proto_msgTypes[4]
+		mi := &file_pb_svc_manager_similarity_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -194,7 +324,7 @@ func (x *WhenStartSimilarityReq) String() string {
 func (*WhenStartSimilarityReq) ProtoMessage() {}
 
 func (x *WhenStartSimilarityReq) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_similarity_proto_msgTypes[4]
+	mi := &file_pb_svc_manager_similarity_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -207,19 +337,28 @@ func (x *WhenStartSimilarityReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WhenStartSimilarityReq.ProtoReflect.Descriptor instead.
 func (*WhenStartSimilarityReq) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_similarity_proto_rawDescGZIP(), []int{4}
+	return file_pb_svc_manager_similarity_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *WhenStartSimilarityReq) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
 }
 
 type WhenStartSimilarityRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
+
+	Result string `protobuf:"bytes,1,opt,name=result,proto3" json:"result,omitempty"`
 }
 
 func (x *WhenStartSimilarityRes) Reset() {
 	*x = WhenStartSimilarityRes{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_similarity_proto_msgTypes[5]
+		mi := &file_pb_svc_manager_similarity_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -232,7 +371,7 @@ func (x *WhenStartSimilarityRes) String() string {
 func (*WhenStartSimilarityRes) ProtoMessage() {}
 
 func (x *WhenStartSimilarityRes) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_similarity_proto_msgTypes[5]
+	mi := &file_pb_svc_manager_similarity_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -245,7 +384,14 @@ func (x *WhenStartSimilarityRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WhenStartSimilarityRes.ProtoReflect.Descriptor instead.
 func (*WhenStartSimilarityRes) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_similarity_proto_rawDescGZIP(), []int{5}
+	return file_pb_svc_manager_similarity_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *WhenStartSimilarityRes) GetResult() string {
+	if x != nil {
+		return x.Result
+	}
+	return ""
 }
 
 type GetSimilarityReq struct {
@@ -257,7 +403,7 @@ type GetSimilarityReq struct {
 func (x *GetSimilarityReq) Reset() {
 	*x = GetSimilarityReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_similarity_proto_msgTypes[6]
+		mi := &file_pb_svc_manager_similarity_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -270,7 +416,7 @@ func (x *GetSimilarityReq) String() string {
 func (*GetSimilarityReq) ProtoMessage() {}
 
 func (x *GetSimilarityReq) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_similarity_proto_msgTypes[6]
+	mi := &file_pb_svc_manager_similarity_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -283,7 +429,7 @@ func (x *GetSimilarityReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetSimilarityReq.ProtoReflect.Descriptor instead.
 func (*GetSimilarityReq) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_similarity_proto_rawDescGZIP(), []int{6}
+	return file_pb_svc_manager_similarity_proto_rawDescGZIP(), []int{8}
 }
 
 type GetSimilarityRes struct {
@@ -295,7 +441,7 @@ type GetSimilarityRes struct {
 func (x *GetSimilarityRes) Reset() {
 	*x = GetSimilarityRes{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_similarity_proto_msgTypes[7]
+		mi := &file_pb_svc_manager_similarity_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -308,7 +454,7 @@ func (x *GetSimilarityRes) String() string {
 func (*GetSimilarityRes) ProtoMessage() {}
 
 func (x *GetSimilarityRes) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_similarity_proto_msgTypes[7]
+	mi := &file_pb_svc_manager_similarity_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -321,7 +467,7 @@ func (x *GetSimilarityRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetSimilarityRes.ProtoReflect.Descriptor instead.
 func (*GetSimilarityRes) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_similarity_proto_rawDescGZIP(), []int{7}
+	return file_pb_svc_manager_similarity_proto_rawDescGZIP(), []int{9}
 }
 
 type GetVocabListReq struct {
@@ -333,7 +479,7 @@ type GetVocabListReq struct {
 func (x *GetVocabListReq) Reset() {
 	*x = GetVocabListReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_similarity_proto_msgTypes[8]
+		mi := &file_pb_svc_manager_similarity_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -346,7 +492,7 @@ func (x *GetVocabListReq) String() string {
 func (*GetVocabListReq) ProtoMessage() {}
 
 func (x *GetVocabListReq) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_similarity_proto_msgTypes[8]
+	mi := &file_pb_svc_manager_similarity_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -359,7 +505,7 @@ func (x *GetVocabListReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetVocabListReq.ProtoReflect.Descriptor instead.
 func (*GetVocabListReq) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_similarity_proto_rawDescGZIP(), []int{8}
+	return file_pb_svc_manager_similarity_proto_rawDescGZIP(), []int{10}
 }
 
 type GetVocabListRes struct {
@@ -371,7 +517,7 @@ type GetVocabListRes struct {
 func (x *GetVocabListRes) Reset() {
 	*x = GetVocabListRes{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_svc_manager_similarity_proto_msgTypes[9]
+		mi := &file_pb_svc_manager_similarity_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -384,7 +530,7 @@ func (x *GetVocabListRes) String() string {
 func (*GetVocabListRes) ProtoMessage() {}
 
 func (x *GetVocabListRes) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_svc_manager_similarity_proto_msgTypes[9]
+	mi := &file_pb_svc_manager_similarity_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -397,7 +543,7 @@ func (x *GetVocabListRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetVocabListRes.ProtoReflect.Descriptor instead.
 func (*GetVocabListRes) Descriptor() ([]byte, []int) {
-	return file_pb_svc_manager_similarity_proto_rawDescGZIP(), []int{9}
+	return file_pb_svc_manager_similarity_proto_rawDescGZIP(), []int{11}
 }
 
 var File_pb_svc_manager_similarity_proto protoreflect.FileDescriptor
@@ -406,22 +552,35 @@ var file_pb_svc_manager_similarity_proto_rawDesc = []byte{
 	0x0a, 0x1f, 0x70, 0x62, 0x2f, 0x73, 0x76, 0x63, 0x2f, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72,
 	0x2f, 0x73, 0x69, 0x6d, 0x69, 0x6c, 0x61, 0x72, 0x69, 0x74, 0x79, 0x2e, 0x70, 0x72, 0x6f, 0x74,
 	0x6f, 0x12, 0x19, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65,
-	0x72, 0x2e, 0x73, 0x69, 0x6d, 0x69, 0x6c, 0x61, 0x72, 0x69, 0x74, 0x79, 0x22, 0x1c, 0x0a, 0x1a,
-	0x57, 0x68, 0x65, 0x6e, 0x48, 0x61, 0x76, 0x69, 0x6e, 0x67, 0x45, 0x72, 0x72, 0x53, 0x69, 0x6d,
-	0x69, 0x6c, 0x61, 0x72, 0x69, 0x74, 0x79, 0x52, 0x65, 0x71, 0x22, 0x1c, 0x0a, 0x1a, 0x57, 0x68,
-	0x65, 0x6e, 0x48, 0x61, 0x76, 0x69, 0x6e, 0x67, 0x45, 0x72, 0x72, 0x53, 0x69, 0x6d, 0x69, 0x6c,
-	0x61, 0x72, 0x69, 0x74, 0x79, 0x52, 0x65, 0x73, 0x22, 0x17, 0x0a, 0x15, 0x57, 0x68, 0x65, 0x6e,
+	0x72, 0x2e, 0x73, 0x69, 0x6d, 0x69, 0x6c, 0x61, 0x72, 0x69, 0x74, 0x79, 0x22, 0x3e, 0x0a, 0x1a,
+	0x57, 0x68, 0x65, 0x6e, 0x53, 0x69, 0x6d, 0x69, 0x6c, 0x61, 0x72, 0x69, 0x74, 0x79, 0x48, 0x61,
+	0x76, 0x69, 0x6e, 0x67, 0x4d, 0x73, 0x67, 0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x10, 0x0a, 0x03, 0x6d, 0x73,
+	0x67, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6d, 0x73, 0x67, 0x22, 0x1c, 0x0a, 0x1a,
+	0x57, 0x68, 0x65, 0x6e, 0x53, 0x69, 0x6d, 0x69, 0x6c, 0x61, 0x72, 0x69, 0x74, 0x79, 0x48, 0x61,
+	0x76, 0x69, 0x6e, 0x67, 0x4d, 0x73, 0x67, 0x52, 0x65, 0x73, 0x22, 0x3e, 0x0a, 0x1a, 0x57, 0x68,
+	0x65, 0x6e, 0x53, 0x69, 0x6d, 0x69, 0x6c, 0x61, 0x72, 0x69, 0x74, 0x79, 0x48, 0x61, 0x76, 0x69,
+	0x6e, 0x67, 0x45, 0x72, 0x72, 0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x10, 0x0a, 0x03, 0x6d, 0x73, 0x67, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6d, 0x73, 0x67, 0x22, 0x1c, 0x0a, 0x1a, 0x57, 0x68,
+	0x65, 0x6e, 0x53, 0x69, 0x6d, 0x69, 0x6c, 0x61, 0x72, 0x69, 0x74, 0x79, 0x48, 0x61, 0x76, 0x69,
+	0x6e, 0x67, 0x45, 0x72, 0x72, 0x52, 0x65, 0x73, 0x22, 0x27, 0x0a, 0x15, 0x57, 0x68, 0x65, 0x6e,
 	0x44, 0x6f, 0x6e, 0x65, 0x53, 0x69, 0x6d, 0x69, 0x6c, 0x61, 0x72, 0x69, 0x74, 0x79, 0x52, 0x65,
-	0x71, 0x22, 0x17, 0x0a, 0x15, 0x57, 0x68, 0x65, 0x6e, 0x44, 0x6f, 0x6e, 0x65, 0x53, 0x69, 0x6d,
-	0x69, 0x6c, 0x61, 0x72, 0x69, 0x74, 0x79, 0x52, 0x65, 0x73, 0x22, 0x18, 0x0a, 0x16, 0x57, 0x68,
-	0x65, 0x6e, 0x53, 0x74, 0x61, 0x72, 0x74, 0x53, 0x69, 0x6d, 0x69, 0x6c, 0x61, 0x72, 0x69, 0x74,
-	0x79, 0x52, 0x65, 0x71, 0x22, 0x18, 0x0a, 0x16, 0x57, 0x68, 0x65, 0x6e, 0x53, 0x74, 0x61, 0x72,
-	0x74, 0x53, 0x69, 0x6d, 0x69, 0x6c, 0x61, 0x72, 0x69, 0x74, 0x79, 0x52, 0x65, 0x73, 0x22, 0x12,
+	0x71, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69,
+	0x64, 0x22, 0x2f, 0x0a, 0x15, 0x57, 0x68, 0x65, 0x6e, 0x44, 0x6f, 0x6e, 0x65, 0x53, 0x69, 0x6d,
+	0x69, 0x6c, 0x61, 0x72, 0x69, 0x74, 0x79, 0x52, 0x65, 0x73, 0x12, 0x16, 0x0a, 0x06, 0x72, 0x65,
+	0x73, 0x75, 0x6c, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x72, 0x65, 0x73, 0x75,
+	0x6c, 0x74, 0x22, 0x28, 0x0a, 0x16, 0x57, 0x68, 0x65, 0x6e, 0x53, 0x74, 0x61, 0x72, 0x74, 0x53,
+	0x69, 0x6d, 0x69, 0x6c, 0x61, 0x72, 0x69, 0x74, 0x79, 0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a, 0x02,
+	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0x30, 0x0a, 0x16,
+	0x57, 0x68, 0x65, 0x6e, 0x53, 0x74, 0x61, 0x72, 0x74, 0x53, 0x69, 0x6d, 0x69, 0x6c, 0x61, 0x72,
+	0x69, 0x74, 0x79, 0x52, 0x65, 0x73, 0x12, 0x16, 0x0a, 0x06, 0x72, 0x65, 0x73, 0x75, 0x6c, 0x74,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x72, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x22, 0x12,
 	0x0a, 0x10, 0x47, 0x65, 0x74, 0x53, 0x69, 0x6d, 0x69, 0x6c, 0x61, 0x72, 0x69, 0x74, 0x79, 0x52,
 	0x65, 0x71, 0x22, 0x12, 0x0a, 0x10, 0x47, 0x65, 0x74, 0x53, 0x69, 0x6d, 0x69, 0x6c, 0x61, 0x72,
 	0x69, 0x74, 0x79, 0x52, 0x65, 0x73, 0x22, 0x11, 0x0a, 0x0f, 0x47, 0x65, 0x74, 0x56, 0x6f, 0x63,
 	0x61, 0x62, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x22, 0x11, 0x0a, 0x0f, 0x47, 0x65, 0x74,
-	0x56, 0x6f, 0x63, 0x61, 0x62, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x32, 0xe7, 0x04, 0x0a,
+	0x56, 0x6f, 0x63, 0x61, 0x62, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x32, 0xf1, 0x05, 0x0a,
 	0x11, 0x53, 0x69, 0x6d, 0x69, 0x6c, 0x61, 0x72, 0x69, 0x74, 0x79, 0x53, 0x65, 0x72, 0x76, 0x69,
 	0x63, 0x65, 0x12, 0x66, 0x0a, 0x0c, 0x47, 0x65, 0x74, 0x56, 0x6f, 0x63, 0x61, 0x62, 0x4c, 0x69,
 	0x73, 0x74, 0x12, 0x2a, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61,
@@ -452,19 +611,28 @@ var file_pb_svc_manager_similarity_proto_rawDesc = []byte{
 	0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x73, 0x69, 0x6d, 0x69,
 	0x6c, 0x61, 0x72, 0x69, 0x74, 0x79, 0x2e, 0x57, 0x68, 0x65, 0x6e, 0x44, 0x6f, 0x6e, 0x65, 0x53,
 	0x69, 0x6d, 0x69, 0x6c, 0x61, 0x72, 0x69, 0x74, 0x79, 0x52, 0x65, 0x73, 0x12, 0x87, 0x01, 0x0a,
-	0x17, 0x57, 0x68, 0x65, 0x6e, 0x48, 0x61, 0x76, 0x69, 0x6e, 0x67, 0x45, 0x72, 0x72, 0x53, 0x69,
-	0x6d, 0x69, 0x6c, 0x61, 0x72, 0x69, 0x74, 0x79, 0x12, 0x35, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76,
+	0x17, 0x57, 0x68, 0x65, 0x6e, 0x53, 0x69, 0x6d, 0x69, 0x6c, 0x61, 0x72, 0x69, 0x74, 0x79, 0x48,
+	0x61, 0x76, 0x69, 0x6e, 0x67, 0x45, 0x72, 0x72, 0x12, 0x35, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76,
 	0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x73, 0x69, 0x6d, 0x69, 0x6c, 0x61,
-	0x72, 0x69, 0x74, 0x79, 0x2e, 0x57, 0x68, 0x65, 0x6e, 0x48, 0x61, 0x76, 0x69, 0x6e, 0x67, 0x45,
-	0x72, 0x72, 0x53, 0x69, 0x6d, 0x69, 0x6c, 0x61, 0x72, 0x69, 0x74, 0x79, 0x52, 0x65, 0x71, 0x1a,
+	0x72, 0x69, 0x74, 0x79, 0x2e, 0x57, 0x68, 0x65, 0x6e, 0x53, 0x69, 0x6d, 0x69, 0x6c, 0x61, 0x72,
+	0x69, 0x74, 0x79, 0x48, 0x61, 0x76, 0x69, 0x6e, 0x67, 0x45, 0x72, 0x72, 0x52, 0x65, 0x71, 0x1a,
 	0x35, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72,
 	0x2e, 0x73, 0x69, 0x6d, 0x69, 0x6c, 0x61, 0x72, 0x69, 0x74, 0x79, 0x2e, 0x57, 0x68, 0x65, 0x6e,
-	0x48, 0x61, 0x76, 0x69, 0x6e, 0x67, 0x45, 0x72, 0x72, 0x53, 0x69, 0x6d, 0x69, 0x6c, 0x61, 0x72,
-	0x69, 0x74, 0x79, 0x52, 0x65, 0x73, 0x42, 0x3c, 0x5a, 0x3a, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62,
-	0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x61, 0x67, 0x6c, 0x69, 0x64, 0x65, 0x31, 0x30, 0x30, 0x2f, 0x64,
-	0x61, 0x6b, 0x2d, 0x6b, 0x65, 0x79, 0x77, 0x6f, 0x72, 0x64, 0x2f, 0x70, 0x62, 0x2f, 0x73, 0x76,
-	0x63, 0x2f, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2f, 0x73, 0x69, 0x6d, 0x69, 0x6c, 0x61,
-	0x72, 0x69, 0x74, 0x79, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x53, 0x69, 0x6d, 0x69, 0x6c, 0x61, 0x72, 0x69, 0x74, 0x79, 0x48, 0x61, 0x76, 0x69, 0x6e, 0x67,
+	0x45, 0x72, 0x72, 0x52, 0x65, 0x73, 0x12, 0x87, 0x01, 0x0a, 0x17, 0x57, 0x68, 0x65, 0x6e, 0x53,
+	0x69, 0x6d, 0x69, 0x6c, 0x61, 0x72, 0x69, 0x74, 0x79, 0x48, 0x61, 0x76, 0x69, 0x6e, 0x67, 0x4d,
+	0x73, 0x67, 0x12, 0x35, 0x2e, 0x70, 0x62, 0x2e, 0x73, 0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61,
+	0x67, 0x65, 0x72, 0x2e, 0x73, 0x69, 0x6d, 0x69, 0x6c, 0x61, 0x72, 0x69, 0x74, 0x79, 0x2e, 0x57,
+	0x68, 0x65, 0x6e, 0x53, 0x69, 0x6d, 0x69, 0x6c, 0x61, 0x72, 0x69, 0x74, 0x79, 0x48, 0x61, 0x76,
+	0x69, 0x6e, 0x67, 0x4d, 0x73, 0x67, 0x52, 0x65, 0x71, 0x1a, 0x35, 0x2e, 0x70, 0x62, 0x2e, 0x73,
+	0x76, 0x63, 0x2e, 0x6d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x2e, 0x73, 0x69, 0x6d, 0x69, 0x6c,
+	0x61, 0x72, 0x69, 0x74, 0x79, 0x2e, 0x57, 0x68, 0x65, 0x6e, 0x53, 0x69, 0x6d, 0x69, 0x6c, 0x61,
+	0x72, 0x69, 0x74, 0x79, 0x48, 0x61, 0x76, 0x69, 0x6e, 0x67, 0x4d, 0x73, 0x67, 0x52, 0x65, 0x73,
+	0x42, 0x3c, 0x5a, 0x3a, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x61,
+	0x67, 0x6c, 0x69, 0x64, 0x65, 0x31, 0x30, 0x30, 0x2f, 0x64, 0x61, 0x6b, 0x2d, 0x6b, 0x65, 0x79,
+	0x77, 0x6f, 0x72, 0x64, 0x2f, 0x70, 0x62, 0x2f, 0x73, 0x76, 0x63, 0x2f, 0x6d, 0x61, 0x6e, 0x61,
+	0x67, 0x65, 0x72, 0x2f, 0x73, 0x69, 0x6d, 0x69, 0x6c, 0x61, 0x72, 0x69, 0x74, 0x79, 0x62, 0x06,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -479,35 +647,39 @@ func file_pb_svc_manager_similarity_proto_rawDescGZIP() []byte {
 	return file_pb_svc_manager_similarity_proto_rawDescData
 }
 
-var file_pb_svc_manager_similarity_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_pb_svc_manager_similarity_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_pb_svc_manager_similarity_proto_goTypes = []interface{}{
-	(*WhenHavingErrSimilarityReq)(nil), // 0: pb.svc.manager.similarity.WhenHavingErrSimilarityReq
-	(*WhenHavingErrSimilarityRes)(nil), // 1: pb.svc.manager.similarity.WhenHavingErrSimilarityRes
-	(*WhenDoneSimilarityReq)(nil),      // 2: pb.svc.manager.similarity.WhenDoneSimilarityReq
-	(*WhenDoneSimilarityRes)(nil),      // 3: pb.svc.manager.similarity.WhenDoneSimilarityRes
-	(*WhenStartSimilarityReq)(nil),     // 4: pb.svc.manager.similarity.WhenStartSimilarityReq
-	(*WhenStartSimilarityRes)(nil),     // 5: pb.svc.manager.similarity.WhenStartSimilarityRes
-	(*GetSimilarityReq)(nil),           // 6: pb.svc.manager.similarity.GetSimilarityReq
-	(*GetSimilarityRes)(nil),           // 7: pb.svc.manager.similarity.GetSimilarityRes
-	(*GetVocabListReq)(nil),            // 8: pb.svc.manager.similarity.GetVocabListReq
-	(*GetVocabListRes)(nil),            // 9: pb.svc.manager.similarity.GetVocabListRes
+	(*WhenSimilarityHavingMsgReq)(nil), // 0: pb.svc.manager.similarity.WhenSimilarityHavingMsgReq
+	(*WhenSimilarityHavingMsgRes)(nil), // 1: pb.svc.manager.similarity.WhenSimilarityHavingMsgRes
+	(*WhenSimilarityHavingErrReq)(nil), // 2: pb.svc.manager.similarity.WhenSimilarityHavingErrReq
+	(*WhenSimilarityHavingErrRes)(nil), // 3: pb.svc.manager.similarity.WhenSimilarityHavingErrRes
+	(*WhenDoneSimilarityReq)(nil),      // 4: pb.svc.manager.similarity.WhenDoneSimilarityReq
+	(*WhenDoneSimilarityRes)(nil),      // 5: pb.svc.manager.similarity.WhenDoneSimilarityRes
+	(*WhenStartSimilarityReq)(nil),     // 6: pb.svc.manager.similarity.WhenStartSimilarityReq
+	(*WhenStartSimilarityRes)(nil),     // 7: pb.svc.manager.similarity.WhenStartSimilarityRes
+	(*GetSimilarityReq)(nil),           // 8: pb.svc.manager.similarity.GetSimilarityReq
+	(*GetSimilarityRes)(nil),           // 9: pb.svc.manager.similarity.GetSimilarityRes
+	(*GetVocabListReq)(nil),            // 10: pb.svc.manager.similarity.GetVocabListReq
+	(*GetVocabListRes)(nil),            // 11: pb.svc.manager.similarity.GetVocabListRes
 }
 var file_pb_svc_manager_similarity_proto_depIdxs = []int32{
-	8, // 0: pb.svc.manager.similarity.SimilarityService.GetVocabList:input_type -> pb.svc.manager.similarity.GetVocabListReq
-	6, // 1: pb.svc.manager.similarity.SimilarityService.GetSimilarity:input_type -> pb.svc.manager.similarity.GetSimilarityReq
-	4, // 2: pb.svc.manager.similarity.SimilarityService.WhenStartSimilarity:input_type -> pb.svc.manager.similarity.WhenStartSimilarityReq
-	2, // 3: pb.svc.manager.similarity.SimilarityService.WhenDoneSimilarity:input_type -> pb.svc.manager.similarity.WhenDoneSimilarityReq
-	0, // 4: pb.svc.manager.similarity.SimilarityService.WhenHavingErrSimilarity:input_type -> pb.svc.manager.similarity.WhenHavingErrSimilarityReq
-	9, // 5: pb.svc.manager.similarity.SimilarityService.GetVocabList:output_type -> pb.svc.manager.similarity.GetVocabListRes
-	7, // 6: pb.svc.manager.similarity.SimilarityService.GetSimilarity:output_type -> pb.svc.manager.similarity.GetSimilarityRes
-	5, // 7: pb.svc.manager.similarity.SimilarityService.WhenStartSimilarity:output_type -> pb.svc.manager.similarity.WhenStartSimilarityRes
-	3, // 8: pb.svc.manager.similarity.SimilarityService.WhenDoneSimilarity:output_type -> pb.svc.manager.similarity.WhenDoneSimilarityRes
-	1, // 9: pb.svc.manager.similarity.SimilarityService.WhenHavingErrSimilarity:output_type -> pb.svc.manager.similarity.WhenHavingErrSimilarityRes
-	5, // [5:10] is the sub-list for method output_type
-	0, // [0:5] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	10, // 0: pb.svc.manager.similarity.SimilarityService.GetVocabList:input_type -> pb.svc.manager.similarity.GetVocabListReq
+	8,  // 1: pb.svc.manager.similarity.SimilarityService.GetSimilarity:input_type -> pb.svc.manager.similarity.GetSimilarityReq
+	6,  // 2: pb.svc.manager.similarity.SimilarityService.WhenStartSimilarity:input_type -> pb.svc.manager.similarity.WhenStartSimilarityReq
+	4,  // 3: pb.svc.manager.similarity.SimilarityService.WhenDoneSimilarity:input_type -> pb.svc.manager.similarity.WhenDoneSimilarityReq
+	2,  // 4: pb.svc.manager.similarity.SimilarityService.WhenSimilarityHavingErr:input_type -> pb.svc.manager.similarity.WhenSimilarityHavingErrReq
+	0,  // 5: pb.svc.manager.similarity.SimilarityService.WhenSimilarityHavingMsg:input_type -> pb.svc.manager.similarity.WhenSimilarityHavingMsgReq
+	11, // 6: pb.svc.manager.similarity.SimilarityService.GetVocabList:output_type -> pb.svc.manager.similarity.GetVocabListRes
+	9,  // 7: pb.svc.manager.similarity.SimilarityService.GetSimilarity:output_type -> pb.svc.manager.similarity.GetSimilarityRes
+	7,  // 8: pb.svc.manager.similarity.SimilarityService.WhenStartSimilarity:output_type -> pb.svc.manager.similarity.WhenStartSimilarityRes
+	5,  // 9: pb.svc.manager.similarity.SimilarityService.WhenDoneSimilarity:output_type -> pb.svc.manager.similarity.WhenDoneSimilarityRes
+	3,  // 10: pb.svc.manager.similarity.SimilarityService.WhenSimilarityHavingErr:output_type -> pb.svc.manager.similarity.WhenSimilarityHavingErrRes
+	1,  // 11: pb.svc.manager.similarity.SimilarityService.WhenSimilarityHavingMsg:output_type -> pb.svc.manager.similarity.WhenSimilarityHavingMsgRes
+	6,  // [6:12] is the sub-list for method output_type
+	0,  // [0:6] is the sub-list for method input_type
+	0,  // [0:0] is the sub-list for extension type_name
+	0,  // [0:0] is the sub-list for extension extendee
+	0,  // [0:0] is the sub-list for field type_name
 }
 
 func init() { file_pb_svc_manager_similarity_proto_init() }
@@ -517,7 +689,7 @@ func file_pb_svc_manager_similarity_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_pb_svc_manager_similarity_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*WhenHavingErrSimilarityReq); i {
+			switch v := v.(*WhenSimilarityHavingMsgReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -529,7 +701,7 @@ func file_pb_svc_manager_similarity_proto_init() {
 			}
 		}
 		file_pb_svc_manager_similarity_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*WhenHavingErrSimilarityRes); i {
+			switch v := v.(*WhenSimilarityHavingMsgRes); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -541,7 +713,7 @@ func file_pb_svc_manager_similarity_proto_init() {
 			}
 		}
 		file_pb_svc_manager_similarity_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*WhenDoneSimilarityReq); i {
+			switch v := v.(*WhenSimilarityHavingErrReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -553,7 +725,7 @@ func file_pb_svc_manager_similarity_proto_init() {
 			}
 		}
 		file_pb_svc_manager_similarity_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*WhenDoneSimilarityRes); i {
+			switch v := v.(*WhenSimilarityHavingErrRes); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -565,7 +737,7 @@ func file_pb_svc_manager_similarity_proto_init() {
 			}
 		}
 		file_pb_svc_manager_similarity_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*WhenStartSimilarityReq); i {
+			switch v := v.(*WhenDoneSimilarityReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -577,7 +749,7 @@ func file_pb_svc_manager_similarity_proto_init() {
 			}
 		}
 		file_pb_svc_manager_similarity_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*WhenStartSimilarityRes); i {
+			switch v := v.(*WhenDoneSimilarityRes); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -589,7 +761,7 @@ func file_pb_svc_manager_similarity_proto_init() {
 			}
 		}
 		file_pb_svc_manager_similarity_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetSimilarityReq); i {
+			switch v := v.(*WhenStartSimilarityReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -601,7 +773,7 @@ func file_pb_svc_manager_similarity_proto_init() {
 			}
 		}
 		file_pb_svc_manager_similarity_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetSimilarityRes); i {
+			switch v := v.(*WhenStartSimilarityRes); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -613,7 +785,7 @@ func file_pb_svc_manager_similarity_proto_init() {
 			}
 		}
 		file_pb_svc_manager_similarity_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetVocabListReq); i {
+			switch v := v.(*GetSimilarityReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -625,6 +797,30 @@ func file_pb_svc_manager_similarity_proto_init() {
 			}
 		}
 		file_pb_svc_manager_similarity_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetSimilarityRes); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_pb_svc_manager_similarity_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetVocabListReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_pb_svc_manager_similarity_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetVocabListRes); i {
 			case 0:
 				return &v.state
@@ -643,7 +839,7 @@ func file_pb_svc_manager_similarity_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_pb_svc_manager_similarity_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   10,
+			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
