@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	calling "github.com/aglide100/dak-keyword/pkg/clients/scraper"
 	"github.com/aglide100/dak-keyword/pkg/db"
 	"github.com/aglide100/dak-keyword/pkg/scraper"
 )
@@ -14,7 +15,7 @@ func main() {
 	if err := realMain(); err != nil {
 		log.Printf("err :%s", err)
 		workerId := os.Getenv("WORKER_ID")
-		scraper.CallGrpcWhenScraperHavingErr(workerId, err.Error())
+		calling.CallGrpcWhenScraperHavingErr(workerId, err.Error())
 		os.Exit(1)
 	}
 }
@@ -41,7 +42,7 @@ func realMain() error {
 		return fmt.Errorf("Can't connect DB: %v", err)
 	}
 
-	err = scraper.CallGrpcWhenStaring(workerId)
+	err = calling.CallGrpcWhenStaring(workerId)
 	if err != nil {
 		return err
 	}
@@ -62,7 +63,7 @@ func realMain() error {
 			case *db.DuplicateContent:
 				// pass
 			default:
-				scraper.CallGrpcWhenScraperHavingErr(workerId, err.Error())
+				calling.CallGrpcWhenScraperHavingErr(workerId, err.Error())
 			}
 		}
 	}
@@ -72,7 +73,7 @@ func realMain() error {
 	// 	return err
 	// }
 
-	err = scraper.CallGrpcWhenDone(workerId)
+	err = calling.CallGrpcWhenDone(workerId)
 	if err != nil {
 		return err
 	}

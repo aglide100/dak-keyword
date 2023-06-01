@@ -13,6 +13,7 @@ user = os.environ['DB_USER']
 password = os.environ['DB_PASSWORD']
 port = os.environ['DB_PORT']
 workerId = os.environ['WORKER_ID']
+jobId = os.environ['JOB_ID']
 
 import Database
 import psycopg2
@@ -56,7 +57,7 @@ if __name__ == '__main__':
             else:
                 print("result is None!")
 
-        Calling.sendDoneMSG(workerId)
+        Calling.sendDoneMSG(workerId, jobId)
 
     except psycopg2.DatabaseError as db_err:
         print(db_err)

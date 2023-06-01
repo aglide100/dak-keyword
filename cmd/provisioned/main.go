@@ -113,6 +113,20 @@ func realMain() error {
 							time.Sleep(5*time.Second)
 						}
 					}
+
+					if (cSpec.Type == "Similarity") {
+						err, countErr := c.CreateSimilarityService(cSpec.WorkerId, cSpec.JobId, dbConfig)
+						if err != nil {
+							log.Printf("Can't make similarity in queue %v, %v", err, cSpec)
+							// q.EnqueueFromQueue(cSpec)
+						}
+
+						if (countErr) {
+							log.Println("Container queue is full..", err)
+							q.EnqueueFromQueue(cSpec)
+							time.Sleep(5*time.Second)
+						}
+					}
 				}
 			}
 		}

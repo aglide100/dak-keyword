@@ -69,16 +69,20 @@ func (s *ManagerSrv) WhenDoneAnalyzer(ctx context.Context, in *pb_svc_manager_an
 		log.Printf("Received DoneScraper call: %v", in.String())
 	}
 
-	err := s.db.UpdateWorker(in.Id, "Analyzer Done.")
+	err := s.db.UpdateWorker(in.WorkerId, "Analyzer Done.")
 	if err != nil {
 		return nil, status.Error(codes.Canceled, "Can't update worker status at dbms")
 	}
 
-	err = calling.CallRemoveAnalyzer(in.Id)
+	err = calling.CallRemoveAnalyzer(in.WorkerId)
 	if err != nil {
 		return nil, err
 	}
-	
+
+	err = calling.CallMakeSimilarity(in.WorkerId, in.JobId)
+	if err != nil {
+		return nil, err
+	}
 
 	return &pb_svc_manager_analyzer.WhenDoneAnalyzerRes{
 		Result: "Analyzer Done",

@@ -324,61 +324,122 @@ proto.pb.svc.manager.similarity.SimilarityServicePromiseClient.prototype.whenDon
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.pb.svc.manager.similarity.WhenHavingErrSimilarityReq,
- *   !proto.pb.svc.manager.similarity.WhenHavingErrSimilarityRes>}
+ *   !proto.pb.svc.manager.similarity.WhenSimilarityHavingErrReq,
+ *   !proto.pb.svc.manager.similarity.WhenSimilarityHavingErrRes>}
  */
-const methodDescriptor_SimilarityService_WhenHavingErrSimilarity = new grpc.web.MethodDescriptor(
-  '/pb.svc.manager.similarity.SimilarityService/WhenHavingErrSimilarity',
+const methodDescriptor_SimilarityService_WhenSimilarityHavingErr = new grpc.web.MethodDescriptor(
+  '/pb.svc.manager.similarity.SimilarityService/WhenSimilarityHavingErr',
   grpc.web.MethodType.UNARY,
-  proto.pb.svc.manager.similarity.WhenHavingErrSimilarityReq,
-  proto.pb.svc.manager.similarity.WhenHavingErrSimilarityRes,
+  proto.pb.svc.manager.similarity.WhenSimilarityHavingErrReq,
+  proto.pb.svc.manager.similarity.WhenSimilarityHavingErrRes,
   /**
-   * @param {!proto.pb.svc.manager.similarity.WhenHavingErrSimilarityReq} request
+   * @param {!proto.pb.svc.manager.similarity.WhenSimilarityHavingErrReq} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.pb.svc.manager.similarity.WhenHavingErrSimilarityRes.deserializeBinary
+  proto.pb.svc.manager.similarity.WhenSimilarityHavingErrRes.deserializeBinary
 );
 
 
 /**
- * @param {!proto.pb.svc.manager.similarity.WhenHavingErrSimilarityReq} request The
+ * @param {!proto.pb.svc.manager.similarity.WhenSimilarityHavingErrReq} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.RpcError, ?proto.pb.svc.manager.similarity.WhenHavingErrSimilarityRes)}
+ * @param {function(?grpc.web.RpcError, ?proto.pb.svc.manager.similarity.WhenSimilarityHavingErrRes)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.pb.svc.manager.similarity.WhenHavingErrSimilarityRes>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.pb.svc.manager.similarity.WhenSimilarityHavingErrRes>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.pb.svc.manager.similarity.SimilarityServiceClient.prototype.whenHavingErrSimilarity =
+proto.pb.svc.manager.similarity.SimilarityServiceClient.prototype.whenSimilarityHavingErr =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/pb.svc.manager.similarity.SimilarityService/WhenHavingErrSimilarity',
+      '/pb.svc.manager.similarity.SimilarityService/WhenSimilarityHavingErr',
       request,
       metadata || {},
-      methodDescriptor_SimilarityService_WhenHavingErrSimilarity,
+      methodDescriptor_SimilarityService_WhenSimilarityHavingErr,
       callback);
 };
 
 
 /**
- * @param {!proto.pb.svc.manager.similarity.WhenHavingErrSimilarityReq} request The
+ * @param {!proto.pb.svc.manager.similarity.WhenSimilarityHavingErrReq} request The
  *     request proto
  * @param {?Object<string, string>=} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.pb.svc.manager.similarity.WhenHavingErrSimilarityRes>}
+ * @return {!Promise<!proto.pb.svc.manager.similarity.WhenSimilarityHavingErrRes>}
  *     Promise that resolves to the response
  */
-proto.pb.svc.manager.similarity.SimilarityServicePromiseClient.prototype.whenHavingErrSimilarity =
+proto.pb.svc.manager.similarity.SimilarityServicePromiseClient.prototype.whenSimilarityHavingErr =
     function(request, metadata) {
   return this.client_.unaryCall(this.hostname_ +
-      '/pb.svc.manager.similarity.SimilarityService/WhenHavingErrSimilarity',
+      '/pb.svc.manager.similarity.SimilarityService/WhenSimilarityHavingErr',
       request,
       metadata || {},
-      methodDescriptor_SimilarityService_WhenHavingErrSimilarity);
+      methodDescriptor_SimilarityService_WhenSimilarityHavingErr);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.pb.svc.manager.similarity.WhenSimilarityHavingMsgReq,
+ *   !proto.pb.svc.manager.similarity.WhenSimilarityHavingMsgRes>}
+ */
+const methodDescriptor_SimilarityService_WhenSimilarityHavingMsg = new grpc.web.MethodDescriptor(
+  '/pb.svc.manager.similarity.SimilarityService/WhenSimilarityHavingMsg',
+  grpc.web.MethodType.UNARY,
+  proto.pb.svc.manager.similarity.WhenSimilarityHavingMsgReq,
+  proto.pb.svc.manager.similarity.WhenSimilarityHavingMsgRes,
+  /**
+   * @param {!proto.pb.svc.manager.similarity.WhenSimilarityHavingMsgReq} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.pb.svc.manager.similarity.WhenSimilarityHavingMsgRes.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.pb.svc.manager.similarity.WhenSimilarityHavingMsgReq} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.pb.svc.manager.similarity.WhenSimilarityHavingMsgRes)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.pb.svc.manager.similarity.WhenSimilarityHavingMsgRes>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.pb.svc.manager.similarity.SimilarityServiceClient.prototype.whenSimilarityHavingMsg =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/pb.svc.manager.similarity.SimilarityService/WhenSimilarityHavingMsg',
+      request,
+      metadata || {},
+      methodDescriptor_SimilarityService_WhenSimilarityHavingMsg,
+      callback);
+};
+
+
+/**
+ * @param {!proto.pb.svc.manager.similarity.WhenSimilarityHavingMsgReq} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.pb.svc.manager.similarity.WhenSimilarityHavingMsgRes>}
+ *     Promise that resolves to the response
+ */
+proto.pb.svc.manager.similarity.SimilarityServicePromiseClient.prototype.whenSimilarityHavingMsg =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/pb.svc.manager.similarity.SimilarityService/WhenSimilarityHavingMsg',
+      request,
+      metadata || {},
+      methodDescriptor_SimilarityService_WhenSimilarityHavingMsg);
 };
 
 

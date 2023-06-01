@@ -26,7 +26,8 @@ type SimilarityServiceClient interface {
 	GetSimilarity(ctx context.Context, in *GetSimilarityReq, opts ...grpc.CallOption) (*GetSimilarityRes, error)
 	WhenStartSimilarity(ctx context.Context, in *WhenStartSimilarityReq, opts ...grpc.CallOption) (*WhenStartSimilarityRes, error)
 	WhenDoneSimilarity(ctx context.Context, in *WhenDoneSimilarityReq, opts ...grpc.CallOption) (*WhenDoneSimilarityRes, error)
-	WhenHavingErrSimilarity(ctx context.Context, in *WhenHavingErrSimilarityReq, opts ...grpc.CallOption) (*WhenHavingErrSimilarityRes, error)
+	WhenSimilarityHavingErr(ctx context.Context, in *WhenSimilarityHavingErrReq, opts ...grpc.CallOption) (*WhenSimilarityHavingErrRes, error)
+	WhenSimilarityHavingMsg(ctx context.Context, in *WhenSimilarityHavingMsgReq, opts ...grpc.CallOption) (*WhenSimilarityHavingMsgRes, error)
 }
 
 type similarityServiceClient struct {
@@ -73,9 +74,18 @@ func (c *similarityServiceClient) WhenDoneSimilarity(ctx context.Context, in *Wh
 	return out, nil
 }
 
-func (c *similarityServiceClient) WhenHavingErrSimilarity(ctx context.Context, in *WhenHavingErrSimilarityReq, opts ...grpc.CallOption) (*WhenHavingErrSimilarityRes, error) {
-	out := new(WhenHavingErrSimilarityRes)
-	err := c.cc.Invoke(ctx, "/pb.svc.manager.similarity.SimilarityService/WhenHavingErrSimilarity", in, out, opts...)
+func (c *similarityServiceClient) WhenSimilarityHavingErr(ctx context.Context, in *WhenSimilarityHavingErrReq, opts ...grpc.CallOption) (*WhenSimilarityHavingErrRes, error) {
+	out := new(WhenSimilarityHavingErrRes)
+	err := c.cc.Invoke(ctx, "/pb.svc.manager.similarity.SimilarityService/WhenSimilarityHavingErr", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *similarityServiceClient) WhenSimilarityHavingMsg(ctx context.Context, in *WhenSimilarityHavingMsgReq, opts ...grpc.CallOption) (*WhenSimilarityHavingMsgRes, error) {
+	out := new(WhenSimilarityHavingMsgRes)
+	err := c.cc.Invoke(ctx, "/pb.svc.manager.similarity.SimilarityService/WhenSimilarityHavingMsg", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -90,7 +100,8 @@ type SimilarityServiceServer interface {
 	GetSimilarity(context.Context, *GetSimilarityReq) (*GetSimilarityRes, error)
 	WhenStartSimilarity(context.Context, *WhenStartSimilarityReq) (*WhenStartSimilarityRes, error)
 	WhenDoneSimilarity(context.Context, *WhenDoneSimilarityReq) (*WhenDoneSimilarityRes, error)
-	WhenHavingErrSimilarity(context.Context, *WhenHavingErrSimilarityReq) (*WhenHavingErrSimilarityRes, error)
+	WhenSimilarityHavingErr(context.Context, *WhenSimilarityHavingErrReq) (*WhenSimilarityHavingErrRes, error)
+	WhenSimilarityHavingMsg(context.Context, *WhenSimilarityHavingMsgReq) (*WhenSimilarityHavingMsgRes, error)
 	mustEmbedUnimplementedSimilarityServiceServer()
 }
 
@@ -110,8 +121,11 @@ func (UnimplementedSimilarityServiceServer) WhenStartSimilarity(context.Context,
 func (UnimplementedSimilarityServiceServer) WhenDoneSimilarity(context.Context, *WhenDoneSimilarityReq) (*WhenDoneSimilarityRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method WhenDoneSimilarity not implemented")
 }
-func (UnimplementedSimilarityServiceServer) WhenHavingErrSimilarity(context.Context, *WhenHavingErrSimilarityReq) (*WhenHavingErrSimilarityRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method WhenHavingErrSimilarity not implemented")
+func (UnimplementedSimilarityServiceServer) WhenSimilarityHavingErr(context.Context, *WhenSimilarityHavingErrReq) (*WhenSimilarityHavingErrRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method WhenSimilarityHavingErr not implemented")
+}
+func (UnimplementedSimilarityServiceServer) WhenSimilarityHavingMsg(context.Context, *WhenSimilarityHavingMsgReq) (*WhenSimilarityHavingMsgRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method WhenSimilarityHavingMsg not implemented")
 }
 func (UnimplementedSimilarityServiceServer) mustEmbedUnimplementedSimilarityServiceServer() {}
 
@@ -198,20 +212,38 @@ func _SimilarityService_WhenDoneSimilarity_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SimilarityService_WhenHavingErrSimilarity_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(WhenHavingErrSimilarityReq)
+func _SimilarityService_WhenSimilarityHavingErr_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(WhenSimilarityHavingErrReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SimilarityServiceServer).WhenHavingErrSimilarity(ctx, in)
+		return srv.(SimilarityServiceServer).WhenSimilarityHavingErr(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb.svc.manager.similarity.SimilarityService/WhenHavingErrSimilarity",
+		FullMethod: "/pb.svc.manager.similarity.SimilarityService/WhenSimilarityHavingErr",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SimilarityServiceServer).WhenHavingErrSimilarity(ctx, req.(*WhenHavingErrSimilarityReq))
+		return srv.(SimilarityServiceServer).WhenSimilarityHavingErr(ctx, req.(*WhenSimilarityHavingErrReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SimilarityService_WhenSimilarityHavingMsg_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(WhenSimilarityHavingMsgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SimilarityServiceServer).WhenSimilarityHavingMsg(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.svc.manager.similarity.SimilarityService/WhenSimilarityHavingMsg",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SimilarityServiceServer).WhenSimilarityHavingMsg(ctx, req.(*WhenSimilarityHavingMsgReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -240,8 +272,12 @@ var SimilarityService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _SimilarityService_WhenDoneSimilarity_Handler,
 		},
 		{
-			MethodName: "WhenHavingErrSimilarity",
-			Handler:    _SimilarityService_WhenHavingErrSimilarity_Handler,
+			MethodName: "WhenSimilarityHavingErr",
+			Handler:    _SimilarityService_WhenSimilarityHavingErr_Handler,
+		},
+		{
+			MethodName: "WhenSimilarityHavingMsg",
+			Handler:    _SimilarityService_WhenSimilarityHavingMsg_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

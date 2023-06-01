@@ -50,7 +50,6 @@ func main() {
 	}
 }
 
-
 func realMain() error {
 	gRPCWebL, err := net.Listen("tcp", *apidGrpcWebAddr)
 	if err != nil {
@@ -152,7 +151,6 @@ func realMain() error {
 
 		return nil
 	})
-
 
 	wg.Go(func() error {
 		// wrapped grpc srv

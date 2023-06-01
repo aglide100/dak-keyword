@@ -6,10 +6,28 @@ option go_package = "github.com/aglide100/dak-keyword/pb/svc/provision";
 service Provision {
     rpc CreateScraper (CreateScraperReq) returns (CreateScraperRes);
     rpc CreateAnalyzer (CreateAnalyzerReq) returns (CreateAnalyzerRes);
+    rpc CreateSimilarity (CreateSimilarityReq) returns (CreateSimilarityRes);
     rpc GetScraperStatus (GetScraperStatusReq) returns (GetScraperStatusRes);
     rpc GetAnalyzerStatus (GetAnalyzerStatusReq) returns (GetAnalyzerStatusRes);
     rpc RemoveScraper (RemoveScraperReq) returns (RemoveScraperRes);
     rpc RemoveAnalyzer (RemoveAnalyzerReq) returns (RemoveAnalyzerRes);
+    rpc RemoveSimilarity (RemoveSimilarityReq) returns (RemoveSimilarityRes);
+}
+message RemoveSimilarityReq {
+    string id = 1;
+}
+
+message RemoveSimilarityRes {
+    string status = 1;
+}
+
+message CreateSimilarityReq {
+    string worker_id = 1;
+    string job_id = 2;
+}
+
+message CreateSimilarityRes {
+    string status = 1;
 }
 
 message CreateScraperReq {
@@ -24,8 +42,9 @@ message CreateScraperRes {
 }
 
 message CreateAnalyzerReq {
-    string scraperId = 1;
-    string keyword = 2;
+    string workerId = 1;
+    string jobId = 2;
+    string keyword = 3;
 }
 
 message CreateAnalyzerRes {
