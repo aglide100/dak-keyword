@@ -143,7 +143,7 @@ func CallMakeSimilarity(workerId, jobId string) (error) {
 	return nil
 }
 
-func CallMakeAnalysis(id string) (error) {
+func CallMakeAnalysis(workerId, jobId string) (error) {
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())	
 
 	if err != nil {
@@ -154,7 +154,8 @@ func CallMakeAnalysis(id string) (error) {
 	client := pb_svc_provision.NewProvisionClient(conn)
 
 	in := &pb_svc_provision.CreateAnalyzerReq{
-		WorkerId: id,
+		WorkerId: workerId,
+		JobId: jobId,
 	}
 	
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
@@ -186,7 +187,7 @@ func CallMakeAnalysis(id string) (error) {
 }
 
 
-func CallRemoveSimilarity(id string) (error) {
+func CallRemoveSimilarity(workerId string) (error) {
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())	
 	if err != nil {
 		log.Printf("Can't connect grpc service : %v", err)
@@ -196,7 +197,7 @@ func CallRemoveSimilarity(id string) (error) {
 	client := pb_svc_provision.NewProvisionClient(conn)
 
 	in := &pb_svc_provision.RemoveSimilarityReq{
-		Id: id,
+		Id: workerId,
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)

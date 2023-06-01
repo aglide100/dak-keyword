@@ -94,7 +94,7 @@ func realMain() error {
 						}
 
 						if (countErr) {
-							log.Println("Container Queue is full.. ", err)
+							log.Println("Container Queue is full.. %d ", q.LenRunning())
 							q.EnqueueFromQueue(cSpec)
 							time.Sleep(5*time.Second)
 						}
@@ -108,7 +108,7 @@ func realMain() error {
 						}
 
 						if (countErr) {
-							log.Println("Container queue is full..", err)
+							log.Println("Container queue is full.. %d", q.LenRunning())
 							q.EnqueueFromQueue(cSpec)
 							time.Sleep(5*time.Second)
 						}
@@ -122,7 +122,7 @@ func realMain() error {
 						}
 
 						if (countErr) {
-							log.Println("Container queue is full..", err)
+							log.Println("Container queue is full.. %d", q.LenRunning())
 							q.EnqueueFromQueue(cSpec)
 							time.Sleep(5*time.Second)
 						}

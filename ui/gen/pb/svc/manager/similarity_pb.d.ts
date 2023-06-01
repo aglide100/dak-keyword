@@ -75,8 +75,11 @@ export namespace WhenSimilarityHavingErrRes {
 }
 
 export class WhenDoneSimilarityReq extends jspb.Message {
-  getId(): string;
-  setId(value: string): WhenDoneSimilarityReq;
+  getWorkerid(): string;
+  setWorkerid(value: string): WhenDoneSimilarityReq;
+
+  getJobid(): string;
+  setJobid(value: string): WhenDoneSimilarityReq;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): WhenDoneSimilarityReq.AsObject;
@@ -88,7 +91,8 @@ export class WhenDoneSimilarityReq extends jspb.Message {
 
 export namespace WhenDoneSimilarityReq {
   export type AsObject = {
-    id: string,
+    workerid: string,
+    jobid: string,
   }
 }
 

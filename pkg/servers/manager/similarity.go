@@ -65,21 +65,21 @@ func (s *ManagerSrv) WhenDoneSimilarity(ctx context.Context, in *pb_svc_manager_
 		log.Printf("Received DoneSimilarity call: %v", in.String())
 	}
 
-	err := s.db.UpdateWorker(in.Id, "Similarity Done. Creating Analyzer")
+	err := s.db.UpdateWorker(in.WorkerId, "Similarity Done. Creating Analyzer")
 	if err != nil {
-		s.db.UpdateJob(in.Id, "Can't remove Snalyzer")
+		s.db.UpdateJob(in.WorkerId, "Can't remove Snalyzer")
 		return nil, status.Error(codes.Canceled, "Similarity having some error")
 	}
 
-	err = calling.CallRemoveSimilarity(in.Id)
+	err = calling.CallRemoveSimilarity(in.WorkerId)
 	if err != nil {
-		s.db.UpdateJob(in.Id, "Can't remove Similarity")
+		s.db.UpdateJob(in.WorkerId, "Can't remove Similarity")
 		return nil, status.Error(codes.Canceled, "Can't remove Similarity")
 	}
 
-	err = calling.CallMakeAnalysis(in.Id)
+	err = calling.CallMakeAnalysis(in.WorkerId, in.JobId)
 	if err != nil {
-		s.db.UpdateJob(in.Id, "Can't make analysis")
+		s.db.UpdateJob(in.WorkerId, "Can't make analysis")
 		return nil, err
 	}
 

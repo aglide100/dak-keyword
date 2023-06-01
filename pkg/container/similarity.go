@@ -18,7 +18,6 @@ func (c *Controller) CreateSimilarityService(workerId string, jobId string,dbCon
 	if c.cQueue.LenRunning() >= c.containerMaximum {
 		c.cQueue.EnqueueFromQueue(&ContainerSpec{
 			WorkerId: workerId,
-			// Keyword: keyword,
 			JobId: jobId,
 			Type: "Similarity",
 		})

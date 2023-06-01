@@ -82,11 +82,10 @@ func realMain() error {
 		}
 	}
 
-	err = calling.CallGrpcWhenDoneSimilarity(workerId)
+	err = calling.CallGrpcWhenDoneSimilarity(workerId, jobId)
 	if err != nil {
 		return err
 	}
-
 	
 	return nil
 }

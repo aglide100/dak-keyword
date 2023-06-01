@@ -33,7 +33,8 @@ message WhenSimilarityHavingErrRes {
 
 
 message WhenDoneSimilarityReq {
-    string id = 1;
+    string workerId = 1;
+    string jobId = 2;
 }
 
 message WhenDoneSimilarityRes {

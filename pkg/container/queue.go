@@ -34,7 +34,7 @@ func NewContainerQueue(length int, containerMaximum int) *ContainerQueue{
 }
 
 func (q *ContainerQueue) EnqueueFromRunning(cSpec *ContainerSpec) error {
-	log.Printf("Enqueue From Running, %v", cSpec)
+	log.Printf("Enqueue into Running, %v", cSpec)
 
 	if (len(q.running) > q.containerMaximum) {
 		log.Println("Running is full")
@@ -56,7 +56,7 @@ func (q *ContainerQueue) DequeueFromRunning() (*ContainerSpec) {
 }
 
 func (q *ContainerQueue) EnqueueFromQueue(cSpec *ContainerSpec) error {
-	log.Printf("Enqueue From Queue, %v", cSpec)
+	log.Printf("Enqueue into Queue, %v", cSpec)
 
 	if (len(q.queue) > q.length) {
 		log.Println("Queue is full")
