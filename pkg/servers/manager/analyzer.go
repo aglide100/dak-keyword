@@ -69,7 +69,7 @@ func (s *ManagerSrv) WhenDoneAnalyzer(ctx context.Context, in *pb_svc_manager_an
 		log.Printf("Received DoneScraper call: %v", in.String())
 	}
 
-	err := s.db.UpdateWorker(in.WorkerId, "Analyzer Done.")
+	err := s.db.UpdateWorker(in.WorkerId, "Analyzer is done.")
 	if err != nil {
 		return nil, status.Error(codes.Canceled, "Can't update worker status at dbms")
 	}
@@ -85,6 +85,6 @@ func (s *ManagerSrv) WhenDoneAnalyzer(ctx context.Context, in *pb_svc_manager_an
 	}
 
 	return &pb_svc_manager_analyzer.WhenDoneAnalyzerRes{
-		Result: "Analyzer Done",
+		Result: "Analyzer is done",
 	}, nil
 }

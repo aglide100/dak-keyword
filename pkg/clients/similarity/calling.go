@@ -67,7 +67,7 @@ func CallGrpcWhenStaringSimilarity(workerId string) error {
 	return nil
 }
 
-func CallGrpcWhenDoneSimilarity(workerId string) error {
+func CallGrpcWhenDoneSimilarity(workerId, jobId string) error {
 	conn, err := grpc.Dial(*addr, grpc.WithTransportCredentials(insecure.NewCredentials()), grpc.WithBlock())
 	if err != nil {
 		log.Fatalf("Can't connect grpc server : %v", err)
@@ -78,7 +78,8 @@ func CallGrpcWhenDoneSimilarity(workerId string) error {
 	client := pb_svc_manager_similarity.NewSimilarityServiceClient(conn)
 
 	in := &pb_svc_manager_similarity.WhenDoneSimilarityReq{
-		Id: workerId,
+		WorkerId: workerId,
+		JobId: jobId,
 	}
 	
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)

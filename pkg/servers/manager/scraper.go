@@ -69,26 +69,26 @@ func (s *ManagerSrv) WhenDoneScraper(ctx context.Context, in *pb_svc_manager_scr
 		log.Printf("Received DoneScraper call: %v", in.String())
 	}
 
-	err := s.db.UpdateWorker(in.Id, "Scraper Done. Creating Analyzer")
+	err := s.db.UpdateWorker(in.WorkerId, "Scraper is done. Creating Analyzer")
 	if err != nil {
-		s.db.UpdateJob(in.Id, "Can't remove Snalyzer")
+		s.db.UpdateJob(in.WorkerId, "Can't remove Snalyzer")
 		return nil, status.Error(codes.Canceled, "Scraper having some error")
 	}
 
-	err = calling.CallRemoveScraper(in.Id)
+	err = calling.CallRemoveScraper(in.WorkerId)
 	if err != nil {
-		s.db.UpdateJob(in.Id, "Can't remove Scraper")
+		s.db.UpdateJob(in.WorkerId, "Can't remove Scraper")
 		return nil, status.Error(codes.Canceled, "Can't remove Scraper")
 	}
 
-	err = calling.CallMakeAnalysis(in.Id)
+	err = calling.CallMakeAnalysis(in.WorkerId, in.JobId)
 	if err != nil {
-		s.db.UpdateJob(in.Id, "Can't make analysis")
+		s.db.UpdateJob(in.WorkerId, "Can't make analysis")
 		return nil, err
 	}
 
 	return &pb_svc_manager_scraper.WhenDoneScraperRes{
-		Result: "Scraping is Done!",
+		Result: "Scraper is done",
 	}, nil
 }
 

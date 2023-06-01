@@ -833,7 +833,8 @@ proto.pb.svc.manager.similarity.WhenDoneSimilarityReq.prototype.toObject = funct
  */
 proto.pb.svc.manager.similarity.WhenDoneSimilarityReq.toObject = function(includeInstance, msg) {
   var f, obj = {
-    id: jspb.Message.getFieldWithDefault(msg, 1, "")
+    workerid: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    jobid: jspb.Message.getFieldWithDefault(msg, 2, "")
   };
 
   if (includeInstance) {
@@ -872,7 +873,11 @@ proto.pb.svc.manager.similarity.WhenDoneSimilarityReq.deserializeBinaryFromReade
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setId(value);
+      msg.setWorkerid(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setJobid(value);
       break;
     default:
       reader.skipField();
@@ -903,10 +908,17 @@ proto.pb.svc.manager.similarity.WhenDoneSimilarityReq.prototype.serializeBinary 
  */
 proto.pb.svc.manager.similarity.WhenDoneSimilarityReq.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getId();
+  f = message.getWorkerid();
   if (f.length > 0) {
     writer.writeString(
       1,
+      f
+    );
+  }
+  f = message.getJobid();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
       f
     );
   }
@@ -914,10 +926,10 @@ proto.pb.svc.manager.similarity.WhenDoneSimilarityReq.serializeBinaryToWriter = 
 
 
 /**
- * optional string id = 1;
+ * optional string workerId = 1;
  * @return {string}
  */
-proto.pb.svc.manager.similarity.WhenDoneSimilarityReq.prototype.getId = function() {
+proto.pb.svc.manager.similarity.WhenDoneSimilarityReq.prototype.getWorkerid = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -926,8 +938,26 @@ proto.pb.svc.manager.similarity.WhenDoneSimilarityReq.prototype.getId = function
  * @param {string} value
  * @return {!proto.pb.svc.manager.similarity.WhenDoneSimilarityReq} returns this
  */
-proto.pb.svc.manager.similarity.WhenDoneSimilarityReq.prototype.setId = function(value) {
+proto.pb.svc.manager.similarity.WhenDoneSimilarityReq.prototype.setWorkerid = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string jobId = 2;
+ * @return {string}
+ */
+proto.pb.svc.manager.similarity.WhenDoneSimilarityReq.prototype.getJobid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.pb.svc.manager.similarity.WhenDoneSimilarityReq} returns this
+ */
+proto.pb.svc.manager.similarity.WhenDoneSimilarityReq.prototype.setJobid = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 

@@ -34,7 +34,7 @@ func realMain() error {
 	}
 
 	workerId := os.Getenv("WORKER_ID")
-	// jobId := os.Getenv("JOB_ID")
+	jobId := os.Getenv("JOB_ID")
 
 	
 	myDB, err := db.ConnectDB(dbConfig)
@@ -73,7 +73,7 @@ func realMain() error {
 	// 	return err
 	// }
 
-	err = calling.CallGrpcWhenDone(workerId)
+	err = calling.CallGrpcWhenDone(workerId, jobId)
 	if err != nil {
 		return err
 	}
