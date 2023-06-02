@@ -3,15 +3,17 @@ syntax = "proto3";
 package pb.svc.manager.similarity;
 option go_package = "github.com/aglide100/dak-keyword/pb/svc/manager/similarity";
 
+import "pb/unit/cosine_similarity/cosine_similarity.proto";
+
 service SimilarityService {
     rpc GetVocabList(GetVocabListReq) returns (GetVocabListRes);
-    rpc GetSimilarity(GetSimilarityReq) returns (GetSimilarityRes);
+    rpc GetCosineSimilarity(GetCosineSimilarityReq) returns (GetCosineSimilarityRes);
     rpc WhenStartSimilarity(WhenStartSimilarityReq) returns (WhenStartSimilarityRes);
     rpc WhenDoneSimilarity(WhenDoneSimilarityReq) returns (WhenDoneSimilarityRes);
     rpc WhenSimilarityHavingErr(WhenSimilarityHavingErrReq) returns (WhenSimilarityHavingErrRes);
     rpc WhenSimilarityHavingMsg(WhenSimilarityHavingMsgReq) returns (WhenSimilarityHavingMsgRes);
-    
 }
+
 message WhenSimilarityHavingMsgReq {
     string id = 1;
     string msg = 2;
@@ -21,7 +23,6 @@ message WhenSimilarityHavingMsgRes {
     
 }
 
-
 message WhenSimilarityHavingErrReq {
     string id = 1;
     string msg = 2;
@@ -30,7 +31,6 @@ message WhenSimilarityHavingErrReq {
 message WhenSimilarityHavingErrRes {
     
 }
-
 
 message WhenDoneSimilarityReq {
     string workerId = 1;
@@ -49,12 +49,12 @@ message WhenStartSimilarityRes {
     string result = 1;
 }
 
-message GetSimilarityReq {
+message GetCosineSimilarityReq {
 
 }
 
-message GetSimilarityRes {
-    
+message GetCosineSimilarityRes {
+    unit.cosine_similarity.CosineSimilarity CosineSimilarity = 1;
 }
 
 message GetVocabListReq {

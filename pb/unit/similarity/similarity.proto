@@ -1,8 +1,0 @@
-syntax = "proto3";
-
-package pb.unit.similarity;
-option go_package = "github.com/aglide100/dak-keyword/pb/unit/similarity";
-
-message Similarity {
-     
-}

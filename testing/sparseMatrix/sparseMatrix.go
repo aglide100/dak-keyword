@@ -18,9 +18,19 @@ func main() {
 		// "Maecenas venenatis leo vel tempor semper", 
 		// "Donec sed tempor dolor, a fringilla turpis",
 	}
-	vocabList, tfidfscore, _ := tfidf.CalcTfIdf(documents)
+	_, _, similarityList := tfidf.CalcTfIdf(documents)
 
-	row, column, result := SparseMatrix(len(documents), len(vocabList), tfidfscore)
+	// row, column, result := SparseMatrix(len(documents), len(vocabList), tfidfscore)
+
+	// for i := range result {
+	// 	fmt.Printf("%v / ", row[i])
+
+	// 	fmt.Printf("%v / ", column[i])
+
+	// 	fmt.Printf("%v \n", result[i])
+	// }
+
+	row, column, result := SparseMatrix(len(documents), len(documents), similarityList)
 
 	for i := range result {
 		fmt.Printf("%v / ", row[i])

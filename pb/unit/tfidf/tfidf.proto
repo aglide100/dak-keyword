@@ -4,5 +4,10 @@ package pb.unit.tfidf;
 option go_package = "github.com/aglide100/dak-keyword/pb/unit/tfidf";
 
 message Tfidf {
-     
+    string worker_id = 1;
+    int64 article_id = 2;
+    repeated int64 vocab_column = 3;
+    repeated double score = 4;
+    int64 id = 5;
+    int64 vocab_id = 6;
 }
