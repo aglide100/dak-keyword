@@ -31,7 +31,6 @@ func (c *Controller) CreateAnalyzerService(workerId, jobId, keyword string, dbCo
 
 	c.cli.ImagePull(ctx, "ghcr.io/aglide100/dak-keyword--analyzer:latest", types.ImagePullOptions{})
 	
-
 	_, err := c.cli.ServiceCreate(ctx, swarm.ServiceSpec{
 		Annotations: swarm.Annotations{
 			Name: "analyzer_"+workerId,
