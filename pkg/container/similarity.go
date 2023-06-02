@@ -2,6 +2,7 @@ package container
 
 import (
 	"context"
+	"log"
 	"strconv"
 	"strings"
 
@@ -15,12 +16,17 @@ import (
 func (c *Controller) CreateSimilarityService(workerId string, jobId string,dbConfig *db.DBConfig) (error, bool) {
 	ctx := context.Background()
 
-	if c.cQueue.LenRunning() >= c.containerMaximum {
+	max := uint64(1)
+
+	if c.cQueue.LenRunning() >= c.cQueue.GetLimitContainerCount() {
+		log.Println("Too many container to create similarity container")
+
 		c.cQueue.EnqueueFromQueue(&ContainerSpec{
 			WorkerId: workerId,
 			JobId: jobId,
 			Type: "Similarity",
 		})
+		
 		return nil, true
     }
 
@@ -30,6 +36,7 @@ func (c *Controller) CreateSimilarityService(workerId string, jobId string,dbCon
 		Annotations: swarm.Annotations{
 			Name: "similarity_"+workerId,
 		},
+		
 		TaskTemplate: swarm.TaskSpec{
 			ContainerSpec: &swarm.ContainerSpec{
 					Image: "ghcr.io/aglide100/dak-keyword--similarity:latest",
@@ -48,6 +55,10 @@ func (c *Controller) CreateSimilarityService(workerId string, jobId string,dbCon
 				swarm.NetworkAttachmentConfig{
 					Target: "keyword-network",
 				},
+			},
+			RestartPolicy: &swarm.RestartPolicy{
+				MaxAttempts: &max,
+				Condition: swarm.RestartPolicyConditionOnFailure,
 			},
 
 			// Placement: &swarm.Placement{

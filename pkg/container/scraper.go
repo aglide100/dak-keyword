@@ -19,7 +19,7 @@ func (c *Controller) CreateScraperService(workerId string, jobId string, keyword
 	max := uint64(1)
 
 	if c.cQueue.LenRunning() >= c.cQueue.GetLimitContainerCount() {
-		// log.Println("Too many container to create scraper container")
+		log.Println("Too many container to create scraper container")
 		c.cQueue.EnqueueFromQueue(&ContainerSpec{
 			WorkerId: workerId,
 			Keyword: keyword,
