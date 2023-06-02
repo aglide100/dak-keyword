@@ -20,6 +20,7 @@ func main() {
 	}
 }
 
+// Execute just once
 func realMain() error {
 	// config, err := env.LoadEnv("./env/test1.env")
 		// if err != nil {

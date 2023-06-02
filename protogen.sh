@@ -30,39 +30,6 @@ protoc \
  --ts_out="service=grpc-web:./ui/gen" \
  pb/svc/manager/job.proto
 
-# protoc \
-#  --plugin="protoc-gen-ts=./ui/node_modules/.bin/protoc-gen-ts" \
-#  --js_out="import_style=commonjs,binary:./ui/gen" \
-#  --ts_out="service=grpc-web:./ui/gen" \
-#  pb/svc/manager/similarity.proto
-
-
-# protoc \
-#  --plugin="protoc-gen-ts=./ui/node_modules/.bin/protoc-gen-ts" \
-#  --js_out="import_style=commonjs,binary:./ui/gen" \
-#  --ts_out="service=grpc-web:./ui/gen" \
-#  pb/unit/article/article.proto
-
-
-# protoc \
-#  --plugin="protoc-gen-ts=./ui/node_modules/.bin/protoc-gen-ts" \
-#  --js_out="import_style=commonjs,binary:./ui/gen" \
-#  --ts_out="service=grpc-web:./ui/gen" \
-#  pb/unit/worker/worker.proto
-
-# protoc \
-#  --plugin="protoc-gen-ts=./ui/node_modules/.bin/protoc-gen-ts" \
-#  --js_out="import_style=commonjs,binary:./ui/gen" \
-#  --ts_out="service=grpc-web:./ui/gen" \
-#  pb/unit/job/job.proto
-
-# protoc \
-#  --plugin="protoc-gen-ts=./ui/node_modules/.bin/protoc-gen-ts" \
-#  --js_out="import_style=commonjs,binary:./ui/gen" \
-#  --ts_out="service=grpc-web:./ui/gen" \
-#  pb/unit/similarity/similarity.proto
-
-
 protoc -I=. pb/svc/manager/article.proto --js_out=import_style=commonjs:./ui/gen --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:./ui/gen
 protoc -I=. pb/svc/manager/worker.proto --js_out=import_style=commonjs:./ui/gen --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:./ui/gen
 protoc -I=. pb/svc/manager/job.proto --js_out=import_style=commonjs:./ui/gen --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:./ui/gen
@@ -71,7 +38,7 @@ protoc -I=. pb/svc/manager/similarity.proto --js_out=import_style=commonjs:./ui/
 protoc -I=. pb/unit/article/article.proto --js_out=import_style=commonjs:./ui/gen --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:./ui/gen
 protoc -I=. pb/unit/worker/worker.proto --js_out=import_style=commonjs:./ui/gen --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:./ui/gen
 protoc -I=. pb/unit/job/job.proto --js_out=import_style=commonjs:./ui/gen --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:./ui/gen
-protoc -I=. pb/unit/similarity/similarity.proto --js_out=import_style=commonjs:./ui/gen --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:./ui/gen
+protoc -I=. pb/unit/cosine_similarity/cosine_similarity.proto --js_out=import_style=commonjs:./ui/gen --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:./ui/gen
 
 # python3 -m grpc_tools.protoc -I . --python_out=./analyzer --grpc_python_out=./analyzer ./pb/svc/analyzer/analyzer.proto
 

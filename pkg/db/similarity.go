@@ -1,17 +1,22 @@
 package db
 
 import (
+	"strconv"
+
 	"github.com/lib/pq"
 )
 
-func (db *Database) AddNewCosineSimilarity(articleId, workerId string, score []float64, comparisonId []string) error {
+func (db *Database) AddNewCosineSimilarity(workerId, jobId string, score []float64, rowId, columnId []string) error {
 	const q = `
 	INSERT INTO cosine_similarity (
-		"Article_id", "Worker_id", "Comparison_id", "Score"
-	) VALUES ($1, $2, $3, $4)`
+		"Worker_id", "Job_id", "Row_id", "Column_id", "Score"
+	) VALUES ($1, $2, $3, $4, $5)
+	ON CONFLICT ("Worker_id") DO UPDATE SET
+		"Score" = EXCLUDED."Score"
+	RETURNING "id"
+	`
 
-
-	_, err := db.Conn.Exec(q, articleId, workerId, pq.Array(comparisonId), pq.Array(score))
+	_, err := db.Conn.Exec(q, workerId, jobId, pq.Array(rowId), pq.Array(columnId), pq.Array(score))
 	if err != nil {
 		return err
 	}
@@ -24,9 +29,16 @@ func (db *Database) AddNewTfIdfScore(workerId, articleId string, wordId int64, v
 	INSERT INTO tfidf (
 		"Worker_id", "Article_id", "Vocab_id", "Vocab_column", "Score"
 	) VALUES ($1, $2, $3, $4, $5)
+	ON CONFLICT ("Article_id") DO NOTHING;
 	` 
-	
-	_, err := db.Conn.Exec(q, workerId, articleId, wordId, pq.Array(vocabId), pq.Array(score))
+
+	// pg is can't convert floating point at pq.Array
+	stringScores := make([]string, len(score))
+	for i, s := range score {
+		stringScores[i] = strconv.FormatFloat(s, 'f', -1, 64)
+	}
+
+	_, err := db.Conn.Exec(q, workerId, articleId, wordId, pq.Array(vocabId), pq.Array(stringScores))
 	if err != nil {
 		return err
 	}
@@ -44,12 +56,11 @@ func (db *Database) AddNewVocabList(vocabList []string, workerId string, jobId s
 	INSERT INTO vocab_list (
 		"Words", "Worker_id", "Job_id"
 	) VALUES ($1, $2, $3)
+	ON CONFLICT ("Worker_id") DO UPDATE SET
+    	"Words" = excluded."Words",
+    	"Job_id" = excluded."Job_id"
 	RETURNING "id"
 	`
-	// _, err := db.Conn.Exec(q, pq.Array(vocabList), workerId, jobId)
-	// if err != nil {
-	// 	return err
-	// }
 
 	var id int64
 	err := db.Conn.QueryRow(q, pq.Array(vocabList), workerId, jobId).Scan(&id)
@@ -58,6 +69,4 @@ func (db *Database) AddNewVocabList(vocabList []string, workerId string, jobId s
 	}
 
 	return id, nil
-
-	// return nil
 }

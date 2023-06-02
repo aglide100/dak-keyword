@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package pb.unit.cosine_similarity;
+option go_package = "github.com/aglide100/dak-keyword/pb/unit/cosine_similarity";
+
+message CosineSimilarity {
+    string article_id = 1;
+    string worker_id = 2;
+    repeated int64 comparison_id = 3;
+    repeated double score = 4;
+}
