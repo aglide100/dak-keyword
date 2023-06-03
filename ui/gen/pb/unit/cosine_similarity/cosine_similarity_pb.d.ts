@@ -3,16 +3,21 @@ import * as jspb from 'google-protobuf'
 
 
 export class CosineSimilarity extends jspb.Message {
-  getArticleId(): string;
-  setArticleId(value: string): CosineSimilarity;
+  getCosineSimilarityId(): number;
+  setCosineSimilarityId(value: number): CosineSimilarity;
 
   getWorkerId(): string;
   setWorkerId(value: string): CosineSimilarity;
 
-  getComparisonIdList(): Array<number>;
-  setComparisonIdList(value: Array<number>): CosineSimilarity;
-  clearComparisonIdList(): CosineSimilarity;
-  addComparisonId(value: number, index?: number): CosineSimilarity;
+  getColumnIdList(): Array<number>;
+  setColumnIdList(value: Array<number>): CosineSimilarity;
+  clearColumnIdList(): CosineSimilarity;
+  addColumnId(value: number, index?: number): CosineSimilarity;
+
+  getRowIdList(): Array<number>;
+  setRowIdList(value: Array<number>): CosineSimilarity;
+  clearRowIdList(): CosineSimilarity;
+  addRowId(value: number, index?: number): CosineSimilarity;
 
   getScoreList(): Array<number>;
   setScoreList(value: Array<number>): CosineSimilarity;
@@ -29,9 +34,10 @@ export class CosineSimilarity extends jspb.Message {
 
 export namespace CosineSimilarity {
   export type AsObject = {
-    articleId: string,
+    cosineSimilarityId: number,
     workerId: string,
-    comparisonIdList: Array<number>,
+    columnIdList: Array<number>,
+    rowIdList: Array<number>,
     scoreList: Array<number>,
   }
 }

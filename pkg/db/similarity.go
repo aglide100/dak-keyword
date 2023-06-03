@@ -3,6 +3,9 @@ package db
 import (
 	"strconv"
 
+	"github.com/aglide100/dak-keyword/pb/unit/cosine_similarity"
+	"github.com/aglide100/dak-keyword/pb/unit/tfidf"
+	"github.com/aglide100/dak-keyword/pb/unit/vocab"
 	"github.com/lib/pq"
 )
 
@@ -46,10 +49,6 @@ func (db *Database) AddNewTfIdfScore(workerId, articleId string, wordId int64, v
 	return nil
 }
 
-func (db *Database) GetTfIdfScore() error {
-
-	return nil
-}
 
 func (db *Database) AddNewVocabList(vocabList []string, workerId string, jobId string) (int64, error) {
 	const q = `
@@ -69,4 +68,100 @@ func (db *Database) AddNewVocabList(vocabList []string, workerId string, jobId s
 	}
 
 	return id, nil
+}
+
+func (db *Database) GetVocabList(workerId string) (*vocab.Vocab, error) {
+	const q = `
+	SELECT "id", "Words", "Job_id" FROM vocab_list
+	WHERE "Worker_id" = $1
+	`
+
+	var id uint64
+	var words []string
+	var jobId string
+
+	err := db.Conn.QueryRow(q, workerId).Scan(&id, pq.Array(&words), &jobId)
+	if err != nil {
+		return nil, err
+	}
+
+	return &vocab.Vocab{
+		VocabId: id,
+		WorkerId: workerId, 
+		JobId: jobId,
+		Words: words,
+	}, err
+}
+
+func (db *Database) GetCosineSimilarity(workerId string) (*cosine_similarity.CosineSimilarity, error) {
+	const q = `
+	SELECT "id", "Column_id", "Row_id", "Score" 
+	FROM cosine_similarity
+	WHERE "Worker_id" = $1
+	`
+
+	var (
+		id uint64
+		column_id []int64
+		row_id []int64
+		score []float64
+	)
+
+	err := db.Conn.QueryRow(q, workerId).Scan(&id, pq.Array(&column_id), pq.Array(&row_id), pq.Array(&score))
+	if err != nil {
+		return nil, err
+	}
+
+	return &cosine_similarity.CosineSimilarity{
+		CosineSimilarityId: id,
+		WorkerId: workerId,
+		ColumnId: column_id,
+		RowId: row_id,
+		Score: score,
+	}, nil
+}
+
+func (db *Database) GetTfidfScore(workerId string) ([]*tfidf.Tfidf, error) {
+	const q = `
+	SELECT "Article_id", "Vocab_column", "Score", "id", "Vocab_id" FROM tfidf
+	WHERE "Worker_id" = $1
+	`
+
+	var id uint64
+	var vocabId uint64
+	var vocabColumns []int64
+	var scores []float64
+	var articleId int64
+
+	rows, err := db.Conn.Query(q, workerId)
+	if err != nil {
+		return nil, err
+	}
+
+	var tfidfList = []*tfidf.Tfidf{}
+
+	for rows.Next() {
+		err := rows.Scan(
+			&articleId,
+			pq.Array(&vocabColumns),
+			pq.Array(&scores),
+			&id,
+			&vocabId,
+		)
+		if err != nil {
+			return nil, err
+		}
+
+		newTfidf := &tfidf.Tfidf{
+			WorkerId: workerId,
+			ArticleId: articleId,
+			VocabColumn: vocabColumns,
+			Score: scores,
+			Id: id,
+			VocabId: vocabId,
+		}
+		tfidfList = append(tfidfList, newTfidf)
+
+	}
+	return tfidfList, nil
 }

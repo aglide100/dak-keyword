@@ -19,6 +19,12 @@
 const grpc = {};
 grpc.web = require('grpc-web');
 
+
+var pb_unit_cosine_similarity_cosine_similarity_pb = require('../../../pb/unit/cosine_similarity/cosine_similarity_pb.js')
+
+var pb_unit_tfidf_tfidf_pb = require('../../../pb/unit/tfidf/tfidf_pb.js')
+
+var pb_unit_vocab_vocab_pb = require('../../../pb/unit/vocab/vocab_pb.js')
 const proto = {};
 proto.pb = {};
 proto.pb.svc = {};
@@ -141,61 +147,122 @@ proto.pb.svc.manager.similarity.SimilarityServicePromiseClient.prototype.getVoca
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.pb.svc.manager.similarity.GetSimilarityReq,
- *   !proto.pb.svc.manager.similarity.GetSimilarityRes>}
+ *   !proto.pb.svc.manager.similarity.GetCosineSimilarityReq,
+ *   !proto.pb.svc.manager.similarity.GetCosineSimilarityRes>}
  */
-const methodDescriptor_SimilarityService_GetSimilarity = new grpc.web.MethodDescriptor(
-  '/pb.svc.manager.similarity.SimilarityService/GetSimilarity',
+const methodDescriptor_SimilarityService_GetCosineSimilarity = new grpc.web.MethodDescriptor(
+  '/pb.svc.manager.similarity.SimilarityService/GetCosineSimilarity',
   grpc.web.MethodType.UNARY,
-  proto.pb.svc.manager.similarity.GetSimilarityReq,
-  proto.pb.svc.manager.similarity.GetSimilarityRes,
+  proto.pb.svc.manager.similarity.GetCosineSimilarityReq,
+  proto.pb.svc.manager.similarity.GetCosineSimilarityRes,
   /**
-   * @param {!proto.pb.svc.manager.similarity.GetSimilarityReq} request
+   * @param {!proto.pb.svc.manager.similarity.GetCosineSimilarityReq} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.pb.svc.manager.similarity.GetSimilarityRes.deserializeBinary
+  proto.pb.svc.manager.similarity.GetCosineSimilarityRes.deserializeBinary
 );
 
 
 /**
- * @param {!proto.pb.svc.manager.similarity.GetSimilarityReq} request The
+ * @param {!proto.pb.svc.manager.similarity.GetCosineSimilarityReq} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.RpcError, ?proto.pb.svc.manager.similarity.GetSimilarityRes)}
+ * @param {function(?grpc.web.RpcError, ?proto.pb.svc.manager.similarity.GetCosineSimilarityRes)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.pb.svc.manager.similarity.GetSimilarityRes>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.pb.svc.manager.similarity.GetCosineSimilarityRes>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.pb.svc.manager.similarity.SimilarityServiceClient.prototype.getSimilarity =
+proto.pb.svc.manager.similarity.SimilarityServiceClient.prototype.getCosineSimilarity =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/pb.svc.manager.similarity.SimilarityService/GetSimilarity',
+      '/pb.svc.manager.similarity.SimilarityService/GetCosineSimilarity',
       request,
       metadata || {},
-      methodDescriptor_SimilarityService_GetSimilarity,
+      methodDescriptor_SimilarityService_GetCosineSimilarity,
       callback);
 };
 
 
 /**
- * @param {!proto.pb.svc.manager.similarity.GetSimilarityReq} request The
+ * @param {!proto.pb.svc.manager.similarity.GetCosineSimilarityReq} request The
  *     request proto
  * @param {?Object<string, string>=} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.pb.svc.manager.similarity.GetSimilarityRes>}
+ * @return {!Promise<!proto.pb.svc.manager.similarity.GetCosineSimilarityRes>}
  *     Promise that resolves to the response
  */
-proto.pb.svc.manager.similarity.SimilarityServicePromiseClient.prototype.getSimilarity =
+proto.pb.svc.manager.similarity.SimilarityServicePromiseClient.prototype.getCosineSimilarity =
     function(request, metadata) {
   return this.client_.unaryCall(this.hostname_ +
-      '/pb.svc.manager.similarity.SimilarityService/GetSimilarity',
+      '/pb.svc.manager.similarity.SimilarityService/GetCosineSimilarity',
       request,
       metadata || {},
-      methodDescriptor_SimilarityService_GetSimilarity);
+      methodDescriptor_SimilarityService_GetCosineSimilarity);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.pb.svc.manager.similarity.GetTfidfScoreReq,
+ *   !proto.pb.svc.manager.similarity.GetTfidfScoreRes>}
+ */
+const methodDescriptor_SimilarityService_GetTfidfScore = new grpc.web.MethodDescriptor(
+  '/pb.svc.manager.similarity.SimilarityService/GetTfidfScore',
+  grpc.web.MethodType.UNARY,
+  proto.pb.svc.manager.similarity.GetTfidfScoreReq,
+  proto.pb.svc.manager.similarity.GetTfidfScoreRes,
+  /**
+   * @param {!proto.pb.svc.manager.similarity.GetTfidfScoreReq} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.pb.svc.manager.similarity.GetTfidfScoreRes.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.pb.svc.manager.similarity.GetTfidfScoreReq} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.pb.svc.manager.similarity.GetTfidfScoreRes)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.pb.svc.manager.similarity.GetTfidfScoreRes>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.pb.svc.manager.similarity.SimilarityServiceClient.prototype.getTfidfScore =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/pb.svc.manager.similarity.SimilarityService/GetTfidfScore',
+      request,
+      metadata || {},
+      methodDescriptor_SimilarityService_GetTfidfScore,
+      callback);
+};
+
+
+/**
+ * @param {!proto.pb.svc.manager.similarity.GetTfidfScoreReq} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.pb.svc.manager.similarity.GetTfidfScoreRes>}
+ *     Promise that resolves to the response
+ */
+proto.pb.svc.manager.similarity.SimilarityServicePromiseClient.prototype.getTfidfScore =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/pb.svc.manager.similarity.SimilarityService/GetTfidfScore',
+      request,
+      metadata || {},
+      methodDescriptor_SimilarityService_GetTfidfScore);
 };
 
 

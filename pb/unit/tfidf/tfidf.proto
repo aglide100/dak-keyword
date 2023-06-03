@@ -8,6 +8,6 @@ message Tfidf {
     int64 article_id = 2;
     repeated int64 vocab_column = 3;
     repeated double score = 4;
-    int64 id = 5;
-    int64 vocab_id = 6;
+    uint64 id = 5;
+    uint64 vocab_id = 6;
 }
