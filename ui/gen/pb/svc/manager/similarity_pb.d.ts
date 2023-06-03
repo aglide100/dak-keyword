@@ -1,5 +1,8 @@
 import * as jspb from 'google-protobuf'
 
+import * as pb_unit_cosine_similarity_cosine_similarity_pb from '../../../pb/unit/cosine_similarity/cosine_similarity_pb';
+import * as pb_unit_tfidf_tfidf_pb from '../../../pb/unit/tfidf/tfidf_pb';
+import * as pb_unit_vocab_vocab_pb from '../../../pb/unit/vocab/vocab_pb';
 
 
 export class WhenSimilarityHavingMsgReq extends jspb.Message {
@@ -150,35 +153,90 @@ export namespace WhenStartSimilarityRes {
   }
 }
 
-export class GetSimilarityReq extends jspb.Message {
+export class GetCosineSimilarityReq extends jspb.Message {
+  getArticleId(): string;
+  setArticleId(value: string): GetCosineSimilarityReq;
+
+  getWorkerId(): string;
+  setWorkerId(value: string): GetCosineSimilarityReq;
+
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GetSimilarityReq.AsObject;
-  static toObject(includeInstance: boolean, msg: GetSimilarityReq): GetSimilarityReq.AsObject;
-  static serializeBinaryToWriter(message: GetSimilarityReq, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GetSimilarityReq;
-  static deserializeBinaryFromReader(message: GetSimilarityReq, reader: jspb.BinaryReader): GetSimilarityReq;
+  toObject(includeInstance?: boolean): GetCosineSimilarityReq.AsObject;
+  static toObject(includeInstance: boolean, msg: GetCosineSimilarityReq): GetCosineSimilarityReq.AsObject;
+  static serializeBinaryToWriter(message: GetCosineSimilarityReq, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetCosineSimilarityReq;
+  static deserializeBinaryFromReader(message: GetCosineSimilarityReq, reader: jspb.BinaryReader): GetCosineSimilarityReq;
 }
 
-export namespace GetSimilarityReq {
+export namespace GetCosineSimilarityReq {
   export type AsObject = {
+    articleId: string,
+    workerId: string,
   }
 }
 
-export class GetSimilarityRes extends jspb.Message {
+export class GetCosineSimilarityRes extends jspb.Message {
+  getCosinesimilarity(): pb_unit_cosine_similarity_cosine_similarity_pb.CosineSimilarity | undefined;
+  setCosinesimilarity(value?: pb_unit_cosine_similarity_cosine_similarity_pb.CosineSimilarity): GetCosineSimilarityRes;
+  hasCosinesimilarity(): boolean;
+  clearCosinesimilarity(): GetCosineSimilarityRes;
+
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): GetSimilarityRes.AsObject;
-  static toObject(includeInstance: boolean, msg: GetSimilarityRes): GetSimilarityRes.AsObject;
-  static serializeBinaryToWriter(message: GetSimilarityRes, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): GetSimilarityRes;
-  static deserializeBinaryFromReader(message: GetSimilarityRes, reader: jspb.BinaryReader): GetSimilarityRes;
+  toObject(includeInstance?: boolean): GetCosineSimilarityRes.AsObject;
+  static toObject(includeInstance: boolean, msg: GetCosineSimilarityRes): GetCosineSimilarityRes.AsObject;
+  static serializeBinaryToWriter(message: GetCosineSimilarityRes, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetCosineSimilarityRes;
+  static deserializeBinaryFromReader(message: GetCosineSimilarityRes, reader: jspb.BinaryReader): GetCosineSimilarityRes;
 }
 
-export namespace GetSimilarityRes {
+export namespace GetCosineSimilarityRes {
   export type AsObject = {
+    cosinesimilarity?: pb_unit_cosine_similarity_cosine_similarity_pb.CosineSimilarity.AsObject,
+  }
+}
+
+export class GetTfidfScoreReq extends jspb.Message {
+  getWorkerId(): string;
+  setWorkerId(value: string): GetTfidfScoreReq;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetTfidfScoreReq.AsObject;
+  static toObject(includeInstance: boolean, msg: GetTfidfScoreReq): GetTfidfScoreReq.AsObject;
+  static serializeBinaryToWriter(message: GetTfidfScoreReq, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetTfidfScoreReq;
+  static deserializeBinaryFromReader(message: GetTfidfScoreReq, reader: jspb.BinaryReader): GetTfidfScoreReq;
+}
+
+export namespace GetTfidfScoreReq {
+  export type AsObject = {
+    workerId: string,
+  }
+}
+
+export class GetTfidfScoreRes extends jspb.Message {
+  getTfidfList(): Array<pb_unit_tfidf_tfidf_pb.Tfidf>;
+  setTfidfList(value: Array<pb_unit_tfidf_tfidf_pb.Tfidf>): GetTfidfScoreRes;
+  clearTfidfList(): GetTfidfScoreRes;
+  addTfidf(value?: pb_unit_tfidf_tfidf_pb.Tfidf, index?: number): pb_unit_tfidf_tfidf_pb.Tfidf;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetTfidfScoreRes.AsObject;
+  static toObject(includeInstance: boolean, msg: GetTfidfScoreRes): GetTfidfScoreRes.AsObject;
+  static serializeBinaryToWriter(message: GetTfidfScoreRes, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetTfidfScoreRes;
+  static deserializeBinaryFromReader(message: GetTfidfScoreRes, reader: jspb.BinaryReader): GetTfidfScoreRes;
+}
+
+export namespace GetTfidfScoreRes {
+  export type AsObject = {
+    tfidfList: Array<pb_unit_tfidf_tfidf_pb.Tfidf.AsObject>,
   }
 }
 
 export class GetVocabListReq extends jspb.Message {
+  getWorkerId(): string;
+  setWorkerId(value: string): GetVocabListReq;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetVocabListReq.AsObject;
   static toObject(includeInstance: boolean, msg: GetVocabListReq): GetVocabListReq.AsObject;
@@ -189,10 +247,16 @@ export class GetVocabListReq extends jspb.Message {
 
 export namespace GetVocabListReq {
   export type AsObject = {
+    workerId: string,
   }
 }
 
 export class GetVocabListRes extends jspb.Message {
+  getVocab(): pb_unit_vocab_vocab_pb.Vocab | undefined;
+  setVocab(value?: pb_unit_vocab_vocab_pb.Vocab): GetVocabListRes;
+  hasVocab(): boolean;
+  clearVocab(): GetVocabListRes;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GetVocabListRes.AsObject;
   static toObject(includeInstance: boolean, msg: GetVocabListRes): GetVocabListRes.AsObject;
@@ -203,6 +267,7 @@ export class GetVocabListRes extends jspb.Message {
 
 export namespace GetVocabListRes {
   export type AsObject = {
+    vocab?: pb_unit_vocab_vocab_pb.Vocab.AsObject,
   }
 }
 

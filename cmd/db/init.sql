@@ -102,6 +102,7 @@ create table if not exists tfidf
             references worker
             on update cascade on delete cascade,
     "Article_id"   integer                                            not null
+        unique
         constraint article_id
             references article
             on update cascade on delete cascade,
@@ -122,19 +123,22 @@ alter table tfidf
 
 create table if not exists cosine_similarity
 (
-    id              integer default nextval('cosine_similarity_id_seq'::regclass) not null
+    id          integer default nextval('cosine_similarity_id_seq'::regclass) not null
         constraint tfidf_pkey
-            primary key,
-    "Article_id"    integer
-        constraint "Article_id"
-            references article
-            on update cascade on delete cascade,
-    "Worker_id"     varchar
+            primary key
+        unique,
+    "Worker_id" varchar
+        unique
         constraint "Worker_id"
             references worker
             on update cascade on delete cascade,
-    "Comparison_id" integer[],
-    "Score"         double precision[]
+    "Column_id" integer[],
+    "Score"     double precision[],
+    "Row_id"    integer[],
+    "Job_id"    varchar
+        constraint "Job_id"
+            references job
+            on update cascade on delete cascade
 );
 
 alter table cosine_similarity

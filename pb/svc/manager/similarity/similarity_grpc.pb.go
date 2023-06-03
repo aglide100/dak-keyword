@@ -23,7 +23,8 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SimilarityServiceClient interface {
 	GetVocabList(ctx context.Context, in *GetVocabListReq, opts ...grpc.CallOption) (*GetVocabListRes, error)
-	GetSimilarity(ctx context.Context, in *GetSimilarityReq, opts ...grpc.CallOption) (*GetSimilarityRes, error)
+	GetCosineSimilarity(ctx context.Context, in *GetCosineSimilarityReq, opts ...grpc.CallOption) (*GetCosineSimilarityRes, error)
+	GetTfidfScore(ctx context.Context, in *GetTfidfScoreReq, opts ...grpc.CallOption) (*GetTfidfScoreRes, error)
 	WhenStartSimilarity(ctx context.Context, in *WhenStartSimilarityReq, opts ...grpc.CallOption) (*WhenStartSimilarityRes, error)
 	WhenDoneSimilarity(ctx context.Context, in *WhenDoneSimilarityReq, opts ...grpc.CallOption) (*WhenDoneSimilarityRes, error)
 	WhenSimilarityHavingErr(ctx context.Context, in *WhenSimilarityHavingErrReq, opts ...grpc.CallOption) (*WhenSimilarityHavingErrRes, error)
@@ -47,9 +48,18 @@ func (c *similarityServiceClient) GetVocabList(ctx context.Context, in *GetVocab
 	return out, nil
 }
 
-func (c *similarityServiceClient) GetSimilarity(ctx context.Context, in *GetSimilarityReq, opts ...grpc.CallOption) (*GetSimilarityRes, error) {
-	out := new(GetSimilarityRes)
-	err := c.cc.Invoke(ctx, "/pb.svc.manager.similarity.SimilarityService/GetSimilarity", in, out, opts...)
+func (c *similarityServiceClient) GetCosineSimilarity(ctx context.Context, in *GetCosineSimilarityReq, opts ...grpc.CallOption) (*GetCosineSimilarityRes, error) {
+	out := new(GetCosineSimilarityRes)
+	err := c.cc.Invoke(ctx, "/pb.svc.manager.similarity.SimilarityService/GetCosineSimilarity", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *similarityServiceClient) GetTfidfScore(ctx context.Context, in *GetTfidfScoreReq, opts ...grpc.CallOption) (*GetTfidfScoreRes, error) {
+	out := new(GetTfidfScoreRes)
+	err := c.cc.Invoke(ctx, "/pb.svc.manager.similarity.SimilarityService/GetTfidfScore", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -97,7 +107,8 @@ func (c *similarityServiceClient) WhenSimilarityHavingMsg(ctx context.Context, i
 // for forward compatibility
 type SimilarityServiceServer interface {
 	GetVocabList(context.Context, *GetVocabListReq) (*GetVocabListRes, error)
-	GetSimilarity(context.Context, *GetSimilarityReq) (*GetSimilarityRes, error)
+	GetCosineSimilarity(context.Context, *GetCosineSimilarityReq) (*GetCosineSimilarityRes, error)
+	GetTfidfScore(context.Context, *GetTfidfScoreReq) (*GetTfidfScoreRes, error)
 	WhenStartSimilarity(context.Context, *WhenStartSimilarityReq) (*WhenStartSimilarityRes, error)
 	WhenDoneSimilarity(context.Context, *WhenDoneSimilarityReq) (*WhenDoneSimilarityRes, error)
 	WhenSimilarityHavingErr(context.Context, *WhenSimilarityHavingErrReq) (*WhenSimilarityHavingErrRes, error)
@@ -112,8 +123,11 @@ type UnimplementedSimilarityServiceServer struct {
 func (UnimplementedSimilarityServiceServer) GetVocabList(context.Context, *GetVocabListReq) (*GetVocabListRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetVocabList not implemented")
 }
-func (UnimplementedSimilarityServiceServer) GetSimilarity(context.Context, *GetSimilarityReq) (*GetSimilarityRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetSimilarity not implemented")
+func (UnimplementedSimilarityServiceServer) GetCosineSimilarity(context.Context, *GetCosineSimilarityReq) (*GetCosineSimilarityRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCosineSimilarity not implemented")
+}
+func (UnimplementedSimilarityServiceServer) GetTfidfScore(context.Context, *GetTfidfScoreReq) (*GetTfidfScoreRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTfidfScore not implemented")
 }
 func (UnimplementedSimilarityServiceServer) WhenStartSimilarity(context.Context, *WhenStartSimilarityReq) (*WhenStartSimilarityRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method WhenStartSimilarity not implemented")
@@ -158,20 +172,38 @@ func _SimilarityService_GetVocabList_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SimilarityService_GetSimilarity_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetSimilarityReq)
+func _SimilarityService_GetCosineSimilarity_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCosineSimilarityReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SimilarityServiceServer).GetSimilarity(ctx, in)
+		return srv.(SimilarityServiceServer).GetCosineSimilarity(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb.svc.manager.similarity.SimilarityService/GetSimilarity",
+		FullMethod: "/pb.svc.manager.similarity.SimilarityService/GetCosineSimilarity",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SimilarityServiceServer).GetSimilarity(ctx, req.(*GetSimilarityReq))
+		return srv.(SimilarityServiceServer).GetCosineSimilarity(ctx, req.(*GetCosineSimilarityReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SimilarityService_GetTfidfScore_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTfidfScoreReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SimilarityServiceServer).GetTfidfScore(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.svc.manager.similarity.SimilarityService/GetTfidfScore",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SimilarityServiceServer).GetTfidfScore(ctx, req.(*GetTfidfScoreReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -260,8 +292,12 @@ var SimilarityService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _SimilarityService_GetVocabList_Handler,
 		},
 		{
-			MethodName: "GetSimilarity",
-			Handler:    _SimilarityService_GetSimilarity_Handler,
+			MethodName: "GetCosineSimilarity",
+			Handler:    _SimilarityService_GetCosineSimilarity_Handler,
+		},
+		{
+			MethodName: "GetTfidfScore",
+			Handler:    _SimilarityService_GetTfidfScore_Handler,
 		},
 		{
 			MethodName: "WhenStartSimilarity",

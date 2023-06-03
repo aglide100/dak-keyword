@@ -37,6 +37,11 @@ func realMain() error {
 		return fmt.Errorf("Can't connect DB: %v", err)
 	}
 
+	err = calling.CallGrpcWhenStaringSimilarity(workerId)
+	if err != nil {
+		return err
+	}
+
 	articles, err := myDB.GetPreprocessedTextByWorkerID(workerId)
 	if err != nil {
 		return err
@@ -48,12 +53,6 @@ func realMain() error {
 	}
 
 	vocabList, tfidfscore, similarityList := tfidf.CalcTfIdf(documents)
-
-	for _, word := range vocabList {
-		log.Println(word)
-	}
-
-	log.Println(len(vocabList))
 
 	vocabId, err := myDB.AddNewVocabList(vocabList, workerId, jobId)
 	if err != nil {
@@ -92,74 +91,6 @@ func realMain() error {
 	if err != nil {
 		return err
 	}
-	
-	// articles, err := myDB.GetPreprocessedTextByWorkerID(workerId)
-	// if err != nil {
-	// 	return err
-	// }
-
-	// documents := []string{}
-	// for _, val := range articles {
-	// 	documents = append(documents, val.Preprocessed_content)
-	// }
-
-	// vocabList, tfidfscore, similarityList := tfidf.CalcTfIdf(documents)
-
-	// vocabId, err := myDB.AddNewVocabList(vocabList, workerId, jobId)
-	// if err != nil {
-	// 	return err
-	// }
-
-	// for i := range documents {
-	// 	vocabColumnArray := []int{}
-	// 	tfidfScoreArray := []float64{}
-
-	// 	for j, _ := range vocabList {
-	// 		score := tfidfscore[i][j]
-	// 		if score != 0 {
-	// 			vocabColumnArray = append(vocabColumnArray, j)
-	// 			tfidfScoreArray = append(tfidfScoreArray, score)
-	// 		}
-	// 	}
-
-	// 	err = myDB.AddNewTfIdfScore(workerId, articles[i].Id, vocabId, vocabColumnArray, tfidfScoreArray)
-	// 	if err != nil {
-	// 		return err
-	// 	}
-	// }
-
-
-
-	// row, column, value := matrix.SparseMatrixFloat64(len(documents), len(documents), similarityList)
-	// articleIdArray := []string{}
-	// compareArticleIdArray := []string{}
-	
-	// for i := 0; i < len(value); i++ {
-	// 	articleIdArray = append(articleIdArray, articles[row[i]].Id)
-	// 	compareArticleIdArray = append(compareArticleIdArray, articles[column[i]].Id)
-	// }
-
-	// err = myDB.AddNewCosineSimilarity(workerId, value, articleIdArray, compareArticleIdArray)
-	// if err != nil {
-	// 			return err
-	// 		}
-	// for i := 0; i < len(documents); i++ {
-	// 	similarityScoreArray := []float64{}
-	// 	comparisonIdArray := []string{}
-
-	// 	for j := 0; j < len(documents); j++ {
-	// 		score := similarityList[i][j]
-
-	// 		if score != 0 {
-	// 			similarityScoreArray = append(similarityScoreArray, similarityList[i][j])
-	// 			comparisonIdArray = append(comparisonIdArray, articles[j].Id)
-	// 		}
-	// 	}
-	// 	err := myDB.AddNewCosineSimilarity(articles[i].Id, workerId, similarityScoreArray, comparisonIdArray)
-	// 	if err != nil {
-	// 		return err
-	// 	}
-	// }
 
 	err = calling.CallGrpcWhenDoneSimilarity(workerId, jobId)
 	if err != nil {

@@ -43,7 +43,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.pb.unit.cosine_similarity.CosineSimilarity.repeatedFields_ = [3,4];
+proto.pb.unit.cosine_similarity.CosineSimilarity.repeatedFields_ = [3,4,5];
 
 
 
@@ -76,10 +76,11 @@ proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.toObject = function(o
  */
 proto.pb.unit.cosine_similarity.CosineSimilarity.toObject = function(includeInstance, msg) {
   var f, obj = {
-    articleId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    cosineSimilarityId: jspb.Message.getFieldWithDefault(msg, 1, 0),
     workerId: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    comparisonIdList: (f = jspb.Message.getRepeatedField(msg, 3)) == null ? undefined : f,
-    scoreList: (f = jspb.Message.getRepeatedFloatingPointField(msg, 4)) == null ? undefined : f
+    columnIdList: (f = jspb.Message.getRepeatedField(msg, 3)) == null ? undefined : f,
+    rowIdList: (f = jspb.Message.getRepeatedField(msg, 4)) == null ? undefined : f,
+    scoreList: (f = jspb.Message.getRepeatedFloatingPointField(msg, 5)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -117,8 +118,8 @@ proto.pb.unit.cosine_similarity.CosineSimilarity.deserializeBinaryFromReader = f
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setArticleId(value);
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setCosineSimilarityId(value);
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
@@ -127,10 +128,16 @@ proto.pb.unit.cosine_similarity.CosineSimilarity.deserializeBinaryFromReader = f
     case 3:
       var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedInt64() : [reader.readInt64()]);
       for (var i = 0; i < values.length; i++) {
-        msg.addComparisonId(values[i]);
+        msg.addColumnId(values[i]);
       }
       break;
     case 4:
+      var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedInt64() : [reader.readInt64()]);
+      for (var i = 0; i < values.length; i++) {
+        msg.addRowId(values[i]);
+      }
+      break;
+    case 5:
       var values = /** @type {!Array<number>} */ (reader.isDelimited() ? reader.readPackedDouble() : [reader.readDouble()]);
       for (var i = 0; i < values.length; i++) {
         msg.addScore(values[i]);
@@ -165,9 +172,9 @@ proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.serializeBinary = fun
  */
 proto.pb.unit.cosine_similarity.CosineSimilarity.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getArticleId();
-  if (f.length > 0) {
-    writer.writeString(
+  f = message.getCosineSimilarityId();
+  if (f !== 0) {
+    writer.writeUint64(
       1,
       f
     );
@@ -179,17 +186,24 @@ proto.pb.unit.cosine_similarity.CosineSimilarity.serializeBinaryToWriter = funct
       f
     );
   }
-  f = message.getComparisonIdList();
+  f = message.getColumnIdList();
   if (f.length > 0) {
     writer.writePackedInt64(
       3,
       f
     );
   }
+  f = message.getRowIdList();
+  if (f.length > 0) {
+    writer.writePackedInt64(
+      4,
+      f
+    );
+  }
   f = message.getScoreList();
   if (f.length > 0) {
     writer.writePackedDouble(
-      4,
+      5,
       f
     );
   }
@@ -197,20 +211,20 @@ proto.pb.unit.cosine_similarity.CosineSimilarity.serializeBinaryToWriter = funct
 
 
 /**
- * optional string article_id = 1;
- * @return {string}
+ * optional uint64 cosine_similarity_id = 1;
+ * @return {number}
  */
-proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.getArticleId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.getCosineSimilarityId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
 /**
- * @param {string} value
+ * @param {number} value
  * @return {!proto.pb.unit.cosine_similarity.CosineSimilarity} returns this
  */
-proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.setArticleId = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
+proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.setCosineSimilarityId = function(value) {
+  return jspb.Message.setProto3IntField(this, 1, value);
 };
 
 
@@ -233,10 +247,10 @@ proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.setWorkerId = functio
 
 
 /**
- * repeated int64 comparison_id = 3;
+ * repeated int64 column_id = 3;
  * @return {!Array<number>}
  */
-proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.getComparisonIdList = function() {
+proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.getColumnIdList = function() {
   return /** @type {!Array<number>} */ (jspb.Message.getRepeatedField(this, 3));
 };
 
@@ -245,7 +259,7 @@ proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.getComparisonIdList =
  * @param {!Array<number>} value
  * @return {!proto.pb.unit.cosine_similarity.CosineSimilarity} returns this
  */
-proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.setComparisonIdList = function(value) {
+proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.setColumnIdList = function(value) {
   return jspb.Message.setField(this, 3, value || []);
 };
 
@@ -255,7 +269,7 @@ proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.setComparisonIdList =
  * @param {number=} opt_index
  * @return {!proto.pb.unit.cosine_similarity.CosineSimilarity} returns this
  */
-proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.addComparisonId = function(value, opt_index) {
+proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.addColumnId = function(value, opt_index) {
   return jspb.Message.addToRepeatedField(this, 3, value, opt_index);
 };
 
@@ -264,17 +278,17 @@ proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.addComparisonId = fun
  * Clears the list making it empty but non-null.
  * @return {!proto.pb.unit.cosine_similarity.CosineSimilarity} returns this
  */
-proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.clearComparisonIdList = function() {
-  return this.setComparisonIdList([]);
+proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.clearColumnIdList = function() {
+  return this.setColumnIdList([]);
 };
 
 
 /**
- * repeated double score = 4;
+ * repeated int64 row_id = 4;
  * @return {!Array<number>}
  */
-proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.getScoreList = function() {
-  return /** @type {!Array<number>} */ (jspb.Message.getRepeatedFloatingPointField(this, 4));
+proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.getRowIdList = function() {
+  return /** @type {!Array<number>} */ (jspb.Message.getRepeatedField(this, 4));
 };
 
 
@@ -282,7 +296,7 @@ proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.getScoreList = functi
  * @param {!Array<number>} value
  * @return {!proto.pb.unit.cosine_similarity.CosineSimilarity} returns this
  */
-proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.setScoreList = function(value) {
+proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.setRowIdList = function(value) {
   return jspb.Message.setField(this, 4, value || []);
 };
 
@@ -292,8 +306,45 @@ proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.setScoreList = functi
  * @param {number=} opt_index
  * @return {!proto.pb.unit.cosine_similarity.CosineSimilarity} returns this
  */
-proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.addScore = function(value, opt_index) {
+proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.addRowId = function(value, opt_index) {
   return jspb.Message.addToRepeatedField(this, 4, value, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.pb.unit.cosine_similarity.CosineSimilarity} returns this
+ */
+proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.clearRowIdList = function() {
+  return this.setRowIdList([]);
+};
+
+
+/**
+ * repeated double score = 5;
+ * @return {!Array<number>}
+ */
+proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.getScoreList = function() {
+  return /** @type {!Array<number>} */ (jspb.Message.getRepeatedFloatingPointField(this, 5));
+};
+
+
+/**
+ * @param {!Array<number>} value
+ * @return {!proto.pb.unit.cosine_similarity.CosineSimilarity} returns this
+ */
+proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.setScoreList = function(value) {
+  return jspb.Message.setField(this, 5, value || []);
+};
+
+
+/**
+ * @param {number} value
+ * @param {number=} opt_index
+ * @return {!proto.pb.unit.cosine_similarity.CosineSimilarity} returns this
+ */
+proto.pb.unit.cosine_similarity.CosineSimilarity.prototype.addScore = function(value, opt_index) {
+  return jspb.Message.addToRepeatedField(this, 5, value, opt_index);
 };
 
 

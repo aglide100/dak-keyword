@@ -4,10 +4,13 @@ package pb.svc.manager.similarity;
 option go_package = "github.com/aglide100/dak-keyword/pb/svc/manager/similarity";
 
 import "pb/unit/cosine_similarity/cosine_similarity.proto";
+import "pb/unit/tfidf/tfidf.proto";
+import "pb/unit/vocab/vocab.proto";
 
 service SimilarityService {
     rpc GetVocabList(GetVocabListReq) returns (GetVocabListRes);
     rpc GetCosineSimilarity(GetCosineSimilarityReq) returns (GetCosineSimilarityRes);
+    rpc GetTfidfScore(GetTfidfScoreReq) returns (GetTfidfScoreRes);
     rpc WhenStartSimilarity(WhenStartSimilarityReq) returns (WhenStartSimilarityRes);
     rpc WhenDoneSimilarity(WhenDoneSimilarityReq) returns (WhenDoneSimilarityRes);
     rpc WhenSimilarityHavingErr(WhenSimilarityHavingErrReq) returns (WhenSimilarityHavingErrRes);
@@ -50,17 +53,27 @@ message WhenStartSimilarityRes {
 }
 
 message GetCosineSimilarityReq {
-
-}
+    string article_id = 1;
+    string worker_id = 2;
+}   
 
 message GetCosineSimilarityRes {
     unit.cosine_similarity.CosineSimilarity CosineSimilarity = 1;
 }
 
-message GetVocabListReq {
+message GetTfidfScoreReq {
+    string worker_id = 1;
+}
 
+message GetTfidfScoreRes {
+    repeated unit.tfidf.Tfidf Tfidf = 1;
+}
+
+message GetVocabListReq {
+    string worker_id = 1;
 }
 
 message GetVocabListRes {
-
+    unit.vocab.Vocab vocab = 1;
 }
+

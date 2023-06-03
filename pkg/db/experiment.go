@@ -11,7 +11,7 @@ func (db *Database) GetSimilarity(workerId string) (error) {
         WHERE n1."Worker_id" = $1
         AND similarity(n1."Content", n2."Content") >= 0.8
         ORDER BY n2."Create_at", sim DESC
-    ) 
+    )
     DELETE FROM article USING article_duplicates
     WHERE article."Id" = article_duplicates.id1;`
 

@@ -4,7 +4,8 @@ package pb.unit.vocab;
 option go_package = "github.com/aglide100/dak-keyword/pb/unit/vocab";
 
 message Vocab {
-    string job_id = 1;
-    string worker_id = 2;
-    repeated string words = 3;
+    uint64 vocab_id = 1;
+    string job_id = 2;
+    string worker_id = 3;
+    repeated string words = 4;
 }
