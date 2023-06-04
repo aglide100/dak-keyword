@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/aglide100/dak-keyword/pkg/config"
-	"github.com/aglide100/dak-keyword/pkg/tfidf"
+	"github.com/aglide100/dak-keyword/pkg/similarity"
 )
 
 func test() string {
@@ -37,7 +37,7 @@ func main() {
 		// "Maecenas venenatis leo vel tempor semper", 
 		// "Donec sed tempor dolor, a fringilla turpis",
 	}
-	vocabList, tfidfscore, similarityList := tfidf.CalcTfIdf(documents)
+	vocabList, tfidfscore, similarityList := similarity.CalcTfIdf(documents)
 
 
 	for _, word := range vocabList {

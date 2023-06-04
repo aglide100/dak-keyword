@@ -8,7 +8,7 @@ import (
 	calling "github.com/aglide100/dak-keyword/pkg/clients/similarity"
 	"github.com/aglide100/dak-keyword/pkg/db"
 	"github.com/aglide100/dak-keyword/pkg/matrix"
-	"github.com/aglide100/dak-keyword/pkg/tfidf"
+	"github.com/aglide100/dak-keyword/pkg/similarity"
 )
 
 func main() {
@@ -52,7 +52,7 @@ func realMain() error {
 		documents = append(documents, val.Preprocessed_content)
 	}
 
-	vocabList, tfidfscore, similarityList := tfidf.CalcTfIdf(documents)
+	vocabList, tfidfscore, similarityList := similarity.CalcTfIdf(documents)
 
 	vocabId, err := myDB.AddNewVocabList(vocabList, workerId, jobId)
 	if err != nil {
