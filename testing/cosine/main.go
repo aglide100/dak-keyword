@@ -5,7 +5,7 @@ import (
 	"log"
 
 	"github.com/aglide100/dak-keyword/pkg/db"
-	"github.com/aglide100/dak-keyword/pkg/tfidf"
+	"github.com/aglide100/dak-keyword/pkg/similarity"
 )
 
 func main() {
@@ -39,7 +39,7 @@ func main() {
 		documents = append(documents, article.Content)
 	}
 
-	vocabList, tfidfscore, similarityList := tfidf.CalcTfIdf(documents)
+	vocabList, tfidfscore, similarityList := similarity.CalcTfIdf(documents)
 
 	for _, word := range vocabList {
 		log.Println(word)

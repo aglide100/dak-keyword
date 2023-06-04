@@ -154,9 +154,6 @@ export namespace WhenStartSimilarityRes {
 }
 
 export class GetCosineSimilarityReq extends jspb.Message {
-  getArticleId(): string;
-  setArticleId(value: string): GetCosineSimilarityReq;
-
   getWorkerId(): string;
   setWorkerId(value: string): GetCosineSimilarityReq;
 
@@ -170,7 +167,6 @@ export class GetCosineSimilarityReq extends jspb.Message {
 
 export namespace GetCosineSimilarityReq {
   export type AsObject = {
-    articleId: string,
     workerId: string,
   }
 }

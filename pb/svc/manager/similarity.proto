@@ -53,8 +53,7 @@ message WhenStartSimilarityRes {
 }
 
 message GetCosineSimilarityReq {
-    string article_id = 1;
-    string worker_id = 2;
+    string worker_id = 1;
 }   
 
 message GetCosineSimilarityRes {

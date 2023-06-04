@@ -3,6 +3,7 @@ import * as axios from "axios";
 import { ArticleServiceClient } from "../../gen/pb/svc/manager/article_grpc_web_pb";
 import { JobServiceClient } from "../../gen/pb/svc/manager/job_grpc_web_pb";
 import { WorkerServiceClient } from "../../gen/pb/svc/manager/worker_grpc_web_pb";
+import { SimilarityServiceClient } from "../../gen/pb/svc/manager/similarity_grpc_web_pb";
 
 export class GrpcManager {
     private static instance: GrpcManager;
@@ -10,6 +11,7 @@ export class GrpcManager {
     private static articleClient: ArticleServiceClient;
     private static jobClient: JobServiceClient;
     private static workerClient: WorkerServiceClient;
+    private static similarityClient: SimilarityServiceClient;
 
     public static async getInstance(): Promise<GrpcManager> {
         if (!GrpcManager.instance) {
@@ -53,6 +55,7 @@ export class GrpcManager {
         GrpcManager.jobClient = new JobServiceClient(addr);
         GrpcManager.articleClient = new ArticleServiceClient(addr);
         GrpcManager.workerClient = new WorkerServiceClient(addr);
+        GrpcManager.similarityClient = new SimilarityServiceClient(addr);
     }
 
     public GetArticleClient(): ArticleServiceClient {
@@ -61,6 +64,14 @@ export class GrpcManager {
         }
 
         return GrpcManager.articleClient;
+    }
+
+    public GetSimilarityClient(): SimilarityServiceClient {
+        if (GrpcManager.articleClient == undefined) {
+            GrpcManager.SetClient();
+        }
+
+        return GrpcManager.similarityClient;
     }
 
     public GetWorkerClient(): WorkerServiceClient {

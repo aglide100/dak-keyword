@@ -23,6 +23,8 @@ import (
 
 var (
 	provisionedAddr = flag.String("provision grpc addr", "0.0.0.0:50012", "grpc address")
+	maxConcurrencyContainer = flag.Int("Max Concurrency Container", 4, "concurrency for container")
+	
 )
 
 func main() {
@@ -49,7 +51,7 @@ func realMain() error {
 
 	grpcServer := grpc.NewServer(opts...)
 
-	q := container.NewContainerQueue(400, 4)
+	q := container.NewContainerQueue(400, *maxConcurrencyContainer)
 
 	c, err := container.NewController(q)
 	if err != nil {
@@ -94,7 +96,7 @@ func realMain() error {
 						}
 
 						if (countErr) {
-							log.Println("Container Queue is full.. %d ", q.LenRunning())
+							log.Printf("Container Queue is full.. %d \n", q.LenRunning())
 							q.EnqueueFromQueue(cSpec)
 							time.Sleep(5*time.Second)
 						}
@@ -108,7 +110,7 @@ func realMain() error {
 						}
 
 						if (countErr) {
-							log.Println("Container queue is full.. %d", q.LenRunning())
+							log.Printf("Container queue is full.. %d \n", q.LenRunning())
 							q.EnqueueFromQueue(cSpec)
 							time.Sleep(5*time.Second)
 						}
@@ -122,7 +124,7 @@ func realMain() error {
 						}
 
 						if (countErr) {
-							log.Println("Container queue is full.. %d", q.LenRunning())
+							log.Printf("Container queue is full.. %d \n", q.LenRunning())
 							q.EnqueueFromQueue(cSpec)
 							time.Sleep(5*time.Second)
 						}

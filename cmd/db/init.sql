@@ -115,6 +115,10 @@ create table if not exists tfidf
     "Vocab_id"     integer
         constraint vocab_id
             references vocab_list
+            on update cascade on delete cascade,
+    "Job_id"       varchar
+        constraint job_id
+            references job
             on update cascade on delete cascade
 );
 

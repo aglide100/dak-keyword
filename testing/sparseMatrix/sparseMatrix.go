@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/aglide100/dak-keyword/pkg/tfidf"
+	"github.com/aglide100/dak-keyword/pkg/similarity"
 )
 
 func main() {
@@ -18,7 +18,7 @@ func main() {
 		// "Maecenas venenatis leo vel tempor semper", 
 		// "Donec sed tempor dolor, a fringilla turpis",
 	}
-	_, _, similarityList := tfidf.CalcTfIdf(documents)
+	_, _, similarityList := similarity.CalcTfIdf(documents)
 
 	// row, column, result := SparseMatrix(len(documents), len(vocabList), tfidfscore)
 

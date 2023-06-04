@@ -65,7 +65,7 @@ func (s *ManagerSrv) WhenDoneSimilarity(ctx context.Context, in *pb_svc_manager_
 	// 	log.Printf("Received DoneSimilarity call: %v", in.String())
 	// }
 
-	err := s.db.UpdateWorker(in.WorkerId, "Worker done.")
+	err := s.db.UpdateWorker(in.WorkerId, "Worker is done.")
 	if err != nil {
 		s.db.UpdateJob(in.WorkerId, "Can't remove Snalyzer")
 		return nil, status.Error(codes.Canceled, "Similarity having some error")

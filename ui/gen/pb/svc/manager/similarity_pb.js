@@ -1433,8 +1433,7 @@ proto.pb.svc.manager.similarity.GetCosineSimilarityReq.prototype.toObject = func
  */
 proto.pb.svc.manager.similarity.GetCosineSimilarityReq.toObject = function(includeInstance, msg) {
   var f, obj = {
-    articleId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    workerId: jspb.Message.getFieldWithDefault(msg, 2, "")
+    workerId: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -1473,10 +1472,6 @@ proto.pb.svc.manager.similarity.GetCosineSimilarityReq.deserializeBinaryFromRead
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setArticleId(value);
-      break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
       msg.setWorkerId(value);
       break;
     default:
@@ -1508,17 +1503,10 @@ proto.pb.svc.manager.similarity.GetCosineSimilarityReq.prototype.serializeBinary
  */
 proto.pb.svc.manager.similarity.GetCosineSimilarityReq.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getArticleId();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
   f = message.getWorkerId();
   if (f.length > 0) {
     writer.writeString(
-      2,
+      1,
       f
     );
   }
@@ -1526,10 +1514,10 @@ proto.pb.svc.manager.similarity.GetCosineSimilarityReq.serializeBinaryToWriter =
 
 
 /**
- * optional string article_id = 1;
+ * optional string worker_id = 1;
  * @return {string}
  */
-proto.pb.svc.manager.similarity.GetCosineSimilarityReq.prototype.getArticleId = function() {
+proto.pb.svc.manager.similarity.GetCosineSimilarityReq.prototype.getWorkerId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -1538,26 +1526,8 @@ proto.pb.svc.manager.similarity.GetCosineSimilarityReq.prototype.getArticleId = 
  * @param {string} value
  * @return {!proto.pb.svc.manager.similarity.GetCosineSimilarityReq} returns this
  */
-proto.pb.svc.manager.similarity.GetCosineSimilarityReq.prototype.setArticleId = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-/**
- * optional string worker_id = 2;
- * @return {string}
- */
-proto.pb.svc.manager.similarity.GetCosineSimilarityReq.prototype.getWorkerId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.pb.svc.manager.similarity.GetCosineSimilarityReq} returns this
- */
 proto.pb.svc.manager.similarity.GetCosineSimilarityReq.prototype.setWorkerId = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
