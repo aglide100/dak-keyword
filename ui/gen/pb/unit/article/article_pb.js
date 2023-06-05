@@ -672,7 +672,7 @@ proto.pb.unit.article.ArticleCount.prototype.toObject = function(opt_includeInst
 proto.pb.unit.article.ArticleCount.toObject = function(includeInstance, msg) {
   var f, obj = {
     createattime: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    count: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    count: jspb.Message.getFieldWithDefault(msg, 2, 0),
     scoremaxname: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
@@ -715,7 +715,7 @@ proto.pb.unit.article.ArticleCount.deserializeBinaryFromReader = function(msg, r
       msg.setCreateattime(value);
       break;
     case 2:
-      var value = /** @type {string} */ (reader.readString());
+      var value = /** @type {number} */ (reader.readUint32());
       msg.setCount(value);
       break;
     case 3:
@@ -759,8 +759,8 @@ proto.pb.unit.article.ArticleCount.serializeBinaryToWriter = function(message, w
     );
   }
   f = message.getCount();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f !== 0) {
+    writer.writeUint32(
       2,
       f
     );
@@ -794,20 +794,20 @@ proto.pb.unit.article.ArticleCount.prototype.setCreateattime = function(value) {
 
 
 /**
- * optional string count = 2;
- * @return {string}
+ * optional uint32 count = 2;
+ * @return {number}
  */
 proto.pb.unit.article.ArticleCount.prototype.getCount = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
 /**
- * @param {string} value
+ * @param {number} value
  * @return {!proto.pb.unit.article.ArticleCount} returns this
  */
 proto.pb.unit.article.ArticleCount.prototype.setCount = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
+  return jspb.Message.setProto3IntField(this, 2, value);
 };
 
 

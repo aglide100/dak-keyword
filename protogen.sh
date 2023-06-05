@@ -39,6 +39,8 @@ protoc -I=. pb/unit/article/article.proto --js_out=import_style=commonjs:./ui/ge
 protoc -I=. pb/unit/worker/worker.proto --js_out=import_style=commonjs:./ui/gen --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:./ui/gen
 protoc -I=. pb/unit/job/job.proto --js_out=import_style=commonjs:./ui/gen --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:./ui/gen
 protoc -I=. pb/unit/cosine_similarity/cosine_similarity.proto --js_out=import_style=commonjs:./ui/gen --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:./ui/gen
+protoc -I=. pb/unit/tfidf/tfidf.proto --js_out=import_style=commonjs:./ui/gen --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:./ui/gen
+protoc -I=. pb/unit/vocab/vocab.proto --js_out=import_style=commonjs:./ui/gen --grpc-web_out=import_style=commonjs+dts,mode=grpcwebtext:./ui/gen
 
 # python3 -m grpc_tools.protoc -I . --python_out=./analyzer --grpc_python_out=./analyzer ./pb/svc/analyzer/analyzer.proto
 

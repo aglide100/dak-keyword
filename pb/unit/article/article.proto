@@ -24,6 +24,6 @@ message Article {
 
 message ArticleCount {
     string createAtTime = 1;
-    string count = 2;
+    uint32 count = 2;
     string scoreMaxName = 3;
 }

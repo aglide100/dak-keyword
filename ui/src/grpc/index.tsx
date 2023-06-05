@@ -1,5 +1,4 @@
-// import { secrets } from "docker-secret";
-import * as axios from "axios";
+// import * as axios from "axios";
 import { ArticleServiceClient } from "../../gen/pb/svc/manager/article_grpc_web_pb";
 import { JobServiceClient } from "../../gen/pb/svc/manager/job_grpc_web_pb";
 import { WorkerServiceClient } from "../../gen/pb/svc/manager/worker_grpc_web_pb";
@@ -31,17 +30,19 @@ export class GrpcManager {
     }
 
     public static async GetAddr() {
-        const axiosObj = axios.default;
+        // const axiosObj = axios.default;
         let addr;
 
-        try {
-            await axiosObj.get("/env").then((res) => {
-                addr = res.data.addr;
-            });
-        } catch {
-            console.log("Can't get env from server!");
-            addr = "./pb";
-        }
+        addr = "";
+        addr = "https://localhost";
+        // try {
+        //     await axiosObj.get("/env").then((res) => {
+        //         addr = res.data.addr;
+        //     });
+        // } catch {
+        //     console.log("Can't get env from server!");
+        //     addr = "./pb";
+        // }
 
         return addr;
     }

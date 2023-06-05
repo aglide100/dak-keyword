@@ -343,7 +343,7 @@ func (db *Database) GetCountByHour(jobId string) ([]*models.ArticleCount, error)
 
 	var (
 		Create_at_time string
-		Count string
+		Count uint32
 		Score_max_name string
 	)
 
@@ -389,7 +389,7 @@ func (db *Database) GetCountByDay(jobId string) ([]*models.ArticleCount, error) 
 
 	var (
 		Create_at_time string
-		Count string
+		Count uint32
 		Score_max_name string
 	)
 
