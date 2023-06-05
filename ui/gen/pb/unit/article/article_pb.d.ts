@@ -84,8 +84,8 @@ export class ArticleCount extends jspb.Message {
   getCreateattime(): string;
   setCreateattime(value: string): ArticleCount;
 
-  getCount(): string;
-  setCount(value: string): ArticleCount;
+  getCount(): number;
+  setCount(value: number): ArticleCount;
 
   getScoremaxname(): string;
   setScoremaxname(value: string): ArticleCount;
@@ -101,7 +101,7 @@ export class ArticleCount extends jspb.Message {
 export namespace ArticleCount {
   export type AsObject = {
     createattime: string,
-    count: string,
+    count: number,
     scoremaxname: string,
   }
 }

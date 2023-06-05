@@ -38,7 +38,7 @@ type Article struct {
 
 type ArticleCount struct {
 	Create_at_time string
-	Count string
+	Count uint32
 	Score_max_name string
 }
 

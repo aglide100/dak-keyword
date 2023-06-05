@@ -20,7 +20,7 @@ import { useRouter } from "next/router";
 
 type ArticleCountProto = {
     Create_at: string;
-    Count: string;
+    Count: number;
     Score_max_name: string;
 };
 
@@ -69,12 +69,12 @@ export const ArticleGraph: React.FC = () => {
 
     useEffect(() => {
         if (!isLoaded && router.isReady) {
-            setIsClick(!isClick);
-            if (!isClick) {
-                fetchArticleCountByHour();
-            } else {
-                fetchArticleCountByDay();
-            }
+            setIsClick(false);
+            fetchArticleCountByDay().then(() => {
+                if (dataByDay == undefined) {
+                    console.log("!");
+                }
+            });
         }
     }, [router.isReady]);
 
@@ -92,8 +92,10 @@ export const ArticleGraph: React.FC = () => {
             });
 
             setDataByDay(newArticleCounts);
-            countArticle(dataByDay);
-            setIsLoaded(true);
+            if (countArticle(newArticleCounts, false) != 1) {
+                console.log("data is loaded");
+                setIsLoaded(true);
+            }
         });
     }
 
@@ -111,31 +113,26 @@ export const ArticleGraph: React.FC = () => {
             });
 
             setDataByHour(newArticleCounts);
-            countArticle(newArticleCounts);
-            setIsLoaded(true);
+            if (countArticle(newArticleCounts, true) != 1) {
+                console.log("data is loaded");
+                setIsLoaded(true);
+            }
         });
     }
 
-    function countArticle(data: ArticleCountProto[]) {
-        if (data.length <= 0) {
-            console.log("There's no data");
-            return;
-        }
-        let count_happy = 0;
-        let count_fear = 0;
-        let count_embarrassed = 0;
-        let count_sad = 0;
-        let count_rage = 0;
-        let count_hurt = 0;
+    function sortArticle(data: ArticleCountProto[], isItHour: boolean) {
+        const data_copy = [...data];
 
         // YYYY-MM-DDTHH:mm:ss.sssZ
-        const tmpArray = data.sort(function (a, b) {
-            if (isClick) {
+        const sortedArray = data_copy.sort(function (a, b) {
+            if (isItHour == false) {
+                // console.log("should be day");
                 return (
                     Date.parse(a.Create_at + "T00:00:00.000Z") -
                     Date.parse(b.Create_at + "T00:00:00.000Z")
                 );
             } else {
+                // console.log("should be hour");
                 const aDate = new Date(
                     a.Create_at.substring(0, 10) +
                         "T" +
@@ -153,6 +150,23 @@ export const ArticleGraph: React.FC = () => {
                 return aDate - bDate;
             }
         });
+
+        return sortedArray;
+    }
+
+    function countArticle(data: ArticleCountProto[], isItHour: boolean) {
+        if (data.length <= 0) {
+            console.log("There's no data");
+            return 1;
+        }
+        let count_happy = 0;
+        let count_fear = 0;
+        let count_embarrassed = 0;
+        let count_sad = 0;
+        let count_rage = 0;
+        let count_hurt = 0;
+
+        const tmpArray = sortArticle(data, isItHour);
 
         const countArray = new Array<ArticleCount>();
         let prevCreateAt;
@@ -199,27 +213,27 @@ export const ArticleGraph: React.FC = () => {
                 count_hurt = 0;
             } else {
                 if (value.Score_max_name == "Happy") {
-                    count_happy = parseInt(value.Count);
+                    count_happy = value.Count;
                 }
 
                 if (value.Score_max_name == "Fear") {
-                    count_fear = parseInt(value.Count);
+                    count_fear = value.Count;
                 }
 
                 if (value.Score_max_name == "Embarrassed") {
-                    count_embarrassed = parseInt(value.Count);
+                    count_embarrassed = value.Count;
                 }
 
                 if (value.Score_max_name == "Sad") {
-                    count_sad = parseInt(value.Count);
+                    count_sad = value.Count;
                 }
 
                 if (value.Score_max_name == "Hurt") {
-                    count_hurt = parseInt(value.Count);
+                    count_hurt = value.Count;
                 }
 
                 if (value.Score_max_name == "Rage") {
-                    count_rage = parseInt(value.Count);
+                    count_rage = value.Count;
                 }
             }
 
@@ -237,6 +251,7 @@ export const ArticleGraph: React.FC = () => {
         });
 
         setDataCount(countArray);
+        return 0;
     }
 
     const checkHandler = ({ target }) => {
@@ -333,13 +348,13 @@ export const ArticleGraph: React.FC = () => {
                             if (isLoaded) {
                                 if (!isClick) {
                                     if (dataByHour.length > 0) {
-                                        countArticle(dataByHour);
+                                        countArticle(dataByHour, true);
                                     } else {
                                         fetchArticleCountByHour();
                                     }
                                 } else {
                                     if (dataByDay.length > 0) {
-                                        countArticle(dataByDay);
+                                        countArticle(dataByDay, false);
                                     } else {
                                         fetchArticleCountByDay();
                                     }
