@@ -16,9 +16,9 @@ type AnalyzerSrv interface {
 }
 
 func (s *ManagerSrv) WhenStartAnalyzer(ctx context.Context, in *pb_svc_manager_analyzer.WhenStartAnalyzerReq) (*pb_svc_manager_analyzer.WhenStartAnalyzerRes, error) {
-	if in != nil {
-		log.Printf("Received WhenStartAnalyzer call: %v", in.String())
-	}
+	// if in != nil {
+	// 	log.Printf("Received WhenStartAnalyzer call: %v", in.String())
+	// }
 
 	err := s.db.UpdateWorker(in.Id, "Analyze words...")
 	if err != nil {
@@ -50,9 +50,9 @@ func (s *ManagerSrv) WhenAnalyzerHavingErr(ctx context.Context, in *pb_svc_manag
 }
 
 func (s *ManagerSrv) WhenAnalyzerHavingMsg(ctx context.Context, in *pb_svc_manager_analyzer.WhenAnalyzerHavingMsgReq) (*pb_svc_manager_analyzer.WhenAnalyzerHavingMsgRes, error) {
-	if in != nil {
-		log.Printf("Received WhenAnalyzerHavingMsg call: %v", in.String())
-	}
+	// if in != nil {
+	// 	log.Printf("Received WhenAnalyzerHavingMsg call: %v", in.String())
+	// }
 
 	err := s.db.UpdateWorker(in.Id, in.GetMsg())
 	if err != nil {
@@ -65,9 +65,9 @@ func (s *ManagerSrv) WhenAnalyzerHavingMsg(ctx context.Context, in *pb_svc_manag
 
 
 func (s *ManagerSrv) WhenDoneAnalyzer(ctx context.Context, in *pb_svc_manager_analyzer.WhenDoneAnalyzerReq) (*pb_svc_manager_analyzer.WhenDoneAnalyzerRes, error) {
-	if in != nil {
-		log.Printf("Received DoneScraper call: %v", in.String())
-	}
+	// if in != nil {
+	// 	log.Printf("Received DoneScraper call: %v", in.String())
+	// }
 
 	err := s.db.UpdateWorker(in.WorkerId, "Analyzer is done.")
 	if err != nil {

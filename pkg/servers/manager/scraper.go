@@ -16,9 +16,9 @@ type ScraperSrv interface {
 }
 
 func (s *ManagerSrv) WhenStartScraper(ctx context.Context, in *pb_svc_manager_scraper.WhenStartScraperReq) (*pb_svc_manager_scraper.WhenStartScraperRes, error) {
-	if in != nil {
-		log.Printf("Received WhenStartScraper call: %v", in.String())
-	}
+	// if in != nil {
+	// 	log.Printf("Received WhenStartScraper call: %v", in.String())
+	// }
 
 	err := s.db.UpdateWorker(in.Id, "Scraping data from internets...")
 	if err != nil {
@@ -48,9 +48,9 @@ func (s *ManagerSrv) WhenScraperHavingErr(ctx context.Context, in *pb_svc_manage
 
 
 func (s *ManagerSrv) WhenScraperHavingMsg(ctx context.Context, in *pb_svc_manager_scraper.WhenScraperHavingMsgReq) (*pb_svc_manager_scraper.WhenScraperHavingMsgRes, error) {
-	if in != nil {
-		log.Printf("Received WhenScraperHavingMsg call: %v", in.String())
-	}
+	// if in != nil {
+	// 	log.Printf("Received WhenScraperHavingMsg call: %v", in.String())
+	// }
 
 	err := s.db.UpdateWorker(in.Id, in.GetMsg())
 	if err != nil {
@@ -65,9 +65,9 @@ func (s *ManagerSrv) WhenScraperHavingMsg(ctx context.Context, in *pb_svc_manage
 
 
 func (s *ManagerSrv) WhenDoneScraper(ctx context.Context, in *pb_svc_manager_scraper.WhenDoneScraperReq) (*pb_svc_manager_scraper.WhenDoneScraperRes, error) {
-	if in != nil {
-		log.Printf("Received DoneScraper call: %v", in.String())
-	}
+	// if in != nil {
+	// 	log.Printf("Received DoneScraper call: %v", in.String())
+	// }
 
 	err := s.db.UpdateWorker(in.WorkerId, "Scraper is done. Creating Analyzer")
 	if err != nil {

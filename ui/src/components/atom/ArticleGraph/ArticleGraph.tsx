@@ -76,6 +76,10 @@ export const ArticleGraph: React.FC = () => {
                 }
             });
         }
+
+        return () => {
+            setIsLoaded(false);
+        };
     }, [router.isReady]);
 
     async function fetchArticleCountByDay() {

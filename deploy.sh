@@ -2,14 +2,6 @@
 # docker stack rm keyword
 # docker service rm $(docker service ls -q)
 
-# docker build -t apid -f ./cmd/apid/Dockerfile .
-# docker build -t provisioned -f ./cmd/provisioned/Dockerfile .
-# docker build -t scraped -f ./cmd/scraped/Dockerfile .
-# docker build -t db -f ./cmd/db/Dockerfile .
-
-#cd ui
-#docker build -t node .
-#cd ..
 NETWORK_NAME="keyword-network"
 
 EXISTING_NETWORK=$(docker network ls --filter name=$NETWORK_NAME --format '{{.Name}}')

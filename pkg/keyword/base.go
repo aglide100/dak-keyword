@@ -69,7 +69,7 @@ func CreateHttpRes(url string) (*http.Response, error) {
 }
 
 func CreateHttpReq(url string) (string, error) {
-	log.Printf("Create http req: %s", url)
+	// log.Printf("Create http req: %s", url)
 
 	req, err := http.NewRequest("GET", url, nil) 
 	if err != nil {

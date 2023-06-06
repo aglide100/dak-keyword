@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+// import { CallGetVocabList } from "../../../grpc/similarity";
 // import Calendar from "react-calendar";
 // import moment from "moment";
 
@@ -8,6 +9,15 @@ export const VocabList = () => {
     useEffect(() => {
         console.log("VocabList loaded");
     }, []);
+
+    // async function fetchVocabList() {
+    //     try {
+    //         // CallGetVocabList();
+    //     } catch (err) {
+    //         console.log(err);
+    //         throw err;
+    //     }
+    // }
     return (
         <div className="w-full h-full">
             <div>
