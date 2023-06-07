@@ -92,7 +92,7 @@ export const Tfidf = () => {
                     visible={true}
                 />
                 <div className="mt-10 text-white text-2xl flex flex-row">
-                    Loading articles
+                    Loading data
                     <div className="writer">
                         <div className="writer-text">...</div>
                     </div>
