@@ -23,7 +23,7 @@ const tabData: Record<
         () => import("../CosineSimilarity/CosineSimilarity"),
     ),
     ArticleGraph: lazy(() => import("../ArticleGraph/ArticleGraph")),
-    Tfidf: lazy(() => import("../Tfidf/Tfidf")),
+    Tfidf: lazy(() => import("../TfidfList/TfidfList")),
 };
 
 export const TabComponent = (props: AnalyzerTabComponentProps) => {

@@ -1,18 +1,53 @@
-import React, { useEffect } from "react";
+// import React, { useEffect, useState } from "react";
+import React from "react";
+// import { useRouter } from "next/router";
 // import { CallGetVocabList } from "../../../grpc/similarity";
 // import Calendar from "react-calendar";
 // import moment from "moment";
 
+// type Worker = {
+//     WorkerId: string;
+//     Status: string;
+//     JobId: string;
+//     Keyword: string;
+//     UpdateAt: string;
+// };
+
 export const VocabList = () => {
     // const [value, onChange] = useState(new Date());
 
-    useEffect(() => {
-        console.log("VocabList loaded");
-    }, []);
+    // const router = useRouter();
 
-    // async function fetchVocabList() {
+    // const [isLoaded, setIsLoaded] = useState<boolean>(false);
+
+    // const [workerList, setWorkerList] = useState<Worker[]>([]);
+    // const [workerListLoaded, setWorkerListLoaded] = useState<boolean>(false);
+
+    // const [isVocabListLoaded, setIsVocabListLoaded] = useState<boolean>(false);
+
+    // const maximumCount = 1;
+    // const [currentPageNum, setCurrentPageNum] = useState<number>(0);
+
+    // useEffect(() => {
+    //     if (workerListLoaded && router.isReady) {
+    //         workerList
+    //             .slice(
+    //                 currentPageNum * maximumCount,
+    //                 currentPageNum * maximumCount + maximumCount,
+    //             )
+    //             .forEach((worker) => {
+    //                 fetchVocabList(worker.WorkerId);
+    //             });
+
+    //         setIsVocabListLoaded(true);
+    //     }
+    // }, [workerListLoaded, currentPageNum]);
+
+    // async function fetchVocabList(workerId) {
     //     try {
-    //         // CallGetVocabList();
+    //         CallGetVocabList(workerId, (message) => {
+    //             console.log(message);
+    //         });
     //     } catch (err) {
     //         console.log(err);
     //         throw err;

@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     const result = useGetScroll(useScrollHooksProps);
 
     return (
-        <div className="flex flex-col min-h-screen max-h-screen   bg-gray-100">
+        <div className="flex flex-col min-h-screen bg-gray-100">
             <Head>
                 <meta
                     httpEquiv="Content-Type"
