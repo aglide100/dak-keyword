@@ -45,21 +45,21 @@ export async function CallGetArticleList(id, callback) {
                 }
             },
         );
-    stream.on("data", (response: pb_svc_manager.GetArticleListRes) => {
-        console.log(response);
-    });
-    stream.on("status", (status: grpcWeb.Status) => {
-        if (status.metadata) {
-            console.log("Received metadata");
-            console.log(status.metadata);
-        }
-    });
+    // stream.on("data", (response: pb_svc_manager.GetArticleListRes) => {
+    //     console.log(response);
+    // });
+    // stream.on("status", (status: grpcWeb.Status) => {
+    //     if (status.metadata) {
+    //         console.log("Received metadata");
+    //         console.log(status.metadata);
+    //     }
+    // });
     stream.on("error", (err: grpcWeb.RpcError) => {
         console.log(err);
     });
-    stream.on("end", () => {
-        console.log("stream end signal received");
-    });
+    // stream.on("end", () => {
+    //     console.log("stream end signal received");
+    // });
 }
 
 // export async function CallGetArticleCountByDay(id, callback) {
@@ -131,21 +131,21 @@ export async function CallGetArticleCountByHour(id, callback) {
                 }
             },
         );
-    stream.on("data", (response: pb_svc_manager.GetArticleCountByHourRes) => {
-        console.log(response);
-    });
-    stream.on("status", (status: grpcWeb.Status) => {
-        if (status.metadata) {
-            console.log("Received metadata");
-            console.log(status.metadata);
-        }
-    });
+    // stream.on("data", (response: pb_svc_manager.GetArticleCountByHourRes) => {
+    //     console.log(response);
+    // });
+    // stream.on("status", (status: grpcWeb.Status) => {
+    //     if (status.metadata) {
+    //         console.log("Received metadata");
+    //         console.log(status.metadata);
+    //     }
+    // });
     stream.on("error", (err: grpcWeb.RpcError) => {
         console.log(err);
     });
-    stream.on("end", () => {
-        console.log("stream end signal received");
-    });
+    // stream.on("end", () => {
+    //     console.log("stream end signal received");
+    // });
 }
 
 export async function CallGetArticleCountByDay(id, callback) {
@@ -174,19 +174,19 @@ export async function CallGetArticleCountByDay(id, callback) {
                 }
             },
         );
-    stream.on("data", (response: pb_svc_manager.GetArticleCountByDayRes) => {
-        console.log(response);
-    });
-    stream.on("status", (status: grpcWeb.Status) => {
-        if (status.metadata) {
-            console.log("Received metadata");
-            console.log(status.metadata);
-        }
-    });
+    // stream.on("data", (response: pb_svc_manager.GetArticleCountByDayRes) => {
+    //     console.log(response);
+    // });
+    // stream.on("status", (status: grpcWeb.Status) => {
+    //     if (status.metadata) {
+    //         console.log("Received metadata");
+    //         console.log(status.metadata);
+    //     }
+    // });
     stream.on("error", (err: grpcWeb.RpcError) => {
         console.log(err);
     });
-    stream.on("end", () => {
-        console.log("stream end signal received");
-    });
+    // stream.on("end", () => {
+    //     console.log("stream end signal received");
+    // });
 }

@@ -22,7 +22,7 @@ export const AnalyzerTabList = (props: AnalyzerTabListProps) => {
             >
                 ArticleGraph
             </div>
-            <div
+            {/* <div
                 className={classnames("mr-2", {
                     "inline-block p-4 text-blue-600 bg-gray-50 rounded-t-lg active dark:text-blue-500 border":
                         props.currentTab == "VocabList",
@@ -34,7 +34,7 @@ export const AnalyzerTabList = (props: AnalyzerTabListProps) => {
                 }}
             >
                 VocabList
-            </div>
+            </div> */}
             <div
                 className={classnames("mr-2", {
                     "inline-block p-4 text-blue-600 bg-gray-50 rounded-t-lg active dark:text-blue-500 border":

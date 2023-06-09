@@ -23,20 +23,20 @@ export async function CallGetCosineSimilarity(workerId, callback) {
                 }
             },
         );
-    stream.on("data", (response: pb_svc_manager.GetCosineSimilarityRes) => {
-        console.log(response);
-    });
-    stream.on("status", (status: grpcWeb.Status) => {
-        if (status.metadata) {
-            console.log("Received metadata");
-            console.log(status.metadata);
-        }
-    });
+    // stream.on("data", (response: pb_svc_manager.GetCosineSimilarityRes) => {
+    //     console.log(response);
+    // });
+    // stream.on("status", (status: grpcWeb.Status) => {
+    //     // if (status.metadata) {
+    //     //     console.log("Received metadata");
+    //     //     console.log(status.metadata);
+    //     // }
+    // });
     stream.on("error", (err: grpcWeb.RpcError) => {
         console.log(err);
     });
     stream.on("end", () => {
-        console.log("stream end signal received");
+        // console.log("stream end signal received");
     });
 }
 
@@ -61,21 +61,21 @@ export async function CallGetTfidfScore(workerId, callback) {
                 }
             },
         );
-    stream.on("data", (response: pb_svc_manager.GetTfidfScoreRes) => {
-        console.log(response);
-    });
-    stream.on("status", (status: grpcWeb.Status) => {
-        if (status.metadata) {
-            console.log("Received metadata");
-            console.log(status.metadata);
-        }
-    });
+    // stream.on("data", (response: pb_svc_manager.GetTfidfScoreRes) => {
+    //     console.log(response);
+    // });
+    // stream.on("status", (status: grpcWeb.Status) => {
+    //     if (status.metadata) {
+    //         console.log("Received metadata");
+    //         console.log(status.metadata);
+    //     }
+    // });
     stream.on("error", (err: grpcWeb.RpcError) => {
         console.log(err);
     });
-    stream.on("end", () => {
-        console.log("stream end signal received");
-    });
+    // stream.on("end", () => {
+    //     console.log("stream end signal received");
+    // });
 }
 
 export async function CallGetVocabList(workerId, callback) {
@@ -99,19 +99,19 @@ export async function CallGetVocabList(workerId, callback) {
                 }
             },
         );
-    stream.on("data", (response: pb_svc_manager.GetVocabListRes) => {
-        console.log(response);
-    });
-    stream.on("status", (status: grpcWeb.Status) => {
-        if (status.metadata) {
-            console.log("Received metadata");
-            console.log(status.metadata);
-        }
-    });
+    // stream.on("data", (response: pb_svc_manager.GetVocabListRes) => {
+    //     console.log(response);
+    // });
+    // stream.on("status", (status: grpcWeb.Status) => {
+    //     if (status.metadata) {
+    //         console.log("Received metadata");
+    //         console.log(status.metadata);
+    //     }
+    // });
     stream.on("error", (err: grpcWeb.RpcError) => {
         console.log(err);
     });
-    stream.on("end", () => {
-        console.log("stream end signal received");
-    });
+    // stream.on("end", () => {
+    //     console.log("stream end signal received");
+    // });
 }

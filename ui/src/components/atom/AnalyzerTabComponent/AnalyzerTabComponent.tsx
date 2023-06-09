@@ -8,7 +8,7 @@ export type AnalyzerTabComponentProps = {
 };
 
 export const tabList = [
-    "VocabList",
+    // "VocabList",
     "CosineSimilarity",
     "ArticleGraph",
     "Tfidf",
@@ -18,12 +18,12 @@ const tabData: Record<
     AnalyzerTabComponentDataType,
     React.LazyExoticComponent<React.FC<AnalyzerTabComponentProps>>
 > = {
-    VocabList: lazy(() => import("../VocabList/VocabList")),
-    CosineSimilarity: lazy(
-        () => import("../CosineSimilarity/CosineSimilarity"),
-    ),
     ArticleGraph: lazy(() => import("../ArticleGraph/ArticleGraph")),
-    Tfidf: lazy(() => import("../TfidfList/TfidfList")),
+    // VocabList: lazy(() => import("../VocabList/VocabList")),
+    CosineSimilarity: lazy(
+        () => import("../../layout/CosineSimilarityList/CosineSimilarityList"),
+    ),
+    Tfidf: lazy(() => import("../../layout/TfidfList/TfidfList")),
 };
 
 export const TabComponent = (props: AnalyzerTabComponentProps) => {
@@ -31,7 +31,7 @@ export const TabComponent = (props: AnalyzerTabComponentProps) => {
 
     useEffect(() => {
         const Component = tabData[props.componentName];
-        setCurrentComponent(<Component {...props} />);
+        setCurrentComponent(<Component key={props.componentName} {...props} />);
     }, [props.componentName]);
 
     if (!currentComponent) {

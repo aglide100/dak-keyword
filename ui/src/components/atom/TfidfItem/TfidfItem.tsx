@@ -1,5 +1,5 @@
 import React from "react";
-import { Tfidf, Vocab } from "../TfidfList/TfidfList";
+import { Tfidf, Vocab } from "../../layout/TfidfList/TfidfList";
 
 export const TfidfItem = (props: Tfidf & Vocab) => {
     if (

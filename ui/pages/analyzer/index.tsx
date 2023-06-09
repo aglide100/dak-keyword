@@ -26,6 +26,7 @@ export const Analyzer: React.FC = () => {
                         transition={{ duration: 0.2 }}
                     >
                         <TabComponent
+                            key={currentTab}
                             componentName={currentTab}
                             isClick={false}
                         />

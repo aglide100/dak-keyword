@@ -201,6 +201,7 @@ func (db Database) GetPreprocessedTextByWorkerID(workerID string) ([]*models.Sim
 	SELECT "Article_id", "Job_id", "Preprocessed_content"
 	FROM article
 	WHERE "Worker_id" = $1
+	AND "Preprocessed_content" IS NOT NULL
 	`
 	
 	rows, err := db.Conn.Query(q, workerID)

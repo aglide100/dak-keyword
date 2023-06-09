@@ -3,7 +3,7 @@ import { CallGetWorkers } from "../../../grpc/worker";
 import { useRouter } from "next/router";
 import { TailSpin } from "react-loader-spinner";
 import { CallGetTfidfScore, CallGetVocabList } from "../../../grpc/similarity";
-import TfidfItem from "../TfidfItem/TfidfItem";
+import TfidfItem from "../../atom/TfidfItem/TfidfItem";
 
 type Worker = {
     WorkerId: string;
@@ -45,6 +45,8 @@ export const TfidfList = () => {
     const maximumCount = 1;
     const [currentPageNum, setCurrentPageNum] = useState<number>(0);
 
+    const [lastInput, setLastInput] = useState<boolean>(true);
+
     useEffect(() => {
         if (router.isReady && !isLoaded) {
             setCurrentPageNum(0);
@@ -72,16 +74,7 @@ export const TfidfList = () => {
         CallGetVocabList(workerId, (message) => {
             const newVocab: Vocab = message.vocab;
 
-            const prevVocab = vocabList;
-            prevVocab.push(newVocab);
-
             setVocabList((prev) => [...prev, newVocab]);
-            // setVocabList(prevVocab);
-
-            // console.log(newVocab);
-
-            console.log(vocabList);
-            console.log("!!");
         });
     }
 
@@ -123,7 +116,19 @@ export const TfidfList = () => {
                     }),
                 );
 
-                setTfidfList((prev) => [...prev, ...newTfidfScore]);
+                if (newTfidfScore.length == 0) {
+                    if (lastInput) {
+                        setCurrentPageNum(currentPageNum + 1);
+                    } else {
+                        setCurrentPageNum(currentPageNum - 1);
+                    }
+
+                    setIsTfidfLoaded(false);
+                    setTfidfList([]);
+                    setVocabList([]);
+                } else {
+                    setTfidfList((prev) => [...prev, ...newTfidfScore]);
+                }
             });
         }
     }
@@ -131,6 +136,20 @@ export const TfidfList = () => {
     let ResultList;
     let displayWorkerList;
     if (isLoaded && isTfidfLoaded && tfidfList.length > 0) {
+        displayWorkerList = workerList
+            .slice(
+                currentPageNum * maximumCount,
+                currentPageNum * maximumCount + maximumCount,
+            )
+            .map((worker) => {
+                console.log(worker);
+                return (
+                    <span key={"worker_" + worker.WorkerId}>
+                        {worker.WorkerId} / {worker.Keyword}
+                    </span>
+                );
+            });
+
         let prev = tfidfList[0].WorkerId;
         let vocabIndex = 0;
         ResultList = (
@@ -152,15 +171,6 @@ export const TfidfList = () => {
                 })}
             </ul>
         );
-
-        displayWorkerList = workerList
-            .slice(
-                currentPageNum * maximumCount,
-                currentPageNum * maximumCount + maximumCount,
-            )
-            .map((worker) => {
-                return <>{worker.WorkerId}</>;
-            });
     } else if (isLoaded) {
         ResultList = <>No data...</>;
     } else {
@@ -202,6 +212,7 @@ export const TfidfList = () => {
                             setTfidfList([]);
                             setVocabList([]);
                             setCurrentPageNum(currentPageNum - 1);
+                            setLastInput(false);
                         }
                     }}
                 >
@@ -222,6 +233,7 @@ export const TfidfList = () => {
                             setTfidfList([]);
                             setVocabList([]);
                             setCurrentPageNum(currentPageNum + 1);
+                            setLastInput(true);
                         }
                     }}
                 >

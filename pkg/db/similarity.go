@@ -125,6 +125,8 @@ func (db *Database) GetTfidfScore(workerId string) ([]*tfidf.Tfidf, error) {
 	const q = `
 	SELECT "Article_id", "Vocab_column", "Score", "id", "Vocab_id" FROM tfidf
 	WHERE "Worker_id" = $1
+	AND array_length("Vocab_column", 1) > 0 
+	AND array_length("Score", 1) > 0
 	`
 
 	var id uint64
